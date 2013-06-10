@@ -1,0 +1,8 @@
+                                                                                                             
+require './app'
+
+App.run!
+
+
+
+                                                                                                              
