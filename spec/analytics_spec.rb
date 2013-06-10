@@ -19,7 +19,11 @@ end
                                                                       
 def last_sitecat_request                                              
     Addressable::URI.parse http_request(/metrics.sky.com/).url          
-end                                                                   
+end                                      
+
+def tracked
+  last_sitecat_request.query_values
+end
                                                                       
 def sitecat_mapping                                                   
     {                                                                   
@@ -35,8 +39,21 @@ require 'pry'
 
 class AnalyticsTest < AcceptanceTest
 
-  it "Tracks page view" do
-     visit "/"
-     last_sitecat_request.query_values['events'].must_include 'event1'
+  before do
+    visit '/'
   end
+
+  it "Tracks page view" do
+     tracked['events'].must_include 'event1'
+  end
+
+  it "Tracks the correct page name" do
+     tracked['pageName'].must_equal 'sky/portal/mysky/Analytics demo page'
+  end
+
+  it "Tracks a link being clicked" do
+    click_link "Standard anchor link"
+  end
+
+  
 end
