@@ -1,0 +1,25 @@
+
+require 'aws-sdk'
+
+def s3
+  $s3 ||= AWS::S3.new(access_key_id: ENV['S3_ACCESS_KEY_ID'], secret_access_key: ENV['S3_ACCESS_KEY'],  region: 'eu-west-1')
+end
+
+def latest_version_number
+ File.open('versionfile').read.strip 
+end
+
+
+task :deploy_new_version do
+  tracking_file = File.open('public/js/tracking.js')
+  omniture_file = File.open('public/js/omniture.js')
+  bucket =  s3.buckets['prod-sky-global']
+  tracking_resource = bucket.objects["analytics/v#{latest_version_number}/tracking.js"].write tracking_file.read
+  omniture_resource = bucket.objects["analytics/v#{latest_version_number}/omniture.js"].write omniture_file.read
+
+  tracking_resource.acl = :public_read
+  omniture_resource.acl = :public_read
+end
+
+
+
