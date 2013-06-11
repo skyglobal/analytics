@@ -12,7 +12,7 @@ skytoolkit['tracking'] = function(omniture){
     };
 
     function setPageConfig(config){
-        //addCustomPageTrackingEvents();
+        addCustomPageTrackingEvents();
         omniture.pageView ( config, "false" );
     }
     function resetPageConfig(config){
@@ -52,7 +52,10 @@ skytoolkit['tracking'] = function(omniture){
     function addCustomPageTrackingEvents(){
       var i;
       for (i in vars.loadEvents){
-        addTrackingEvents(vars.loadEvents[i]); 
+        //addTrackingEvents(vars.loadEvents[i]); 
+        //debugger
+        loadEvent = omniture.eventMap[vars.loadEvents[i]]
+        omniture.vmap.events.push(loadEvent)
       }
     }
 

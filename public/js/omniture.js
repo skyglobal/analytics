@@ -62,7 +62,8 @@ sky.tracking = {
         section: [''],
         events: [],
         adTrackableClass: [],
-        linkTrackableClass: []
+        linkTrackableClass: [],
+        segmentValue: ['eVar51']
     },
     eventMap: {
         pageLoad: 'event1',
@@ -124,8 +125,23 @@ sky.tracking = {
         }
         if (!document.getElementsByClassName)
             document.getElementsByClassName = this.getElementsByClassName;
+
+        // Loop through custom pageLoad events
+        // TODO: RD-07/06/13: refactor into method
         var ev = ['event1'];
-        var prod = [];
+        if(o.customEvents){
+          var i=0,len=o.customEvents.length, event;
+          for(i;i<len;i++){
+            event=o.customEvents[i];
+            for (name in event) { 
+              objEvent = event[name]
+              if (objEvent.onPageLoad) { 
+                ev.push('event' + event[name].event)
+              }
+            } 
+          }
+        }
+
 // Check for mandatories:
         if (!o.site || !o.section) {
             return;
@@ -375,7 +391,7 @@ sky.tracking = {
             p.refDomain=refURL.substring(qURL,rURL);
         }
 
-        if (prod.length) s.products = prod.join(',');
+        //if (prod.length) s.products = prod.join(','); // TODO: RD-07/06/13: Investigate
         if (ev.length)   s.events = ev.join(',');
         for (k in p) this.setVar ( s , k , p[k]);
 
