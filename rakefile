@@ -2,6 +2,7 @@ require 'pry'
 require 'aws-sdk'
 require 'rake/testtask'
 
+# Create a rake task for running tests
 Rake::TestTask.new do |t|
   t.name = :functional
   t.pattern = "test/functional/test_*.rb"
@@ -45,8 +46,4 @@ task :deploy_new_version do
   puts "Deployed following resources:"
   online_resources.each{|resource|puts resource.public_url.to_s}
 
-  
 end
-
-
-
