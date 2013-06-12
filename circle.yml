@@ -4,5 +4,6 @@ test:
 
 deployment:
   production:
+    branch: master
     commands:
       - rake deploy_new_version
