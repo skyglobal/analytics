@@ -35,8 +35,8 @@ task :deploy_new_version do
   end
 
   puts 'Uploading files'
-  tracking_resource = bucket.objects["analytics/v#{latest_version_number}/tracking.js"].write tracking_file.read
-  omniture_resource = bucket.objects["analytics/v#{latest_version_number}/omniture.js"].write omniture_file.read
+  tracking_resource = bucket.objects["v#{latest_version_number}/tracking.js"].write tracking_file.read
+  omniture_resource = bucket.objects["v#{latest_version_number}/omniture.js"].write omniture_file.read
 
   online_resources = [tracking_resource,omniture_resource]
 
