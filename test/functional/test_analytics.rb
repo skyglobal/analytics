@@ -38,6 +38,21 @@ class AnalyticsTest < AcceptanceTest
 
   it "Tracks a link being clicked" do
     click_link "Standard anchor link"
+    tracked['events'].must_include 'event6'
+    tracked['c15'].must_include 'standard-anchor-link'
   end
 
+  it "Tracks a button being clicked" do
+    click_button "Normal Button"
+    tracked['events'].must_include 'event6'
+    tracked['c15'].must_include 'normal-button'
+  end
+
+  it "Tracks a link being clicked within a module and pod" do
+    find(:css, "[data-tracking-module='section-1'] [data-tracking-pod='pod-1'] a").click
+    tracked['events'].must_include 'event6'
+    tracked['c15'].must_include 'section-1'
+    tracked['c15'].must_include 'pod-1'
+    tracked['c15'].wont_include 'pod-2'
+  end
 end

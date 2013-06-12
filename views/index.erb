@@ -15,12 +15,11 @@
     <link rel="stylesheet" href="/css/styles.css">
 
     <!-- Javascript -->
-    <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js"></script> 
+    <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js"></script>
 
     <!-- Tracking - aka: What you came here for -->
     <script src="/js/lib/omniture.js"></script>
     <script src="/js/lib/tracking.js"></script>
-    <%= erb :_omniture_config %>
   </head>
   <body>
 
@@ -46,7 +45,7 @@
           </code>
         </p>
 
-        <h3>Getting more detail from your tracking</h3>
+        <h3>Areas, Modules, and Pods</h3>
         <p>
           Page are commonly split up in the following areas, Modules, Pods and other.
           You may want to track Editorial-Themes or the Context along with clicked text.
@@ -74,25 +73,53 @@
           <dd>This is text clicked</dd>
           <dd>In order of priority may be: data-tracking-label, alt, value, the tags text, or lastly the 'name' attribute.</dd>
         </dl>
+        <h4>Example</h4>
+        <div class='example'>
+          <p>Despite having the same link text, these two links should be tracked uniquely</p>
+          <div data-tracking-module='section-1'>
+            <div data-tracking-pod='pod-1'>
+              <div data-tracking-context='context'>
+                <a href="#inpage-link">Deep link</a>
+              </div>
+            </div>
+            <div data-tracking-pod='pod-2'>
+              <a href="#inpage-link">Deep link</a>
+            </div>
+          </div>
+
+          <pre>
+            <code>
+&lt;div data-tracking-module='section-1'&gt;
+  &lt;div data-tracking-pod='pod-1'&gt;
+    &lt;div data-tracking-context='context'&gt;
+      &lt;a href=&quot;#inpage-link&quot;&gt;Deep link&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div data-tracking-pod='pod-2'&gt;
+    &lt;a href=&quot;#inpage-link&quot;&gt;Deep link&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+            </code>
+          </pre>
+        </div>
       </section>
       <section>
-        <h2>Examples</h2>
+        <h2>Links and Buttons</h2>
 
-        <h3>Links</h3>
+        <h3>Examples</h3>
 
         <div class='example'>
-          <a data-tracking-label='Anchor' href="http://sky.com">Standard anchor link</a>
+          <a href="#inpage-link">Standard anchor link</a>
           <code>
-            &lt;a data-tracking-label='Anchor' href=&quot;http://sky.com&quot;&gt;Standard anchor link&lt;/a&gt;
+            &lt;a href=&quot;http://sky.com&quot;&gt;Standard anchor link&lt;/a&gt;
           </code>
         </div>
 
         <div class='example'>
-          <a class='btn primary-cta' data-tracking-label='Second-Anchor' href="http://sky.com">Std btn link</a>
-          <code>&lt;a class='btn primary-cta' data-tracking-label='Second-Anchor' href=&quot;http://sky.com&quot;&gt;Std btn link&lt;/a&gt;</code>
+          <a class='btn primary-cta' data-tracking-label='label-text' href="http://sky.com">Std btn link with label</a>
+          <code>&lt;a class='btn primary-cta' href=&quot;http://sky.com&quot;&gt;Std btn link with label&lt;/a&gt;</code>
         </div>
 
-        <h3>Buttons</h3>
         <div class='example'>
           <button href="#" class="btn sign-post">Normal Button</button>
           <code>
@@ -101,6 +128,32 @@
         </div>
 
       </section>
+
+      <section>
+        <h2>Custom Variables</h2>
+        
+      </section>
+
+      <section>
+        <h2>Custom Page Load Variables</h2>
+        
+      </section>
+
+      <section>
+        <h2>Custom Tracking Events</h2>
+        
+      </section>
+
+      <section>
+        <h2>Ajax sites or pages</h2>
+        
+      </section>
+
+      <section>
+        <h2>Custom cookies</h2>
+        
+      </section>
     </div>
+    <%= erb :_omniture_config %>
   </body>
 </html>
