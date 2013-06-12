@@ -9,8 +9,6 @@ Rake::TestTask.new do |t|
 end
 
 def s3
-  puts "S3_ACCESS_KEY_ID: #{ENV["S3_ACCESS_KEY_ID"]}"
-  puts "S3_ACCESS_KEY: #{ENV["S3_ACCESS_KEY"]}"
   $s3 ||= AWS::S3.new(access_key_id: ENV["S3_ACCESS_KEY_ID"] , secret_access_key: ENV["S3_ACCESS_KEY"], region: 'eu-west-1')
 end
 
