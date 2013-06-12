@@ -13,7 +13,7 @@ def s3
 end
 
 def bucket
-  $bucket ||=  s3.buckets['prod-sky-global']
+  $bucket ||=  s3.buckets['prod-sky-analytics']
 end
 
 def latest_version_number
