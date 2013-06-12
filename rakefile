@@ -18,6 +18,7 @@ def version_already_exists?
   bucket.objects.any?{|obj|obj.key.include? latest_version_number}
 end
 
+desc 'Deploys a new version to the CDN'
 task :deploy_new_version do
   tracking_file = File.open('public/js/tracking.js')
   omniture_file = File.open('public/js/omniture.js')
