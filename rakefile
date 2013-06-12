@@ -17,7 +17,7 @@ def bucket
 end
 
 def latest_version_number
- File.open('versionfile').read.strip 
+ File.open('versionfile').read.strip
 end
 
 def version_already_exists?
