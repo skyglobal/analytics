@@ -1,8 +1,4 @@
-                                                                                                             
 require './app'
 
 App.run!
 
-
-
-                                                                                                              
