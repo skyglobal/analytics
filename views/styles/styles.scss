@@ -6,3 +6,11 @@
     font-family: SkyTextRegular;
   }
 }
+
+.example {
+  clear: both;
+  margin: 1em 0;
+  code {
+    display: block;
+  }
+}
