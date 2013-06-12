@@ -26,8 +26,8 @@ end
 
 desc 'Deploys a new version to the CDN'
 task :deploy_new_version do
-  tracking_file = File.open('public/js/tracking.js')
-  omniture_file = File.open('public/js/omniture.js')
+  tracking_file = File.open('lib/tracking.js')
+  omniture_file = File.open('lib/omniture.js')
 
   if version_already_exists?
     puts "Version #{latest_version_number} already exists. Exiting."
