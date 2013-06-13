@@ -45,7 +45,7 @@
           </code>
         </p>
 
-        <h3>Areas, Modules, and Pods</h3>
+        <h2>Areas, Modules, and Pods</h2>
         <p>
           Page are commonly split up in the following areas, Modules, Pods and other.
           You may want to track Editorial-Themes or the Context along with clicked text.
@@ -131,27 +131,71 @@
 
       <section>
         <h2>Custom Variables</h2>
-        
+
       </section>
 
       <section>
         <h2>Custom Page Load Variables</h2>
-        
+        <p>To send an event upon page load.</p>
+
+        <script type='text/javascript'>
+          $(document).ready(function(){
+            $('#btn_page_load').on('click', function(e){
+              e.preventDefault();
+              $.extend(SITECAT_CONFIG, {customEvents: [{'magic_happened': {event: 101, onPageLoad: true}}]});
+              skytoolkit.tracking.resetPageConfig(SITECAT_CONFIG);
+            });
+          });
+        </script>
+        <a class='btn in-page-cta' href='#' id='btn_page_load'>Fake page load</a>
+
+        <code>
+SITECAT_CONFIG = {
+  site: 'mysky',
+  section: 'skyglobal/analytics',
+  headline: '',
+  contentType: 'skyglobal',
+  contentId: '',
+  account: 'bskybmyaccountdev',
+  page: 'Analytics demo page',
+  customEvents: [{'magic_happened': {event: 101, onPageLoad: true}}]
+};
+        </code>
+
       </section>
 
       <section>
         <h2>Custom Tracking Events</h2>
-        
+
       </section>
 
       <section>
         <h2>Ajax sites or pages</h2>
-        
+        <p>Simulates a page load event for sites that make use of ajax.</p>
+        <script type='text/javascript'>
+          $(document).ready(function(){
+            $('#btn_ajax_event').on('click', function(e){
+              e.preventDefault();
+              $.extend(SITECAT_CONFIG, {customEvents: [{'ajax_happened': {event: 101, onPageLoad: true}}]});
+              skytoolkit.tracking.resetPageConfig(SITECAT_CONFIG);
+            });
+          });
+        </script>
+        <a class='btn in-page-cta' href='#' id='btn_ajax_event'>Ajax Event</a>
+        <pre>
+          <code>
+$('#btn_ajax_event').on('click', function(e){
+  e.preventDefault();
+  $.extend(SITECAT_CONFIG, {customEvents: [{'ajax_happened': {event: 101, onPageLoad: true}}]});
+  skytoolkit.tracking.resetPageConfig(SITECAT_CONFIG);
+});
+          </code>
+        </pre>
       </section>
 
       <section>
         <h2>Custom cookies</h2>
-        
+
       </section>
     </div>
     <%= erb :_omniture_config %>

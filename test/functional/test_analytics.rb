@@ -55,4 +55,10 @@ class AnalyticsTest < AcceptanceTest
     tracked['c15'].must_include 'pod-1'
     tracked['c15'].wont_include 'pod-2'
   end
+
+  it "Tracks an ajax page load" do
+    click_link "Ajax Event"
+    tracked['events'].must_include 'event1'
+    tracked['events'].must_include 'event101'
+  end
 end
