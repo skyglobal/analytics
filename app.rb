@@ -6,6 +6,9 @@ class App < Sinatra::Base
     erb :index
   end
 
+  get '/custom-page-load' do
+    erb :custom_page_load
+  end
 
   # ASSETS
   get '/js/lib/:filename' do

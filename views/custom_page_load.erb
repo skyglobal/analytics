@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sky Analytics API - Custom Page Load</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="//assets.sky.com/css/css_responsive_12.379339.css" class="skycom-responsive-css" media="screen and (min-width: 768px)">
+    <link href="//assets.sky.com/fonts/sky_regular.ttf" rel="prefetch">
+    <link href="//assets.sky.com/fonts/sky_regular.svg" rel="prefetch">
+    <link href="//assets.sky.com/fonts/sky_medium.ttf" rel="prefetch">
+    <link href="//assets.sky.com/fonts/sky_medium.svg" rel="prefetch">
+    <link rel="stylesheet" href="//assets.sky.com/css/app_fonts.379339.css">
+    <!-- TODO: hot linked to github for web-toolkit, change once it's cdn hosted -->
+    <link rel="stylesheet" href="//skyglobal.github.io/web-toolkit/stylesheets/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <!-- Javascript -->
+    <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js"></script>
+
+    <!-- Tracking - aka: What you came here for -->
+    <script src="/js/lib/omniture.js"></script>
+    <script src="/js/lib/tracking.js"></script>
+  </head>
+  <body>
+
+    <div class='skycom_container'>
+
+      <section>
+        <h1>Custom Page Load Events</h1>
+        <p>To send an event upon page load.</p>
+
+        <pre>
+        <code>
+SITECAT_CONFIG = {
+  site: 'mysky',
+  section: 'skyglobal/analytics',
+  headline: '',
+  contentType: 'skyglobal',
+  contentId: '',
+  account: 'bskybmyaccountdev',
+  page: 'Analytics demo page',
+  customEvents: [{'magic_happened': {event: 99, onPageLoad: true}}]
+};
+        </code>
+        </pre>
+
+      </section>
+
+    </div>
+    <script type='text/javascript'>
+      SITECAT_CONFIG = {
+        site: 'mysky',
+        section: 'skyglobal/analytics',
+        headline: '',
+        contentType: 'skyglobal',
+        contentId: '',
+        account: 'bskybmyaccountdev',
+        page: 'Analytics demo page',
+        customEvents: [{'magic_happened': {event: 99, onPageLoad: true}}]
+      };
+
+      skytoolkit['tracking'](SITECAT_CONFIG);
+    </script>
+  </body>
+</html>

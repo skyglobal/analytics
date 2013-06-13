@@ -57,6 +57,12 @@ class AnalyticsTest < AcceptanceTest
   end
 
   it "Tracks an ajax page load" do
+    click_link "Custom Page Load"
+    tracked['events'].must_include 'event1'
+    tracked['events'].must_include 'event99'
+  end
+
+  it "Tracks a custom event on page load" do
     click_link "Ajax Event"
     tracked['events'].must_include 'event1'
     tracked['events'].must_include 'event101'

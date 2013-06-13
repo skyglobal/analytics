@@ -136,20 +136,12 @@
 
       <section>
         <h2>Custom Page Load Variables</h2>
-        <p>To send an event upon page load.</p>
+        <p>To send an event upon page load, define the event in your sitecat config.</p>
 
-        <script type='text/javascript'>
-          $(document).ready(function(){
-            $('#btn_page_load').on('click', function(e){
-              e.preventDefault();
-              $.extend(SITECAT_CONFIG, {customEvents: [{'magic_happened': {event: 101, onPageLoad: true}}]});
-              skytoolkit.tracking.resetPageConfig(SITECAT_CONFIG);
-            });
-          });
-        </script>
-        <a class='btn in-page-cta' href='#' id='btn_page_load'>Fake page load</a>
+        <a class='btn in-page-cta' href='/custom-page-load' id='btn_page_load'>Custom Page Load</a>
 
-        <code>
+        <pre>
+          <code>
 SITECAT_CONFIG = {
   site: 'mysky',
   section: 'skyglobal/analytics',
@@ -160,7 +152,8 @@ SITECAT_CONFIG = {
   page: 'Analytics demo page',
   customEvents: [{'magic_happened': {event: 101, onPageLoad: true}}]
 };
-        </code>
+          </code>
+        </pre>
 
       </section>
 
