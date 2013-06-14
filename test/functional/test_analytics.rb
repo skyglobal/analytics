@@ -26,8 +26,13 @@ def sitecat_mapping
     'sub_section_2' => 'c27',
     'sub_section_3' => 'c31',
     'party_id' => 'c39',
+    'page_load' => 'event1',
     'login_complete' => 'event16',
-    'link_clicked' => 'event6'
+    'link_clicked' => 'event6',
+    'custom_page_load' => 'event99',
+    'ajax_happened' => 'event101',
+    'drink' => 'v72',
+    'how_about_pina_coladas' => 'v73'
   }
 end
 
@@ -44,7 +49,9 @@ class AnalyticsTest < AcceptanceTest
   it "Tracks the correct page name" do
     tracked('page').must_equal 'sky/portal/mysky/Analytics demo page'
     tracked('url').must_equal current_url  # url
-    # subsection 1, 2, 3
+    tracked('sub_section_1').must_include 'sky/portal/mysky/skyglobal'
+    tracked('sub_section_2').must_include 'analytics'
+    # subsection 3 isn't set on this site
   end
 
   # login test - party_id
@@ -58,7 +65,7 @@ class AnalyticsTest < AcceptanceTest
     click_link "Standard anchor link"
     tracked('event').must_include sitecat_mapping['click_event'] # link clicked
     tracked('link_tracking').must_include 'standard-anchor-link' # link name
-    tracked('link_tracking').must_include 'Analytics-demo-page' # page name
+    tracked('page').must_include 'Analytics demo page' # page name
   end
 
   it "Tracks a button being clicked" do
@@ -76,18 +83,38 @@ class AnalyticsTest < AcceptanceTest
   end
 
   it "Tracks an ajax page load" do
-    click_link "Custom Page Load"
-    tracked('event').must_include 'event1' # page load
-    tracked('event').must_include 'event99'
+    click_link "Ajax Event"
+    tracked('event').must_include sitecat_mapping['page_load'] # page load
+    tracked('event').must_include 'event101' # custom event
   end
 
   it "Tracks a custom event on page load" do
-    click_link "Ajax Event"
-    tracked('event').must_include 'event1' # page load
-    tracked('event').must_include 'event101'
+    click_link "Custom Page Load"
+    tracked('event').must_include sitecat_mapping['page_load'] # page load
+    tracked('event').must_include sitecat_mapping['custom_page_load'] # custom event
   end
 
-  # Custom variable on page load (merge with above)
+  # Custom variable on page load
+  #it "Tracks a custom variable on page load" do
+    #click_link "Custom Page Load"
+    #tracked('event').must_include sitecat_mapping['page_load'] # page load
+  #end
+
+  it "tracks custom variables assigned after page load in a text field" do
+    fill_in 'What is your favourite drink?', with: 'Milkshake'
+    within('#text-input') do
+      click_button 'Submit'
+    end
+    tracked('drink').must_include 'Milkshake'
+  end
+
+  it "tracks custom variables assigned after page load from a radio button" do
+    within('#radio-input') do
+      choose 'Yes'
+      click_button 'Submit'
+    end
+    tracked('how_about_pina_coladas').must_include 'yes_to_pina'
+  end
 
   # Team specific
   # Video plays?

@@ -39,7 +39,11 @@ SITECAT_CONFIG = {
   contentId: '',
   account: 'bskybmyaccountdev',
   page: 'Analytics demo page',
-  customEvents: [{'magic_happened': {event: 99, onPageLoad: true}}]
+  customEvents: [{'custom_page_load': {event: 99, onPageLoad: true}}],
+  customVariables: [
+    {'custom_variable': {var: 76, onPageLoad: true}},
+    {'custom_prop': {prop: 75, onPageLoad: true}}
+  ]
 };
         </code>
         </pre>
@@ -56,7 +60,11 @@ SITECAT_CONFIG = {
         contentId: '',
         account: 'bskybmyaccountdev',
         page: 'Analytics demo page',
-        customEvents: [{'magic_happened': {event: 99, onPageLoad: true}}]
+        customEvents: [{'magic_happened': {event: 99, onPageLoad: true}}],
+        customVariables: [
+          {'custom_variable': { var: 76, onPageLoad: true}},
+          {'custom_prop':    { prop: 75, onPageLoad: true}}
+        ]
       };
 
       skytoolkit['tracking'](SITECAT_CONFIG);

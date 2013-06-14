@@ -126,11 +126,39 @@
             &lt;button href=&quot;#&quot; class=&quot;btn sign-post&quot;&gt;Normal Button&lt;/button&gt;
           </code>
         </div>
-
       </section>
 
       <section>
         <h2>Custom Variables</h2>
+        <p>Useful for capturing values determined by user interactions with the page.</p>
+        
+        <h3>Text Inputs</h3>
+        <form id='text-input'>
+          <label for='input_field'>What is your favourite drink?</label>
+          <input id='input_field' name='input_field' type='text' />
+          <button data-tracking-custom-variable='drink' class='btn primary-cta'>Submit</button>
+        </form>
+
+        <h3>Radio Buttons</h3>
+        <form id='radio-input'>
+          <label>Do you like Pina Coldas?</label>
+          <input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/><label for='radio_yes'>Yes</label>
+          <input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/><label for='radio_no'>No</label>
+          <div>
+            <button data-tracking-custom-variable='how_about_pina_coladas' class='btn primary-cta'>Submit</button>
+          </div>
+        </form>
+        <script type='text/javascript'>
+          $(document).ready(function(){
+            $('#text-input button').on('click', function(e){
+              e.preventDefault();
+            });
+
+            $('#radio-input button').on('click', function(e){
+              e.preventDefault();
+            });
+          });
+        </script>
 
       </section>
 
