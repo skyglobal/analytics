@@ -219,6 +219,26 @@ $('#btn_ajax_event').on('click', function(e){
 
       </section>
     </div>
-    <%= erb :_omniture_config %>
+    <script type="text/javascript" charset="utf-8">
+      SITECAT_CONFIG = {
+        site: 'mysky',
+        section: 'skyglobal/analytics',
+        headline: '',
+        contentType: 'skyglobal',
+        contentId: '',
+        account: 'bskybmyaccountdev',
+        page: 'Analytics demo page',
+        customEvents: [
+          //{'drink': {var: 72, valueSelector: '#text-input input'}},
+          //{'how_about_pinos': {var: 73, valueSelector: '#radio-input input[name=radio_field]:checked'}}
+        ],
+        customVariables: [
+          {'drink': {var: 72, valueSelector: '#text-input input'}},
+          {'how_about_pina_coladas': {var: 73, valueSelector: '#radio-input input[name=radio_field]:checked'}}
+        ]
+      };
+
+      skytoolkit['tracking'](SITECAT_CONFIG);
+    </script>
   </body>
 </html>
