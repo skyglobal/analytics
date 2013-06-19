@@ -1,0 +1,17 @@
+.skycom_container {
+  padding-bottom: 6em;
+}
+
+.skycom_container a {
+  color: #0072c6;
+  font-family: SkyTextRegular;
+}
+
+.example {
+  clear: both;
+  margin: 1em 0;
+}
+
+.example code {
+  display: block;
+}

@@ -20,12 +20,7 @@ class App < Sinatra::Base
   end
 
   get '/docs/css/:filename' do
-    filename = File.join('views','styles', params[:filename])
-    if File.exists?(filename)
-      send_file filename
-    else
-      filename = params[:filename].gsub(/\.css$/,'')
-      scss "styles/#{filename}".to_sym, :style => :expanded
-    end
+    filename = File.join('views','css', params[:filename])
+    send_file filename
   end
 end
