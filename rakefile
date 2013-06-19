@@ -17,7 +17,7 @@ def bucket
 end
 
 def latest_version_number
- File.open('versionfile').read.strip
+  $latest_version_number ||= File.open('versionfile').read.strip
 end
 
 def version_already_exists?
@@ -29,21 +29,28 @@ task :deploy_new_version do
   tracking_file = File.open('lib/tracking.js')
   omniture_file = File.open('lib/omniture.js')
 
+  doc_files = ['docs/css/styles.css', 'docs/custom_page_load.html', 'docs/index.html']
+
   if version_already_exists?
     puts "Version #{latest_version_number} already exists. Exiting."
     next
   end
 
-  puts 'Uploading files'
+  puts 'Uploading JS files'
   tracking_resource = bucket.objects["v#{latest_version_number}/tracking.js"].write tracking_file.read
   omniture_resource = bucket.objects["v#{latest_version_number}/omniture.js"].write omniture_file.read
+  
+  doc_resources = []
+  puts 'Uploading doc files'
+  doc_files.each do |file|
+    doc_resources << bucket.objects["v#{latest_version_number}/#{file}"].write(File.open(file).read) 
+  end
 
   online_resources = [tracking_resource,omniture_resource]
 
   puts 'Giving public read access'
-  online_resources.each{|resource|resource.acl = :public_read}
+  (online_resources + doc_resources).each{|resource|resource.acl = :public_read}
 
   puts "Deployed following resources:"
-  online_resources.each{|resource|puts resource.public_url.to_s}
-
+  (online_resources + doc_resources).each{|resource|puts resource.public_url.to_s}
 end
