@@ -7,11 +7,11 @@ class App < Sinatra::Base
   end
 
   get '/docs/index.html' do
-    send_file File.join('views', 'index.html')
+    send_file File.join('docs', 'index.html')
   end
 
   get '/docs/custom_page_load.html' do
-    send_file File.join('views', 'custom_page_load.html')
+    send_file File.join('docs', 'custom_page_load.html')
   end
 
   # ASSETS
@@ -20,7 +20,7 @@ class App < Sinatra::Base
   end
 
   get '/docs/css/:filename' do
-    filename = File.join('views','css', params[:filename])
+    filename = File.join('docs','css', params[:filename])
     send_file filename
   end
 end
