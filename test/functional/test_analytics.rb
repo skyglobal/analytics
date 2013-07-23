@@ -65,6 +65,7 @@ class AnalyticsTest < AcceptanceTest
     click_link "Standard anchor link"
     tracked('event').must_include sitecat_mapping['click_event'] # link clicked
     tracked('link_tracking').must_include 'standard-anchor-link' # link name
+    tracked('link_tracking').must_include 'mysky/analytics-demo-page' # page name included on link click
     tracked('page').must_include 'Analytics demo page' # page name
   end
 
