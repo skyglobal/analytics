@@ -3,11 +3,17 @@ Analytics
 BSkyB wrapper for Adobe Sitecat analytics JS.
 
 ## Code structure
-- lib/omniture.js
+- lib/analytics.js
+  minified js containing the /source js files
+
+- lib/analytics.js.map
+  source map useful for debugging
+
+- lib/source/omniture.js
   The original omniture js library. This file shouldn't need to be modified
   often.
 
-- lib/tracking.js
+- lib/source/tracking.js
   The bskyb api wrapper around the omniture js file. New functionality should
   be added here.
 
@@ -30,15 +36,26 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
 
 - RVM
 - Ruby (version 1.9.3 or later)
+- npm
 
 ## Setup
 1. Clone the repository from Github onto your local machine
 2. Create a gemset (not required)
   - rvm --rvmrc --create default@<gemset name>
-3. In the root of the project, run the following:
+3. Install npm
+  - echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
+  - . ~/.bashrc
+  - mkdir /usr/local
+  - mkdir ~/node-latest-install
+  - cd ~/node-latest-install
+  - curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
+  - ./configure --prefix=/usr/local
+  - make install # ok, fine, this step probably takes more than 30 seconds...
+  - curl https://npmjs.org/install.sh | sh
+4. In the root of the project, run the following:
   - bundle
   - rackup
-4. You should be able to see the documentation site in your browser on http://localhost:4567
+5. You should be able to see the documentation site in your browser on http://localhost:4567
 
 ## Running the tests
 Tests are found in the test directory. At present only functional

@@ -30,9 +30,8 @@ end
 
 desc 'Deploys a new version to the CDN'
 task :deploy_new_version do
-  tracking_file = File.open('lib/tracking.js')
-  omniture_file = File.open('lib/omniture.js')
-
+  analytics_file = File.open('lib/analytics.js')
+  
   doc_files = ['docs/css/styles.css', 'docs/custom_page_load.html', 'docs/index.html']
 
   if version_already_exists?
@@ -41,8 +40,7 @@ task :deploy_new_version do
   end
 
   puts 'Uploading JS files'
-  tracking_resource = bucket.objects["v#{latest_version_number}/tracking.js"].write tracking_file.read
-  omniture_resource = bucket.objects["v#{latest_version_number}/omniture.js"].write omniture_file.read
+  analytics_resource = bucket.objects["v#{latest_version_number}/analytics.js"].write analytics_file.read
   
   doc_resources = []
   puts 'Uploading doc files'
@@ -50,7 +48,7 @@ task :deploy_new_version do
     doc_resources << bucket.objects["v#{latest_version_number}/#{file}"].write(File.open(file).read) 
   end
 
-  online_resources = [tracking_resource,omniture_resource]
+  online_resources = [analytics_resource]
 
   puts 'Giving public read access'
   (online_resources + doc_resources).each{|resource|resource.acl = :public_read}
