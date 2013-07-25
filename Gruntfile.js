@@ -1,11 +1,17 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
+        watch: {
+            'analytics': {
+                files: [ 'lib/source/*.js' ],
+                tasks: ['jshint','uglify']
+            }
+        },
         clean: {
             analytics: ['lib/*.*']
         },
         jshint: {
-            analytics: ['lib/source/*.js'],
+            analytics: ['lib/source/tracking.js'],
             others: ['Gruntfile.js'],
             options: {
                 "globals": {
@@ -16,8 +22,6 @@ module.exports = function(grunt) {
                     clearTimeout: false,
                     setInterval: false,
                     clearInterval: false,
-                    sky: false,
-                    globalskycom: false
                 }
             }
         },
@@ -30,7 +34,7 @@ module.exports = function(grunt) {
                     sourceMapPrefix: 1
                 },
                 files: {
-                    'js/analytics.js': [
+                    'lib/analytics.js': [
                         'lib/source/omniture.js',
                         'lib/source/tracking.js'
                     ]
@@ -41,6 +45,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['clean', 'uglify']);
+    grunt.registerTask('default', ['clean', 'jshint', 'uglify']);
+    grunt.registerTask('hint', ['jshint']);
 };

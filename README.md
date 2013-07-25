@@ -32,7 +32,10 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
 - config.ru
   Configuration for running the Sinatra server
 
-## Prerequisites for running the documentation and tests
+- Gruntfile.js
+  Configuration for grunt tasks - to do with compiling the javascript
+
+## Prerequisites
 
 - RVM
 - Ruby (version 1.9.3 or later)
@@ -52,12 +55,16 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
   - ./configure --prefix=/usr/local
   - make install # ok, fine, this step probably takes more than 30 seconds...
   - curl https://npmjs.org/install.sh | sh
-4. In the root of the project, run the following:
+
+## Running
+
+1. In the root of the project, run the following:
   - bundle
   - rackup
-5. You should be able to see the documentation site in your browser on http://localhost:4567
+2. In another terminal run 'grunt watch'
+3. You should be able to see the documentation site in your browser on http://localhost:4567
 
-## Running the tests
+## Testing
 Tests are found in the test directory. At present only functional
 tests are run. These tests use minitest and capybara.
 
