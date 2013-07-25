@@ -29,7 +29,7 @@
       <section>
         <h2>Setup</h2>
         <p>Adds tracking to the <code>anchors, buttons, submits</code> and anything with <code>[data-track]</code> attibute.</p>
-        <p>Automatic tracking will be initialised once <code>skytoolkit['tracking'](config)</code> has been executed.</p>
+        <p>Automatic tracking will be initialised once <code>toolkit['tracking'](config)</code> has been executed.</p>
         <p>config options are:
           <code class="block">
 {
@@ -197,7 +197,7 @@ SITECAT_CONFIG = {
             $('#btn_ajax_event').on('click', function(e){
               e.preventDefault();
               $.extend(SITECAT_CONFIG, {customEvents: [{'ajax_happened': {event: 101, onPageLoad: true}}]});
-              skytoolkit.tracking.resetPageConfig(SITECAT_CONFIG);
+              toolkit.tracking.resetPageConfig(SITECAT_CONFIG);
             });
           });
         </script>
@@ -207,7 +207,7 @@ SITECAT_CONFIG = {
 $('#btn_ajax_event').on('click', function(e){
   e.preventDefault();
   $.extend(SITECAT_CONFIG, {customEvents: [{'ajax_happened': {event: 101, onPageLoad: true}}]});
-  skytoolkit.tracking.resetPageConfig(SITECAT_CONFIG);
+  toolkit.tracking.resetPageConfig(SITECAT_CONFIG);
 });
           </code>
         </pre>
@@ -237,7 +237,7 @@ $('#btn_ajax_event').on('click', function(e){
         ]
       };
 
-      skytoolkit['tracking'](SITECAT_CONFIG);
+      toolkit['tracking'](SITECAT_CONFIG);
     </script>
   </body>
 </html>
