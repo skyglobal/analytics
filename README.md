@@ -2,7 +2,14 @@ Analytics
 =========
 BSkyB wrapper for Adobe Sitecat analytics JS.
 
-## Code structure
+## Using Analytics
+### JS
+Include this at the foot of your page
+- <script src="//analytics.global.sky.com/<version-number>/analytics.js"/>
+
+## Building Analytics Locally
+
+### Code structure
 - lib/analytics.js
   minified js containing the /source js files
 
@@ -35,13 +42,13 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
 - Gruntfile.js
   Configuration for grunt tasks - to do with compiling the javascript
 
-## Prerequisites
+### Prerequisites
 
 - RVM
 - Ruby (version 1.9.3 or later)
 - npm
 
-## Setup
+### Setup
 1. Clone the repository from Github onto your local machine
 2. Create a gemset (not required)
   - rvm --rvmrc --create default@<gemset name>
@@ -56,15 +63,15 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
   - make install # ok, fine, this step probably takes more than 30 seconds...
   - curl https://npmjs.org/install.sh | sh
 
-## Running
+### Running
 
 1. In the root of the project, run the following:
   - bundle
   - rackup
 2. In another terminal run 'grunt watch'
-3. You should be able to see the documentation site in your browser on http://localhost:4567
+3. You should be able to see the documentation site in your browser on http://localhost:9292
 
-## Testing
+### Testing
 Tests are found in the test directory. At present only functional
 tests are run. These tests use minitest and capybara.
 
@@ -76,11 +83,11 @@ picked up by the rake task.
 The tests within the functional directory will be run on the CI server
 automatically upon pushing to Github
 
-## Deployment
-In order to release a new version of the library, the versionfile must be
+### Deployment
+In order to release a new version of the library, the version number in _config.yml must be
 incremented following the rules below: 
 
-### Versioning
+#### Versioning
 This library should follow the [Semantic versioning
 specification](http://semver.org/). In short, that means the following:
 
@@ -100,4 +107,4 @@ Version: X.Y.Z
 Upon commiting and pushing your code to Github, the CI server will run through
 the functional tests and - if there are no errors - a new version of the library
 will be deployed to the CDN using the version number specified in the
-versionfile.
+_config.yml file.

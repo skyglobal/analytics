@@ -21,7 +21,7 @@ def bucket
 end
 
 def latest_version_number
-  $latest_version_number ||= File.open('versionfile').read.strip
+  $latest_version_number ||= File.open('_config.yml').read.strip.gsub("version: ", "")
 end
 
 def version_already_exists?
@@ -40,12 +40,12 @@ task :deploy_new_version do
   end
 
   puts 'Uploading JS files'
-  analytics_resource = bucket.objects["v#{latest_version_number}/analytics.js"].write analytics_file.read
+  analytics_resource = bucket.objects["#{latest_version_number}/analytics.js"].write analytics_file.read
   
   doc_resources = []
   puts 'Uploading doc files'
   doc_files.each do |file|
-    doc_resources << bucket.objects["v#{latest_version_number}/#{file}"].write(File.open(file).read) 
+    doc_resources << bucket.objects["#{latest_version_number}/#{file}"].write(File.open(file).read)
   end
 
   online_resources = [analytics_resource]
