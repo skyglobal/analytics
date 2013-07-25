@@ -4,8 +4,7 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
 
 ## Using Analytics
 ### JS
-Include this at the foot of your page
-- <script src="//analytics.global.sky.com/<version-number>/analytics.js"/>
+"//analytics.global.sky.com/version-number/analytics.js"
 
 ## Building Analytics Locally
 
@@ -50,9 +49,7 @@ Include this at the foot of your page
 
 ### Setup
 1. Clone the repository from Github onto your local machine
-2. Create a gemset (not required)
-  - rvm --rvmrc --create default@<gemset name>
-3. Install npm
+2. Install npm
   - echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
   - . ~/.bashrc
   - mkdir /usr/local
