@@ -149,7 +149,7 @@ toolkit.tracking = (function(omniture){
 
 //    not using jQuery .parents([data-tarcking-whatever]) as is slow in ie and ff
     function checkParentForAttribute(el, attr){
-        if (!el || !el.getAttribute) { return false; }
+        if (!el || !el.getAttribute) { return ''; }
         if (!!el.getAttribute(attr)){
             return el.getAttribute(attr);
         }
