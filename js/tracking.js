@@ -1,6 +1,5 @@
 if (typeof toolkit==='undefined') toolkit={};
-
-toolkit.trackingSetup = function(omniture){
+toolkit.tracking = (function(omniture){
 
     var vars = {
         verifying: false,
@@ -231,7 +230,7 @@ toolkit.trackingSetup = function(omniture){
         }
     }
 
-    return function(config){
+    function init(config){
         addCustomEvents(config.customEvents);
         addCustomVariables(config.customVariables);
         setPageConfig(config);
@@ -244,15 +243,14 @@ toolkit.trackingSetup = function(omniture){
         };
         toolkit.tracking = output;
         return output;
-    };
-
-};
-
-function init(){
-    if (toolkit.omniture){
-        window.toolkit.tracking = toolkit.trackingSetup(toolkit.omniture);
-    } else {
-        setTimeout(init,125);
     }
+
+    return init;
+
+}(toolkit.omniture));
+
+if (typeof window.define === "function" && window.define.amd) {
+    define("tracking", ["omniture"], function() {
+        return toolkit.tracking;
+    });
 }
-init();

@@ -30,7 +30,7 @@ end
 
 desc 'Deploys a new version to the CDN'
 task :deploy_new_version do
-  analytics_file = File.open('lib/analytics.js')
+  analytics_file = File.open('lib/tracking.js')
   
   doc_files = ['docs/css/styles.css', 'docs/custom_page_load.html', 'docs/index.html']
 
@@ -40,7 +40,7 @@ task :deploy_new_version do
   end
 
   puts 'Uploading JS files'
-  analytics_resource = bucket.objects["#{latest_version_number}/analytics.js"].write analytics_file.read
+  analytics_resource = bucket.objects["#{latest_version_number}/tracking.js"].write analytics_file.read
   
   doc_resources = []
   puts 'Uploading doc files'

@@ -4,24 +4,16 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
 
 ## Using Analytics
 ### JS
-"//analytics.global.sky.com/version-number/analytics.js"
+"//analytics.global.sky.com/version-number/tracking.js"
 
 ## Building Analytics Locally
 
 ### Code structure
-- lib/analytics.js
+- lib/tracking.js
   minified js containing the /source js files
 
-- lib/analytics.js.map
+- lib/tracking.js.map
   source map useful for debugging
-
-- lib/source/omniture.js
-  The original omniture js library. This file shouldn't need to be modified
-  often.
-
-- lib/source/tracking.js
-  The bskyb api wrapper around the omniture js file. New functionality should
-  be added here.
 
 - views/
   Documentation for using the API
@@ -65,7 +57,7 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
 1. In the root of the project, run the following:
   - bundle
   - rackup
-2. In another terminal run 'grunt watch'
+2. In another terminal run 'grunt watch' (add ' --beautify=true' to help debugging)
 3. You should be able to see the documentation site in your browser on http://localhost:9292
 
 ### Testing
