@@ -3,22 +3,24 @@
   <head>
     <title>Sky Analytics API - Custom Page Load</title>
 
+    <script type="text/javascript">
+      // Don't do this to pull in the masthead! We're only doing it to keep this page html
+      var xhReq = new XMLHttpRequest();
+      xhReq.open("GET", "http://assets.sky.com/resources/mobile-ready/12/css/", false);
+      xhReq.send(null);
+      var serverResponse = xhReq.responseText;
+      document.write(serverResponse);
+    </script>
+
     <!-- CSS -->
-    <link rel="stylesheet" href="//assets.sky.com/css/css_responsive_12.css" class="skycom-responsive-css" media="screen and (min-width: 768px)">
-    <link href="//assets.sky.com/fonts/sky_regular.ttf" rel="prefetch">
-    <link href="//assets.sky.com/fonts/sky_regular.svg" rel="prefetch">
-    <link href="//assets.sky.com/fonts/sky_medium.ttf" rel="prefetch">
-    <link href="//assets.sky.com/fonts/sky_medium.svg" rel="prefetch">
-    <link rel="stylesheet" href="//assets.sky.com/css/app_fonts.css">
-    <!-- TODO: hot linked to github for web-toolkit, change once it's cdn hosted -->
-    <link rel="stylesheet" href="//skyglobal.github.io/web-toolkit/stylesheets/styles.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="//web-toolkit.global.sky.com/0.2.5/stylesheets/sky_web_toolkit.css">
+    <link rel="stylesheet" href="./css/styles.css">
 
     <!-- Javascript -->
     <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js"></script>
 
     <!-- Tracking - aka: What you came here for -->
-    <script src="/tracking.js"></script>
+    <script type='text/javascript' src="../tracking.js"></script>
   </head>
   <body>
 
