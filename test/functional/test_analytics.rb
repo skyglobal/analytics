@@ -1,11 +1,20 @@
 require_relative '../test_helper.rb'
+require 'pry'
 
 def http_request regex
-  page.driver.network_traffic.reverse.find { |req| req.url =~ regex }
+  page.driver.network_traffic.reverse.find_all do |req| 
+    # Requests that navigate away from the page won't return a response code,
+    # also ignore 302 redirects
+    (req.url =~ regex) and (req.response_parts.first == nil or req.response_parts.first.status != 302)
+  end
+end
+
+def all_sitecat_requests
+  http_request(/metrics.sky.com/).collect{ |req| Addressable::URI.parse req.url}
 end
 
 def last_sitecat_request
-  Addressable::URI.parse http_request(/metrics.sky.com/).url
+  Addressable::URI.parse http_request(/metrics.sky.com/).first.url
 end
 
 def tracked(value)
