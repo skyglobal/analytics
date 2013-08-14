@@ -144,7 +144,7 @@ toolkit.tracking = (function(omniture){
     }
 
     function getText($el){
-        return $el.attr('data-tracking-label') || $el.attr('alt') || $el.attr('value') || $el.val() || $el.text() || $el.attr('name');
+        return $el.attr('data-tracking-label') || $el.attr('alt') || $el.attr('value') || $el.val() || $el.attr('name') || $el.text();
     }
 
 //    not using jQuery .parents([data-tarcking-whatever]) as is slow in ie and ff
