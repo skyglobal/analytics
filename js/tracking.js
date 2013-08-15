@@ -103,7 +103,7 @@ toolkit.tracking = (function(omniture){
         logTracking('start','tracking event', e);
         var refDomain = document.referrer,
             url = location.href.split('?')[0],
-            $el = $(e.target),
+            $el = $(e.currentTarget),
             context;
 
         addTrackingEvents('linkClick');
