@@ -112,7 +112,6 @@ toolkit.tracking = (function(omniture){
         addTrackingVars('linkDetails', getTrackingProperties($el));
         addTrackingVars('refDomain', refDomain);
         addTrackingVars('url', url);
-
         addCustomTrackingVars($el);
         addCustomTrackingEvents($el);
 
@@ -147,7 +146,7 @@ toolkit.tracking = (function(omniture){
         return $el.attr('data-tracking-label') || $el.attr('alt') || $el.attr('value') || $el.val() || $el.attr('name') || $el.text();
     }
 
-//    not using jQuery .parents([data-tarcking-whatever]) as is slow in ie and ff
+//    not using jQuery .parents([data-tracking-whatever]) as is slow in ie and ff
     function checkParentForAttribute(el, attr){
         if (!el || !el.getAttribute) { return ''; }
         if (!!el.getAttribute(attr)){
