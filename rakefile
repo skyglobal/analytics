@@ -25,7 +25,9 @@ def latest_version_number
 end
 
 def version_already_exists?
-  bucket.objects.any?{|obj|obj.key.include? latest_version_number}
+  bucket.objects.any? do |obj|
+    obj.key.split('/').first == latest_version_number
+  end
 end
 
 desc 'Deploys a new version to the CDN'
