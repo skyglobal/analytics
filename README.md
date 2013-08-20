@@ -51,6 +51,9 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
   - ./configure --prefix=/usr/local
   - make install # ok, fine, this step probably takes more than 30 seconds...
   - curl https://npmjs.org/install.sh | sh
+3. Install grunt
+  - npm install grunt
+  - npm install grunt-cli
 
 ### Running
 
