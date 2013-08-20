@@ -161,6 +161,11 @@
           });
         </script>
 
+        <h3>Regular buttons</h3>
+        <p>For regular buttons without the need to use value selectors.</p>
+
+        <button id='colour-button-blue' data-tracking-custom-variable="colour">Blue</button>
+
       </section>
 
       <section>
@@ -234,8 +239,9 @@ $('#btn_ajax_event').on('click', function(e){
           //{'how_about_pinos': {var: 73, valueSelector: '#radio-input input[name=radio_field]:checked'}}
         ],
         customVariables: [
+          {'colour': {var: 71}},
           {'drink': {'var': 72, valueSelector: '#text-input input'}},
-          {'how_about_pina_coladas': {'var': 73, valueSelector: '#radio-input input[name=radio_field]:checked'}}
+          {'how_about_pina_coladas': {'var': 73, valueSelector: '#radio-input input[name=radio_field]:checked'}},
         ]
       };
 

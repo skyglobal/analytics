@@ -41,7 +41,8 @@ def sitecat_mapping
     'custom_page_load' => 'event99',
     'ajax_happened' => 'event101',
     'drink' => 'v72',
-    'how_about_pina_coladas' => 'v73'
+    'how_about_pina_coladas' => 'v73',
+    'colour' => 'v71'
   }
 end
 
@@ -124,6 +125,11 @@ class AnalyticsTest < AcceptanceTest
       click_button 'Submit'
     end
     tracked('how_about_pina_coladas').must_include 'yes_to_pina'
+  end
+
+  it "tracks a custom variable assigned on page load but set with a button click" do
+    click_button 'colour-button-blue'
+    tracked('colour').must_include 'Blue'
   end
 
   # Team specific
