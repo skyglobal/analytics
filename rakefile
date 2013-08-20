@@ -31,6 +31,7 @@ end
 desc 'Deploys a new version to the CDN'
 task :deploy_new_version do
   analytics_file = File.open('lib/tracking.js')
+  map_file = File.open('lib/tracking.js.map')
   
   doc_files = ['docs/css/styles.css', 'docs/custom_page_load.html', 'docs/index.html']
 
@@ -41,6 +42,7 @@ task :deploy_new_version do
 
   puts 'Uploading JS files'
   analytics_resource = bucket.objects["#{latest_version_number}/tracking.js"].write analytics_file.read
+  map_resource = bucket.objects["#{latest_version_number}/tracking.js.map"].write map_file.read
   
   doc_resources = []
   puts 'Uploading doc files'
@@ -48,7 +50,7 @@ task :deploy_new_version do
     doc_resources << bucket.objects["#{latest_version_number}/#{file}"].write(File.open(file).read)
   end
 
-  online_resources = [analytics_resource]
+  online_resources = [analytics_resource, map_resource]
 
   puts 'Giving public read access'
   (online_resources + doc_resources).each{|resource|resource.acl = :public_read}
