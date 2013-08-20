@@ -72,7 +72,8 @@ toolkit.tracking = (function(omniture){
 
     function addCustomTrackingVars($el){
         var customVariable = $el.attr('data-tracking-custom-variable');
-        var value = getText($(vars.variables[customVariable]));
+        var $trackingElement = (vars.variables[customVariable]) ? $(vars.variables[customVariable]) : $el;
+        var value = getText($trackingElement);
         if (!customVariable) return;
         addTrackingVars(customVariable,value);
     }
