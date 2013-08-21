@@ -239,7 +239,8 @@ toolkit.tracking = (function(omniture){
         var output = {
             verify: verify,
             resetPageConfig: resetPageConfig,
-            bind: bindEvents
+            bind: bindEvents,
+            track: track
         };
         toolkit.tracking = output;
         return output;
