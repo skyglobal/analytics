@@ -132,6 +132,25 @@ class AnalyticsTest < AcceptanceTest
     tracked('colour').must_include 'Blue'
   end
 
+  it "tracks when the toolkit.track event is triggered" do
+    page.execute_script("$('h1').trigger('toolkit.track')")
+    tracked('link_tracking').must_include 'omniture-tracking'
+  end
+
+  it "tracks non-anchor elements that have the data-tracking attribute" do
+    find('h1').click
+    tracked('link_tracking').must_include 'omniture-tracking'
+  end
+
+  it "does not track anchors which have data-tracking=false" do
+    click_link 'Untracked anchor link'
+    tracked('link_tracking').must_be_nil
+  end
+
+  it "does not track non-anchors which have data-tracking=false" do
+    find('h3[data-tracking="false"]').click
+    tracked('link_tracking').must_be_nil
+  end
   # Team specific
   # Video plays?
 

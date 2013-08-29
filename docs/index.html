@@ -13,7 +13,7 @@
     </script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="//web-toolkit.global.sky.com/0.2.5/stylesheets/sky_web_toolkit.css">
+    <link rel="stylesheet" href="//web-toolkit.global.sky.com/0.3.19/stylesheets/toolkit.css">
     <link rel="stylesheet" href="./css/styles.css">
 
     <!-- Javascript -->
@@ -26,11 +26,12 @@
 
     <div class='skycom_container'>
 
-      <h1>Omniture Tracking</h1>
+      <h1 data-tracking>Omniture Tracking</h1>
 
       <section>
         <h2>Setup</h2>
-        <p>Adds tracking to the <code>anchors, buttons, submits</code> and anything with <code>[data-track]</code> attibute.</p>
+        <p>Adds tracking to the <code>anchors, buttons, submits</code> and anything with <code>[data-tracking]</code> attibute.</p>
+        <p>Can also manually trigger tracking by firing an event <code>toolkit.track</code> on the element you want to track</p>
         <p>Automatic tracking will be initialised once <code>toolkit['tracking'](config)</code> has been executed.</p>
         <p>config options are:
           <code class="block">
@@ -107,7 +108,7 @@
       <section>
         <h2>Links and Buttons</h2>
 
-        <h3>Examples</h3>
+        <h3 data-tracking="false">Examples</h3>
 
         <div class='example'>
           <a href="#inpage-link">Standard anchor link</a>
@@ -115,6 +116,14 @@
             &lt;a href=&quot;http://sky.com&quot;&gt;Standard anchor link&lt;/a&gt;
           </code>
         </div>
+
+
+      <div class='example'>
+          <a data-tracking="false" href="#inpage-link">Untracked anchor link</a>
+          <code>
+              &lt;a data-tracking=false href=&quot;http://sky.com&quot;&gt;Untracked anchor link&lt;/a&gt;
+          </code>
+      </div>
 
         <div class='example'>
           <a class='btn primary-cta' data-tracking-label='label-text' href="http://sky.com">Std btn link with label</a>

@@ -26,9 +26,9 @@ toolkit.tracking = (function(omniture){
     }
 
     function bindEvents(selector, evnt) {
-        selector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-track]';
-        evnt = evnt || 'click';
-        $('body').on(evnt, selector, function(e) {
+        var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
+        evnt = evnt || 'click toolkit.track';
+        $('body').on(evnt, clickSelector, function(e) {
             track(e);
         });
     }
