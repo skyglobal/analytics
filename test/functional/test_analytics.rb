@@ -133,13 +133,13 @@ class AnalyticsTest < AcceptanceTest
   end
 
   it "tracks when the toolkit.track event is triggered" do
-    page.execute_script("$('h1').trigger('toolkit.track')")
-    tracked('link_tracking').must_include 'omniture-tracking'
+    page.execute_script("$('span[data-tracking]').trigger('toolkit.track')")
+    tracked('link_tracking').must_include 'a-non-anchor'
   end
 
   it "tracks non-anchor elements that have the data-tracking attribute" do
-    find('h1').click
-    tracked('link_tracking').must_include 'omniture-tracking'
+    find('span[data-tracking]').click
+    tracked('link_tracking').must_include 'a-non-anchor'
   end
 
   it "does not track anchors which have data-tracking=false" do

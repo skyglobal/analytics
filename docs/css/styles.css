@@ -1,5 +1,24 @@
+
+body{
+    padding-top: 2em!important;
+}
+.quick-links {
+    z-index: 10;
+    height: 2em;
+    line-height: 2em;
+    position: fixed;
+    top: 0; left:0;
+    width:100%;
+    background-color: #e5e5e5;
+}
+.quick-links ul li{
+    float: left;
+    margin: 0 20px 0 0;
+}
+
 .skycom_container {
   padding-bottom: 6em;
+  max-width: 1212px;
 }
 
 .example {
@@ -7,6 +26,14 @@
   margin: 1em 0;
 }
 
-.example code {
+code.block {
   display: block;
+    white-space: pre;
+    clear: left;
+}
+section{
+    clear: left;
+    border-top: 1px solid #000;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
