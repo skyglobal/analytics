@@ -42,7 +42,9 @@ def sitecat_mapping
     'ajax_happened' => 'event101',
     'drink' => 'v72',
     'how_about_pina_coladas' => 'v73',
-    'colour' => 'v71'
+    'colour' => 'v71',
+    'search_term' => 'v1',
+    'search_type' => 'v31'
   }
 end
 
@@ -150,6 +152,16 @@ class AnalyticsTest < AcceptanceTest
   it "does not track non-anchors which have data-tracking=false" do
     find('h3[data-tracking="false"]').click
     tracked('link_tracking').must_be_nil
+  end
+
+  it "tracks search vars" do
+    fill_in 'weather-location-search', with: 'Milkshake search'
+    find('button[data-tracking-search]').click
+    tracked('event').must_include sitecat_mapping['click_event'] # link clicked
+    tracked('link_tracking').must_include '|search|'
+    tracked('link_tracking').must_include '|milkshake-search|'
+    tracked('search_type').must_include 'weather'
+    tracked('search_term').must_include 'Milkshake search'
   end
   # Team specific
   # Video plays?

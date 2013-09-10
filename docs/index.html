@@ -100,21 +100,22 @@ toolkit['tracking'](SITECAT_CONFIG);
           <dt class="skycom_4 alpha"><code>data-tracking-theme</code></dt>
           <dd class="skycom_8">Used to group items or related links that may be across modules.
               <br /> eg. <code>data-tracking-theme=friends-and-family</code></dd>
-          <dt class="skycom_4 alpha"><code>data-tracking-context</code></dt>
+          <dt class="skycom_4 alpha"><code>data-tracking-context</code> <br>... or ... <code>data-tracking-context-id</code></dt>
           <dd class="skycom_8">Useful when multiple links have the same text, you may need more context around the link i.e. 'remote record' may need the context of what is being recorded
-              <br/> eg. <code>data-tracking-context=bond-11</code></dd>
+              <br/> eg. <code>data-tracking-context=bond-11</code> or <code>data-tracking-context-id=search-box</code></dd>
           <dt class="skycom_4 alpha"><code>data-tracking-label</code></dt>
           <dd class="skycom_8">a text alternative. Useful when the text clicked may be too long or non-unique.
               <br/> eg. <code>data-tracking-label=bond-remote-record</code></dd>
           <dt class="skycom_4 alpha"><code>data-tracking-search</code></dt>
-          <dd class="skycom_8">Add this to the button/link that triggers the search.
-              <br/> eg. <code>data-tracking-search=weather</code></dd>
+          <dd class="skycom_8">Add this to the button/link that triggers the search. Must be used with <code>data-tracking-context-id</code>.
+              <br/> eg. <code>data-tracking-search=weather data-tracking-context-id=search-box</code></dd>
           <dt class="skycom_4 alpha"><code>data-tracking</code></dt>
           <dd class="skycom_8">A way to force tracking of an element or to stop tracking of an element.
               <br/> eg. <code>data-tracking=false</code></dd>
         </dl>
 
         <h3 data-tracking="false">Examples</h3>
+        <p>Execute <code>toolkit.tracking.verify()</code> and click around below.</p>
         <div class='example clearfix'>
 
             <div class="skycom_4 alpha">
@@ -173,11 +174,22 @@ toolkit['tracking'](SITECAT_CONFIG);
           </div>
 
           <div class='skycom_4 alpha skycom_clear'>
-              <button href="#" class="btn sign-post">Normal Button</button>
+              <button class="btn sign-post">Normal Button</button>
           </div>
           <div class="skycom_8">
               <code>
-                  &lt;button href=&quot;#&quot; class=&quot;btn sign-post&quot;&gt;Normal Button&lt;/button&gt;
+                  &lt;button class=&quot;btn sign-post&quot;&gt;Normal Button&lt;/button&gt;
+              </code>
+          </div>
+
+          <div class='skycom_4 alpha skycom_clear sky-form'>
+              <input id="weather-location-search" type="text" placeholder="Postcode or town">
+              <button class="btn" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-location-search">Search</button>
+          </div>
+          <div class="skycom_8">
+              <code>
+                  &lt;input id="weather-location-search" type="text" placeholder="Postcode or town">
+                  &lt;button class="btn" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-location-search">Search&lt;/button>
               </code>
           </div>
         </div>
