@@ -26,14 +26,39 @@ body{
   margin: 1em 0;
 }
 
+code{
+    font-family: 'Monaco', courier, monospace;
+    background: #FDF6E3;
+    word-wrap: break-word;
+    margin: 0px;
+    padding: 2px;
+    color: #657B83;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
 code.block {
   display: block;
     white-space: pre;
     clear: left;
 }
+
 section{
     clear: left;
     border-top: 1px solid #000;
     margin-top: 2em;
     margin-bottom: 2em;
+}
+.alpha{
+    clear: left;
+}
+.example .skycom_4,
+.example .skycom_8,
+dt,
+dd{
+    padding: 6px 0;
+    border-top: 1px dashed #ddd;
+}
+
+dt:nth-child(3n) ,
+dd:nth-child(2n) {
 }
