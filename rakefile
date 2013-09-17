@@ -30,6 +30,25 @@ def version_already_exists?
   end
 end
 
+
+def content_type(file)
+  case File.extname(file)
+    when '.map'
+      content_type = 'text/javascript'
+    when '.js'
+      content_type = 'text/javascript'
+    when '.css'
+      content_type = 'text/css'
+    when '.png'
+      content_type = 'image/png'
+    when '.html'
+      content_type = 'text/html'
+    else
+      content_type = 'image/jpeg'
+  end
+  content_type
+end
+
 desc 'Deploys a new version to the CDN'
 task :deploy_new_version do
   analytics_file = File.open('lib/tracking.js')
@@ -49,13 +68,10 @@ task :deploy_new_version do
   doc_resources = []
   puts 'Uploading doc files'
   doc_files.each do |file|
-    doc_resources << bucket.objects["#{latest_version_number}/#{file}"].write(File.open(file).read)
+    doc_resources << bucket.objects["#{latest_version_number}/#{file}"].write(File.open(file).read, cache_control: 'public, max-age=2592000', content_type: content_type(file), acl: :public_read )
   end
 
   online_resources = [analytics_resource, map_resource]
-
-  puts 'Giving public read access'
-  (online_resources + doc_resources).each{|resource|resource.acl = :public_read}
 
   puts "Deployed following resources:"
   (online_resources + doc_resources).each{|resource|puts resource.public_url.to_s}
