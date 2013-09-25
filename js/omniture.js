@@ -222,6 +222,12 @@ toolkit.omniture = (function(){
             if(ajaxCall != "true"){
                 this.loadPlugins(s);
             }
+
+            // Test and Target
+            var tntInput = s.trackTNT();
+            s.eVar18 = s.tnt = tntInput;
+            if(typeof mboxLoadSCPlugin == "function"){mboxLoadSCPlugin(s);}
+
             window.s_bskyb = this.s = s;
             if (s.getNewRepeat(365) == 'Repeat') {
                 ev.push('event20');
@@ -769,6 +775,21 @@ toolkit.omniture = (function(){
                 +"yandex|text|Yandex.ru>search.cnn.com|query|CNN Web Search>search.ea"
                 +"rthlink.net|q|Earthlink Search>search.comcast.net|q|Comcast Search>"
                 +"search.rr.com|qs|RoadRunner Search>optimum.net|q|Optimum Search";
+
+            s.trackTNT = function(v, p, b) {
+                var s=this, n="s_tnt", p=(p)?p:n, v=(v)?v:n, r="",pm=false, b=(b)?b:true;
+                if(s.getQueryParam)
+                pm = s.getQueryParam(p); //grab the parameter
+                if(pm)
+                r += (pm + ","); // append the parameter
+                if(s.wd[v] != undefined)
+                r += s.wd[v]; // get the global variable
+                if(b)
+                s.wd[v] = ""; // Blank out the global variable for ajax requests
+                return r;
+            }
+
+
             /*
              * Plugin: getTimePartingJH
              * Based on getTimeParting 2.0 - Set timeparting values based on time zone
