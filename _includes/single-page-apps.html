@@ -1,0 +1,14 @@
+<h2>Single Page Apps</h2>
+<p>Simulate a page load event for sites that make use of ajax by calling:</p>
+<code class="block">toolkit.tracking.resetPageConfig(SITECAT_CONFIG);</code>
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#btn_ajax_event').on('click', function(e){
+            e.preventDefault();
+            $.extend(SITECAT_CONFIG, {customEvents: [{'ajax_happened': {event: 101, onPageLoad: true}}]});
+            toolkit.tracking.resetPageConfig(SITECAT_CONFIG);
+        });
+    });
+</script>
+<h3>Example</h3>
+<a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>

@@ -1,0 +1,23 @@
+<h2>Custom Page Load Events</h2>
+<p>To send an event upon page load.</p>
+
+<pre>
+        <code>
+            SITECAT_CONFIG = {
+            site: 'mysky',
+            section: 'skyglobal/analytics',
+            headline: '',
+            contentType: 'skyglobal',
+            contentId: '',
+            account: 'bskybmyaccountdev',
+            page: 'Analytics demo page',
+            customEvents: [{'custom_page_load': {event: 99, onPageLoad: true}}],
+            customVariables: [
+            {'custom_variable': {var: 76, onPageLoad: true}},
+            {'custom_prop': {prop: 75, onPageLoad: true}}
+            ]
+            };
+        </code>
+        </pre>
+
+</section>

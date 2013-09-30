@@ -1,0 +1,101 @@
+<!doctype html>
+<!--[if IE 7]>         <html class="lt-ie10 lt-ie9 lt-ie8" > <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie10 lt-ie9" > <![endif]-->
+<!--[if IE 9]>         <html class="lt-ie10" > <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" > <!--<![endif]-->
+<head>
+    <title>Sky Analytics API Demo Page</title>
+
+    <script type="text/javascript">
+        // Don't do this to pull in the masthead! We're only doing it to keep this page html
+        var xhReq = new XMLHttpRequest();
+        xhReq.open("GET", "http://assets.sky.com/resources/mobile-ready/12/css/", false);
+        xhReq.send(null);
+        var serverResponse = xhReq.responseText;
+        document.write(serverResponse);
+    </script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/0.4.4/stylesheets/toolkit.css">
+    <link rel="stylesheet" href="./dist/css/wiki.css">
+
+    <!-- Javascript -->
+    <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+    <!-- Tracking - aka: What you came here for -->
+    <script type='text/javascript' src="./dist/js/tracking.js"></script>
+</head>
+<body>
+
+<div class='grid-1140'>
+
+    <div class="quick-links">
+        <div class="skycom_container">
+            <ul class="nav-pills alpha skycom_12">
+                <li><a href="#using-me">Using the Analytics</a></li>
+                <li><a href="#link-tracking">Link Tracking</a></li>
+                <li><a href="#custom-vars">Custom Variables</a></li>
+                <li><a href="#custom-events">Custom Events</a></li>
+                <li><a href="#manual">Manual Trigger</a></li>
+                <li><a href="#single-page-apps">Single Page Apps</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="skycom-container clearfix">
+        <div class="alpha skycom-12">
+            <h1 class="wiki-header">Omniture Analytics <small>v0.5.0</small></h1>
+
+<section class="wiki-section">
+    <div class="sub-section">
+        <h2>Custom Page Load Events</h2>
+<p>To send an event upon page load.</p>
+
+<pre>
+        <code>
+            SITECAT_CONFIG = {
+            site: 'mysky',
+            section: 'skyglobal/analytics',
+            headline: '',
+            contentType: 'skyglobal',
+            contentId: '',
+            account: 'bskybmyaccountdev',
+            page: 'Analytics demo page',
+            customEvents: [{'custom_page_load': {event: 99, onPageLoad: true}}],
+            customVariables: [
+            {'custom_variable': {var: 76, onPageLoad: true}},
+            {'custom_prop': {prop: 75, onPageLoad: true}}
+            ]
+            };
+        </code>
+        </pre>
+
+</section>
+    </div>
+</section>
+    <script type='text/javascript'>
+      SITECAT_CONFIG = {
+        site: 'mysky',
+        section: 'skyglobal/analytics',
+        headline: '',
+        contentType: 'skyglobal',
+        contentId: '',
+        account: 'bskybmyaccountdev',
+        page: 'Analytics demo page',
+        customEvents: [{'magic_happened': {event: 99, onPageLoad: true}}],
+        customVariables: [
+          {'custom_variable': { var: 76, onPageLoad: true}},
+          {'custom_prop':    { prop: 75, onPageLoad: true}}
+        ]
+      };
+
+      toolkit['tracking'](SITECAT_CONFIG);
+    </script>
+  </body>
+</html>
+
+        </div>
+    </div>
+    <!--<script src="dist/scripts/lib/require.js" data-main='dist/scripts/wiki'></script>-->
+</div>
+</body>
+</html>

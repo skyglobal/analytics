@@ -1,24 +1,28 @@
-
-body{
-    padding-top: 2em!important;
+.wiki-section {
+  border-top: 2px solid #333;
+  margin-bottom:25px;
 }
-.quick-links {
-    z-index: 10;
-    height: 2em;
-    line-height: 2em;
-    position: fixed;
-    top: 0; left:0;
-    width:100%;
-    background-color: #e5e5e5;
-}
-.quick-links ul li{
-    float: left;
-    margin: 0 20px 0 0;
+.wiki-h3{
+  border-bottom: 1px solid #dcdcdc;
 }
 
-.skycom_container {
-  padding-bottom: 6em;
-  max-width: 1212px;
+.block {
+  display: block;
+}
+
+a[name]:not([href]){
+  padding-top: 1em;
+  display: block;
+}
+
+.wiki-header {
+  small {
+    color: #999;
+  }
+}
+
+.wiki-dl dt{
+  font-family:SkyTextMedium;
 }
 
 .example {

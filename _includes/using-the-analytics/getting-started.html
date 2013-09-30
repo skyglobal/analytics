@@ -1,0 +1,26 @@
+<h3 class="wiki-h3">Getting Started</h3>
+<p> Once tracking has been initialised,
+    <code>anchors</code>, <code>buttons</code>, <code>submits</code> and any element with <code>[data-tracking]</code> are automatically tracking.
+    You Can also manually trigger tracking using JS.
+</p>
+
+<h4>Initialising</h4>
+<p>Please get these details from <code>Andrew.Gerhardt@bskyb.com</code> or <code>James.Muldoon@bskyb.com</code>.
+    <code class="block">
+    var SITECAT_CONFIG = {
+        site: 'mysky',
+        section: 'skyglobal/analytics',
+        headline: '',
+        contentType: 'skyglobal',
+        contentId: '',
+        account: 'bskybmyaccountdev',
+        page: 'Analytics demo page'
+    };
+    toolkit['tracking'](SITECAT_CONFIG);
+    </code>
+</p>
+<h4>Debugging</h4>
+<p>
+    You can easily see what is being tracking by executing the following in the console:
+    <code>toolking.tracking.verify();</code>
+</p>

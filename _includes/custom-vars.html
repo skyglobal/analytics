@@ -1,0 +1,92 @@
+<h2>Custom Variables</h2>
+<p>
+    You will need variable Name and ID which should be set when initialising tracking.
+    This name will then be used within the HTML as another <code>data</code> attribute set on the element being clicked.
+</p>
+<h3>Mandatory Setup</h3>
+<dl>
+    <dt class="skycom_4 alpha"><code>data-tracking-custom-variable</code></dt>
+    <dd class="skycom_8">Useful for capturing values determined by user interactions with the page.
+        <br />eg. <code>data-tracking-custom-variable=myCustomVar</code>
+    </dd>
+</dl>
+<code class="block">
+    var SITECAT_CONFIG = {
+    ...
+    customVariables: [
+    {'myCustomVar': {var: 71}}
+    ]
+    };
+    toolkit['tracking'](SITECAT_CONFIG);
+</code>
+
+<h3>Optional Setup</h3>
+<p>
+    You may want to track text entered by the user, or the value of an option selected by the user.
+    The can be done by setting the <code>valueSelector</code> when initialising the tracking config.
+</p>
+
+<code class="block">
+    var SITECAT_CONFIG = {
+    ...
+    customVariables: [
+    {'myCustomVar':
+    { var: 71,
+    valueSelector: '#radio-input input[name=radio_field]:checked'
+    }
+    }
+    ]
+    };
+    toolkit['tracking'](SITECAT_CONFIG);
+</code>
+
+<div class="example">
+    <h3>Examples</h3>
+    <div class="skycom_4 alpha">
+        <form id='text-input' class="sky-form">
+            <label for='input_field'>What is your favourite drink?</label> <br>
+            <input id='input_field' name='input_field' type='text' /><br>
+            <button data-tracking-custom-variable='drink' class='btn primary-cta'>Submit</button>
+        </form>
+    </div>
+    <div class="skycom_8">
+        <code class="block">&lt;label for='input_field'>What is your favourite drink?&lt;/label>
+            &lt;input id='input_field' name='input_field' type='text' />
+            &lt;button data-tracking-custom-variable='drink' class='btn primary-cta'>Submit&lt;/button></code>
+    </div>
+
+    <div class="skycom_4 alpha">
+        <form id='radio-input' class="sky-form">
+            <label>Do you like Pina Coldas?</label> <br>
+            <input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/><label for='radio_yes'>Yes</label>
+            <input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/><label for='radio_no'>No</label>
+            <br>
+            <button data-tracking-custom-variable='how_about_pina_coladas' class='btn primary-cta'>Submit</button>
+        </form>
+    </div>
+    <div class="skycom_8">
+
+        <code class="block">&lt;label>Do you like Pina Coldas?&lt;/label>
+            &lt;input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/>&lt;label for='radio_yes'>Yes&lt;/label>
+            &lt;input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/>&lt;label for='radio_no'>No&lt;/label>
+            &lt;button data-tracking-custom-variable='how_about_pina_coladas' class='btn primary-cta'>Submit&lt;/button></code>
+    </div>
+
+    <div class="skycom_4 alpha">
+        <button id='colour-button-blue' data-tracking-custom-variable="colour" class="btn">Blue</button>
+    </div>
+    <div class="skycom_8">
+        <code class="block">&lt;button id='colour-button-blue' data-tracking-custom-variable="colour">Blue&lt;/button></code>
+    </div>
+</div>
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#text-input button').on('click', function(e){
+            e.preventDefault();
+        });
+
+        $('#radio-input button').on('click', function(e){
+            e.preventDefault();
+        });
+    });
+</script>

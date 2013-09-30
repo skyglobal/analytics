@@ -1,0 +1,69 @@
+---
+layout: default
+title: Analytics
+---
+<h1 class="wiki-header">Omniture Analytics <small>v{{ site.version }}</small></h1>
+
+<section class="wiki-section">
+    <a name="using-me"></a>
+    <h2>Using the Analytics</h2>
+    <p class="developer-notes">
+        <a href='http://web-toolkit.global.sky.com/{{ site.version }}/scripts/analytics.js'>http://web-toolkit.global.sky.com/{{ site.version }}/scripts/analytics.js</a>
+    </p>
+    <a name="contributing"></a>
+    <div class="sub-section">
+        {% include using-the-analytics/contributing.html %}
+    </div>
+    <a name="getting-started"></a>
+    <div class="sub-section">
+        {% include using-the-analytics/getting-started.html %}
+    </div>
+</section>
+
+
+<a name="link-tracking"></a>
+<section class="wiki-section">
+    {% include link-tracking.html %}
+</section>
+
+<a name="custom-vars"></a>
+<section class="wiki-section">
+    {% include custom-vars.html %}
+</section>
+
+<a name="custom-events"></a>
+<section class=wiki-section>
+    {% include custom-events.html %}
+</section>
+
+<a name="manual"></a>
+<section class=wiki-section>
+    {% include manual-trigger.html %}
+</section>
+
+<a name="single-page-apps"></a>
+<section class=wiki-section>
+    {% include single-page-apps.html %}
+</section>
+<script type="text/javascript" charset="utf-8">
+    SITECAT_CONFIG = {
+        site: 'mysky',
+        section: 'skyglobal/analytics',
+        headline: '',
+        contentType: 'skyglobal',
+        contentId: '',
+        account: 'bskybmyaccountdev',
+        page: 'Analytics demo page',
+        customEvents: [
+            //{'drink': {var: 72, valueSelector: '#text-input input'}},
+            //{'how_about_pinos': {var: 73, valueSelector: '#radio-input input[name=radio_field]:checked'}}
+        ],
+        customVariables: [
+            {'colour': {var: 71}},
+            {'drink': {'var': 72, valueSelector: '#text-input input'}},
+            {'how_about_pina_coladas': {'var': 73, valueSelector: '#radio-input input[name=radio_field]:checked'}},
+        ]
+    };
+
+    toolkit['tracking'](SITECAT_CONFIG);
+</script>

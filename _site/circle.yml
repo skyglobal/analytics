@@ -1,0 +1,9 @@
+test:
+  override:
+    - rake functional
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - rake deploy_new_version
