@@ -230,7 +230,8 @@ toolkit.tracking = (function(omniture){
         }
     }
 
-    function init(config){
+    function init(config, optional) {
+        $.extend(true, vars, optional);
         addCustomEvents(config.customEvents);
         addCustomVariables(config.customVariables);
         setPageConfig(config);
