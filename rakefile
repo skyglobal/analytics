@@ -4,7 +4,7 @@ require 'rake/testtask'
 
 # Create a rake task for running tests
 Rake::TestTask.new do |t|
-  t.name = :default
+  t.name = :functional
   pid = Process.spawn("jekyll serve &")
   t.pattern = "test/functional/test_*.rb"
   Process.detach pid
