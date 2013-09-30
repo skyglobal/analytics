@@ -3,7 +3,7 @@ toolkit.tracking = (function(omniture){
 
     var vars = {
         verifying: false,
-        verifyOutputId: 'bootstrap-tracking-verify',
+        verifyOutputId: 'toolkit-tracking-verify',
         siteName: safeString($('#skycom-nav li.selected > a').text()),
         pageName: "",
         events:[],
