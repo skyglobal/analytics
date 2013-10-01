@@ -26,6 +26,9 @@ def version_already_exists?
   end
 end
 
+def files_to_upload
+  files = ["tracking.js", "tracking.js.map"]
+end
 
 def content_type(file)
   case File.extname(file)
@@ -55,11 +58,10 @@ task :deploy_new_version do
     next
   end
 
-  puts 'Uploading JS files'
-  analytics_resource = bucket.objects["#{latest_version_number}/tracking.js"].write analytics_file.read
-  map_resource = bucket.objects["#{latest_version_number}/tracking.js.map"].write map_file.read
-  online_resources = [analytics_resource, map_resource]
-
+  doc_resources = []
   puts "Deployed following resources:"
-  (online_resources).each{|resource|puts resource.public_url.to_s}
+  cd "_site/dist/js/"
+  files_to_upload.each do |file|
+    doc_resources << bucket.objects["#{latest_version_number}/#{file}"].write(File.open(file).read, cache_control: 'public, max-age=2592000', content_type: content_type(file), acl: :public_read )
+  end
 end
