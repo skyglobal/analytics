@@ -4,10 +4,8 @@ require 'rake/testtask'
 
 # Create a rake task for running tests
 Rake::TestTask.new do |t|
-  t.name = :default
-  pid = Process.spawn("jekyll serve &")
+  t.name = :functional
   t.pattern = "test/functional/test_*.rb"
-  Process.detach pid
 end
 
 def s3
@@ -49,10 +47,10 @@ end
 
 desc 'Deploys a new version to the CDN'
 task :deploy_new_version do
-  analytics_file = File.open('lib/tracking.js')
-  map_file = File.open('lib/tracking.js.map')
+  analytics_file = File.open('_site/dist/js/tracking.js')
+  map_file = File.open('_site/dist/js/tracking.js.map')
   
-  doc_files = ['docs/css/styles.css', 'docs/custom_page_load.html', 'docs/index.html']
+  doc_files = ['_site/dist/css/wiki.css', '_site/views/custom_page_load.html', '_site/index.html']
 
   if version_already_exists?
     puts "Version #{latest_version_number} already exists. Exiting."

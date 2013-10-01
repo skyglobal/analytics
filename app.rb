@@ -3,24 +3,18 @@ Bundler.require :default
 
 class App < Sinatra::Base
   get '/' do
-    redirect to('/docs/index.html')
+    redirect to('/_site/')
+  end
+  get '/_site/' do
+    send_file File.join('_site','index.html')
   end
 
-  get '/docs/index.html' do
-    send_file File.join('docs', 'index.html')
+  get '/_site/:page' do
+    send_file File.join('_site', params[:page])
   end
 
-  get '/docs/custom_page_load.html' do
-    send_file File.join('docs', 'custom_page_load.html')
-  end
-
-  # ASSETS
-  get '/:filename' do
-    send_file File.join('lib', params[:filename])
-  end
-
-  get '/docs/css/:filename' do
-    filename = File.join('docs','css', params[:filename])
+  get '/_site/dist/:filetype/:filename' do
+    filename = File.join('_site/dist',params[:filetype], params[:filename])
     send_file filename
   end
 end

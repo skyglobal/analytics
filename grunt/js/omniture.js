@@ -477,7 +477,9 @@ toolkit.omniture = (function(){
     //     p.loginFrom = l[0];
                 ev.push (l[1] == 'l' ? this.eventMap.loginStart : this.eventMap.regStart);
             }
-            p.samId = c.just;
+            if(c.just) {
+                p.samId = c.just
+            }
             if (c.apd) p.ageGender = c.apd + '|' + c.gpd;
             if (c.sid_tvp) p.skyPackage = c.sid_tvp + '|' + c.sid_hd;
             p.customerType = c.custype;
