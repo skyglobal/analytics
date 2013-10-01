@@ -50,7 +50,7 @@ task :deploy_new_version do
   analytics_file = File.open('_site/dist/js/tracking.js')
   map_file = File.open('_site/dist/js/tracking.js.map')
   
-  doc_files = ['_site/dist/css/wiki.css', '_site/views/custom_page_load.html', '_site/index.html']
+  doc_files = ['_site/dist/css/wiki.css', '_site/custom_page_load.html', '_site/index.html']
 
   if version_already_exists?
     puts "Version #{latest_version_number} already exists. Exiting."
