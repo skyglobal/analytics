@@ -17,7 +17,8 @@ def bucket
 end
 
 def latest_version_number
-  $latest_version_number ||= File.open('_config.yml').read.strip.gsub("version: ", "")
+  $latest_version_number ||= File.open('_config.yml').read.match(/version:(.+)/)[1]
+  p $latest_version_number
 end
 
 def version_already_exists?
