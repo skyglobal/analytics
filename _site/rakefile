@@ -17,8 +17,7 @@ def bucket
 end
 
 def latest_version_number
-  $latest_version_number ||= File.open('_config.yml').read.match(/version:(.+)/)[1]
-  p $latest_version_number
+  $latest_version_number ||= File.open('_config.yml').read.match(/version:(.+)/)[1].strip
 end
 
 def version_already_exists?
@@ -27,6 +26,9 @@ def version_already_exists?
   end
 end
 
+def files_to_upload
+  files = ["tracking.js", "tracking.js.map"]
+end
 
 def content_type(file)
   case File.extname(file)
@@ -51,25 +53,15 @@ task :deploy_new_version do
   analytics_file = File.open('_site/dist/js/tracking.js')
   map_file = File.open('_site/dist/js/tracking.js.map')
   
-  doc_files = ['_site/dist/css/wiki.css', '_site/views/custom_page_load.html', '_site/index.html']
-
   if version_already_exists?
     puts "Version #{latest_version_number} already exists. Exiting."
     next
   end
 
-  puts 'Uploading JS files'
-  analytics_resource = bucket.objects["#{latest_version_number}/tracking.js"].write analytics_file.read
-  map_resource = bucket.objects["#{latest_version_number}/tracking.js.map"].write map_file.read
-  
   doc_resources = []
-  puts 'Uploading doc files'
-  doc_files.each do |file|
+  puts "Deployed following resources:"
+  cd "_site/dist/js/"
+  files_to_upload.each do |file|
     doc_resources << bucket.objects["#{latest_version_number}/#{file}"].write(File.open(file).read, cache_control: 'public, max-age=2592000', content_type: content_type(file), acl: :public_read )
   end
-
-  online_resources = [analytics_resource, map_resource]
-
-  puts "Deployed following resources:"
-  (online_resources + doc_resources).each{|resource|puts resource.public_url.to_s}
 end

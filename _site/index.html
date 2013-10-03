@@ -46,7 +46,7 @@
     <a name="using-me"></a>
     <h2>Using the Analytics</h2>
     <p class="developer-notes">
-        <a href='http://web-toolkit.global.sky.com/0.6.0/scripts/analytics.js'>http://web-toolkit.global.sky.com/0.6.0/scripts/analytics.js</a>
+        <a href='http://analytics.global.sky.com/0.6.0/tracking.js'>http://analytics.global.sky.com/0.6.0/tracking.js</a>
     </p>
     <a name="contributing"></a>
     <div class="sub-section">
@@ -85,7 +85,7 @@
         account: 'bskybmyaccountdev',
         page: 'Analytics demo page'
     };
-    toolkit['tracking'](SITECAT_CONFIG);
+    toolkit['tracking'].pageView(SITECAT_CONFIG);
     </code>
 </p>
 <h4>Debugging</h4>
@@ -248,7 +248,7 @@
     {'myCustomVar': {var: 71}}
     ]
     };
-    toolkit['tracking'](SITECAT_CONFIG);
+    toolkit['tracking'].pageView(SITECAT_CONFIG);
 </code>
 
 <h3>Optional Setup</h3>
@@ -268,7 +268,7 @@
     }
     ]
     };
-    toolkit['tracking'](SITECAT_CONFIG);
+    toolkit['tracking'].pageView(SITECAT_CONFIG);
 </code>
 
 <div class="example">
@@ -358,13 +358,13 @@
 <section class=wiki-section>
     <h2>Single Page Apps</h2>
 <p>Simulate a page load event for sites that make use of ajax by calling:</p>
-<code class="block">toolkit.tracking.resetPageConfig(SITECAT_CONFIG);</code>
+<code class="block">toolkit.tracking.pageView(SITECAT_CONFIG);</code>
 <script type='text/javascript'>
     $(document).ready(function(){
         $('#btn_ajax_event').on('click', function(e){
             e.preventDefault();
             $.extend(SITECAT_CONFIG, {customEvents: [{'ajax_happened': {event: 101, onPageLoad: true}}]});
-            toolkit.tracking.resetPageConfig(SITECAT_CONFIG);
+            toolkit.tracking.pageView(SITECAT_CONFIG);
         });
     });
 </script>
@@ -391,7 +391,7 @@
         ]
     };
 
-    toolkit['tracking'](SITECAT_CONFIG);
+    toolkit['tracking'].pageView(SITECAT_CONFIG);
 </script>
         </div>
     </div>
