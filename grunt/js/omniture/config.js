@@ -2,6 +2,7 @@ if (typeof toolkit==='undefined') toolkit={};
 if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
 toolkit.omniture.config = (function(){
 
+//todo: merge these maps together into one
     var trackedData = {
         searchType: ['prop12','eVar31'],
         searchTerms: ['prop1','eVar1'],
@@ -35,7 +36,8 @@ toolkit.omniture.config = (function(){
         section: [''],
         events: []
     },
-    trackedEvents = {
+    trackedEvents = { //todo: add event1 + event20
+        pageLoad: 'event1',
         loginStart: 'event17',
         loginComplete: 'event16',
         regStart: 'event19',

@@ -46,7 +46,7 @@ title: Analytics
     {% include single-page-apps.html %}
 </section>
 <script type="text/javascript" charset="utf-8">
-    SITECAT_CONFIG = {
+    toolkit['tracking'].pageView({
         site: 'mysky',
         section: 'skyglobal/analytics',
         headline: '',
@@ -63,7 +63,5 @@ title: Analytics
             {'drink': {'var': 72, valueSelector: '#text-input input'}},
             {'how_about_pina_coladas': {'var': 73, valueSelector: '#radio-input input[name=radio_field]:checked'}},
         ]
-    };
-
-    toolkit['tracking'].pageView(SITECAT_CONFIG);
+    });
 </script>

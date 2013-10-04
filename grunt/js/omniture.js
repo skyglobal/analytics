@@ -15,8 +15,8 @@ toolkit.omniture = (function(config, utils, h26){
 
     var sky = sky ? sky : {};
     sky.tracking = {
-        vmap: config.trackedData,
-        eventMap: config.trackedEvents,
+        variables: config.trackedData,
+        events: config.trackedEvents,
         pageView:  function (o) {
             // Initial defaults:
             var p = {
@@ -50,22 +50,9 @@ toolkit.omniture = (function(config, utils, h26){
 
             // Loop through custom pageLoad events
             // TODO: RD-07/06/13: refactor into method
-            var ev = ['event1'],
+            var ev = o.events,
                 prod = [],
-                event, name, len, i, j, k, x;
-
-            if(o.customEvents){
-                len = o.customEvents.length;
-                for(i=0;i<len;i++){
-                    event=o.customEvents[i];
-                    for (name in event) {
-                        objEvent = event[name];
-                        if (objEvent.onPageLoad) {
-                            ev.push('event' + event[name].event);
-                        }
-                    }
-                }
-            }
+                i, j, k, x;
 
             // Check for mandatories:
             if (!o.site || !o.section) {
@@ -122,27 +109,9 @@ toolkit.omniture = (function(config, utils, h26){
             if (o.searchResults !== undefined ) {
                 ev.push ( o.searchResults == 0 ? ['event15','event26'] : ['event15']);
             }
-            if (o.events) {
-                var evTmp, omtrEv, omtrEvProd, omtrEvList, ol;
-                ol = (typeof o.events == 'string') ? o.events.split(',') : o.events ;
-                omtrEvProd=evTmp='';
-                omtrEvList=omtrEv=[];
-                for (i = 0; i<ol.length ; ++i){
-                    if(String(ol[i]).indexOf('|')>0){
-                        omtrEvList=ol[i].split('|');
-                        omtrEvProd=omtrEvList[0];
-                        for (j = 1; j<omtrEvList.length ;j++){
-                            evTmp=(this.eventMap[omtrEvList[j++]]?this.eventMap[omtrEvList[j-1]]:omtrEvList[j-1]);
-                            prod.push(';'+omtrEvProd+';;;'+evTmp+'='+omtrEvList[j]);
-                            ev.push(evTmp);
-                        }
-                    }else{
-                        ev.push(this.eventMap[ol[i]]?this.eventMap[ol[i]]:ol[i]);
-                    }
-                    omtrEvProd=evTmp='';
-                    omtrEvList=omtrEv=[];
-                }
-            }
+
+//                    todo: Andrew, removed pipped events. cool?
+
             if (o.errors) ev.push('event3');
             p.account = 'bskybglobal,bskyb'+o.site.split('/')[1];
             // Overwrite defaults with passed parameters
@@ -394,7 +363,7 @@ toolkit.omniture = (function(config, utils, h26){
             return o;
         },
         setVar: function ( s , vname , val ) {
-            var vl = this.vmap[vname];
+            var vl = this.variables[vname];
             vl = vl ? vl : [vname];
             for (var i = 0 ; i < vl.length ; ++i ){
                 s[vl[i]] = val;
@@ -409,7 +378,7 @@ toolkit.omniture = (function(config, utils, h26){
                 if (c.skySSOLast != c.skySSO) {
                     this.s.c_w ('skySSOLast' , c.skySSO);
                     var fl = c.skyLoginFrom ? c.skyLoginFrom.split(',') : ['generic','l'];
-                    ev.push ( fl[1] == 'l' ? this.eventMap.loginComplete : this.eventMap.regComplete);
+                    ev.push ( fl[1] == 'l' ? this.events.loginComplete : this.events.regComplete);
                     p._loginFrom = fl[0];
                 }
             } else {
@@ -768,8 +737,15 @@ toolkit.omniture = (function(config, utils, h26){
                 +"'?500:5000);'+c2);o[f4]=-1;if(m.s.isie)o[f3]=1;o[f7]=0;o[f1](0,0)}};m.as=new Function('e','var m=s_c_il['+m._in+'],l,n;if(m.autoTrack&&m.s.d.getElementsByTagName){l=m.s.d.getElementsByTagName(m.s.i"
                 +"sie?\"OBJECT\":\"EMBED\");if(l)for(n=0;n<l.length;n++)m.a(l[n]);}');if(s.wd.attachEvent)s.wd.attachEvent('onload',m.as);else if(s.wd.addEventListener)s.wd.addEventListener('load',m.as,false)";
             s.m_i("Media");
-        }
-    }
+        },
+       reset: function(){
+           if (!this.s){ return; }
+           this.s.linkTrackVars = '';
+           this.s.events = '';
+           this.s.linkTrackEvents = '';
+        },
+        utils: utils
+    };
 
 
     return sky.tracking;

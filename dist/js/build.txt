@@ -5,4 +5,5 @@ omniture/config.js
 omniture/utils.js
 omniture/omniture-h26.js
 omniture.js
+tracking/logger.js
 tracking.js
