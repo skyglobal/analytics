@@ -51,9 +51,7 @@ toolkit.tracking = (function(omniture, logger){
         }
         page.events.push(omniture.events.pageLoad);
         omniture.pageView ( page );
-        logger.log('start','pageView event triggered');
-        logger.log('','omniture', omniture.s);
-        logger.log('end');
+        logger.logPageView(omniture.s);
     }
 
 
@@ -127,8 +125,7 @@ toolkit.tracking = (function(omniture, logger){
         }
         omniture.variables[item.name] = trackedData;
         if (item.onPageLoad) {
-            page.loadVariables[prop] = item.value;
-            omniture.addVariable(item.name, item.value);
+            page.loadVariables[item.name] = item.value;
         }
     }
 
@@ -151,6 +148,7 @@ toolkit.tracking = (function(omniture, logger){
         return {
             value: properties.value,
             onPageLoad: properties.onPageLoad,
+            event: properties.event,
             var: properties.var,
             prop: properties.prop,
             name: name

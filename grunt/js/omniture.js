@@ -68,31 +68,28 @@ toolkit.omniture = (function(config, utils, h26){
             }
         },
 
-        addVariable :function(prop, val){
+        addVariable: function(prop, val){
             if(!val){ return; }
-            var map;
+            var map, vars = {};
             if (sky.tracking.variables[prop].length==1){
-                sky.tracking.loadVariables[sky.tracking.variables[prop][0]] = val;
+                s[sky.tracking.variables[prop][0]] = val;
             } else {
                 map = 'D=' + sky.tracking.variables[prop][1].replace('eVar','v').replace('prop','c');
-                sky.tracking.loadVariables[sky.tracking.variables[prop][0]] = map;
-                sky.tracking.loadVariables[sky.tracking.variables[prop][1]] = val;
+                s[sky.tracking.variables[prop][0]] = map;
+                s[sky.tracking.variables[prop][1]] = val;
             }
         },
 
         pageView:  function (options) {
 
             sky.tracking.setup(options);
-
-            var prod = [],
-                tempS = s_gi(sky.tracking.settings.account),
-                i, j, k, x, name;
-
-
             s = s_gi(sky.tracking.settings.account);
 
-            for (name in sky.tracking.loadVariables){
-                s[name] = sky.tracking.loadVariables[name];
+            var prod = [],
+                i, j, k, x, name;
+
+            for (name in options.loadVariables){
+                sky.tracking.addVariable(name,options.loadVariables[name]);
             }
 
             if(!pluginsLoaded){

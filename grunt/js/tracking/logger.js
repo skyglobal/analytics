@@ -18,6 +18,12 @@ toolkit.tracking.logger = (function(){
         }
     }
 
+    function logPageView(tracked){
+        log('start','pageView event triggered');
+        log('','omniture', tracked);
+        log('end');
+    }
+
     function logLinkDetails(info, config){
         if (vars.verifying){
             console.groupCollapsed('linkDetails');
@@ -50,6 +56,7 @@ toolkit.tracking.logger = (function(){
 
     return {
         verify: verify,
+        logPageView: logPageView,
         logLinkDetails: logLinkDetails,
         log: log
     };

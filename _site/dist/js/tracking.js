@@ -438,31 +438,28 @@ toolkit.omniture = (function(config, utils, h26){
             }
         },
 
-        addVariable :function(prop, val){
+        addVariable: function(prop, val){
             if(!val){ return; }
-            var map;
+            var map, vars = {};
             if (sky.tracking.variables[prop].length==1){
-                sky.tracking.loadVariables[sky.tracking.variables[prop][0]] = val;
+                s[sky.tracking.variables[prop][0]] = val;
             } else {
                 map = 'D=' + sky.tracking.variables[prop][1].replace('eVar','v').replace('prop','c');
-                sky.tracking.loadVariables[sky.tracking.variables[prop][0]] = map;
-                sky.tracking.loadVariables[sky.tracking.variables[prop][1]] = val;
+                s[sky.tracking.variables[prop][0]] = map;
+                s[sky.tracking.variables[prop][1]] = val;
             }
         },
 
         pageView:  function (options) {
 
             sky.tracking.setup(options);
-
-            var prod = [],
-                tempS = s_gi(sky.tracking.settings.account),
-                i, j, k, x, name;
-
-
             s = s_gi(sky.tracking.settings.account);
 
-            for (name in sky.tracking.loadVariables){
-                s[name] = sky.tracking.loadVariables[name];
+            var prod = [],
+                i, j, k, x, name;
+
+            for (name in options.loadVariables){
+                sky.tracking.addVariable(name,options.loadVariables[name]);
             }
 
             if(!pluginsLoaded){
@@ -1135,6 +1132,12 @@ toolkit.tracking.logger = (function(){
         }
     }
 
+    function logPageView(tracked){
+        log('start','pageView event triggered');
+        log('','omniture', tracked);
+        log('end');
+    }
+
     function logLinkDetails(info, config){
         if (vars.verifying){
             console.groupCollapsed('linkDetails');
@@ -1167,6 +1170,7 @@ toolkit.tracking.logger = (function(){
 
     return {
         verify: verify,
+        logPageView: logPageView,
         logLinkDetails: logLinkDetails,
         log: log
     };
@@ -1233,9 +1237,7 @@ toolkit.tracking = (function(omniture, logger){
         }
         page.events.push(omniture.events.pageLoad);
         omniture.pageView ( page );
-        logger.log('start','pageView event triggered');
-        logger.log('','omniture', omniture.s);
-        logger.log('end');
+        logger.logPageView(omniture.s);
     }
 
 
@@ -1309,8 +1311,7 @@ toolkit.tracking = (function(omniture, logger){
         }
         omniture.variables[item.name] = trackedData;
         if (item.onPageLoad) {
-            page.loadVariables[prop] = item.value;
-            omniture.addVariable(item.name, item.value);
+            page.loadVariables[item.name] = item.value;
         }
     }
 
@@ -1333,6 +1334,7 @@ toolkit.tracking = (function(omniture, logger){
         return {
             value: properties.value,
             onPageLoad: properties.onPageLoad,
+            event: properties.event,
             var: properties.var,
             prop: properties.prop,
             name: name
