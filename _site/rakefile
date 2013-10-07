@@ -58,6 +58,10 @@ task :deploy_new_version do
     next
   end
 
+  #push new build to .io site
+  system "git checkout gh-pages"
+  system "git push origin master:gh-pages"
+
   doc_resources = []
   puts "Deployed following resources:"
   cd "_site/dist/js/"

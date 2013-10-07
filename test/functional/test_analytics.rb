@@ -43,6 +43,7 @@ def sitecat_mapping
     'my_custom_variable_prop' => 'c41',
     'my_custom_prop' => 'c40',
     'ajax_happened' => 'event101',
+    'magic_happened' => 'event101',
     'drink' => 'v72',
     'how_about_pina_coladas' => 'v73',
     'colour' => 'v71',
@@ -90,6 +91,12 @@ class AnalyticsTest < AcceptanceTest
     tracked('link_tracking').must_include 'normal-button'
   end
 
+  it "Tracks a button with an event attached" do
+    click_link "Custom Event"
+    tracked('event').must_include sitecat_mapping['magic_happened']
+    tracked('link_tracking').must_include 'custom-event'
+  end
+
   it "Tracks a link being clicked within a module and pod" do
     find(:css, "[data-tracking-module='section-1'] [data-tracking-pod='pod-1'] a").click
     tracked('event').must_include sitecat_mapping['click_event']
@@ -102,6 +109,12 @@ class AnalyticsTest < AcceptanceTest
     click_link "Ajax Event"
     tracked('event').must_include sitecat_mapping['page_load'] # page load
     tracked('event').must_include 'event101' # custom event
+  end
+
+  it "Tracks an ajax event only once per click" do
+    click_link "Ajax Event"
+    click_link "Ajax Event"
+    tracked('event').must_equal "#{sitecat_mapping['ajax_happened']},#{sitecat_mapping['page_load']}"
   end
 
   it "Tracks a custom event on page load" do

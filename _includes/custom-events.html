@@ -1,6 +1,21 @@
 <h2>Custom Events</h2>
 <p>You will need event Name and ID which should be set when initialising tracking.</p>
 
+<h3>Triggered on link click</h3>
+<p></p>
+
+<div class="skycom_4 alpha">
+    <a class='btn in-page-cta' href='#!' id='btn_custom_event' data-tracking-event='magic_happened'>Custom Event</a>
+</div>
+<div class="skycom_8">
+    <code class="block">
+        SITECAT_CONFIG = {
+        ...
+        customEvents: [{'magic_happened': {event: 101}}]
+        };
+    </code>
+</div>
+
 <h3>Trigger Event onPageLoad</h3>
 <p>To send an event upon page load, define the event in your sitecat config.</p>
 

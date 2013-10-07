@@ -1187,12 +1187,9 @@ if (typeof window.define === "function" && window.define.amd) {
 if (typeof toolkit==='undefined') toolkit={};
 toolkit.tracking = (function(omniture, logger){
 //todo: test turn verify on in config
-//todo: test clicking AjaxEvent twice
-//todo: test only expected events exist i.e only event101 and not 101
 //todo: test val vs attr value and the rest of getText |
-//todo: test custom event that is not onPageLoad
-//todo: test custom var that is onPageLoad
-//todo: test for live biniding
+//todo: test for live binding
+//todo: but loads of docs
 
     var page,
         utils = omniture.utils;
@@ -1362,22 +1359,15 @@ toolkit.tracking = (function(omniture, logger){
 //    BELOW THIS LINE
 //    ADD EVENTS/VARS TO OMNITURE CODE
     function addCustomClickEvents($el){
-        var customEvent = $el.attr('data-tracking-event'),
-            event;
+        var customEvent = $el.attr('data-tracking-event');
         if (!customEvent) return;
-        for (event in page.events) {
-            if(page.events.hasOwnProperty(event)) {
-                addEvents(page.events[event]);
-            }
-        }
+        addEvents(customEvent);
     }
 
     function addCustomClickVariable($el){
-        var customVariable = $el.attr('data-tracking-variable'),
-            value;
+        var customVariable = $el.attr('data-tracking-variable');
         if (!customVariable) return;
-        value = utils.getText($el);
-        addVariable(customVariable,value);
+        addVariable(customVariable,utils.getText($el));
     }
 
     function addVariable(prop, val){
