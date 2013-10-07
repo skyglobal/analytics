@@ -49,14 +49,14 @@ toolkit.omniture = (function(config, utils, h26){
             }
 
             if (options.searchResults !== undefined ) {
-                options.events.push(sky.tracking.events['searchResults']);
+                options.loadEvents.push(sky.tracking.events['searchResults']);
                 if (options.searchResults == 0) {
-                    options.events.push(sky.tracking.events['zeroResults']);
+                    options.loadEvents.push(sky.tracking.events['zeroResults']);
                 }
             }
 
             if (options.errors) {
-                options.events.push(sky.tracking.events['error']);
+                options.loadEvents.push(sky.tracking.events['error']);
             }
 
 
@@ -238,14 +238,19 @@ toolkit.omniture = (function(config, utils, h26){
             }
             var omni_current_location = document.location.toString();
             s.getAndPersistValue(omni_current_location.toLowerCase(),'omni_prev_URL',0);
-            var c_pastEv = s.clickThruQuality(s.eVar47,'event7','event8','s_ctq');
-            if(c_pastEv) { options.events.push(c_pastEv); }
+            var c_pastEv = s.clickThruQuality(
+                s.eVar47,
+                sky.tracking.events['firstPageVisited'],
+                sky.tracking.events['secondPageVisited'],
+                's_ctq'
+            );
+            if(c_pastEv) { options.loadEvents.push(c_pastEv); }
             s.eVar17 = s.getFullReferringDomains();
 
 
 
             s.eVar70 = s.getNewRepeat(30, "s_getNewRepeat");
-            if(s.eVar70 = "Repeat"){  options.events.push('event20');}
+            if(s.eVar70 == "Repeat"){  options.loadEvents.push(sky.tracking.events['repeatVisit']);}//todo: test this
             s.eVar69 = s.getVisitNum();
 
 
@@ -262,7 +267,10 @@ toolkit.omniture = (function(config, utils, h26){
             }
 
             //if (prod.length) s.products = prod.join(',');
-            if (options.events.length)   s.events = options.events.join(',');
+            if (options.loadEvents.length)   s.events = options.loadEvents.join(',');
+            for (var variable in options.loadVariables){
+                s[variable] = options.loadVariables[variable];
+            }
             for (k in sky.tracking.settings) this.setVar ( s , k , sky.tracking.settings[k]);
 
             //URL length optimisation
@@ -334,7 +342,7 @@ toolkit.omniture = (function(config, utils, h26){
                 if (c.skySSOLast != c.skySSO) {
                     this.s.c_w ('skySSOLast' , c.skySSO);
                     var fl = c.skyLoginFrom ? c.skyLoginFrom.split(',') : ['generic','l'];
-                    options.events.push ( fl[1] == 'l' ? this.events.loginComplete : this.events.regComplete);
+                    options.loadEvents.push ( fl[1] == 'l' ? this.events.loginComplete : this.events.regComplete);
                     sky.tracking.settings._loginFrom = fl[0];
                 }
             } else {
@@ -352,9 +360,9 @@ toolkit.omniture = (function(config, utils, h26){
             var s = sky.tracking.s;
             s.prop15 = String(place)+"|"+String(description) + "|" + s.pageName.replace("sky/portal/","");
             s.eVar7 = "D=c15";
-            s.events = 'event6';
+            s.events = sky.tracking.events['linkClick'];
             s.linkTrackVars='prop39,eVar39,prop15,eVar7,events';
-            s.linkTrackEvents='event6';
+            s.linkTrackEvents=sky.tracking.events['linkClick'];
             s.tl(this,'o','Link Click',null,'navigate');
         },
 
@@ -362,9 +370,9 @@ toolkit.omniture = (function(config, utils, h26){
             var s = sky.tracking.s;
             s.prop15 = String(place)+"|"+String(description) + "|" + s.pageName.replace("sky/portal/","");
             s.eVar7 = "D=c15";
-            s.events = 'event6';
+            s.events = sky.tracking.events['linkClick'];
             s.linkTrackVars='prop39,eVar39,prop15,eVar7,events';
-            s.linkTrackEvents='event6';
+            s.linkTrackEvents=sky.tracking.events['linkClick'];
             s.tl(this,'o','Link Click');
         },
 
@@ -447,7 +455,7 @@ toolkit.omniture = (function(config, utils, h26){
             }
 
 
-
+// DEALS WITH DUPLICATE NAMES ON A SINGLE PAGE
             /*
              * DynamicObjectIDs v1.4: Setup Dynamic Object IDs based on URL
              */
@@ -472,7 +480,7 @@ toolkit.omniture = (function(config, utils, h26){
                 "s_oc?this.s_oc(e):true';if(s.isns&&s.apv>=5)l.setAttribute(o,x);l[o"+
                 "]=new Function('e',x)}}}s.wd.s_semaphore=0;return true");
 
-
+//*/
 
 
 

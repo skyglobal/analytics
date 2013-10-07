@@ -29,7 +29,7 @@ def sitecat_mapping
     'page' => 'pageName',
     'event' => 'events',
     'url' => 'c9',
-    'link_tracking' => 'c15',
+    'link_tracking' => 'v7',
     'click_event' => 'event6',
     'sub_section_1' => 'c25',
     'sub_section_2' => 'c27',

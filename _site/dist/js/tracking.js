@@ -27,7 +27,7 @@ toolkit.omniture.config = (function(){
         ageGender: ['eVar12'],
         skyPackage: ['eVar16'],
         optIn: ['eVar38'],
-        linkDetails: ['eVar7','prop15'],
+        linkDetails: ['prop15','eVar7'],
         newRepeat: ["prop70", "eVar70"],
         visitNum: ["prop69", "eVar69"],
         visitorID: ["visitorID"],
@@ -35,23 +35,27 @@ toolkit.omniture.config = (function(){
         QScmpIdInt: [],
         account: [],
         section: [''],
-        events: []
+        loadEvents: [],
+        loadVariables: []
     },
     trackedEvents = { //todo: add event1 + event20
         pageLoad: 'event1',
+        error: 'event3',
+        linkClick: 'event6',
+        firstPageVisited: 'event7',
+        secondPageVisited: 'event8',
         loginStart: 'event17',
         loginComplete: 'event16',
-        regStart: 'event19',
         regComplete: 'event18',
+        regStart: 'event19',
+        repeatVisit: 'event20',
         optIn: 'event25',
-        error: 'event3',
         searchResults: 'event15',
         zeroResults: 'event26',
         passwordStart: 'event76',
         passwordComplete: 'event77',
         activateStart: 'event78',
         activateComplete: 'event79',
-        linkClick: 'event6',
         liveChat: "event36"
     },
     trackedDataValues = {
@@ -134,7 +138,7 @@ toolkit.omniture.utils = (function(){
 
     function safeString(str){
         if (typeof str === 'undefined') { return ''; }
-        return str.trim().replace(/ /g,'-').replace(/[&,\+,:]/g,'').toLowerCase();
+        return str.trim().replace(/ /g,'-').replace(/[&,\+,:|]/g,'').toLowerCase();
     }
 
 //    not using jQuery.parents([data-tracking-whatever]) as is slow in ie and ff
@@ -415,14 +419,14 @@ toolkit.omniture = (function(config, utils, h26){
             }
 
             if (options.searchResults !== undefined ) {
-                options.events.push(sky.tracking.events['searchResults']);
+                options.loadEvents.push(sky.tracking.events['searchResults']);
                 if (options.searchResults == 0) {
-                    options.events.push(sky.tracking.events['zeroResults']);
+                    options.loadEvents.push(sky.tracking.events['zeroResults']);
                 }
             }
 
             if (options.errors) {
-                options.events.push(sky.tracking.events['error']);
+                options.loadEvents.push(sky.tracking.events['error']);
             }
 
 
@@ -604,14 +608,19 @@ toolkit.omniture = (function(config, utils, h26){
             }
             var omni_current_location = document.location.toString();
             s.getAndPersistValue(omni_current_location.toLowerCase(),'omni_prev_URL',0);
-            var c_pastEv = s.clickThruQuality(s.eVar47,'event7','event8','s_ctq');
-            if(c_pastEv) { options.events.push(c_pastEv); }
+            var c_pastEv = s.clickThruQuality(
+                s.eVar47,
+                sky.tracking.events['firstPageVisited'],
+                sky.tracking.events['secondPageVisited'],
+                's_ctq'
+            );
+            if(c_pastEv) { options.loadEvents.push(c_pastEv); }
             s.eVar17 = s.getFullReferringDomains();
 
 
 
             s.eVar70 = s.getNewRepeat(30, "s_getNewRepeat");
-            if(s.eVar70 = "Repeat"){  options.events.push('event20');}
+            if(s.eVar70 == "Repeat"){  options.loadEvents.push(sky.tracking.events['repeatVisit']);}//todo: test this
             s.eVar69 = s.getVisitNum();
 
 
@@ -628,7 +637,10 @@ toolkit.omniture = (function(config, utils, h26){
             }
 
             //if (prod.length) s.products = prod.join(',');
-            if (options.events.length)   s.events = options.events.join(',');
+            if (options.loadEvents.length)   s.events = options.loadEvents.join(',');
+            for (var variable in options.loadVariables){
+                s[variable] = options.loadVariables[variable];
+            }
             for (k in sky.tracking.settings) this.setVar ( s , k , sky.tracking.settings[k]);
 
             //URL length optimisation
@@ -700,7 +712,7 @@ toolkit.omniture = (function(config, utils, h26){
                 if (c.skySSOLast != c.skySSO) {
                     this.s.c_w ('skySSOLast' , c.skySSO);
                     var fl = c.skyLoginFrom ? c.skyLoginFrom.split(',') : ['generic','l'];
-                    options.events.push ( fl[1] == 'l' ? this.events.loginComplete : this.events.regComplete);
+                    options.loadEvents.push ( fl[1] == 'l' ? this.events.loginComplete : this.events.regComplete);
                     sky.tracking.settings._loginFrom = fl[0];
                 }
             } else {
@@ -718,9 +730,9 @@ toolkit.omniture = (function(config, utils, h26){
             var s = sky.tracking.s;
             s.prop15 = String(place)+"|"+String(description) + "|" + s.pageName.replace("sky/portal/","");
             s.eVar7 = "D=c15";
-            s.events = 'event6';
+            s.events = sky.tracking.events['linkClick'];
             s.linkTrackVars='prop39,eVar39,prop15,eVar7,events';
-            s.linkTrackEvents='event6';
+            s.linkTrackEvents=sky.tracking.events['linkClick'];
             s.tl(this,'o','Link Click',null,'navigate');
         },
 
@@ -728,9 +740,9 @@ toolkit.omniture = (function(config, utils, h26){
             var s = sky.tracking.s;
             s.prop15 = String(place)+"|"+String(description) + "|" + s.pageName.replace("sky/portal/","");
             s.eVar7 = "D=c15";
-            s.events = 'event6';
+            s.events = sky.tracking.events['linkClick'];
             s.linkTrackVars='prop39,eVar39,prop15,eVar7,events';
-            s.linkTrackEvents='event6';
+            s.linkTrackEvents=sky.tracking.events['linkClick'];
             s.tl(this,'o','Link Click');
         },
 
@@ -813,7 +825,7 @@ toolkit.omniture = (function(config, utils, h26){
             }
 
 
-
+// DEALS WITH DUPLICATE NAMES ON A SINGLE PAGE
             /*
              * DynamicObjectIDs v1.4: Setup Dynamic Object IDs based on URL
              */
@@ -838,7 +850,7 @@ toolkit.omniture = (function(config, utils, h26){
                 "s_oc?this.s_oc(e):true';if(s.isns&&s.apv>=5)l.setAttribute(o,x);l[o"+
                 "]=new Function('e',x)}}}s.wd.s_semaphore=0;return true");
 
-
+//*/
 
 
 
@@ -1101,7 +1113,7 @@ toolkit.tracking.logger = (function(){
         }
     }
 
-    function logLinkDetails(info){
+    function logLinkDetails(info, config){
         if (vars.verifying){
             console.groupCollapsed('linkDetails');
             console.log('module: ', info[0]);
@@ -1152,6 +1164,7 @@ toolkit.tracking = (function(omniture, logger){
 //todo: write test for clicking AjaxEvent twice
 //todo: test only expected events exist i.e only event101 and not 101
 //todo: test val vs attr value and the rest of getText
+//todo: test custom event that is not onPageLoad
 
     var page,
         utils = omniture.utils;
@@ -1159,9 +1172,9 @@ toolkit.tracking = (function(omniture, logger){
     function bindVars(){
         page = {
             events:[],
-            variables:{},
             loadEvents:[],
-            loadVariables:[]
+            variables:{},
+            loadVariables:{}
         };
     }
 
@@ -1246,7 +1259,7 @@ toolkit.tracking = (function(omniture, logger){
             utils.safeString(omniture.s.pageName.replace(/sky\/portal\//g, ''))
         ];
 
-        logger.logLinkDetails(linkDetails);
+        logger.logLinkDetails(linkDetails, page);
 
         return linkDetails.join('|');
     }
@@ -1260,11 +1273,19 @@ toolkit.tracking = (function(omniture, logger){
         if (item.properties.var){trackedData.push('eVar' + item.properties.var);}
         if (item.properties.prop){trackedData.push('prop' + item.properties.prop);}
         omniture.variables[item.name] = trackedData;
+        if (item.properties.onPageLoad) {
+            page.loadVariables[omniture.events[item.name]] = item.value;
+            omniture.variables[item.name].push(omniture.events[item.name]);
+        }
     }
 
     function setupCustomEvents(item) {
         omniture.events[item.name] =  'event' + item.properties.event;
         page.events.push('event' + item.properties.event);
+        if (item.properties.onPageLoad) {
+            page.loadEvents.push(item.name);
+            omniture.variables.loadEvents.push(omniture.events[item.name]); //todo: remove this line so we only have a single translate function in a different file
+        }
     }
 
     function normaliseItem(item){
@@ -1284,19 +1305,13 @@ toolkit.tracking = (function(omniture, logger){
         var arr = page['custom' + type],
             i = 0,
             len = arr.length,
-            item, map;
+            item, trackedData;
         for(i;i<len;i++){
             item = normaliseItem(arr[i]);
             if (type=='Variables') {
                 setupCustomVariable(item);
-                map = omniture.variables[item.name];
             } else if (type=='Events') {
                 setupCustomEvents(item);
-                map = omniture.variables.events;
-            }
-            if (item.properties.onPageLoad) {
-                page['load' + type].push(item.name);
-                map.push(omniture[type.toLowerCase()][item.name]);
             }
         }
     }

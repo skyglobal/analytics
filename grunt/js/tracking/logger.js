@@ -18,7 +18,7 @@ toolkit.tracking.logger = (function(){
         }
     }
 
-    function logLinkDetails(info){
+    function logLinkDetails(info, config){
         if (vars.verifying){
             console.groupCollapsed('linkDetails');
             console.log('module: ', info[0]);

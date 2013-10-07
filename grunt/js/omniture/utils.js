@@ -19,7 +19,7 @@ toolkit.omniture.utils = (function(){
 
     function safeString(str){
         if (typeof str === 'undefined') { return ''; }
-        return str.trim().replace(/ /g,'-').replace(/[&,\+,:]/g,'').toLowerCase();
+        return str.trim().replace(/ /g,'-').replace(/[&,\+,:|]/g,'').toLowerCase();
     }
 
 //    not using jQuery.parents([data-tracking-whatever]) as is slow in ie and ff

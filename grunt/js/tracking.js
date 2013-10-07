@@ -4,6 +4,7 @@ toolkit.tracking = (function(omniture, logger){
 //todo: write test for clicking AjaxEvent twice
 //todo: test only expected events exist i.e only event101 and not 101
 //todo: test val vs attr value and the rest of getText
+//todo: test custom event that is not onPageLoad
 
     var page,
         utils = omniture.utils;
@@ -11,9 +12,9 @@ toolkit.tracking = (function(omniture, logger){
     function bindVars(){
         page = {
             events:[],
-            variables:{},
             loadEvents:[],
-            loadVariables:[]
+            variables:{},
+            loadVariables:{}
         };
     }
 
@@ -98,7 +99,7 @@ toolkit.tracking = (function(omniture, logger){
             utils.safeString(omniture.s.pageName.replace(/sky\/portal\//g, ''))
         ];
 
-        logger.logLinkDetails(linkDetails);
+        logger.logLinkDetails(linkDetails, page);
 
         return linkDetails.join('|');
     }
@@ -112,11 +113,19 @@ toolkit.tracking = (function(omniture, logger){
         if (item.properties.var){trackedData.push('eVar' + item.properties.var);}
         if (item.properties.prop){trackedData.push('prop' + item.properties.prop);}
         omniture.variables[item.name] = trackedData;
+        if (item.properties.onPageLoad) {
+            page.loadVariables[omniture.events[item.name]] = item.value;
+            omniture.variables[item.name].push(omniture.events[item.name]);
+        }
     }
 
     function setupCustomEvents(item) {
         omniture.events[item.name] =  'event' + item.properties.event;
         page.events.push('event' + item.properties.event);
+        if (item.properties.onPageLoad) {
+            page.loadEvents.push(item.name);
+            omniture.variables.loadEvents.push(omniture.events[item.name]); //todo: remove this line so we only have a single translate function in a different file
+        }
     }
 
     function normaliseItem(item){
@@ -136,19 +145,13 @@ toolkit.tracking = (function(omniture, logger){
         var arr = page['custom' + type],
             i = 0,
             len = arr.length,
-            item, map;
+            item, trackedData;
         for(i;i<len;i++){
             item = normaliseItem(arr[i]);
             if (type=='Variables') {
                 setupCustomVariable(item);
-                map = omniture.variables[item.name];
             } else if (type=='Events') {
                 setupCustomEvents(item);
-                map = omniture.variables.events;
-            }
-            if (item.properties.onPageLoad) {
-                page['load' + type].push(item.name);
-                map.push(omniture[type.toLowerCase()][item.name]);
             }
         }
     }
