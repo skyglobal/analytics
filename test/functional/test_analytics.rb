@@ -126,7 +126,7 @@ class AnalyticsTest < AcceptanceTest
       choose 'Yes'
       click_button 'Submit'
     end
-    tracked('how_about_pina_coladas').must_include 'yes_to_pina'
+    tracked('how_about_pina_coladas').must_include 'yes_to_pinas'
   end
 
   it "tracks a custom variable assigned on page load but set with a button click" do

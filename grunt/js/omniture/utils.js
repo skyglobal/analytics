@@ -32,7 +32,7 @@ toolkit.omniture.utils = (function(){
     }
 
     function getText($el){
-        return $el.attr('data-tracking-label') || $el.attr('alt') || $el.attr('value') || $el.val() || $el.attr('name') || $el.text();
+        return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
 
     return {

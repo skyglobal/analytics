@@ -44,17 +44,65 @@ toolkit.omniture.config = (function(){
         regStart: 'event19',
         regComplete: 'event18',
         optIn: 'event25',
+        error: 'event3',
+        searchResults: 'event15',
+        zeroResults: 'event26',
         passwordStart: 'event76',
         passwordComplete: 'event77',
         activateStart: 'event78',
         activateComplete: 'event79',
         linkClick: 'event6',
         liveChat: "event36"
+    },
+    trackedDataValues = {
+        site: undefined,
+        section: undefined,
+        section0: undefined,
+        section1: undefined,
+        section2: undefined,
+        contentType: undefined,
+        contentID: undefined,
+        headline: undefined,
+        browseMethod: undefined,
+        search: undefined,
+        searchTerms: undefined,
+        searchType: undefined,
+        videoTitle: undefined,
+        errors: undefined,
+        siteName: undefined,
+        channel: undefined
+    },
+    settings = {
+        trackingServer: 'metrics.sky.com',
+        trackingServerSecure: 'smetrics.sky.com',
+        visitorNamespace: 'bskyb',
+        charSet: 'UTF-8',
+        trackDownloadLinks: true,
+        trackExternalLinks: true,
+        trackInlineStats: true,
+        linkDownloadFileTypes: 'exe,zip,wav,mp3,mov,mpg,avi,wmv,pdf,doc,docx,xls,xlsx,ppt,pptx,air,wma,dmg',
+        //anyway to make this easier to have all?
+        linkInternalFilters: 'javascript:,skyintranet,sky.com,skysports.co.uk,skyarts.co.uk,skybet.com,skypoker.com,skybingo.com,skyvegas.com,teamtalk.com,football365.com,sportinglife.com,sportal.com,bettingzone.co.uk,fixtures365.com,teamsky.com,oddschecker.com,sport365.com,skysports.com,sky.zoopla.co.uk,skyoneonline.co.uk,bskybpensionplan.com,skymobileiphone.com,skymovies.com,skyone.co.uk,sky1.co.uk,skyoneonline.co.uk,m.skynews.com,skyrainforestrescueschoolschallenge.org,skybroadband.com,skyartsonline.co.uk,skymoviesactive.com,skyhub.bskyb.com,skyone.co.uk,sky.co.uk,skybet.mobi,socceram.com,teamtalk.co.za,football365.co.uk,jointhebiggerpicture.com,skysportsnewsradio.com,file,contact.sky.com,.rainforestrescue.com,.nowtv.com,'+window.location.host,
+        linkLeaveQueryString: false,
+        linkTrackVars: 'None',
+        linkTrackEvents: 'None',
+        browseMethod: 'web',
+        url: (String(window.location.href).indexOf('?')>0)?String(window.location.href).split('?')[0]:window.location.href,
+        server: window.location.hostname,
+        partTime: 'Day_Hour_Quarter',
+        QScmpId: 'cmpid,aff',
+        QScmpIdInt: 'cmpid_int',
+        useForcedLinkTracking: true,
+        forceLinkTrackingTimeout: 500,
+        setObjectIDs: true,
+        track: true
     };
 
     return {
         trackedEvents: trackedEvents,
-        trackedData: trackedData
+        trackedData: trackedData,
+        trackedDataValues: trackedDataValues,
+        settings: settings
     };
 
 }());
@@ -99,7 +147,7 @@ toolkit.omniture.utils = (function(){
     }
 
     function getText($el){
-        return $el.attr('data-tracking-label') || $el.attr('alt') || $el.attr('value') || $el.val() || $el.attr('name') || $el.text();
+        return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
 
     return {
@@ -321,6 +369,7 @@ if (typeof window.define === "function" && window.define.amd) {
  *
  */
 if (typeof toolkit==='undefined') toolkit={};
+if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
 toolkit.omniture = (function(config, utils, h26){
 
     var pluginsLoaded = false,
@@ -333,108 +382,63 @@ toolkit.omniture = (function(config, utils, h26){
 
     var sky = sky ? sky : {};
     sky.tracking = {
+        settings: config.settings,
+        trackedDataValues: config.trackedDataValues,
         variables: config.trackedData,
         events: config.trackedEvents,
-        pageView:  function (o) {
+        setup: function(options){
             // Initial defaults:
-            var p = {
-                trackingServer: 'metrics.sky.com',
-                trackingServerSecure: 'smetrics.sky.com',
-                visitorNamespace: 'bskyb',
-                charSet: 'UTF-8',
-                trackDownloadLinks: true,
-                trackExternalLinks: true,
-                trackInlineStats: true,
-                linkDownloadFileTypes: 'exe,zip,wav,mp3,mov,mpg,avi,wmv,pdf,doc,docx,xls,xlsx,ppt,pptx,air,wma',
-                //anyway to make this easier to have all?
-                linkInternalFilters: 'javascript:,skyintranet,sky.com,skysports.co.uk,skyarts.co.uk,skybet.com,skypoker.com,skybingo.com,skyvegas.com,teamtalk.com,football365.com,sportinglife.com,sportal.com,bettingzone.co.uk,fixtures365.com,teamsky.com,oddschecker.com,sport365.com,skysports.com,sky.zoopla.co.uk,skyoneonline.co.uk,bskybpensionplan.com,skymobileiphone.com,skymovies.com,skyone.co.uk,sky1.co.uk,skyoneonline.co.uk,m.skynews.com,skyrainforestrescueschoolschallenge.org,skybroadband.com,skyartsonline.co.uk,skymoviesactive.com,skyhub.bskyb.com,skyone.co.uk,sky.co.uk,skybet.mobi,socceram.com,teamtalk.co.za,football365.co.uk,jointhebiggerpicture.com,skysportsnewsradio.com,file,contact.sky.com,.rainforestrescue.com,.nowtv.com,'+window.location.host,
-                linkLeaveQueryString: false,
-                linkTrackVars: 'None',
-                linkTrackEvents: 'None',
-                browseMethod: 'web',
-                url: (String(window.location.href).indexOf('?')>0)?String(window.location.href).split('?')[0]:window.location.href,
-                server: window.location.hostname,
-                partTime: 'Day_Hour_Quarter',
-                QScmpId: 'cmpid,aff',
-                QScmpIdInt: 'cmpid_int',
-                useForcedLinkTracking: true,
-                forceLinkTrackingTimeout: 500,
-                setObjectIDs: true,
-                track: true
-            };
-            if (!document.getElementsByClassName) {
-                document.getElementsByClassName = this.getElementsByClassName;
+            var prod = [],
+                i, j, k, x, name;
+
+            for (var data in sky.tracking.trackedDataValues){
+                if (sky.tracking.trackedDataValues[data]) {
+                    sky.tracking.trackedDataValues[data] = sky.tracking.trackedDataValues[data].toLowerCase();
+                }
             }
 
-            // Loop through custom pageLoad events
-            // TODO: RD-07/06/13: refactor into method
-            var ev = o.events,
-                prod = [],
-                i, j, k, x;
+            options.siteName = 'sky/portal/' + options.site;
+            options.pageName = options.siteName + "/" + options.page;
+            options.eVar19 = options.site + "/" + options.page;
 
-            // Check for mandatories:
-            if (!o.site || !o.section) {
-                return;
-            }
-            // Set derived parameters:
-            if (o.site){
-                o.site = o.site.toLowerCase();
-                o.site = o.site.replace("sky/portal/","");
-                o.siteName = "sky/portal/" + o.site;
-            }
-            if (o.section) o.section = o.section.toLowerCase();
-            if (o.contentType) o.contentType = o.contentType.toLowerCase();
-            if (o.headline) o.headline = o.headline.toLowerCase();
-            if (o.contentID) o.contentID = o.contentID.toLowerCase();
-            if (o.search) o.search = o.search.toLowerCase();
-            if (o.browseMethod) o.browseMethod = o.browseMethod.toLowerCase();
-            if (o.searchTerms) o.searchTerms = o.searchTerms.toLowerCase();
-            if (o.searchType) o.searchType = o.searchType.toLowerCase();
-            if (o.videoTitle) o.videoTitle = o.videoTitle.toLowerCase();
-            if (o.errors) o.errors = o.errors.toLowerCase();
-            if (o.section.indexOf('/') === 0) {o.section = o.section.substring(1);}
-            if (o.section[o.section.length - 1] == '/') {o.section = o.section.substring(0,o.section.length - 1);}
-            if (o.siteName.indexOf('/') === 0) {o.siteName = o.siteName.substring(1);}
-            if (o.siteName[o.siteName.length - 1] == '/') {o.siteName = o.siteName.substring(0,o.siteName.length - 1);}
-
-            var sl = o.section.split('/');
-            var tempPN = "";
-
-            if (o.headline && o.headline !== '') {
-                tempPN = o.site + '/' + o.section+ '/' + o.headline;
-            }
-            if ((!o.contentType || o.contentType === '')&& !o.page) {
-                p.pageName = o.siteName + '/' + o.section;
-                p.eVar19 = o.site + "/" + o.section;
-            }else{
-                p.pageName = o.siteName + '/' + o.section + '/' + o.contentType;
-                p.eVar19 = o.site + "/" + o.section + "/" + o.contentType;
-            }
-            if(o.page && o.site && o.site !== undefined){
-                p.pageName = o.siteName + "/" + o.page;
-                p.eVar19 = o.site + "/" + o.page;
-            }
-            if(tempPN === "" && p.pageName){
-                tempPN = p.pageName;
+    //            set page Description
+            if (options.headline) {
+                options.eVar55 = (options.site + '/' + options.section+ '/' + options.headline).substring(0,255);
+            } else{
+                options.eVar55 = options.pageName.substring(0,255);
             }
 
-            if (tempPN != '') {
-                p.eVar55 = tempPN.substring(0,255);
+            options.channel = options.siteName + '/' + options.section;
+            //setting section 0,1,2 to the split section value or all the same if only one section
+            for (i = 0; i < 3 ; ++i) {
+                options['section' + i] = options.siteName + '/' +  options.section.split('/').slice(0,i+1).join('/');
             }
 
-            p.channel = o.siteName + '/' + o.section;
-            for (i = 0; i < 3 ; ++i) p['section' + i] = o.siteName + '/' + sl.slice(0,i+1).join('/');
-            if (o.searchResults !== undefined ) {
-                ev.push ( o.searchResults == 0 ? ['event15','event26'] : ['event15']);
+            if (options.searchResults !== undefined ) {
+                options.events.push(sky.tracking.events['searchResults']);
+                if (options.searchResults == 0) {
+                    options.events.push(sky.tracking.events['zeroResults']);
+                }
             }
 
-//                    todo: Andrew, removed pipped events. cool?
+            if (options.errors) {
+                options.events.push(sky.tracking.events['error']);
+            }
 
-            if (o.errors) ev.push('event3');
-            p.account = 'bskybglobal,bskyb'+o.site.split('/')[1];
+
             // Overwrite defaults with passed parameters
-            for (k in o) {p[k] = o[k]; }
-            var s = s_gi(p.account);
+            for (name in options) {
+                sky.tracking.settings[name] = options[name];
+            }
+        },
+
+        pageView:  function (options) {
+
+            sky.tracking.setup(options);
+
+            var prod = [],
+                i, j, k, x, name;
+            var s = s_gi(sky.tracking.settings.account);
             if(!pluginsLoaded){
                 this.loadPlugins(s);
                 pluginsLoaded = true;
@@ -460,13 +464,13 @@ toolkit.omniture = (function(config, utils, h26){
             s.dstStart = "03/"+(31-d.getDay())+"/"+s.currentYear;
             d = new Date ( s.currentYear , 9 , 31 );
             s.dstEnd = "10/"+(31-d.getDay())+"/"+s.currentYear;
-            if (o.LoggedIn === undefined) {
-                this.setLoginVars(p , ev);
+            if (options.LoggedIn === undefined) {
+                this.setLoginVars(options);
             }else{
-                if (o.LoggedIn === false) {p.loginStatus = 'not logged-in';}
-                if (o.LoggedIn === true) {p.loginStatus = 'logged-in';}
+                if (options.LoggedIn === false) {sky.tracking.settings.loginStatus = 'not logged-in';}
+                if (options.LoggedIn === true) {sky.tracking.settings.loginStatus = 'logged-in';}
             }
-            s.linkInternalFilters = p.linkInternalFilters;
+            s.linkInternalFilters = sky.tracking.settings.linkInternalFilters;
 
             //update channel manager
             s.channelManager('attr,dcmp','','s_campaign','0');
@@ -601,31 +605,31 @@ toolkit.omniture = (function(config, utils, h26){
             var omni_current_location = document.location.toString();
             s.getAndPersistValue(omni_current_location.toLowerCase(),'omni_prev_URL',0);
             var c_pastEv = s.clickThruQuality(s.eVar47,'event7','event8','s_ctq');
-            if(c_pastEv) { ev.push(c_pastEv); }
+            if(c_pastEv) { options.events.push(c_pastEv); }
             s.eVar17 = s.getFullReferringDomains();
 
 
 
             s.eVar70 = s.getNewRepeat(30, "s_getNewRepeat");
-            if(s.eVar70 = "Repeat"){  ev.push('event20');}
+            if(s.eVar70 = "Repeat"){  options.events.push('event20');}
             s.eVar69 = s.getVisitNum();
 
 
-            if (p.setObjectIDs) {
+            if (sky.tracking.settings.setObjectIDs) {
                 s.setupDynamicObjectIDs();
             }
-            p.partTime=s.getTimePartingJH('h','0');
+            sky.tracking.settings.partTime=s.getTimePartingJH('h','0');
             var refURL=document.referrer;
             if (refURL !== ""){
                 var iURL=refURL.indexOf('?')>-1?refURL.indexOf('?'):refURL.length;
                 var qURL=refURL.indexOf('//')>-1?refURL.indexOf('//')+2:0;
                 var rURL=refURL.indexOf('/',qURL)>-1?refURL.indexOf('/',qURL):iURL;
-                p.refDomain=refURL.substring(qURL,rURL);
+                sky.tracking.settings.refDomain=refURL.substring(qURL,rURL);
             }
 
             //if (prod.length) s.products = prod.join(',');
-            if (ev.length)   s.events = ev.join(',');
-            for (k in p) this.setVar ( s , k , p[k]);
+            if (options.events.length)   s.events = options.events.join(',');
+            for (k in sky.tracking.settings) this.setVar ( s , k , sky.tracking.settings[k]);
 
             //URL length optimisation
             s.pageURL="D=Referer";
@@ -650,7 +654,7 @@ toolkit.omniture = (function(config, utils, h26){
             if(s.eVar69){s.prop69=s.eVar69;}
             if(s.eVar70){s.prop70 = "D=v70";}
             if(s.eVar55){s.prop55 = "D=v55";}
-            if(p.track){
+            if(sky.tracking.settings.track){
                 s.t();
             }
         },
@@ -689,24 +693,24 @@ toolkit.omniture = (function(config, utils, h26){
         },
 
 
-        setLoginVars: function ( p , ev ) {
+        setLoginVars: function ( options ) {
             var c = this.loadCookies();
             if (c.skySSO) {
-                p.loginStatus = 'logged-in';
+                sky.tracking.settings.loginStatus = 'logged-in';
                 if (c.skySSOLast != c.skySSO) {
                     this.s.c_w ('skySSOLast' , c.skySSO);
                     var fl = c.skyLoginFrom ? c.skyLoginFrom.split(',') : ['generic','l'];
-                    ev.push ( fl[1] == 'l' ? this.events.loginComplete : this.events.regComplete);
-                    p._loginFrom = fl[0];
+                    options.events.push ( fl[1] == 'l' ? this.events.loginComplete : this.events.regComplete);
+                    sky.tracking.settings._loginFrom = fl[0];
                 }
             } else {
-                p.loginStatus = 'not logged-in';
+                sky.tracking.settings.loginStatus = 'not logged-in';
                 //     document.cookie = 'skySSOLast=0; expires=Fri, 02-Jan-1970 00:00:00 GMT';
             }
-            if(c.just){ p.samId = c.just;}
-            if (c.apd) p.ageGender = c.apd + '|' + c.gpd;
-            if(c.custype){ p.customerType = c.custype;}
-            if (c.ust) p.optIn = c.ust + '|' + c.sid_tsaoptin;
+            if(c.just){ sky.tracking.settings.samId = c.just;}
+            if (c.apd) sky.tracking.settings.ageGender = c.apd + '|' + c.gpd;
+            if(c.custype){ sky.tracking.settings.customerType = c.custype;}
+            if (c.ust) sky.tracking.settings.optIn = c.ust + '|' + c.sid_tsaoptin;
         },
 
 
@@ -1146,10 +1150,11 @@ if (typeof toolkit==='undefined') toolkit={};
 toolkit.tracking = (function(omniture, logger){
 //todo: turn verify on in config
 //todo: write test for clicking AjaxEvent twice
-//todo: stop sending 101 in events
+//todo: test only expected events exist i.e only event101 and not 101
+//todo: test val vs attr value and the rest of getText
 
-    var page;
-    var utils = omniture.utils;
+    var page,
+        utils = omniture.utils;
 
     function bindVars(){
         page = {
@@ -1167,6 +1172,7 @@ toolkit.tracking = (function(omniture, logger){
 
     function setup(custom){
         $.extend(page, custom);
+//        todo: console warning if no site or section
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
     }
@@ -1209,6 +1215,7 @@ toolkit.tracking = (function(omniture, logger){
         addCustomClickVariable($el);
         addCustomClickEvents($el);
 
+//todo: merge this concept in with custom vars and events
         if ($el.attr('data-tracking-search')){
             context = $el.attr('data-tracking-context') || utils.getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
@@ -1253,7 +1260,6 @@ toolkit.tracking = (function(omniture, logger){
         if (item.properties.var){trackedData.push('eVar' + item.properties.var);}
         if (item.properties.prop){trackedData.push('prop' + item.properties.prop);}
         omniture.variables[item.name] = trackedData;
-        page.variables[item.name] = item.properties.valueSelector;
     }
 
     function setupCustomEvents(item) {
@@ -1299,7 +1305,7 @@ toolkit.tracking = (function(omniture, logger){
 //    BELOW THIS LINE
 //    ADD EVENTS/VARS TO OMNITURE CODE
     function addCustomClickEvents($el){
-        var customEvent = $el.attr('data-tracking-custom-event'),
+        var customEvent = $el.attr('data-tracking-event'),
             event;
         if (!customEvent) return;
         for (event in page.events) {
@@ -1310,10 +1316,10 @@ toolkit.tracking = (function(omniture, logger){
     }
 
     function addCustomClickVariable($el){
-        var customVariable = $el.attr('data-tracking-custom-variable'),
-            $trackingElement = (page.variables[customVariable]) ? $(page.variables[customVariable]) : $el,
-            value = utils.getText($trackingElement);
+        var customVariable = $el.attr('data-tracking-variable'),
+            value;
         if (!customVariable) return;
+        value = utils.getText($el);
         addVariable(customVariable,value);
     }
 

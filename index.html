@@ -46,14 +46,17 @@ title: Analytics
     {% include single-page-apps.html %}
 </section>
 <script type="text/javascript" charset="utf-8">
+
+    //todo: explain when to use
+//    headline: '',
+//    contentType: '',
+//    contentId: '',
+
     toolkit['tracking'].pageView({
-        site: 'mysky',
-        section: 'skyglobal/analytics',
-        headline: '',
-        contentType: 'skyglobal',
-        contentId: '',
-        account: 'bskybmyaccountdev',
-        page: 'Analytics demo page',
+        site: 'mysky', //todo:mandatory. docs note this should not have sky/portal
+        section: 'skyglobal/analytics', //todo:mandatory. docs note this should not start or end with /
+        account: 'bskybmyaccountdev', //todo: mandatory
+        page: 'Analytics demo page', //todo: mandatory
         customEvents: [
             //{'drink': {var: 72, valueSelector: '#text-input input'}},
             //{'how_about_pinos': {var: 73, valueSelector: '#radio-input input[name=radio_field]:checked'}}
@@ -61,7 +64,7 @@ title: Analytics
         customVariables: [
             {'colour': {var: 71}},
             {'drink': {'var': 72, valueSelector: '#text-input input'}},
-            {'how_about_pina_coladas': {'var': 73, valueSelector: '#radio-input input[name=radio_field]:checked'}},
+            {'how_about_pina_coladas': {'var': 73}},
         ]
     });
 </script>

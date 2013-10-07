@@ -2,10 +2,11 @@ if (typeof toolkit==='undefined') toolkit={};
 toolkit.tracking = (function(omniture, logger){
 //todo: turn verify on in config
 //todo: write test for clicking AjaxEvent twice
-//todo: stop sending 101 in events
+//todo: test only expected events exist i.e only event101 and not 101
+//todo: test val vs attr value and the rest of getText
 
-    var page;
-    var utils = omniture.utils;
+    var page,
+        utils = omniture.utils;
 
     function bindVars(){
         page = {
@@ -23,6 +24,7 @@ toolkit.tracking = (function(omniture, logger){
 
     function setup(custom){
         $.extend(page, custom);
+//        todo: console warning if no site or section
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
     }
@@ -65,6 +67,7 @@ toolkit.tracking = (function(omniture, logger){
         addCustomClickVariable($el);
         addCustomClickEvents($el);
 
+//todo: merge this concept in with custom vars and events
         if ($el.attr('data-tracking-search')){
             context = $el.attr('data-tracking-context') || utils.getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
@@ -109,7 +112,6 @@ toolkit.tracking = (function(omniture, logger){
         if (item.properties.var){trackedData.push('eVar' + item.properties.var);}
         if (item.properties.prop){trackedData.push('prop' + item.properties.prop);}
         omniture.variables[item.name] = trackedData;
-        page.variables[item.name] = item.properties.valueSelector;
     }
 
     function setupCustomEvents(item) {
@@ -155,7 +157,7 @@ toolkit.tracking = (function(omniture, logger){
 //    BELOW THIS LINE
 //    ADD EVENTS/VARS TO OMNITURE CODE
     function addCustomClickEvents($el){
-        var customEvent = $el.attr('data-tracking-custom-event'),
+        var customEvent = $el.attr('data-tracking-event'),
             event;
         if (!customEvent) return;
         for (event in page.events) {
@@ -166,10 +168,10 @@ toolkit.tracking = (function(omniture, logger){
     }
 
     function addCustomClickVariable($el){
-        var customVariable = $el.attr('data-tracking-custom-variable'),
-            $trackingElement = (page.variables[customVariable]) ? $(page.variables[customVariable]) : $el,
-            value = utils.getText($trackingElement);
+        var customVariable = $el.attr('data-tracking-variable'),
+            value;
         if (!customVariable) return;
+        value = utils.getText($el);
         addVariable(customVariable,value);
     }
 
