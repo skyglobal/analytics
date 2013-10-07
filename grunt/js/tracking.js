@@ -3,8 +3,10 @@ toolkit.tracking = (function(omniture, logger){
 //todo: test turn verify on in config
 //todo: test clicking AjaxEvent twice
 //todo: test only expected events exist i.e only event101 and not 101
-//todo: test val vs attr value and the rest of getText
+//todo: test val vs attr value and the rest of getText |
 //todo: test custom event that is not onPageLoad
+//todo: test custom var that is onPageLoad
+//todo: test for live biniding
 
     var page,
         utils = omniture.utils;

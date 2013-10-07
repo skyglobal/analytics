@@ -39,6 +39,9 @@ def sitecat_mapping
     'login_complete' => 'event16',
     'link_clicked' => 'event6',
     'custom_page_load' => 'event99',
+    'my_custom_variable' => 'v41',
+    'my_custom_variable_prop' => 'c41',
+    'my_custom_prop' => 'c40',
     'ajax_happened' => 'event101',
     'drink' => 'v72',
     'how_about_pina_coladas' => 'v73',
@@ -107,11 +110,16 @@ class AnalyticsTest < AcceptanceTest
     tracked('event').must_include sitecat_mapping['custom_page_load'] # custom event
   end
 
-  # Custom variable on page load
-  #it "Tracks a custom variable on page load" do
-    #click_link "Custom Page Load"
-    #tracked('event').must_include sitecat_mapping['page_load'] # page load
-  #end
+  it "Tracks a custom variable on page load with additional prop" do
+    click_link "Custom Page Load"
+    tracked('my_custom_variable').must_include 'my custom eVar value'
+    tracked('my_custom_variable_prop').must_include 'D=v41'
+  end
+
+  it "Tracks a custom prop on page load" do
+    click_link "Custom Page Load"
+    tracked('my_custom_prop').must_include 'my custom prop value'
+  end
 
   it "tracks custom variables assigned after page load in a text field" do
     fill_in 'What is your favourite drink?', with: 'Milkshake'
