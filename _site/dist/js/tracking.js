@@ -379,7 +379,8 @@ toolkit.omniture = (function(config, utils, h26){
     var pluginsLoaded = false,
         persistantCookies,sessionCookies = "",
         s_objectID = h26.s_objectID,
-        s_gi = h26.s_gi;
+        s_gi = h26.s_gi,
+        s = {};
 
     if(utils.omnigetCookie("s_pers")){ persistantCookies = utils.omnigetCookie('s_pers'); }
     if(utils.omnigetCookie("s_sess")){ sessionCookies = utils.omnigetCookie('s_sess'); }
@@ -389,6 +390,7 @@ toolkit.omniture = (function(config, utils, h26){
         settings: config.settings,
         trackedDataValues: config.trackedDataValues,
         variables: config.trackedData,
+        loadVariables: {},
         events: config.trackedEvents,
         setup: function(options){
             // Initial defaults:
@@ -436,13 +438,33 @@ toolkit.omniture = (function(config, utils, h26){
             }
         },
 
+        addVariable :function(prop, val){
+            if(!val){ return; }
+            var map;
+            if (sky.tracking.variables[prop].length==1){
+                sky.tracking.loadVariables[sky.tracking.variables[prop][0]] = val;
+            } else {
+                map = 'D=' + sky.tracking.variables[prop][1].replace('eVar','v').replace('prop','c');
+                sky.tracking.loadVariables[sky.tracking.variables[prop][0]] = map;
+                sky.tracking.loadVariables[sky.tracking.variables[prop][1]] = val;
+            }
+        },
+
         pageView:  function (options) {
 
             sky.tracking.setup(options);
 
             var prod = [],
+                tempS = s_gi(sky.tracking.settings.account),
                 i, j, k, x, name;
-            var s = s_gi(sky.tracking.settings.account);
+
+
+            s = s_gi(sky.tracking.settings.account);
+
+            for (name in sky.tracking.loadVariables){
+                s[name] = sky.tracking.loadVariables[name];
+            }
+
             if(!pluginsLoaded){
                 this.loadPlugins(s);
                 pluginsLoaded = true;
@@ -1132,7 +1154,7 @@ toolkit.tracking.logger = (function(){
     function log(type, prop, val){
         if (!vars.verifying){ return; }
         if (type=='start'){
-            val.preventDefault();
+            if (val && val.preventDefault) { val.preventDefault(); }
             console.group(prop);
             $('#' + vars.verifyOutputId).html('');
         } else if (type=='end'){
@@ -1160,8 +1182,8 @@ if (typeof window.define === "function" && window.define.amd) {
 ;
 if (typeof toolkit==='undefined') toolkit={};
 toolkit.tracking = (function(omniture, logger){
-//todo: turn verify on in config
-//todo: write test for clicking AjaxEvent twice
+//todo: test turn verify on in config
+//todo: test clicking AjaxEvent twice
 //todo: test only expected events exist i.e only event101 and not 101
 //todo: test val vs attr value and the rest of getText
 //todo: test custom event that is not onPageLoad
@@ -1185,6 +1207,9 @@ toolkit.tracking = (function(omniture, logger){
 
     function setup(custom){
         $.extend(page, custom);
+        if (custom.verify){
+            logger.verify(true);
+        }
 //        todo: console warning if no site or section
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
@@ -1208,6 +1233,9 @@ toolkit.tracking = (function(omniture, logger){
         }
         page.events.push(omniture.events.pageLoad);
         omniture.pageView ( page );
+        logger.log('start','pageView event triggered');
+        logger.log('','omniture', omniture.s);
+        logger.log('end');
     }
 
 
@@ -1269,20 +1297,27 @@ toolkit.tracking = (function(omniture, logger){
 //    BELOW THIS LINE
 //    ADD EVENTS/VARS TO tracking CODE
     function setupCustomVariable(item) {
-        var trackedData = [];
-        if (item.properties.var){trackedData.push('eVar' + item.properties.var);}
-        if (item.properties.prop){trackedData.push('prop' + item.properties.prop);}
+        var trackedData = [],
+            prop;
+        if (item.prop){
+            prop = 'prop' + item.prop;
+            trackedData.push(prop);
+        }
+        if (item.var){
+            prop = 'eVar' + item.var;
+            trackedData.push(prop);
+        }
         omniture.variables[item.name] = trackedData;
-        if (item.properties.onPageLoad) {
-            page.loadVariables[omniture.events[item.name]] = item.value;
-            omniture.variables[item.name].push(omniture.events[item.name]);
+        if (item.onPageLoad) {
+            page.loadVariables[prop] = item.value;
+            omniture.addVariable(item.name, item.value);
         }
     }
 
     function setupCustomEvents(item) {
-        omniture.events[item.name] =  'event' + item.properties.event;
-        page.events.push('event' + item.properties.event);
-        if (item.properties.onPageLoad) {
+        omniture.events[item.name] =  'event' + item.event;
+        page.events.push('event' + item.event);
+        if (item.onPageLoad) {
             page.loadEvents.push(item.name);
             omniture.variables.loadEvents.push(omniture.events[item.name]); //todo: remove this line so we only have a single translate function in a different file
         }
@@ -1296,7 +1331,10 @@ toolkit.tracking = (function(omniture, logger){
             }
         }
         return {
-            properties: properties,
+            value: properties.value,
+            onPageLoad: properties.onPageLoad,
+            var: properties.var,
+            prop: properties.prop,
             name: name
         };
     }
@@ -1339,15 +1377,7 @@ toolkit.tracking = (function(omniture, logger){
     }
 
     function addVariable(prop, val){
-        if(val){
-            if (omniture.variables[prop].length==1){
-                omniture.s[omniture.variables[prop][0]] = val;
-            } else {
-                var map = 'D=' + omniture.variables[prop][1].replace('eVar','v').replace('prop','c');
-                omniture.s[omniture.variables[prop][0]] = map;
-                omniture.s[omniture.variables[prop][1]] = val;
-            }
-        }
+        omniture.addVariable(prop, val);
         omniture.s.linkTrackVars += ',' + omniture.variables[prop];
         logger.log('prop',prop, val);
     }

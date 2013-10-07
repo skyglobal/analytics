@@ -37,7 +37,7 @@ toolkit.tracking.logger = (function(){
     function log(type, prop, val){
         if (!vars.verifying){ return; }
         if (type=='start'){
-            val.preventDefault();
+            if (val && val.preventDefault) { val.preventDefault(); }
             console.group(prop);
             $('#' + vars.verifyOutputId).html('');
         } else if (type=='end'){

@@ -9,7 +9,8 @@ toolkit.omniture = (function(config, utils, h26){
     var pluginsLoaded = false,
         persistantCookies,sessionCookies = "",
         s_objectID = h26.s_objectID,
-        s_gi = h26.s_gi;
+        s_gi = h26.s_gi,
+        s = {};
 
     if(utils.omnigetCookie("s_pers")){ persistantCookies = utils.omnigetCookie('s_pers'); }
     if(utils.omnigetCookie("s_sess")){ sessionCookies = utils.omnigetCookie('s_sess'); }
@@ -19,6 +20,7 @@ toolkit.omniture = (function(config, utils, h26){
         settings: config.settings,
         trackedDataValues: config.trackedDataValues,
         variables: config.trackedData,
+        loadVariables: {},
         events: config.trackedEvents,
         setup: function(options){
             // Initial defaults:
@@ -66,13 +68,33 @@ toolkit.omniture = (function(config, utils, h26){
             }
         },
 
+        addVariable :function(prop, val){
+            if(!val){ return; }
+            var map;
+            if (sky.tracking.variables[prop].length==1){
+                sky.tracking.loadVariables[sky.tracking.variables[prop][0]] = val;
+            } else {
+                map = 'D=' + sky.tracking.variables[prop][1].replace('eVar','v').replace('prop','c');
+                sky.tracking.loadVariables[sky.tracking.variables[prop][0]] = map;
+                sky.tracking.loadVariables[sky.tracking.variables[prop][1]] = val;
+            }
+        },
+
         pageView:  function (options) {
 
             sky.tracking.setup(options);
 
             var prod = [],
+                tempS = s_gi(sky.tracking.settings.account),
                 i, j, k, x, name;
-            var s = s_gi(sky.tracking.settings.account);
+
+
+            s = s_gi(sky.tracking.settings.account);
+
+            for (name in sky.tracking.loadVariables){
+                s[name] = sky.tracking.loadVariables[name];
+            }
+
             if(!pluginsLoaded){
                 this.loadPlugins(s);
                 pluginsLoaded = true;

@@ -1,7 +1,7 @@
 if (typeof toolkit==='undefined') toolkit={};
 toolkit.tracking = (function(omniture, logger){
-//todo: turn verify on in config
-//todo: write test for clicking AjaxEvent twice
+//todo: test turn verify on in config
+//todo: test clicking AjaxEvent twice
 //todo: test only expected events exist i.e only event101 and not 101
 //todo: test val vs attr value and the rest of getText
 //todo: test custom event that is not onPageLoad
@@ -25,6 +25,9 @@ toolkit.tracking = (function(omniture, logger){
 
     function setup(custom){
         $.extend(page, custom);
+        if (custom.verify){
+            logger.verify(true);
+        }
 //        todo: console warning if no site or section
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
@@ -48,6 +51,9 @@ toolkit.tracking = (function(omniture, logger){
         }
         page.events.push(omniture.events.pageLoad);
         omniture.pageView ( page );
+        logger.log('start','pageView event triggered');
+        logger.log('','omniture', omniture.s);
+        logger.log('end');
     }
 
 
@@ -109,20 +115,27 @@ toolkit.tracking = (function(omniture, logger){
 //    BELOW THIS LINE
 //    ADD EVENTS/VARS TO tracking CODE
     function setupCustomVariable(item) {
-        var trackedData = [];
-        if (item.properties.var){trackedData.push('eVar' + item.properties.var);}
-        if (item.properties.prop){trackedData.push('prop' + item.properties.prop);}
+        var trackedData = [],
+            prop;
+        if (item.prop){
+            prop = 'prop' + item.prop;
+            trackedData.push(prop);
+        }
+        if (item.var){
+            prop = 'eVar' + item.var;
+            trackedData.push(prop);
+        }
         omniture.variables[item.name] = trackedData;
-        if (item.properties.onPageLoad) {
-            page.loadVariables[omniture.events[item.name]] = item.value;
-            omniture.variables[item.name].push(omniture.events[item.name]);
+        if (item.onPageLoad) {
+            page.loadVariables[prop] = item.value;
+            omniture.addVariable(item.name, item.value);
         }
     }
 
     function setupCustomEvents(item) {
-        omniture.events[item.name] =  'event' + item.properties.event;
-        page.events.push('event' + item.properties.event);
-        if (item.properties.onPageLoad) {
+        omniture.events[item.name] =  'event' + item.event;
+        page.events.push('event' + item.event);
+        if (item.onPageLoad) {
             page.loadEvents.push(item.name);
             omniture.variables.loadEvents.push(omniture.events[item.name]); //todo: remove this line so we only have a single translate function in a different file
         }
@@ -136,7 +149,10 @@ toolkit.tracking = (function(omniture, logger){
             }
         }
         return {
-            properties: properties,
+            value: properties.value,
+            onPageLoad: properties.onPageLoad,
+            var: properties.var,
+            prop: properties.prop,
             name: name
         };
     }
@@ -179,15 +195,7 @@ toolkit.tracking = (function(omniture, logger){
     }
 
     function addVariable(prop, val){
-        if(val){
-            if (omniture.variables[prop].length==1){
-                omniture.s[omniture.variables[prop][0]] = val;
-            } else {
-                var map = 'D=' + omniture.variables[prop][1].replace('eVar','v').replace('prop','c');
-                omniture.s[omniture.variables[prop][0]] = map;
-                omniture.s[omniture.variables[prop][1]] = val;
-            }
-        }
+        omniture.addVariable(prop, val);
         omniture.s.linkTrackVars += ',' + omniture.variables[prop];
         logger.log('prop',prop, val);
     }
