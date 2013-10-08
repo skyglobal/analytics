@@ -51,8 +51,7 @@ title: Analytics
 //    headline: '',
 //    contentType: '',
 //    contentId: '',
-
-    toolkit['tracking'].pageView({
+    toolkit.tracking.pageView({
         site: 'mysky', //todo:mandatory. docs note this should not have sky/portal
         section: 'skyglobal/analytics', //todo:mandatory. docs note this should not start or end with /
         account: 'bskybmyaccountdev', //todo: mandatory
@@ -62,7 +61,7 @@ title: Analytics
         ],
         customVariables: [
             {'colour': {var: 71}},
-            {'drink': {'var': 72, valueSelector: '#text-input input'}},
+            {'drink': {'var': 72}},
             {'how_about_pina_coladas': {'var': 73}},
         ]
     });

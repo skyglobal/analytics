@@ -6,7 +6,7 @@
 <head>
     <title>Sky Analytics API Demo Page</title>
 
-    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/0.4.9/stylesheets/toolkit.css">
+    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/0.4.8/stylesheets/toolkit.css">
     <link rel="stylesheet" href="./dist/css/wiki.css">
     <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
 
@@ -175,7 +175,8 @@
     <dt class="skycom_4 alpha">data-tracking-module</dt>
     <dd class="skycom_8">Add this to a top-level container.
         <br/>This defines a distinct horizontal band on a page.
-        <br /> eg. <code>data-tracking-module=carousel</code></dd>
+        <br /> eg. <code>data-tracking-module=carousel</code>
+    </dd>
     <dt class="skycom_4 alpha">data-tracking-pod</dt>
     <dd class="skycom_8">Add this to a mid-level container.
         <br/>This commonly defines a vertical band within the module or a segment of content.
@@ -235,13 +236,13 @@
     </div>
     <div class="skycom_8">
         <code class="block">&lt;div data-tracking-module='section-1'&gt;
-            &lt;div data-tracking-pod='pod-1' data-tracking-context='context'&gt;
-            &lt;a href=&quot;#inpage-link&quot;&gt;Deep link&lt;/a&gt;
-            &lt;/div&gt;
-            &lt;div data-tracking-pod='pod-2'&gt;
-            &lt;a href=&quot;#inpage-link&quot;&gt;Deep link&lt;/a&gt;
-            &lt;/div&gt;
-            &lt;/div&gt;</code>
+    &lt;div data-tracking-pod='pod-1' data-tracking-context='context'&gt;
+        &lt;a href=&quot;#inpage-link&quot;&gt;Deep link&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div data-tracking-pod='pod-2'&gt;
+        &lt;a href=&quot;#inpage-link&quot;&gt;Deep link&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code>
 
     </div>
 
@@ -277,10 +278,8 @@
         <button class="btn" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-location-search">Search</button>
     </div>
     <div class="skycom_8">
-        <code>
-            &lt;input id="weather-location-search" type="text" placeholder="Postcode or town">
-            &lt;button class="btn" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-location-search">Search&lt;/button>
-        </code>
+        <code class="block">&lt;input id="weather-location-search" type="text" placeholder="Postcode or town">
+&lt;button class="btn" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-location-search">Search&lt;/button></code>
     </div>
 </div>
 </section>
@@ -294,11 +293,23 @@
 <code class="block">    var config = {
         ...
         customVariables: [
-            {'myCustomVar': {var: 71}}
+            {'myCustomVar': <i>customConfig</i>}
         ]
     };
     toolkit.tracking.pageView(config);
 </code>
+
+<p>The <code>customConfig</code> object options are</p>
+<dl class="clearfix ">
+    <dt class="skycom_4 alpha">var</dt>
+    <dd class="skycom_8">[int] Omniture Variable Id. Needed for xxx type reporting</dd>
+    <dt class="skycom_4 alpha">prop</dt>
+    <dd class="skycom_8">[int] Omniture Prop Id.Needed for xxx type reporting</dd>
+    <dt class="skycom_4 alpha">onPageLoad</dt>
+    <dd class="skycom_8">[boolean] Set if the variable should be sent on 'pageView'</dd>
+    <dt class="skycom_4 alpha">value</dt>
+    <dd class="skycom_8">[string] Should be set if <code>onPageLoad</code> is set</dd>
+</dl>
 
 <p>
     To get a value to go with your variable, you must bind it to an HTML element using the attribute
@@ -308,8 +319,7 @@
 </p>
 
 <div class="example">
-    <h3>Examples</h3>
-    <h4>Tracking <code>drink</code> and setting it to a text box</h4>
+    <h3>Tracking <code>drink</code> and setting the value to a text box</h3>
     <div class="skycom_4 alpha">
         <form id='text-input' class="sky-form">
             <label for='input_field'>What is your favourite drink?</label> <br>
@@ -320,10 +330,13 @@
     <div class="skycom_8">
         <code class="block">&lt;label for='input_field'>What is your favourite drink?&lt;/label>
 &lt;input id='input_field' name='input_field' type='text' />
-&lt;button data-tracking-variable='drink' data-tracking-value="" class='btn primary-cta'>Submit&lt;/button></code>
+&lt;button data-tracking-variable='drink' data-tracking-value="" class='btn primary-cta'>Submit&lt;/button>
+&lt;script>//script to update data-tracking-value attribute
+    $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
+&lt;/script></code>
     </div>
 
-    <h4 class="clear">Tracking <code>how_about_pina_coladas</code> and setting it to the selected radio button</h4>
+    <h3 class="skycom-clear">Tracking <code>how_about_pina_coladas</code> and setting it to the selected radio button</h3>
     <div class="skycom_4 alpha">
         <form id='radio-input' class="sky-form">
             <label>Do you like Pina Coldas?</label> <br>
@@ -336,16 +349,27 @@
     <div class="skycom_8">
 
         <code class="block">&lt;label>Do you like Pina Coldas?&lt;/label>
-&lt;input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/>&lt;label for='radio_yes'>Yes&lt;/label>
-&lt;input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/>&lt;label for='radio_no'>No&lt;/label>
-&lt;button data-tracking-variable='how_about_pina_coladas' class='btn primary-cta'>Submit&lt;/button></code>
+&lt;input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/>
+&lt;label for='radio_yes'>Yes&lt;/label>
+&lt;input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/>
+&lt;label for='radio_no'>No&lt;/label>
+&lt;button data-tracking-variable='how_about_pina_coladas' class='btn primary-cta'>Submit&lt;/button>
+&lt;script>//script to update data-tracking-value attribute
+    $('[data-tracking-variable=how_about_pina_coladas]').attr(
+        'data-tracking-value',
+        $('input[name=radio_field]:checked').val()
+    );
+&lt;/script></code>
     </div>
 
+    <h3 class="skycom-clear">Tracking <code>colour</code> and setting it to the value of the button clicked</h3>
     <div class="skycom_4 alpha">
         <button id='colour-button-blue' data-tracking-variable="colour" class="btn">Blue</button>
+        <button id='colour-button-secondary' data-tracking-variable="colour" class="btn secondary">Gray</button>
     </div>
     <div class="skycom_8">
-        <code class="block">&lt;button id='colour-button-blue' data-tracking-variable="colour">Blue&lt;/button></code>
+        <code class="block">&lt;button  data-tracking-variable="colour">Blue&lt;/button>
+&lt;button data-tracking-variable="colour">Gray&lt;/button></code>
     </div>
 </div>
 <script type='text/javascript'>
@@ -368,21 +392,37 @@
 <a name="custom-events"></a>
 <section class=wiki-section>
     <h2>Custom Events</h2>
-<p>You will need event Name and ID which should be set when initialising tracking.</p>
+<p>
+    You will need event Name and Omniture ID. These should be added to the tracking config on initialisation.
+</p>
+
+<code class="block">    var config = {
+        ...
+        customEvents: [
+            {'myCustomEvent': <i>customConfig</i>}
+        ]
+    };
+    toolkit.tracking.pageView(config);
+</code>
+
+<p>The <code>customConfig</code> object options are</p>
+<dl class="clearfix ">
+    <dt class="skycom_4 alpha">event</dt>
+    <dd class="skycom_8">[int] Omniture Event Id</dd>
+    <dt class="skycom_4 alpha">onPageLoad</dt>
+    <dd class="skycom_8">[boolean] Set if the variable should be sent on 'pageView'</dd>
+</dl>
 
 <h3>Triggered on link click</h3>
-<p></p>
 
 <div class="skycom_4 alpha">
     <a class='btn in-page-cta' href='#!' id='btn_custom_event' data-tracking-event='magic_happened'>Custom Event</a>
 </div>
 <div class="skycom_8">
-    <code class="block">
-        SITECAT_CONFIG = {
+    <code class="block">    config = {
         ...
         customEvents: [{'magic_happened': {event: 101}}]
-        };
-    </code>
+    };    </code>
 </div>
 
 <h3>Trigger Event onPageLoad</h3>
@@ -392,12 +432,10 @@
     <a class='btn in-page-cta' href='custom_page_load.html' id='btn_page_load'>Custom Page Load</a>
 </div>
 <div class="skycom_8">
-    <code class="block">
-    SITECAT_CONFIG = {
+    <code class="block">    config = {
         ...
         customEvents: [{'magic_happened': {event: 101, onPageLoad: true}}]
-    };
-    </code>
+    };    </code>
 </div>
 
 </section>
@@ -416,7 +454,7 @@
 <section class=wiki-section>
     <h2>Single Page Apps</h2>
 <p>Simulate a page load event for sites that make use of ajax by calling:</p>
-<code class="block">toolkit.tracking.pageView(SITECAT_CONFIG);</code>
+<code class="block">toolkit.tracking.pageView(config);</code>
 <h3>Example</h3>
 <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
 <script type='text/javascript'>
@@ -425,18 +463,15 @@
         toolkit.tracking.pageView({
             site: 'mysky',
             section: 'skyglobal/analytics',
-            headline: '',
-            contentType: 'skyglobal',
-            contentId: '',
             account: 'bskybmyaccountdev',
             page: 'Analytics demo page',
             customEvents: [
                 {'ajax_happened': {event: 101, onPageLoad: true}}
             ],
             customVariables: [
-                {'colour': {var: 71}},
-                {'drink': {'var': 72, valueSelector: '#text-input input'}},
-                {'how_about_pina_coladas': {'var': 73, valueSelector: '#radio-input input[name=radio_field]:checked'}},
+                {'colour': {var: 71 }},
+                {'drink': {'var': 72 }},
+                {'how_about_pina_coladas': {'var': 73 }}
             ]
         });
     });
@@ -448,8 +483,7 @@
 //    headline: '',
 //    contentType: '',
 //    contentId: '',
-
-    toolkit['tracking'].pageView({
+    toolkit.tracking.pageView({
         site: 'mysky', //todo:mandatory. docs note this should not have sky/portal
         section: 'skyglobal/analytics', //todo:mandatory. docs note this should not start or end with /
         account: 'bskybmyaccountdev', //todo: mandatory
@@ -459,7 +493,7 @@
         ],
         customVariables: [
             {'colour': {var: 71}},
-            {'drink': {'var': 72, valueSelector: '#text-input input'}},
+            {'drink': {'var': 72}},
             {'how_about_pina_coladas': {'var': 73}},
         ]
     });

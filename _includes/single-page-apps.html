@@ -1,6 +1,6 @@
 <h2>Single Page Apps</h2>
 <p>Simulate a page load event for sites that make use of ajax by calling:</p>
-<code class="block">toolkit.tracking.pageView(SITECAT_CONFIG);</code>
+<code class="block">toolkit.tracking.pageView(config);</code>
 <h3>Example</h3>
 <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
 <script type='text/javascript'>
@@ -9,18 +9,15 @@
         toolkit.tracking.pageView({
             site: 'mysky',
             section: 'skyglobal/analytics',
-            headline: '',
-            contentType: 'skyglobal',
-            contentId: '',
             account: 'bskybmyaccountdev',
             page: 'Analytics demo page',
             customEvents: [
                 {'ajax_happened': {event: 101, onPageLoad: true}}
             ],
             customVariables: [
-                {'colour': {var: 71}},
-                {'drink': {'var': 72, valueSelector: '#text-input input'}},
-                {'how_about_pina_coladas': {'var': 73, valueSelector: '#radio-input input[name=radio_field]:checked'}},
+                {'colour': {var: 71 }},
+                {'drink': {'var': 72 }},
+                {'how_about_pina_coladas': {'var': 73 }}
             ]
         });
     });

@@ -1,19 +1,35 @@
 <h2>Custom Events</h2>
-<p>You will need event Name and ID which should be set when initialising tracking.</p>
+<p>
+    You will need event Name and Omniture ID. These should be added to the tracking config on initialisation.
+</p>
+
+<code class="block">    var config = {
+        ...
+        customEvents: [
+            {'myCustomEvent': <i>customConfig</i>}
+        ]
+    };
+    toolkit.tracking.pageView(config);
+</code>
+
+<p>The <code>customConfig</code> object options are</p>
+<dl class="clearfix ">
+    <dt class="skycom_4 alpha">event</dt>
+    <dd class="skycom_8">[int] Omniture Event Id</dd>
+    <dt class="skycom_4 alpha">onPageLoad</dt>
+    <dd class="skycom_8">[boolean] Set if the variable should be sent on 'pageView'</dd>
+</dl>
 
 <h3>Triggered on link click</h3>
-<p></p>
 
 <div class="skycom_4 alpha">
     <a class='btn in-page-cta' href='#!' id='btn_custom_event' data-tracking-event='magic_happened'>Custom Event</a>
 </div>
 <div class="skycom_8">
-    <code class="block">
-        SITECAT_CONFIG = {
+    <code class="block">    config = {
         ...
         customEvents: [{'magic_happened': {event: 101}}]
-        };
-    </code>
+    };    </code>
 </div>
 
 <h3>Trigger Event onPageLoad</h3>
@@ -23,10 +39,8 @@
     <a class='btn in-page-cta' href='custom_page_load.html' id='btn_page_load'>Custom Page Load</a>
 </div>
 <div class="skycom_8">
-    <code class="block">
-    SITECAT_CONFIG = {
+    <code class="block">    config = {
         ...
         customEvents: [{'magic_happened': {event: 101, onPageLoad: true}}]
-    };
-    </code>
+    };    </code>
 </div>
