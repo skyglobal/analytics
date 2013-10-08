@@ -44,8 +44,8 @@ toolkit.tracking = (function(omniture, logger){
 
     function checkMandatoryConfig(){
         for (var name in mandatory){
-            if (!page[name]){
-                console.error('Mandatory config is missing: ', name);
+            if (!page[mandatory[name]]){
+                console.error('Mandatory config is missing: ', mandatory[name]);
             }
         }
     }

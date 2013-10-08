@@ -6,7 +6,7 @@
 <head>
     <title>Sky Analytics API Demo Page</title>
 
-    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/0.4.4/stylesheets/toolkit.css">
+    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/0.4.9/stylesheets/toolkit.css">
     <link rel="stylesheet" href="./dist/css/wiki.css">
     <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
 
@@ -135,6 +135,10 @@
     <dd class="skycom_8">[optional] --- desciption here ---</dd>
     <dt class="skycom_4 alpha">debug</dt>
     <dd class="skycom_8">[optional] [true|false]. Turn on debug on page load to capture the page view event</dd>
+    <dt class="skycom_4 alpha">customVariables</dt>
+    <dd class="skycom_8">[optional] An object used to add your own tracking variable mapped to an Omniture id. <a href="#custom-vars">details here >></a></dd>
+    <dt class="skycom_4 alpha">customEvents</dt>
+    <dd class="skycom_8">[optional] An object used to add your own tracking event mapped to an Omniture id. <a href="#custom-events">details here >></a></dd>
 </dl>
 
 <p>Then you must tell the code to either add a pageView:
@@ -285,48 +289,27 @@
 <section class="wiki-section">
     <h2>Custom Variables</h2>
 <p>
-    You will need variable Name and ID which should be set when initialising tracking.
-    This name will then be used within the HTML as another <code>data</code> attribute set on the element being clicked.
+    You will need variable Name and Omniture ID. These should be added to the tracking config on initialisation.
 </p>
-<h3>Mandatory Setup</h3>
-<dl>
-    <dt class="skycom_4 alpha"><code>data-tracking-variable</code></dt>
-    <dd class="skycom_8">Useful for capturing values determined by user interactions with the page.
-        <br />eg. <code>data-tracking-variable=myCustomVar</code>
-    </dd>
-</dl>
-<code class="block">
-    var SITECAT_CONFIG = {
-    ...
-    customVariables: [
-    {'myCustomVar': {var: 71}}
-    ]
+<code class="block">    var config = {
+        ...
+        customVariables: [
+            {'myCustomVar': {var: 71}}
+        ]
     };
-    toolkit['tracking'].pageView(SITECAT_CONFIG);
+    toolkit.tracking.pageView(config);
 </code>
 
-<h3>Optional Setup</h3>
 <p>
-    You may want to track text entered by the user, or the value of an option selected by the user.
-    The can be done by setting the <code>valueSelector</code> when initialising the tracking config.
+    To get a value to go with your variable, you must bind it to an HTML element using the attribute
+    <code>data-tracking-variable</code> and setting it to your variable name.  This element also needs the attribute
+    <code>data-tracking-value</code> so we know what to send to Omniture.
+    If this attribute is omitted, the value of the item clicked will be tracked.
 </p>
-
-<code class="block">
-    var SITECAT_CONFIG = {
-    ...
-    customVariables: [
-    {'myCustomVar':
-    { var: 71,
-    valueSelector: '#radio-input input[name=radio_field]:checked'
-    }
-    }
-    ]
-    };
-    toolkit['tracking'].pageView(SITECAT_CONFIG);
-</code>
 
 <div class="example">
     <h3>Examples</h3>
+    <h4>Tracking <code>drink</code> and setting it to a text box</h4>
     <div class="skycom_4 alpha">
         <form id='text-input' class="sky-form">
             <label for='input_field'>What is your favourite drink?</label> <br>
@@ -336,10 +319,11 @@
     </div>
     <div class="skycom_8">
         <code class="block">&lt;label for='input_field'>What is your favourite drink?&lt;/label>
-            &lt;input id='input_field' name='input_field' type='text' />
-            &lt;button data-tracking-variable='drink' class='btn primary-cta'>Submit&lt;/button></code>
+&lt;input id='input_field' name='input_field' type='text' />
+&lt;button data-tracking-variable='drink' data-tracking-value="" class='btn primary-cta'>Submit&lt;/button></code>
     </div>
 
+    <h4 class="clear">Tracking <code>how_about_pina_coladas</code> and setting it to the selected radio button</h4>
     <div class="skycom_4 alpha">
         <form id='radio-input' class="sky-form">
             <label>Do you like Pina Coldas?</label> <br>
@@ -352,9 +336,9 @@
     <div class="skycom_8">
 
         <code class="block">&lt;label>Do you like Pina Coldas?&lt;/label>
-            &lt;input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/>&lt;label for='radio_yes'>Yes&lt;/label>
-            &lt;input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/>&lt;label for='radio_no'>No&lt;/label>
-            &lt;button data-tracking-variable='how_about_pina_coladas' class='btn primary-cta'>Submit&lt;/button></code>
+&lt;input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/>&lt;label for='radio_yes'>Yes&lt;/label>
+&lt;input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/>&lt;label for='radio_no'>No&lt;/label>
+&lt;button data-tracking-variable='how_about_pina_coladas' class='btn primary-cta'>Submit&lt;/button></code>
     </div>
 
     <div class="skycom_4 alpha">
@@ -366,17 +350,15 @@
 </div>
 <script type='text/javascript'>
     $(document).ready(function(){
+        $('[data-tracking-variable=how_about_pina_coladas]').attr('data-tracking-value',$('input[name=radio_field]:checked').val());
+        $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
         $('#input_field').on('blur', function(e){
             $('[data-tracking-variable=drink]').attr('data-tracking-value',$(this).val());
         });
         $('#radio-input input').on('click', function(e){
             $('[data-tracking-variable=how_about_pina_coladas]').attr('data-tracking-value',$(this).val());
         });
-
-        $('#text-input button').on('click', function(e){
-            e.preventDefault();
-        });
-        $('#radio-input button').on('click', function(e){
+        $('#text-input button, #radio-input button').on('click', function(e){
             e.preventDefault();
         });
     });
