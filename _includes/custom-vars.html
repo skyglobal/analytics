@@ -30,59 +30,57 @@
     If this attribute is omitted, the value of the item clicked will be tracked.
 </p>
 
-<div class="example">
-    <h3>Tracking <code>drink</code> and setting the value to a text box</h3>
-    <div class="skycom_4 alpha">
-        <form id='text-input' class="sky-form">
-            <label for='input_field'>What is your favourite drink?</label> <br>
-            <input id='input_field' name='input_field' type='text' /><br>
-            <button data-tracking-variable='drink' data-tracking-value=""  class='btn primary-cta'>Submit</button>
-        </form>
-    </div>
-    <div class="skycom_8">
-        <code class="block">&lt;label for='input_field'>What is your favourite drink?&lt;/label>
+<h3 class="wiki-h3">Tracking <code>drink</code> and setting the value to a text box</h3>
+<div class="skycom_4 alpha">
+    <form id='text-input' class="sky-form">
+        <label for='input_field'>What is your favourite drink?</label> <br>
+        <input id='input_field' name='input_field' type='text' /><br>
+        <button data-tracking-variable='drink' data-tracking-value=""  class='btn primary-cta'>Submit</button>
+    </form>
+</div>
+<div class="skycom_8">
+    <code class="block">&lt;label for='input_field'>What is your favourite drink?&lt;/label>
 &lt;input id='input_field' name='input_field' type='text' />
 &lt;button data-tracking-variable='drink' data-tracking-value="" class='btn primary-cta'>Submit&lt;/button>
 &lt;script>//script to update data-tracking-value attribute
-    $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
+$('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
 &lt;/script></code>
-    </div>
+</div>
 
-    <h3 class="skycom-clear">Tracking <code>how_about_pina_coladas</code> and setting it to the selected radio button</h3>
-    <div class="skycom_4 alpha">
-        <form id='radio-input' class="sky-form">
-            <label>Do you like Pina Coldas?</label> <br>
-            <input id='radio_yes' checked name='radio_field' type='radio' value='yes_to_pinas'/><label for='radio_yes'>Yes</label>
-            <input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/><label for='radio_no'>No</label>
-            <br>
-            <button data-tracking-variable='how_about_pina_coladas' data-tracking-value="" class='btn primary-cta'>Submit</button>
-        </form>
-    </div>
-    <div class="skycom_8">
+<h3 class="wiki-h3 skycom-clear">Tracking <code>how_about_pina_coladas</code> and setting it to the selected radio button</h3>
+<div class="skycom_4 alpha">
+    <form id='radio-input' class="sky-form">
+        <label>Do you like Pina Coldas?</label> <br>
+        <input id='radio_yes' checked name='radio_field' type='radio' value='yes_to_pinas'/><label for='radio_yes'>Yes</label>
+        <input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/><label for='radio_no'>No</label>
+        <br>
+        <button data-tracking-variable='how_about_pina_coladas' data-tracking-value="" class='btn primary-cta'>Submit</button>
+    </form>
+</div>
+<div class="skycom_8">
 
-        <code class="block">&lt;label>Do you like Pina Coldas?&lt;/label>
+    <code class="block">&lt;label>Do you like Pina Coldas?&lt;/label>
 &lt;input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/>
 &lt;label for='radio_yes'>Yes&lt;/label>
 &lt;input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/>
 &lt;label for='radio_no'>No&lt;/label>
 &lt;button data-tracking-variable='how_about_pina_coladas' class='btn primary-cta'>Submit&lt;/button>
 &lt;script>//script to update data-tracking-value attribute
-    $('[data-tracking-variable=how_about_pina_coladas]').attr(
-        'data-tracking-value',
-        $('input[name=radio_field]:checked').val()
-    );
+$('[data-tracking-variable=how_about_pina_coladas]').attr(
+    'data-tracking-value',
+    $('input[name=radio_field]:checked').val()
+);
 &lt;/script></code>
-    </div>
+</div>
 
-    <h3 class="skycom-clear">Tracking <code>colour</code> and setting it to the value of the button clicked</h3>
-    <div class="skycom_4 alpha">
-        <button id='colour-button-blue' data-tracking-variable="colour" class="btn">Blue</button>
-        <button id='colour-button-secondary' data-tracking-variable="colour" class="btn secondary">Gray</button>
-    </div>
-    <div class="skycom_8">
-        <code class="block">&lt;button  data-tracking-variable="colour">Blue&lt;/button>
+<h3 class="wiki-h3 skycom-clear">Tracking <code>colour</code> and setting it to the value of the button clicked</h3>
+<div class="skycom_4 alpha">
+    <button id='colour-button-blue' data-tracking-variable="colour" class="btn">Blue</button>
+    <button id='colour-button-secondary' data-tracking-variable="colour" class="btn secondary">Gray</button>
+</div>
+<div class="skycom_8">
+    <code class="block">&lt;button  data-tracking-variable="colour">Blue&lt;/button>
 &lt;button data-tracking-variable="colour">Gray&lt;/button></code>
-    </div>
 </div>
 <script type='text/javascript'>
     $(document).ready(function(){

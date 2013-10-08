@@ -3,7 +3,6 @@ toolkit.tracking = (function(omniture, logger){
 //todo: test turn verify on in config
 //todo: test val vs attr value and the rest of getText |
 //todo: test for live binding
-//todo: but loads of docs
 
     var page,
         utils = omniture.utils,
