@@ -1122,7 +1122,7 @@ toolkit.tracking.logger = (function(){
     };
 
 
-    function verify(on){
+    function debug(on){
         if (on || on === undefined){
             vars.verifying = true;
             $('body').append('<div id="' + vars.verifyOutputId + '"></div>');
@@ -1169,7 +1169,7 @@ toolkit.tracking.logger = (function(){
     }
 
     return {
-        verify: verify,
+        debug: debug,
         logPageView: logPageView,
         logLinkDetails: logLinkDetails,
         log: log
@@ -1192,7 +1192,8 @@ toolkit.tracking = (function(omniture, logger){
 //todo: but loads of docs
 
     var page,
-        utils = omniture.utils;
+        utils = omniture.utils,
+        mandatory = ['site', 'section', 'account', 'page'];
 
     function bindVars(){
         page = {
@@ -1210,10 +1211,11 @@ toolkit.tracking = (function(omniture, logger){
 
     function setup(custom){
         $.extend(page, custom);
-        if (custom.verify){
-            logger.verify(true);
+        if (custom.debug){
+            logger.debug(true);
         }
 //        todo: console warning if no site or section
+        checkMandatoryConfig();
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
     }
@@ -1224,6 +1226,14 @@ toolkit.tracking = (function(omniture, logger){
         $(document).on(evnt, clickSelector, function(e) {
             track(e);
         });
+    }
+
+    function checkMandatoryConfig(){
+        for (var name in mandatory){
+            if (!page[name]){
+                console.error('Mandatory config is missing: ', name);
+            }
+        }
     }
 
 
@@ -1242,6 +1252,7 @@ toolkit.tracking = (function(omniture, logger){
 
 //LINK TRACKING
     function track(e){
+        checkMandatoryConfig();
         reset();
         logger.log('start','tracking event', e);
         var refDomain = document.referrer,
@@ -1387,7 +1398,8 @@ toolkit.tracking = (function(omniture, logger){
     bindVars();
 
     return {
-        verify: logger.verify,
+        debug: logger.debug,
+        verify: logger.debug, //for backwards compatibility. added v0.6.0 8th Oct 2013. PM. remove once everyone know not to use it!
         setup: setup,
         pageView: pageView,
         bind: bindEvents,

@@ -8,7 +8,7 @@ toolkit.tracking.logger = (function(){
     };
 
 
-    function verify(on){
+    function debug(on){
         if (on || on === undefined){
             vars.verifying = true;
             $('body').append('<div id="' + vars.verifyOutputId + '"></div>');
@@ -55,7 +55,7 @@ toolkit.tracking.logger = (function(){
     }
 
     return {
-        verify: verify,
+        debug: debug,
         logPageView: logPageView,
         logLinkDetails: logLinkDetails,
         log: log

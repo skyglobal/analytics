@@ -5,22 +5,35 @@
 </p>
 
 <h4>Initialising</h4>
-<p>Please get these details from <code>implementation@bskyb.com</code> or <code>James.Muldoon@bskyb.com</code>.
-    <code class="block">
-    var SITECAT_CONFIG = {
-        site: 'mysky',
-        section: 'skyglobal/analytics',
-        headline: '',
-        contentType: 'skyglobal',
-        contentId: '',
-        account: 'bskybmyaccountdev',
-        page: 'Analytics demo page'
-    };
-    toolkit['tracking'].pageView(SITECAT_CONFIG);
-    </code>
+<p>The are a number of details that needs to be passed to the tracking code, which should be passed through as a single object.  Please get the applicable details for your project from <code>implementation@bskyb.com</code>.</p>
+<p>The following can be added to the <code>config</code> object:</p>
+
+<dl class="clearfix ">
+    <dt class="skycom_4 alpha">site</dt>
+    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">section</dt>
+    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">account</dt>
+    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">page</dt>
+    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">headline</dt>
+    <dd class="skycom_8">[optional] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">contentType</dt>
+    <dd class="skycom_8">[optional] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">contentId</dt>
+    <dd class="skycom_8">[optional] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">debug</dt>
+    <dd class="skycom_8">[optional] [true|false]. Turn on debug on page load to capture the page view event</dd>
+</dl>
+
+<p>Then you must tell the code to either add a pageView:
+<code >    toolkit.tracking.pageView(config); </code>
+</p>
+<p>or to complete the setup, but without firing a pageView:
+<code >    toolkit.tracking.setup(config); </code>
 </p>
 <h4>Debugging</h4>
-<p>
-    You can easily see what is being tracking by executing the following in the console:
-    <code>toolking.tracking.verify();</code>
+<p>Outside of the config, you can easily execute the following after the page has loaded to start debugging:
+    <code class="block">    toolking.tracking.debug(<i>[true|false]</i>);</code>
 </p>

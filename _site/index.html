@@ -93,16 +93,16 @@
     <div class="sub-section">
         <h3 class="wiki-h3">Contributing</h3>
 <p >
-    The source code is available in a private repository on Github, along with instructions for building/running the project locally.
+    The source code is available in a private repository on Github, along with instructions for building/running the project locally.  Please fork it from here:
     <a href="https://github.com/skyglobal/analytics/">https://github.com/skyglobal/analytics/</a>
 </p>
 
-<dl class="clearfix wiki-dl">
-    <dt>Feature Requests</dt>
-    <dd>Please check <a href="https://github.com/skyglobal/analytics/issues">here</a> to see if there is already a similar request. If not, create a New
+<dl class="clearfix ">
+    <dt class="skycom_4 alpha">Feature Requests</dt>
+    <dd class="skycom_8">Please check <a href="https://github.com/skyglobal/analytics/issues">here</a> to see if there is already a similar request. If not, create a New
         Issue and flag it as an '<code>enhancement</code>'</dd>
-    <dt>Bug Reporting</dt>
-    <dd>Please check <a href="https://github.com/skyglobal/analytics/issues">here</a> to see if there is already a similar request. If not, create a New
+    <dt class="skycom_4 alpha">Bug Reporting</dt>
+    <dd class="skycom_8">Please check <a href="https://github.com/skyglobal/analytics/issues">here</a> to see if there is already a similar request. If not, create a New
         Issue and flag it as a '<code>bug</code>'</dd>
 </dl>
     </div>
@@ -115,24 +115,37 @@
 </p>
 
 <h4>Initialising</h4>
-<p>Please get these details from <code>Andrew.Gerhardt@bskyb.com</code> or <code>James.Muldoon@bskyb.com</code>.
-    <code class="block">
-    var SITECAT_CONFIG = {
-        site: 'mysky',
-        section: 'skyglobal/analytics',
-        headline: '',
-        contentType: 'skyglobal',
-        contentId: '',
-        account: 'bskybmyaccountdev',
-        page: 'Analytics demo page'
-    };
-    toolkit['tracking'].pageView(SITECAT_CONFIG);
-    </code>
+<p>The are a number of details that needs to be passed to the tracking code, which should be passed through as a single object.  Please get the applicable details for your project from <code>implementation@bskyb.com</code>.</p>
+<p>The following can be added to the <code>config</code> object:</p>
+
+<dl class="clearfix ">
+    <dt class="skycom_4 alpha">site</dt>
+    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">section</dt>
+    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">account</dt>
+    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">page</dt>
+    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">headline</dt>
+    <dd class="skycom_8">[optional] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">contentType</dt>
+    <dd class="skycom_8">[optional] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">contentId</dt>
+    <dd class="skycom_8">[optional] --- desciption here ---</dd>
+    <dt class="skycom_4 alpha">debug</dt>
+    <dd class="skycom_8">[optional] [true|false]. Turn on debug on page load to capture the page view event</dd>
+</dl>
+
+<p>Then you must tell the code to either add a pageView:
+<code >    toolkit.tracking.pageView(config); </code>
+</p>
+<p>or to complete the setup, but without firing a pageView:
+<code >    toolkit.tracking.setup(config); </code>
 </p>
 <h4>Debugging</h4>
-<p>
-    You can easily see what is being tracking by executing the following in the console:
-    <code>toolking.tracking.verify();</code>
+<p>Outside of the config, you can easily execute the following after the page has loaded to start debugging:
+    <code class="block">    toolking.tracking.debug(<i>[true|false]</i>);</code>
 </p>
     </div>
 </section>
@@ -155,35 +168,35 @@
     When an element is clicked, the JS will traverse up the DOM looking for these attributes.
 </p>
 <dl class="clearfix">
-    <dt class="skycom_4 alpha"><code>data-tracking-module</code></dt>
+    <dt class="skycom_4 alpha">data-tracking-module</dt>
     <dd class="skycom_8">Add this to a top-level container.
         <br/>This defines a distinct horizontal band on a page.
         <br /> eg. <code>data-tracking-module=carousel</code></dd>
-    <dt class="skycom_4 alpha"><code>data-tracking-pod</code></dt>
+    <dt class="skycom_4 alpha">data-tracking-pod</dt>
     <dd class="skycom_8">Add this to a mid-level container.
         <br/>This commonly defines a vertical band within the module or a segment of content.
         <br /> eg. <code>data-tracking-pod=slide2</code></dd>
-    <dt class="skycom_4 alpha"><code>data-tracking-other</code></dt>
+    <dt class="skycom_4 alpha">data-tracking-other</dt>
     <dd class="skycom_8">Add this to a Low level container.
         <br/> This might be useful for multi-level navigation.
         <br/> eg. <code>data-tracking-other=subnav-text</code></dd>
-    <dt class="skycom_4 alpha"><code>data-tracking-theme</code></dt>
+    <dt class="skycom_4 alpha">data-tracking-theme</dt>
     <dd class="skycom_8">Add this to the element being clicked or a container.
         <br> Used to group items or related links that may be across modules.
         <br /> eg. <code>data-tracking-theme=friends-and-family</code></dd>
-    <dt class="skycom_4 alpha"><code>data-tracking-context</code> <br>... or ... <code>data-tracking-context-id</code></dt>
+    <dt class="skycom_4 alpha">data-tracking-context <br>... or ... data-tracking-context-id</dt>
     <dd class="skycom_8">Add this to the element being clicked.
         <br/>Useful when multiple links have the same text, you may need more context around the link i.e. 'remote record' may need the context of what is being recorded
         <br/> eg. <code>data-tracking-context=bond-11</code> or <code>data-tracking-context-id=search-box</code></dd>
-    <dt class="skycom_4 alpha"><code>data-tracking-label</code></dt>
+    <dt class="skycom_4 alpha">data-tracking-label</dt>
     <dd class="skycom_8">Add this to the element being clicked
         <br/>A text alternative. Useful when the text clicked may be too long or non-unique.
         <br/> eg. <code>data-tracking-label=bond-remote-record</code></dd>
-    <dt class="skycom_4 alpha"><code>data-tracking-search</code></dt>
+    <dt class="skycom_4 alpha">data-tracking-search</dt>
     <dd class="skycom_8">Add this to the button/link that triggers the search.
         <br/>Must be used with <code>data-tracking-context-id</code>.
         <br/> eg. <code>data-tracking-search=weather data-tracking-context-id=search-box</code></dd>
-    <dt class="skycom_4 alpha"><code>data-tracking</code></dt>
+    <dt class="skycom_4 alpha">data-tracking</dt>
     <dd class="skycom_8">Add this to an element you do/dont want tracked
         <br/>A way to force tracking of an element or to stop the tracking of an element.
         <br/> eg. <code>data-tracking=false</code></dd>
