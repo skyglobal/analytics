@@ -55,9 +55,12 @@ toolkit.omniture.plugins.channelManager = (function(){
         +"search.rr.com|qs|RoadRunner Search>optimum.net|q|Optimum Search";
 
 
-    function load(omniture){
+    function load(omniture, skyTracking){
         omniture.seList = seList;
         omniture.channelManager = channelManager;
+
+        omniture.linkInternalFilters = skyTracking.settings.linkInternalFilters;
+        omniture.channelManager('attr,dcmp','','s_campaign','0');
     }
 
     return {

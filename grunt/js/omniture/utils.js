@@ -8,9 +8,18 @@ toolkit.omniture.utils = (function(){
         }
     }
 
-    function omnigetCookie(c_name) {
-        if(document.cookie.length>0) {c_start=document.cookie.indexOf(c_name+"=");if(c_start!=-1){c_start=c_start+c_name.length+1;c_end=document.cookie.indexOf(";",c_start);
-            if(c_end==-1)c_end=document.cookie.length;return decodeURI(document.cookie.substring(c_start,c_end));}}return "";
+    function getCookie(name) {
+        if (!document.cookie) { return; }
+        var cookieValue="", i,cookie,
+            cookies = document.cookie.split(';');
+        for (i = 0; i < cookies.length; i++) {
+            cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+        return cookieValue;
     }
 
     function removePluses(string){ //why decode? if you cant handle + sure & is going to mess you up a treat?
@@ -40,7 +49,7 @@ toolkit.omniture.utils = (function(){
     }
 
     return {
-        omnigetCookie: omnigetCookie,
+        getCookie: getCookie,
         removePluses: removePluses,
         safeString: safeString,
         checkParentForAttribute: checkParentForAttribute,

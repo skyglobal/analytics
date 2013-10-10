@@ -12,13 +12,11 @@ toolkit.omniture = (function(config, utils, h26,
     ){
 
     var pluginsLoaded = false,
-        persistantCookies,sessionCookies = "",
+        persistantCookies = utils.getCookie('s_pers'),
+        sessionCookies = utils.getCookie('s_sess'),
         s_objectID = h26.s_objectID,
         s_gi = h26.s_gi,
         s = {};
-
-    if(utils.omnigetCookie("s_pers")){ persistantCookies = utils.omnigetCookie('s_pers'); }
-    if(utils.omnigetCookie("s_sess")){ sessionCookies = utils.omnigetCookie('s_sess'); }
 
     var sky = sky ? sky : {};
     sky.tracking = {
@@ -119,58 +117,44 @@ toolkit.omniture = (function(config, utils, h26,
                 if (options.LoggedIn === true) {sky.tracking.settings.loginStatus = 'logged-in';}
             }
 
-            //todo: move into channel stuff function
-            //update channel manager
-            s.linkInternalFilters = sky.tracking.settings.linkInternalFilters;
-            s.channelManager('attr,dcmp','','s_campaign','0');
-            var camps,chan,part,term,ref,ommid_deeplink,dcmp_deeplink,irct_deeplink,cmp_cookie_value_session,cmp_cookie_value_month,irct_deeplink_cookie,cm_cmp_cookie;
-            camps=chan=part=term=ref=ommid_deeplink=dcmp_deeplink=irct_deeplink=cmp_cookie_value_session=cmp_cookie_value_month=irct_deeplink_cookie=cm_cmp_cookie="";
-            if(utils.omnigetCookie("cmp_cookie_session")){cmp_cookie_value_session = utils.omnigetCookie("cmp_cookie_session");}
-            if(utils.omnigetCookie("cmp_cookie")){cmp_cookie_value_month = utils.omnigetCookie("cmp_cookie");}
-            if(utils.omnigetCookie("irct_deeplink_cookie")){irct_deeplink_cookie = utils.omnigetCookie("irct");}
-            if(utils.omnigetCookie('cmp_cookie')){cm_cmp_cookie = utils.omnigetCookie('cmp_cookie');}
-            if(sessionCookies && sessionCookies !== ""){
-                var mycookievalueCM = sessionCookies.split(";");
-                for(x=0;x<mycookievalueCM.length;x++){
-                    var splitcookieCM = mycookievalueCM[x].split("=");
-                    if(splitcookieCM[0] == " cmp_cookie_session"){
-                        cmp_cookie_value_session = splitcookieCM[1];
-                    }
-                    if(splitcookieCM[0] == " irct"){
-                        irct_deeplink_cookie = splitcookieCM[1];
-                    }
-                    if(splitcookieCM[0] == " cmp_cookie"){
-                        cm_cmp_cookie = splitcookieCM[1];
-                    }
-                }
+            var camps,chan,part,term,ref,ommid_deeplink,dcmp_deeplink;
+            camps=chan=part=term=ref=ommid_deeplink=dcmp_deeplink="";
+            var cookie,
+                persistant = {
+                    cookies : unescape(persistantCookies).split(";"),
+                    cmp_cookie: utils.getCookie("cmp_cookie")
+                },
+                session = {
+                    cookies: unescape(sessionCookies).split(";"),
+                    cmp_cookie_session : utils.getCookie("cmp_cookie_session"),
+                    cmp_cookie : utils.getCookie("cmp_cookie"),
+                    irct : utils.getCookie("irct")
+                };
+
+            for(x=0;x<session.cookies.length;x++){
+                cookie = session.cookies[x].split("=");
+                session[cookie[0].trim()] = (cookie[1]) ? cookie[1].trim() : "";
             }
-            if(persistantCookies && persistantCookies !== ""){
-                var mycookievalueCM2 = persistantCookies.split(";");
-                for(x=0;x<mycookievalueCM2.length;x++){
-                    var splitcookieCM2 = mycookievalueCM2[x].split("=");
-                    if(splitcookieCM2[0] == " cmp_cookie"){
-                        cmp_cookie_value_month = splitcookieCM2[1];
-                    }
-                }
+            for(x=0;x<persistant.cookies.length;x++){
+                cookie = persistant.cookies[x].split("=");
+                persistant[cookie[0].trim()] = (cookie[1]) ? cookie[1].trim() : "";
             }
 
-            /*This is used for ajax or deeplinks where we need to remove the irct / dcmp value.  pass the values in
-             irct_deeplink and dcmp_deeplink respectively.  we may need to add a ommid_deeplink for cheetahmail*/
-            if ('function' == typeof trackDCMPPage){
-                trackDCMPPage();
+            if (typeof trackDCMPPage == 'function'){
+                trackDCMPPage(); //todo: andrew, delete this?
             }
             // Insight tracking
-            if (s.getQueryParam('irct').length > 0 || irct_deeplink !== "") {
-                var insight_tracking = "";
-                if(irct_deeplink){insight_tracking = irct_deeplink;}else{insight_tracking = s.getQueryParam('irct');}
-                if (insight_tracking.toLowerCase() != irct_deeplink_cookie) {
-                    s.eVar46 = s.getValOnce(insight_tracking.toLowerCase(), 'irct', 0);
-                }}
-            if(s._campaignID){s._campaignID=s._campaignID.toLowerCase();}
+            var insight_tracking = s.getQueryParam('irct').toLowerCase();
+            if (insight_tracking && insight_tracking !== session.irct) {
+                s.eVar46 = s.getValOnce(insight_tracking, 'irct', 0);
+            }
+            if(s._campaignID){
+                s._campaignID = s._campaignID.toLowerCase();
+            }
             /*if there is no dcmp value in the url and we have a value in dcmp_deeplink, use dcmp_deeplink
              This must be pased into the campaignID or the function will not work*/
             if(!s._campaignID && dcmp_deeplink) {
-                if (dcmp_deeplink.toLowerCase() != cm_cmp_cookie) {
+                if (dcmp_deeplink.toLowerCase() != session.cmp_cookie) {
                     s._campaignID = s.getValOnce(dcmp_deeplink, 'cmp_cookie', 0);
                 }}
             /*see if this is coming from cheetahmail.  cheetahmail will take precendence over normal emc
@@ -236,23 +220,22 @@ toolkit.omniture = (function(config, utils, h26,
                 }
                 if(s.eVar45){
                     if(s.eVar45.indexOf('ilc-') !== 0){
-                        if((s.eVar45.toLowerCase()=="direct load" || s.eVar45.indexOf("oth-") === 0 ) && cmp_cookie_value_session != "undefined/undefined" &&
-                            cmp_cookie_value_session != "undefined/undefined" && cmp_cookie_value_session !== ""){
+                        if((s.eVar45.toLowerCase()=="direct load" || s.eVar45.indexOf("oth-") === 0 ) && session.cmp_cookie_session != "undefined/undefined" &&
+                            session.cmp_cookie_session != "undefined/undefined" && session.cmp_cookie_session !== ""){
                             s.eVar45 = s.prop45 = "";
                         }
-                        if(!cmp_cookie_value_session || cmp_cookie_value_session == "undefined/undefined"){
-                            cmp_cookie_value_session = s.eVar45;
-                            s.eVar47 = s.getValOnce(cmp_cookie_value_session, 'cmp_cookie_session', 0);
+                        if(!session.cmp_cookie_session || session.cmp_cookie_session == "undefined/undefined"){
+                            session.cmp_cookie_session = s.eVar45;
+                            s.eVar47 = s.getValOnce(session.cmp_cookie_session, 'cmp_cookie_session', 0);
                         }
-                        if(!cmp_cookie_value_month || cmp_cookie_value_month == "undefined/undefined"){
-                            cmp_cookie_value_month = s.eVar45;
-                            s.campaign = s.getValOnce(cmp_cookie_value_month, 'cmp_cookie', 30);
+                        if(!persistant.cmp_cookie || persistant.cmp_cookie == "undefined/undefined"){
+                            persistant.cmp_cookie = s.eVar45;
+                            s.campaign = s.getValOnce(persistant.cmp_cookie, 'cmp_cookie', 30);
                         }
                     }
                 }
             }
-            var omni_current_location = document.location.toString();
-            s.getAndPersistValue(omni_current_location.toLowerCase(),'omni_prev_URL',0);
+            s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
             var c_pastEv = s.clickThruQuality(
                 s.eVar47,
                 sky.tracking.events['firstPageVisited'],
@@ -271,7 +254,7 @@ toolkit.omniture = (function(config, utils, h26,
                 s.setupDynamicObjectIDs();
             }
             var refURL=document.referrer;
-            if (refURL !== ""){
+            if (refURL){
                 var iURL=refURL.indexOf('?')>-1?refURL.indexOf('?'):refURL.length;
                 var qURL=refURL.indexOf('//')>-1?refURL.indexOf('//')+2:0;
                 var rURL=refURL.indexOf('/',qURL)>-1?refURL.indexOf('/',qURL):iURL;
@@ -519,7 +502,7 @@ toolkit.omniture = (function(config, utils, h26,
 
 
 
-            channelManager.load(s);
+            channelManager.load(s, sky.tracking);
             testAndTarget.load(s);
             mediaModule.load(s);
             newOrRepeatVisits.load(s, sky.tracking);
