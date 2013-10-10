@@ -140,9 +140,6 @@ toolkit.omniture = (function(config, utils, h26,
                 persistant[cookie[0].trim()] = (cookie[1]) ? cookie[1].trim() : "";
             }
 
-            if (typeof trackDCMPPage == 'function'){
-                trackDCMPPage(); //todo: andrew, delete this?
-            }
             // Insight tracking
             var insight_tracking = s.getQueryParam('irct').toLowerCase();
             if (insight_tracking && insight_tracking !== session.irct) {
