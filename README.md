@@ -58,7 +58,7 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
 
 1. In the root of the project, run the following:
   - bundle
-  - rackup
+  - jekyll serve
 2. In another terminal run 'grunt watch' (add ' --beautify=true' to help debugging)
 3. You should be able to see the documentation site in your browser on http://localhost:9292
 
