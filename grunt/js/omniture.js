@@ -7,7 +7,8 @@ if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
 toolkit.omniture = (function(config, utils, h26,
                              mediaModule,
                              testAndTarget,
-                             channelManager
+                             channelManager,
+                             newOrRepeatVisits
     ){
 
     var pluginsLoaded = false,
@@ -25,6 +26,7 @@ toolkit.omniture = (function(config, utils, h26,
         trackedDataValues: config.trackedDataValues,
         variables: config.trackedData,
         loadVariables: {},
+        loadEvents: [],
         events: config.trackedEvents,
         setup: function(options){
             // Initial defaults:
@@ -262,9 +264,7 @@ toolkit.omniture = (function(config, utils, h26,
 
 
 
-            s.eVar70 = s.getNewRepeat(30, "s_getNewRepeat");
-            if(s.eVar70 == "Repeat"){  options.loadEvents.push(sky.tracking.events['repeatVisit']);}//todo: test this
-            s.eVar69 = s.getVisitNum();
+
 
 
             if (sky.tracking.settings.setObjectIDs) {
@@ -423,18 +423,6 @@ toolkit.omniture = (function(config, utils, h26,
 
 
 
-            /*
-             * Plugin: getNewRepeat 1.2 - Returns whether user is new or repeat
-             */
-            s.getNewRepeat=new Function("d","cn",""+
-                "var s=this,e=new Date(),cval,sval,ct=e.getTime();d=d?d:30;cn=cn?cn:"+
-                "'s_nr';e.setTime(ct+d*24*60*60*1000);cval=s.c_r(cn);if(cval.length="+
-                "=0){s.c_w(cn,ct+'-New',e);return'New';}sval=s.split(cval,'-');if(ct"+
-                "-sval[0]<30*60*1000&&sval[1]=='New'){s.c_w(cn,ct+'-New',e);return'N"+
-                "ew';}else{s.c_w(cn,ct+'-Repeat',e);return'Repeat';}");
-
-
-
 
             /*
              * Plugin: getQueryParam 2.3
@@ -521,16 +509,9 @@ toolkit.omniture = (function(config, utils, h26,
                 +"substring(i+o.length);i=x.indexOf(o,i+l)}return x");
 
 
-
-
             /*
              * Utility Function: split v1.5 (JS 1.0 compatible)
              */
-            s.getVisitNum = new Function("var s=this,e=new Date(),cval,cvisit,ct=e.getTime(),c='s_vnum',c2='s_invisit';e.setTime(ct+30*24*60*60*1000);cval=s.c_r(c);if(cval){var i=cval.indexOf('&vn='),str=cval.substring(i+4,cval.length),k;}cvisit=s.c_r(c2);if(cvisit){if(str){e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else return 'unknown visit number';}else{if(str){str++;k=cval.substring(0,i);e.setTime(k);s.c_w(c,k+'&vn='+str,e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else{s.c_w(c,ct+30*24*60*60*1000+'&vn=1',e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return 1;}}");
-
-
-
-
             s.split=new Function("l","d",""
                 +"var i,x=0,a=new Array;while(l){i=l.indexOf(d);i=i>-1?i:l.length;a[x"
                 +"++]=l.substring(0,i);l=l.substring(i+d.length);}return a");
@@ -541,6 +522,7 @@ toolkit.omniture = (function(config, utils, h26,
             channelManager.load(s);
             testAndTarget.load(s);
             mediaModule.load(s);
+            newOrRepeatVisits.load(s, sky.tracking);
 
             pluginsLoaded = true;
         },
@@ -561,7 +543,8 @@ toolkit.omniture = (function(config, utils, h26,
     toolkit.omniture.h26,
     toolkit.omniture.plugins.mediaModule,
     toolkit.omniture.plugins.testAndTarget,
-    toolkit.omniture.plugins.channelManager
+    toolkit.omniture.plugins.channelManager,
+    toolkit.omniture.plugins.newOrRepeatVisits
 ));
 
 //just for require
@@ -572,8 +555,9 @@ if (typeof window.define === "function" && window.define.amd) {
         'omniture/omniture-h26',
         'plugins/media-module',
         'plugins/test-and-target',
-        'plugins/channel-manager'
-    ], function(config, utils, mediaModule, testAndTarget, channelManager) {
+        'plugins/channel-manager',
+        'plugins/new-or-repeat-visits'
+    ], function(config, utils, mediaModule, testAndTarget, channelManager, newOrRepeatVisits) {
         return toolkit.omniture;
     });
 }

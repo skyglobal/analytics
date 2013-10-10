@@ -155,12 +155,17 @@ toolkit.omniture.utils = (function(){
         return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
 
+    function httpsSearch(referrer){
+        return (referrer.indexOf("www.google.") > -1 && document.referrer.indexOf("q=&") > -1) ? "google" : "na";
+    }
+
     return {
         omnigetCookie: omnigetCookie,
         removePluses: removePluses,
         safeString: safeString,
         checkParentForAttribute: checkParentForAttribute,
-        getText: getText
+        getText: getText,
+        httpsSearch: httpsSearch
     };
 
 }());
@@ -535,6 +540,56 @@ if (typeof window.define === "function" && window.define.amd) {
         return toolkit.omniture.plugins.channelManager;
     });
 };
+if (typeof toolkit==='undefined') toolkit={};
+if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
+if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
+
+toolkit.omniture.plugins.newOrRepeatVisits = (function(){
+
+    var getVisitNum = new Function("var s=this,e=new Date(),cval,cvisit,ct=e.getTime(),c='s_vnum',c2='s_invisit';e.setTime(ct+30*24*60*60*1000);cval=s.c_r(c);if(cval){var i=cval.indexOf('&vn='),str=cval.substring(i+4,cval.length),k;}cvisit=s.c_r(c2);if(cvisit){if(str){e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else return 'unknown visit number';}else{if(str){str++;k=cval.substring(0,i);e.setTime(k);s.c_w(c,k+'&vn='+str,e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else{s.c_w(c,ct+30*24*60*60*1000+'&vn=1',e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return 1;}}");
+
+    /*
+    * Plugin: getNewRepeat 1.2 - Returns whether user is new or repeat
+    */
+    var getNewRepeat = function(d,cn){
+        var s=this,e=new Date(),cval,sval,ct=e.getTime();
+        d=d?d:30;cn=cn?cn:'s_nr';
+        e.setTime(ct+d*24*60*60*1000);cval=s.c_r(cn);
+        if(cval.length==0){
+            s.c_w(cn,ct+'-New',e);
+            return'New';
+        }
+        sval=cval.split('-');
+        if(ct-sval[0]<30*60*1000&&sval[1]=='New'){
+            s.c_w(cn,ct+'-New',e);
+            return 'New';
+        }else{
+            s.c_w(cn,ct+'-Repeat',e);
+            return'Repeat';
+        }
+    };
+
+    function load(omniture, skyTracking){
+
+        omniture.getNewRepeat = getNewRepeat;
+        omniture.getVisitNum = getVisitNum;
+
+        omniture.eVar70 = omniture.getNewRepeat(30, "s_getNewRepeat");
+        if(omniture.eVar70 == "Repeat"){  skyTracking.loadEvents.push(skyTracking.events['repeatVisit']);}//todo: test this
+        omniture.eVar69 = omniture.getVisitNum();
+    }
+
+    return {
+        load: load
+    };
+
+}());
+
+if (typeof window.define === "function" && window.define.amd) {
+    define("plugins/new-or-repeat-visits", [],function() {
+        return toolkit.omniture.plugins.newOrRepeatVisits;
+    });
+};
 /* eexp-global-v1.2
  * moving to H26 and forced link tracking - date 07/05/2013 - AJG
  *
@@ -544,7 +599,8 @@ if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
 toolkit.omniture = (function(config, utils, h26,
                              mediaModule,
                              testAndTarget,
-                             channelManager
+                             channelManager,
+                             newOrRepeatVisits
     ){
 
     var pluginsLoaded = false,
@@ -562,6 +618,7 @@ toolkit.omniture = (function(config, utils, h26,
         trackedDataValues: config.trackedDataValues,
         variables: config.trackedData,
         loadVariables: {},
+        loadEvents: [],
         events: config.trackedEvents,
         setup: function(options){
             // Initial defaults:
@@ -747,12 +804,12 @@ toolkit.omniture = (function(config, utils, h26,
                     s.eVar45="direct load";
                 }
                 else if(chan != "direct load" && ref){
-                    var checkNaturalSearch = s.httpsSearch(ref);
-                    if(checkNaturalSearch == "na"){
-                        s.eVar45 = "oth-" + ref;
-                    }else{s.eVar45 = "okc-secured natural search";
-                        s.eVar3 = checkNaturalSearch;
+                    if(utils.httpsSearch(ref) == "google"){
+                        s.eVar45 = "okc-secured natural search";
+                        s.eVar3 = "google";
                         s.eVar8 = "secured search term";
+                    } else {
+                        s.eVar45 = "oth-" + ref;
                     }
                 }
             }
@@ -799,9 +856,7 @@ toolkit.omniture = (function(config, utils, h26,
 
 
 
-            s.eVar70 = s.getNewRepeat(30, "s_getNewRepeat");
-            if(s.eVar70 == "Repeat"){  options.loadEvents.push(sky.tracking.events['repeatVisit']);}//todo: test this
-            s.eVar69 = s.getVisitNum();
+
 
 
             if (sky.tracking.settings.setObjectIDs) {
@@ -960,18 +1015,6 @@ toolkit.omniture = (function(config, utils, h26,
 
 
 
-            /*
-             * Plugin: getNewRepeat 1.2 - Returns whether user is new or repeat
-             */
-            s.getNewRepeat=new Function("d","cn",""+
-                "var s=this,e=new Date(),cval,sval,ct=e.getTime();d=d?d:30;cn=cn?cn:"+
-                "'s_nr';e.setTime(ct+d*24*60*60*1000);cval=s.c_r(cn);if(cval.length="+
-                "=0){s.c_w(cn,ct+'-New',e);return'New';}sval=s.split(cval,'-');if(ct"+
-                "-sval[0]<30*60*1000&&sval[1]=='New'){s.c_w(cn,ct+'-New',e);return'N"+
-                "ew';}else{s.c_w(cn,ct+'-Repeat',e);return'Repeat';}");
-
-
-
 
             /*
              * Plugin: getQueryParam 2.3
@@ -1058,28 +1101,20 @@ toolkit.omniture = (function(config, utils, h26,
                 +"substring(i+o.length);i=x.indexOf(o,i+l)}return x");
 
 
-
-
             /*
              * Utility Function: split v1.5 (JS 1.0 compatible)
              */
-            s.getVisitNum = new Function("var s=this,e=new Date(),cval,cvisit,ct=e.getTime(),c='s_vnum',c2='s_invisit';e.setTime(ct+30*24*60*60*1000);cval=s.c_r(c);if(cval){var i=cval.indexOf('&vn='),str=cval.substring(i+4,cval.length),k;}cvisit=s.c_r(c2);if(cvisit){if(str){e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else return 'unknown visit number';}else{if(str){str++;k=cval.substring(0,i);e.setTime(k);s.c_w(c,k+'&vn='+str,e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else{s.c_w(c,ct+30*24*60*60*1000+'&vn=1',e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return 1;}}");
-
-
-
-
             s.split=new Function("l","d",""
                 +"var i,x=0,a=new Array;while(l){i=l.indexOf(d);i=i>-1?i:l.length;a[x"
                 +"++]=l.substring(0,i);l=l.substring(i+d.length);}return a");
 
 
-            s.httpsSearch = function(A){var pp = "";if(A.indexOf("www.google.") != -1){;if(document.referrer.indexOf("q=&")!=-1){pp = "google";}}if(pp == ""){pp = "na";}return pp;}
-            /* Top 130 - Grouped */
 
 
             channelManager.load(s);
             testAndTarget.load(s);
             mediaModule.load(s);
+            newOrRepeatVisits.load(s, sky.tracking);
 
             pluginsLoaded = true;
         },
@@ -1100,7 +1135,8 @@ toolkit.omniture = (function(config, utils, h26,
     toolkit.omniture.h26,
     toolkit.omniture.plugins.mediaModule,
     toolkit.omniture.plugins.testAndTarget,
-    toolkit.omniture.plugins.channelManager
+    toolkit.omniture.plugins.channelManager,
+    toolkit.omniture.plugins.newOrRepeatVisits
 ));
 
 //just for require
@@ -1111,8 +1147,9 @@ if (typeof window.define === "function" && window.define.amd) {
         'omniture/omniture-h26',
         'plugins/media-module',
         'plugins/test-and-target',
-        'plugins/channel-manager'
-    ], function(config, utils, mediaModule, testAndTarget, channelManager) {
+        'plugins/channel-manager',
+        'plugins/new-or-repeat-visits'
+    ], function(config, utils, mediaModule, testAndTarget, channelManager, newOrRepeatVisits) {
         return toolkit.omniture;
     });
 }
