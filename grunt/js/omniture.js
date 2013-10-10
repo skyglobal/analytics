@@ -210,12 +210,12 @@ toolkit.omniture = (function(config, utils, h26,
                     s.eVar45="direct load";
                 }
                 else if(chan != "direct load" && ref){
-                    var checkNaturalSearch = s.httpsSearch(ref);
-                    if(checkNaturalSearch == "na"){
-                        s.eVar45 = "oth-" + ref;
-                    }else{s.eVar45 = "okc-secured natural search";
-                        s.eVar3 = checkNaturalSearch;
+                    if(utils.httpsSearch(ref) == "google"){
+                        s.eVar45 = "okc-secured natural search";
+                        s.eVar3 = "google";
                         s.eVar8 = "secured search term";
+                    } else {
+                        s.eVar45 = "oth-" + ref;
                     }
                 }
             }
@@ -536,9 +536,6 @@ toolkit.omniture = (function(config, utils, h26,
                 +"++]=l.substring(0,i);l=l.substring(i+d.length);}return a");
 
 
-
-            s.httpsSearch = function(A){var pp = "";if(A.indexOf("www.google.") != -1){;if(document.referrer.indexOf("q=&")!=-1){pp = "google";}}if(pp == ""){pp = "na";}return pp;}
-            /* Top 130 - Grouped */
 
 
             channelManager.load(s);

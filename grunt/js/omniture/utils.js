@@ -35,12 +35,17 @@ toolkit.omniture.utils = (function(){
         return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
 
+    function httpsSearch(referrer){
+        return (referrer.indexOf("www.google.") > -1 && document.referrer.indexOf("q=&") > -1) ? "google" : "na";
+    }
+
     return {
         omnigetCookie: omnigetCookie,
         removePluses: removePluses,
         safeString: safeString,
         checkParentForAttribute: checkParentForAttribute,
-        getText: getText
+        getText: getText,
+        httpsSearch: httpsSearch
     };
 
 }());
