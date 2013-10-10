@@ -27,14 +27,18 @@ toolkit.omniture.plugins.newOrRepeatVisits = (function(){
         }
     };
 
+    function setVars(omniture, skyTracking){
+        omniture.eVar70 = omniture.getNewRepeat(30, "s_getNewRepeat");
+        if(omniture.eVar70 == "Repeat"){  skyTracking.loadEvents.push(skyTracking.events['repeatVisit']);}//todo: test this
+        omniture.eVar69 = omniture.getVisitNum();
+    }
+
     function load(omniture, skyTracking){
 
         omniture.getNewRepeat = getNewRepeat;
         omniture.getVisitNum = getVisitNum;
 
-        omniture.eVar70 = omniture.getNewRepeat(30, "s_getNewRepeat");
-        if(omniture.eVar70 == "Repeat"){  skyTracking.loadEvents.push(skyTracking.events['repeatVisit']);}//todo: test this
-        omniture.eVar69 = omniture.getVisitNum();
+        setVars(omniture, skyTracking);
     }
 
     return {

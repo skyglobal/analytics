@@ -709,14 +709,18 @@ toolkit.omniture.plugins.newOrRepeatVisits = (function(){
         }
     };
 
+    function setVars(omniture, skyTracking){
+        omniture.eVar70 = omniture.getNewRepeat(30, "s_getNewRepeat");
+        if(omniture.eVar70 == "Repeat"){  skyTracking.loadEvents.push(skyTracking.events['repeatVisit']);}//todo: test this
+        omniture.eVar69 = omniture.getVisitNum();
+    }
+
     function load(omniture, skyTracking){
 
         omniture.getNewRepeat = getNewRepeat;
         omniture.getVisitNum = getVisitNum;
 
-        omniture.eVar70 = omniture.getNewRepeat(30, "s_getNewRepeat");
-        if(omniture.eVar70 == "Repeat"){  skyTracking.loadEvents.push(skyTracking.events['repeatVisit']);}//todo: test this
-        omniture.eVar69 = omniture.getVisitNum();
+        setVars(omniture, skyTracking);
     }
 
     return {
@@ -730,6 +734,74 @@ if (typeof window.define === "function" && window.define.amd) {
         return toolkit.omniture.plugins.newOrRepeatVisits;
     });
 };
+if (typeof toolkit==='undefined') toolkit={};
+if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
+if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
+
+toolkit.omniture.plugins.userHistory = (function(){
+
+
+    var getAndPersistValue=new Function("v","c","e",""+
+        "var s=this,a=new Date;e=e?e:0;a.setTime(a.getTime()+e*86400000);if("+
+        "v)s.c_w(c,v,e?a:0);return s.c_r(c);");
+
+
+    var getFullReferringDomains=new Function(""+
+        "var s=this,dr=window.document.referrer,n=s.linkInternalFilters.spli"+
+        "t(',');if(dr){var r=dr.split('/')[2],l=n.length;for(i=0;i<=l;i++){i"+
+        "f(r.indexOf(n[i])!=-1){r='';i=l+1;}}return r}");
+
+    var clickThruQuality=function(scp,ct_ev,cp_ev,cpc){
+        var s = this,
+            ev, tct;
+        if (s.p_fo(ct_ev) == 1) {
+            if (!cpc) {
+                cpc = 's_cpc';
+            }
+            ev = s.events ? s.events + ',' : '';
+            if (scp) {
+                s.c_w(cpc, 1, 0);
+                return ct_ev;
+            } else {
+                if (s.c_r(cpc) >= 1) {
+                    s.c_w(cpc, 0, 0);
+                    return cp_ev;
+                }
+            }
+        }
+    };
+
+    function setVars(omniture, skyTracking){
+
+        omniture.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
+        var c_pastEv = omniture.clickThruQuality(
+            omniture.eVar47,
+            skyTracking.events['firstPageVisited'],
+            skyTracking.events['secondPageVisited'],
+            's_ctq'
+        );
+        if(c_pastEv) { skyTracking.loadEvents.push(c_pastEv); }
+        omniture.eVar17 = omniture.getFullReferringDomains();
+    }
+
+    function load(omniture, skyTracking){
+        omniture.getFullReferringDomains = getFullReferringDomains;
+        omniture.getAndPersistValue = getAndPersistValue;
+        omniture.clickThruQuality = clickThruQuality;
+        setVars(omniture, skyTracking);
+    }
+
+    return {
+        load: load
+    };
+
+}());
+
+if (typeof window.define === "function" && window.define.amd) {
+    define("plugins/user-history", [],function() {
+        return toolkit.omniture.plugins.userHistory;
+    });
+};
 /* eexp-global-v1.2
  * moving to H26 and forced link tracking - date 07/05/2013 - AJG
  *
@@ -740,7 +812,8 @@ toolkit.omniture = (function(config, utils, h26,
                              mediaModule,
                              testAndTarget,
                              channelManager,
-                             newOrRepeatVisits
+                             newOrRepeatVisits,
+                             userHistory
     ){
 
     var pluginsLoaded = false,
@@ -846,21 +919,6 @@ toolkit.omniture = (function(config, utils, h26,
                 if (options.LoggedIn === false) {sky.tracking.settings.loginStatus = 'not logged-in';}
                 if (options.LoggedIn === true) {sky.tracking.settings.loginStatus = 'logged-in';}
             }
-
-            s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
-            var c_pastEv = s.clickThruQuality(
-                s.eVar47,
-                sky.tracking.events['firstPageVisited'],
-                sky.tracking.events['secondPageVisited'],
-                's_ctq'
-            );
-            if(c_pastEv) { options.loadEvents.push(c_pastEv); }
-            s.eVar17 = s.getFullReferringDomains();
-
-
-
-
-
 
             if (sky.tracking.settings.setObjectIDs) {
                 s.setupDynamicObjectIDs();
@@ -994,25 +1052,7 @@ toolkit.omniture = (function(config, utils, h26,
             s.c_w = new Function("k", "v", "e", "" + "var s=this,d=new Date,ht=0,pn='s_pers',sn='s_sess',pc=0,sc=0,pv,sv," + "c,i,t;d.setTime(d.getTime()-60000);if(s.c_rr(k)) s.c_wr(k,'',d);k=s" + ".ape(k);pv=s.c_rr(pn);i=pv.indexOf(' '+k+'=');if(i>-1){pv=pv.substr" + "ing(0,i)+pv.substring(pv.indexOf(';',i)+1);pc=1;}sv=s.c_rr(sn);i=sv" + ".indexOf(' '+k+'=');if(i>-1){sv=sv.substring(0,i)+sv.substring(sv.i" + "ndexOf(';',i)+1);sc=1;}d=new Date;if(e){if(e.getTime()>d.getTime())" + "{pv+=' '+k+'='+s.ape(v)+'|'+e.getTime()+';';pc=1;}}else{sv+=' '+k+'" + "='+s.ape(v)+';';sc=1;}if(sc) s.c_wr(sn,sv,0);if(pc){t=pv;while(t&&t" + ".indexOf(';')!=-1){var t1=parseInt(t.substring(t.indexOf('|')+1,t.i" + "ndexOf(';')));t=t.substring(t.indexOf(';')+1);ht=ht<t1?t1:ht;}d.set" + "Time(ht);s.c_wr(pn,pv,d);}return v==s.c_r(s.epa(k));");
 
             s.getValOnce = new Function("v","c","e","" + "var s=this,k=s.c_r(c),a=new Date;e=e?e:0;if(v){a.setTime(a.getTime("+")+e*86400000);s.c_w(c,v,e?a:0);}return v==k?'':v");
-            s.clickThruQuality=function(scp,ct_ev,cp_ev,cpc){
-                var s = this,
-                    ev, tct;
-                if (s.p_fo(ct_ev) == 1) {
-                    if (!cpc) {
-                        cpc = 's_cpc';
-                    }
-                    ev = s.events ? s.events + ',' : '';
-                    if (scp) {
-                        s.c_w(cpc, 1, 0);
-                        return ct_ev;
-                    } else {
-                        if (s.c_r(cpc) >= 1) {
-                            s.c_w(cpc, 0, 0);
-                            return cp_ev;
-                        }
-                    }
-                }
-            };
+
             s.p_fo=new Function("n","" +"var s=this;if(!s.__fo){s.__fo=new Object;}if(!s.__fo[n]){s.__fo[n]="+"new Object;return 1;}else {return 0;}");
             s.apl = new Function("L", "v", "d", "u", "var s=this,m=0;if(!L)L='';if(u){var i,n,a=s.split(L,d);for(i=0;i<a.length;i++){n=a[i];m=m||(u==1?(n==v):(n.toLowerCase()==v.toLowerCase()));}}if(!m)L=L?L+d+v:v;return L");
 
@@ -1081,18 +1121,6 @@ toolkit.omniture = (function(config, utils, h26,
 
 
 
-            s.getAndPersistValue=new Function("v","c","e",""+
-                "var s=this,a=new Date;e=e?e:0;a.setTime(a.getTime()+e*86400000);if("+
-                "v)s.c_w(c,v,e?a:0);return s.c_r(c);");
-
-
-
-
-            s.getFullReferringDomains=new Function(""+
-                "var s=this,dr=window.document.referrer,n=s.linkInternalFilters.spli"+
-                "t(',');if(dr){var r=dr.split('/')[2],l=n.length;for(i=0;i<=l;i++){i"+
-                "f(r.indexOf(n[i])!=-1){r='';i=l+1;}}return r}");
-
 
 
 
@@ -1113,8 +1141,9 @@ toolkit.omniture = (function(config, utils, h26,
 
 
 
-
+//            todo: double check ordering with .bk file
             channelManager.load(s, sky.tracking);
+            userHistory.load(s, sky.tracking);
             testAndTarget.load(s);
             mediaModule.load(s);
             newOrRepeatVisits.load(s, sky.tracking);
@@ -1139,7 +1168,8 @@ toolkit.omniture = (function(config, utils, h26,
     toolkit.omniture.plugins.mediaModule,
     toolkit.omniture.plugins.testAndTarget,
     toolkit.omniture.plugins.channelManager,
-    toolkit.omniture.plugins.newOrRepeatVisits
+    toolkit.omniture.plugins.newOrRepeatVisits,
+    toolkit.omniture.plugins.userHistory
 ));
 
 //just for require
@@ -1151,8 +1181,9 @@ if (typeof window.define === "function" && window.define.amd) {
         'plugins/media-module',
         'plugins/test-and-target',
         'plugins/channel-manager',
-        'plugins/new-or-repeat-visits'
-    ], function(config, utils, mediaModule, testAndTarget, channelManager, newOrRepeatVisits) {
+        'plugins/new-or-repeat-visits',
+        'plugins/user-history'
+    ], function(config, utils, mediaModule, testAndTarget, channelManager, newOrRepeatVisits,userHistory) {
         return toolkit.omniture;
     });
 }
