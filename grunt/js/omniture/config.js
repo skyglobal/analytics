@@ -4,6 +4,7 @@ toolkit.omniture.config = (function(){
 
 //todo: merge these maps together into one
     var trackedData = {
+//            todo: add tnt eVar18 if needed
         searchType: ['prop12','eVar31'],
         searchTerms: ['prop1','eVar1'],
         searchResults: ['prop34'],
