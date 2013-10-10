@@ -4,8 +4,9 @@ tracking.js
 omniture/config.js
 omniture/utils.js
 omniture/omniture-h26.js
-plugins/test-and-target.js
 plugins/media-module.js
+plugins/test-and-target.js
+plugins/channel-manager.js
 omniture.js
 tracking/logger.js
 tracking.js
