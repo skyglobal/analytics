@@ -8,20 +8,6 @@ toolkit.omniture.utils = (function(){
         }
     }
 
-    function getCookie(name) {
-        if (!document.cookie) { return; }
-        var cookieValue="", i,cookie,
-            cookies = document.cookie.split(';');
-        for (i = 0; i < cookies.length; i++) {
-            cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-        return cookieValue;
-    }
-
     function removePluses(string){ //why decode? if you cant handle + sure & is going to mess you up a treat?
         return decodeURI(string.replace(/\+/g,'%20').toLowerCase());
     }
@@ -44,17 +30,11 @@ toolkit.omniture.utils = (function(){
         return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
 
-    function httpsSearch(referrer){
-        return (referrer.indexOf("www.google.") > -1 && document.referrer.indexOf("q=&") > -1) ? "google" : "na";
-    }
-
     return {
-        getCookie: getCookie,
         removePluses: removePluses,
         safeString: safeString,
         checkParentForAttribute: checkParentForAttribute,
-        getText: getText,
-        httpsSearch: httpsSearch
+        getText: getText
     };
 
 }());

@@ -4,7 +4,14 @@ toolkit.omniture.config = (function(){
 
 //todo: merge these maps together into one
     var trackedData = {
-//            todo: add tnt eVar18 if needed
+//            todo: add tnt eVar18 if needed?
+//            todo: add insight_tracking eVar46 if needed?
+//            todo: add campaigns eVar45 if needed?
+//            todo: add more campaigns eVar47 if needed?
+//            todo: add partner eVar3 if needed?
+//            todo: add keyword eVar8 if needed?
+//            todo: add partner eVar16 if needed?
+//            todo: add keyword eVar17 if needed?
         searchType: ['prop12','eVar31'],
         searchTerms: ['prop1','eVar1'],
         searchResults: ['prop34'],

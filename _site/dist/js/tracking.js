@@ -5,7 +5,14 @@ toolkit.omniture.config = (function(){
 
 //todo: merge these maps together into one
     var trackedData = {
-//            todo: add tnt eVar18 if needed
+//            todo: add tnt eVar18 if needed?
+//            todo: add insight_tracking eVar46 if needed?
+//            todo: add campaigns eVar45 if needed?
+//            todo: add more campaigns eVar47 if needed?
+//            todo: add partner eVar3 if needed?
+//            todo: add keyword eVar8 if needed?
+//            todo: add partner eVar16 if needed?
+//            todo: add keyword eVar17 if needed?
         searchType: ['prop12','eVar31'],
         searchTerms: ['prop1','eVar1'],
         searchResults: ['prop34'],
@@ -128,20 +135,6 @@ toolkit.omniture.utils = (function(){
         }
     }
 
-    function getCookie(name) {
-        if (!document.cookie) { return; }
-        var cookieValue="", i,cookie,
-            cookies = document.cookie.split(';');
-        for (i = 0; i < cookies.length; i++) {
-            cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-        return cookieValue;
-    }
-
     function removePluses(string){ //why decode? if you cant handle + sure & is going to mess you up a treat?
         return decodeURI(string.replace(/\+/g,'%20').toLowerCase());
     }
@@ -164,17 +157,11 @@ toolkit.omniture.utils = (function(){
         return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
 
-    function httpsSearch(referrer){
-        return (referrer.indexOf("www.google.") > -1 && document.referrer.indexOf("q=&") > -1) ? "google" : "na";
-    }
-
     return {
-        getCookie: getCookie,
         removePluses: removePluses,
         safeString: safeString,
         checkParentForAttribute: checkParentForAttribute,
-        getText: getText,
-        httpsSearch: httpsSearch
+        getText: getText
     };
 
 }());
@@ -482,8 +469,31 @@ if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
 
 toolkit.omniture.plugins.channelManager = (function(){
 
+    var persistant, session,
+        persistantCookies = getCookie('s_pers'),
+        sessionCookies = getCookie('s_sess');
+
     function removePlus(string){
         return unescape(string.replace(/\+/g,'%20').toLowerCase());
+    }
+
+
+    function httpsSearch(referrer){
+        return (referrer.indexOf("www.google.") > -1 && document.referrer.indexOf("q=&") > -1) ? "google" : "na";
+    }
+
+    function getCookie(name) {
+        if (!document.cookie) { return; }
+        var cookieValue="", i,cookie,
+            cookies = document.cookie.split(';');
+        for (i = 0; i < cookies.length; i++) {
+            cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+        return cookieValue;
     }
 
     /*
@@ -533,12 +543,130 @@ toolkit.omniture.plugins.channelManager = (function(){
         +"search.rr.com|qs|RoadRunner Search>optimum.net|q|Optimum Search";
 
 
+    function readCookies(){
+        var cookie, x;
+        persistant = {
+            cookies : unescape(persistantCookies).split(";"),
+            cmp_cookie: getCookie("cmp_cookie")
+        };
+        session = {
+            cookies: unescape(sessionCookies).split(";"),
+            cmp_cookie_session : getCookie("cmp_cookie_session"),
+            cmp_cookie : getCookie("cmp_cookie"),
+            irct : getCookie("irct")
+        };
+
+        for(x=0;x<session.cookies.length;x++){
+            cookie = session.cookies[x].split("=");
+            session[cookie[0].trim()] = (cookie[1]) ? cookie[1].trim() : "";
+        }
+        for(x=0;x<persistant.cookies.length;x++){
+            cookie = persistant.cookies[x].split("=");
+            persistant[cookie[0].trim()] = (cookie[1]) ? cookie[1].trim() : "";
+        }
+    }
+
+    function setInsightTracking(s){
+        var insight_tracking = s.getQueryParam('irct').toLowerCase();
+        if (insight_tracking && insight_tracking !== session.irct) {
+            s.eVar46 = s.getValOnce(insight_tracking, 'irct', 0);
+        }
+    }
+
+    function setVariables(s){
+        if(s._campaignID){
+            s._campaignID = s._campaignID.toLowerCase(); //todo: streamline all this toLowerCase jaxx
+            s.eVar45=s._campaignID;
+        }
+    }
+
+    //todo: andrew, why do we care so much about cheetah mail? delet?
+    function setCheetah(s){
+//        todo: i think remove all below
+        if (s.getQueryParam('om_mid').length > 0) {
+            var cheetahmail_variable = s.getQueryParam('om_mid');
+            if(s._campaignID){
+                s._campaignID = "cht-" + cheetahmail_variable + ":links__" + s._campaignID.replace("emc-","");
+            }  else{
+                s._campaignID = "cht-" + cheetahmail_variable;
+            }
+        }
+    }
+
+    function setPartnerAndKeyWords(s){
+        var keyword = (s._keywords) ? s._keywords.toLowerCase() : "",
+            partner = (s._partner) ? s._partner.toLowerCase() : "",
+            chan = (s._channel) ? s._channel.toLowerCase() : "",
+            ref = (s._referringDomain) ? s._referringDomain.toLowerCase() : "";
+
+//todo: test the hell out of all these if statements before refactor!!!!
+//todo: remove campaign specific stuff knc?
+        if (s._campaignID && s._campaignID.indexOf('knc-') === 0) {
+            if(s._campaignID == "knc-"){
+                s.eVar45 += partner + ":" + keyword;
+            }
+            s.eVar3 = partner;
+            s.eVar8 = keyword;
+        }
+        if(chan == "natural search"){
+            s.eVar45 = "okc-natural search";
+            s.eVar3 = partner;
+            s.eVar8 = keyword;
+        }
+        if (s._campaignID==="" && chan != "natural search") {
+            if (chan=="direct load"){
+                s.eVar45="direct load";
+            }
+            else if(chan != "direct load" && ref){
+                if(httpsSearch(ref) == "google"){
+                    s.eVar45 = "okc-secured natural search";
+                    s.eVar3 = "google";
+                    s.eVar8 = "secured search term";
+                } else {
+                    s.eVar45 = "oth-" + ref;
+                }
+            }
+        }
+        if(s.eVar3){  s.prop16 = "D=v3"; }
+        if(s.eVar8){ s.prop17 = "D=v8"; }
+        if(s.prop45){ s.prop45 = "D=v45"; }
+    }
+
+//    todo: andrew, ilc still used? delete?
+    function setupIlcCampaign(s){
+        if(!s._channel && !s._campaignID){ return; }
+
+        if(s.eVar45 && s.eVar45.indexOf('ilc-') !== 0){
+            if((s.eVar45=="direct load" || s.eVar45.indexOf("oth-") === 0 ) && session.cmp_cookie_session != "undefined/undefined" &&
+                session.cmp_cookie_session != "undefined/undefined" && session.cmp_cookie_session !== ""){
+                s.eVar45 = s.prop45 = "";
+            }
+            if(!session.cmp_cookie_session || session.cmp_cookie_session == "undefined/undefined"){
+                session.cmp_cookie_session = s.eVar45;
+                s.eVar47 = s.getValOnce(session.cmp_cookie_session, 'cmp_cookie_session', 0);
+            }
+            if(!persistant.cmp_cookie || persistant.cmp_cookie == "undefined/undefined"){
+                persistant.cmp_cookie = s.eVar45;
+                s.campaign = s.getValOnce(persistant.cmp_cookie, 'cmp_cookie', 30);
+            }
+        }
+    }
+
+
+
     function load(omniture, skyTracking){
+        readCookies();
+
         omniture.seList = seList;
         omniture.channelManager = channelManager;
-
         omniture.linkInternalFilters = skyTracking.settings.linkInternalFilters;
         omniture.channelManager('attr,dcmp','','s_campaign','0');
+
+        setInsightTracking(omniture);
+        setVariables(omniture);
+        setCheetah(omniture);
+        setPartnerAndKeyWords(omniture);
+        setupIlcCampaign(omniture);
     }
 
     return {
@@ -616,8 +744,6 @@ toolkit.omniture = (function(config, utils, h26,
     ){
 
     var pluginsLoaded = false,
-        persistantCookies = utils.getCookie('s_pers'),
-        sessionCookies = utils.getCookie('s_sess'),
         s_objectID = h26.s_objectID,
         s_gi = h26.s_gi,
         s = {};
@@ -721,124 +847,6 @@ toolkit.omniture = (function(config, utils, h26,
                 if (options.LoggedIn === true) {sky.tracking.settings.loginStatus = 'logged-in';}
             }
 
-            var camps,chan,part,term,ref,ommid_deeplink,dcmp_deeplink;
-            camps=chan=part=term=ref=ommid_deeplink=dcmp_deeplink="";
-            var cookie,
-                persistant = {
-                    cookies : unescape(persistantCookies).split(";"),
-                    cmp_cookie: utils.getCookie("cmp_cookie")
-                },
-                session = {
-                    cookies: unescape(sessionCookies).split(";"),
-                    cmp_cookie_session : utils.getCookie("cmp_cookie_session"),
-                    cmp_cookie : utils.getCookie("cmp_cookie"),
-                    irct : utils.getCookie("irct")
-                };
-
-            for(x=0;x<session.cookies.length;x++){
-                cookie = session.cookies[x].split("=");
-                session[cookie[0].trim()] = (cookie[1]) ? cookie[1].trim() : "";
-            }
-            for(x=0;x<persistant.cookies.length;x++){
-                cookie = persistant.cookies[x].split("=");
-                persistant[cookie[0].trim()] = (cookie[1]) ? cookie[1].trim() : "";
-            }
-
-            if (typeof trackDCMPPage == 'function'){
-                trackDCMPPage(); //todo: andrew, delete this?
-            }
-            // Insight tracking
-            var insight_tracking = s.getQueryParam('irct').toLowerCase();
-            if (insight_tracking && insight_tracking !== session.irct) {
-                s.eVar46 = s.getValOnce(insight_tracking, 'irct', 0);
-            }
-            if(s._campaignID){
-                s._campaignID = s._campaignID.toLowerCase();
-            }
-            /*if there is no dcmp value in the url and we have a value in dcmp_deeplink, use dcmp_deeplink
-             This must be pased into the campaignID or the function will not work*/
-            if(!s._campaignID && dcmp_deeplink) {
-                if (dcmp_deeplink.toLowerCase() != session.cmp_cookie) {
-                    s._campaignID = s.getValOnce(dcmp_deeplink, 'cmp_cookie', 0);
-                }}
-            /*see if this is coming from cheetahmail.  cheetahmail will take precendence over normal emc
-             I am prefixing the cheetahmail campaign with cht to show these values in channel stacking and
-             distinguish between cheetmail integrated emails from others.*/
-            if (s.getQueryParam('om_mid').length > 0 || ommid_deeplink !== "") {
-                var cheetahmail_variable = "";
-                if(ommid_deeplink){cheetahmail_variable = ommid_deeplink;}else{cheetahmail_variable = s.getQueryParam('om_mid');}
-                if(s._campaignID){s._campaignID = "cht-" + cheetahmail_variable + ":links__" + s._campaignID.replace("emc-","");}
-                else{s._campaignID = "cht-" + cheetahmail_variable;}
-            }
-            if(s._campaignID){camps=s._campaignID.toLowerCase();}
-            if(s._channel){chan=s._channel.toLowerCase();}
-            if(s._keywords){term=s._keywords.toLowerCase();}
-            if(s._partner){part = s._partner.toLowerCase();}
-            if(s._referringDomain){ref = s._referringDomain.toLowerCase();}
-            //ensure there is a value and it is not blank, internal campaign or a search term
-            if (camps !== "" && camps.indexOf('knc-') !== 0 && camps.indexOf('okc-') !== 0){
-                s.eVar45=camps;
-            }
-            else if (camps.indexOf('knc-') === 0) {
-                if(camps == "knc-"){
-                    s.eVar45 = camps + part + ":" + term;
-                }
-                else{
-                    s.eVar45 = camps;
-                }
-                s.eVar3 = part;
-                s.eVar8 = term;
-            }
-            if(chan == "natural search"){
-                s.eVar45 = "okc-natural search";
-                s.eVar3 = part;
-                s.eVar8 = term;
-            }
-            //may need to change as it dependent on the sky.com change
-            if (s._campaignID==="" && chan != "natural search") {
-                if (chan=="direct load"){
-                    s.eVar45="direct load";
-                }
-                else if(chan != "direct load" && ref){
-                    if(utils.httpsSearch(ref) == "google"){
-                        s.eVar45 = "okc-secured natural search";
-                        s.eVar3 = "google";
-                        s.eVar8 = "secured search term";
-                    } else {
-                        s.eVar45 = "oth-" + ref;
-                    }
-                }
-            }
-            if(s._channel || s._campaignID){
-                if(s.eVar45){
-                    s.eVar45 = s.eVar45.toLowerCase();
-                    s.prop45 = "D=v45";
-                }
-                if(s.eVar3){
-                    s.eVar3 = s.eVar3.toLowerCase();
-                    s.prop16 = "D=v3";
-                }
-                if(s.eVar8){
-                    s.eVar8 = s.eVar8.toLowerCase();
-                    s.prop17 = "D=v8";
-                }
-                if(s.eVar45){
-                    if(s.eVar45.indexOf('ilc-') !== 0){
-                        if((s.eVar45.toLowerCase()=="direct load" || s.eVar45.indexOf("oth-") === 0 ) && session.cmp_cookie_session != "undefined/undefined" &&
-                            session.cmp_cookie_session != "undefined/undefined" && session.cmp_cookie_session !== ""){
-                            s.eVar45 = s.prop45 = "";
-                        }
-                        if(!session.cmp_cookie_session || session.cmp_cookie_session == "undefined/undefined"){
-                            session.cmp_cookie_session = s.eVar45;
-                            s.eVar47 = s.getValOnce(session.cmp_cookie_session, 'cmp_cookie_session', 0);
-                        }
-                        if(!persistant.cmp_cookie || persistant.cmp_cookie == "undefined/undefined"){
-                            persistant.cmp_cookie = s.eVar45;
-                            s.campaign = s.getValOnce(persistant.cmp_cookie, 'cmp_cookie', 30);
-                        }
-                    }
-                }
-            }
             s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
             var c_pastEv = s.clickThruQuality(
                 s.eVar47,
