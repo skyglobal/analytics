@@ -128,8 +128,8 @@ toolkit.tracking = (function(omniture, logger){
             prop = 'prop' + item.prop;
             trackedData.push(prop);
         }
-        if (item.var){
-            prop = 'eVar' + item.var;
+        if (item.eVar){
+            prop = 'eVar' + item.eVar;
             trackedData.push(prop);
         }
         omniture.variables[item.name] = trackedData;
@@ -158,7 +158,7 @@ toolkit.tracking = (function(omniture, logger){
             value: properties.value,
             onPageLoad: properties.onPageLoad,
             event: properties.event,
-            var: properties.var,
+            eVar: properties.eVar,
             prop: properties.prop,
             name: name
         };

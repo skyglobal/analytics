@@ -4,6 +4,10 @@ if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
 
 toolkit.omniture.plugins.userHistory = (function(){
 
+    var omniture, skyTracking;
+    var loggedIn = 'Logged In';
+    var notLoggedIn = 'not logged-in';
+    var cookies = loadCookies();
 
     var getAndPersistValue=new Function("v","c","e",""+
         "var s=this,a=new Date;e=e?e:0;a.setTime(a.getTime()+e*86400000);if("+
@@ -35,7 +39,37 @@ toolkit.omniture.plugins.userHistory = (function(){
         }
     };
 
-    function setVars(omniture, skyTracking){
+
+    function loadCookies() {
+        var i, cookie, cookies;
+        cookies = document.cookie.split(';');
+        var o = {};
+        for (i=0 ; i<cookies.length ; i++) {
+            cookie = cookies[i].split('=');
+            o[cookie[0].trim()] = unescape(cookie[1]);
+        }
+        return o;
+    }
+
+
+//    todo: andrew we deleted login events he he
+    function setLoginVars( ) {
+        if (cookies.skySSO) {
+            omniture.loginStatus = loggedIn;
+            if (cookies.skySSOLast != cookies.skySSO) {
+                omniture.c_w ('skySSOLast' , cookies.skySSO);
+            }
+        } else {
+            omniture.loginStatus = notLoggedIn;
+        }
+        if (cookies.just){ omniture.samId = cookies.just; }
+        if (cookies.apd) { omniture.ageGender = cookies.apd + '|' + cookies.gpd; }
+        if (cookies.custype){ omniture.customerType = cookies.custype; }
+        if (cookies.ust) { omniture.optIn = cookies.ust + '|' + cookies.sid_tsaoptin; }
+    }
+
+    function setVisitVars(){
+        var refURL=document.referrer;
 
         omniture.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
         var c_pastEv = omniture.clickThruQuality(
@@ -46,13 +80,26 @@ toolkit.omniture.plugins.userHistory = (function(){
         );
         if(c_pastEv) { skyTracking.loadEvents.push(c_pastEv); }
         omniture.eVar17 = omniture.getFullReferringDomains();
+
+
+        if (refURL){ //todo: refactor
+            var iURL=refURL.indexOf('?')>-1?refURL.indexOf('?'):refURL.length;
+            var qURL=refURL.indexOf('//')>-1?refURL.indexOf('//')+2:0;
+            var rURL=refURL.indexOf('/',qURL)>-1?refURL.indexOf('/',qURL):iURL;
+            omniture.refDomain=refURL.substring(qURL,rURL);
+        }
     }
 
-    function load(omniture, skyTracking){
+    function load(s, _skyTracking){
+        omniture = s;
+        skyTracking = _skyTracking;
+
         omniture.getFullReferringDomains = getFullReferringDomains;
         omniture.getAndPersistValue = getAndPersistValue;
         omniture.clickThruQuality = clickThruQuality;
-        setVars(omniture, skyTracking);
+
+        setLoginVars();
+        setVisitVars();
     }
 
     return {

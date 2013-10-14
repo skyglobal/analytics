@@ -108,24 +108,12 @@ toolkit.omniture = (function(config, utils, h26,
             d = new Date ( s.currentYear , 9 , 31 );
             s.dstEnd = "10/"+(31-d.getDay())+"/"+s.currentYear;
 
-            //todo: move into login stuff function
-            if (options.LoggedIn === undefined) {
-                this.setLoginVars(options);
-            }else{
-                if (options.LoggedIn === false) {sky.tracking.settings.loginStatus = 'not logged-in';}
-                if (options.LoggedIn === true) {sky.tracking.settings.loginStatus = 'logged-in';}
-            }
+
 
             if (sky.tracking.settings.setObjectIDs) {
                 s.setupDynamicObjectIDs();
             }
-            var refURL=document.referrer;
-            if (refURL){
-                var iURL=refURL.indexOf('?')>-1?refURL.indexOf('?'):refURL.length;
-                var qURL=refURL.indexOf('//')>-1?refURL.indexOf('//')+2:0;
-                var rURL=refURL.indexOf('/',qURL)>-1?refURL.indexOf('/',qURL):iURL;
-                sky.tracking.settings.refDomain=refURL.substring(qURL,rURL);
-            }
+
 
             //if (prod.length) s.products = prod.join(',');
             if (options.loadEvents.length)   s.events = options.loadEvents.join(',');
@@ -176,17 +164,6 @@ toolkit.omniture = (function(config, utils, h26,
             s.Media.close(m_Name);
         },
 
-
-        loadCookies: function() {
-            var cl = document.cookie.split(';');
-            var o = {};
-            for (var i=0 ; i<cl.length ; i++) {
-                var c = cl[i].split('=');
-                //|--- this trims whitespace --------------|
-                o[c[0].replace(/^\s*((?:[\S\s]*\S)?)\s*$/, '$1')] = unescape(c[1]);
-            }
-            return o;
-        },
         setVar: function ( s , vname , val ) {
             var vl = this.variables[vname];
             vl = vl ? vl : [vname];
@@ -196,25 +173,7 @@ toolkit.omniture = (function(config, utils, h26,
         },
 
 
-        setLoginVars: function ( options ) {
-            var c = this.loadCookies();
-            if (c.skySSO) {
-                sky.tracking.settings.loginStatus = 'logged-in';
-                if (c.skySSOLast != c.skySSO) {
-                    this.s.c_w ('skySSOLast' , c.skySSO);
-                    var fl = c.skyLoginFrom ? c.skyLoginFrom.split(',') : ['generic','l'];
-                    options.loadEvents.push ( fl[1] == 'l' ? this.events.loginComplete : this.events.regComplete);
-                    sky.tracking.settings._loginFrom = fl[0];
-                }
-            } else {
-                sky.tracking.settings.loginStatus = 'not logged-in';
-                //     document.cookie = 'skySSOLast=0; expires=Fri, 02-Jan-1970 00:00:00 GMT';
-            }
-            if(c.just){ sky.tracking.settings.samId = c.just;}
-            if (c.apd) sky.tracking.settings.ageGender = c.apd + '|' + c.gpd;
-            if(c.custype){ sky.tracking.settings.customerType = c.custype;}
-            if (c.ust) sky.tracking.settings.optIn = c.ust + '|' + c.sid_tsaoptin;
-        },
+
 
 
         featuredContentClickManual: function(place,description) {
