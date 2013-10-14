@@ -64,16 +64,16 @@ toolkit.omniture = (function(config, utils, h26,
     function setSearchVars(options){
         if (options.searchResults !== undefined ) {
             s.searchResults = options.searchResults;
-            s.loadEvents.push(config.trackedEvents['searchResults']);
+            s.events.push(config.trackedEvents['searchResults']);
             if (options.searchResults === 0) {
-                s.loadEvents.push(config.trackedEvents['zeroResults']);
+                s.events.push(config.trackedEvents['zeroResults']);
             }
         }
     }
 
     function setErrorEvents(options){
         if (options.errors) {
-            s.loadEvents.push(config.trackedEvents['error']);
+            s.events.push(config.trackedEvents['error']);
         }
     }
 
@@ -115,14 +115,14 @@ toolkit.omniture = (function(config, utils, h26,
             }
 
             if (options.searchResults !== undefined ) {
-                options.loadEvents.push(sky.tracking.events['searchResults']);
+                options.events.push(sky.tracking.events['searchResults']);
                 if (options.searchResults == 0) {
-                    options.loadEvents.push(sky.tracking.events['zeroResults']);
+                    options.events.push(sky.tracking.events['zeroResults']);
                 }
             }
 
             if (options.errors) {
-                options.loadEvents.push(sky.tracking.events['error']);
+                options.events.push(sky.tracking.events['error']);
             }
 
 
@@ -159,8 +159,9 @@ toolkit.omniture = (function(config, utils, h26,
             }
 
 
-            //if (prod.length) s.products = prod.join(',');
-            if (options.loadEvents.length)   s.events = options.loadEvents.join(',');
+            if (s.events)   {
+                s.events = s.events.join(',');
+            }
             for (var variable in options.loadVariables){
                 s[variable] = options.loadVariables[variable];
             }

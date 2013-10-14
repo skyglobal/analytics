@@ -143,7 +143,6 @@ toolkit.tracking = (function(omniture, logger){
         page.events.push('event' + item.event);
         if (item.onPageLoad) {
             page.loadEvents.push(item.name);
-            omniture.variables.loadEvents.push(omniture.events[item.name]); //todo: remove this line so we only have a single translate function in a different file
         }
     }
 
