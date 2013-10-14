@@ -3,12 +3,7 @@ if (typeof toolkit==='undefined') toolkit={};
 if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
 toolkit.omniture.config = (function(){
 
-    var eVars = {
-            'pageDescription': 'eVar19',
-            'fullPageDescription': 'eVar55',
-            'siteName' : 'eVar14'
-        },
-        trackedData = {
+    var trackedData = {
 //            todo: add tnt eVar18 if needed?
 //            todo: add insight_tracking eVar46 if needed?
 //            todo: add campaigns eVar45 if needed?
@@ -28,6 +23,7 @@ toolkit.omniture.config = (function(){
             contentId: ['prop21','eVar15'],
             siteName: ['prop23','eVar14'],
             browseMethod: ['prop24'],
+            section: ['prop23','eVar14'],
             section0: ['prop25','eVar26'],
             section1: ['prop27','eVar29'],
             section2: ['prop31','eVar30'],
@@ -43,7 +39,9 @@ toolkit.omniture.config = (function(){
             newRepeat: ["prop70", "eVar70"],
             visitNum: ["prop69", "eVar69"],
             visitorID: ["visitorID"],
-            section: ['']
+            pageName: ["pageName"],
+            pageDescription: ['eVar19'], //todo: andrew - correct term?
+            fullPageDescription: ['eVar55'] //todo: andrew - correct term?
         },
         trackedEvents = { //todo: add event1 + event20
             pageLoad: 'event1',
@@ -64,24 +62,6 @@ toolkit.omniture.config = (function(){
             activateStart: 'event78',
             activateComplete: 'event79',
             liveChat: "event36"
-        },
-        trackedDataValues = {
-            site: undefined,
-            section: undefined,
-            section0: undefined,
-            section1: undefined,
-            section2: undefined,
-            contentType: undefined,
-            contentID: undefined,
-            headline: undefined,
-            browseMethod: undefined,
-            search: undefined,
-            searchTerms: undefined,
-            searchType: undefined,
-            videoTitle: undefined,
-            errors: undefined,
-            siteName: undefined,
-            channel: undefined
         },
         defaults = {
             trackingServer: 'metrics.sky.com',
@@ -112,8 +92,6 @@ toolkit.omniture.config = (function(){
     return {
         trackedEvents: trackedEvents,
         trackedData: trackedData,
-        trackedDataValues: trackedDataValues,
-        eVars: eVars,
         defaults: defaults
     };
 
@@ -868,24 +846,29 @@ toolkit.omniture = (function(config, utils, h26,
     ){
 
     var pluginsLoaded = false,
-        eVars = config.eVars,
         s_objectID = h26.s_objectID,
         s_gi = h26.s_gi,
-        s = {};
+        s = {},
+        mappedVars = {};
 
-    function addVariable(prop, val){ //todo: rename to setVariable?
+    function setVariable(prop, val){ //todo: rename to setVariable?
         if(!val){ return; }
-        var data = config.trackedData[prop] || [prop];
+        var i= 1,map,
+            data = config.trackedData[prop] || [prop];
+        mappedVars[prop] = val;
         if (data.length==1){
             s[data[0]] = val;
         } else {
-            var i=1,
-                map = 'D=' + data[0].replace('eVar','v').replace('prop','c');
+            map = 'D=' + data[0].replace('eVar','v').replace('prop','c');
             s[data[0]] = val;
             for (i; i<data.length; i++){
                 s[data[i]] = map;
             }
         }
+    }
+
+    function getVariable(prop){
+        return mappedVars[prop]; //todo: try to get from s if it isnt a mapped value. if worth the extra effort.
     }
 
     function addLinkTrackVariable(variable){
@@ -900,45 +883,43 @@ toolkit.omniture = (function(config, utils, h26,
     }
 
     function setPageDescriptions(options){
-        s.pageURL="D=Referer";  //todo: andrew, i dont see s.referer beingset
-        s.section =  options.section;
-        s.siteName = 'sky/portal/' + options.site;
-        s.pageName = s.siteName + "/" + options.page;
-        s.section1 = s.siteName + '/' +  s.section.split('/').slice(0,1).join('/');
-        s.section2 = s.siteName + '/' +  s.section.split('/').slice(0,2).join('/');
-        s.section3 = s.siteName + '/' +  s.section.split('/').slice(0,3).join('/');
-        s[eVars.pageDescription] = options.site + "/" + options.page;
+        setVariable('pageURL','D=Referer');//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('siteName','sky/portal/' + options.site);
+        setVariable('pageName', getVariable('siteName') + "/" + options.page);
+        setVariable('section0', getVariable('siteName') + '/' +  options.section.split('/').slice(0,1).join('/'));
+        setVariable('section1', getVariable('siteName') + '/' +  options.section.split('/').slice(0,2).join('/'));
+        setVariable('section2', getVariable('siteName') + '/' +  options.section.split('/').slice(0,3).join('/'));
+        setVariable('pageDescription', options.site + "/" + options.page);
 
         if (options.headline) {
-            s[eVars.fullPageDescription] = (options.site + '/' + options.section+ '/' + options.headline).substring(0,255);
+            setVariable('fullPageDescription', (options.site + '/' + options.section+ '/' + options.headline).substring(0,255));
         } else{
-            s[eVars.fullPageDescription] = s.pageName.substring(0,255);
+            setVariable('fullPageDescription', getVariable('pageName').substring(0,255));
         }
     }
 
     function setSearchVars(options){
         if (options.searchResults !== undefined ) {
             s.searchResults = options.searchResults;
-            s.loadEvents.push(config.trackedEvents['searchResults']);
+            s.events.push(config.trackedEvents['searchResults']);
             if (options.searchResults === 0) {
-                s.loadEvents.push(config.trackedEvents['zeroResults']);
+                s.events.push(config.trackedEvents['zeroResults']);
             }
         }
     }
 
     function setErrorEvents(options){
         if (options.errors) {
-            s.loadEvents.push(config.trackedEvents['error']);
+            s.events.push(config.trackedEvents['error']);
         }
     }
 
     var sky = sky ? sky : {};
     sky.tracking = {
         defaults: config.defaults,
-        trackedDataValues: config.trackedDataValues,
         variables: config.trackedData,
         events: config.trackedEvents,
-        addVariable: addVariable,
+        setVariable: setVariable,
         addLinkTrackVariable: addLinkTrackVariable,
         addEvent: addEvent,
         setup: function(options){
@@ -946,38 +927,15 @@ toolkit.omniture = (function(config, utils, h26,
             var prod = [],
                 i, j, k, x, name;
 
-            for (var data in sky.tracking.trackedDataValues){
-                if (sky.tracking.trackedDataValues[data]) {
-                    sky.tracking.trackedDataValues[data] = sky.tracking.trackedDataValues[data].toLowerCase();
-                }
-            }
-
-            options.siteName = 'sky/portal/' + options.site;
-            options.pageName = options.siteName + "/" + options.page;
-            options.eVar19 = options.site + "/" + options.page;
-
-            //            set page Description
-            if (options.headline) {
-                options.eVar55 = (options.site + '/' + options.section+ '/' + options.headline).substring(0,255);
-            } else{
-                options.eVar55 = options.pageName.substring(0,255);
-            }
-
-            options.channel = options.siteName + '/' + options.section;
-            //setting section 0,1,2 to the split section value or all the same if only one section
-            for (i = 0; i < 3 ; ++i) {
-                options['section' + i] = options.siteName + '/' +  options.section.split('/').slice(0,i+1).join('/');
-            }
-
             if (options.searchResults !== undefined ) {
-                options.loadEvents.push(sky.tracking.events['searchResults']);
+                options.events.push(sky.tracking.events['searchResults']);
                 if (options.searchResults == 0) {
-                    options.loadEvents.push(sky.tracking.events['zeroResults']);
+                    options.events.push(sky.tracking.events['zeroResults']);
                 }
             }
 
             if (options.errors) {
-                options.loadEvents.push(sky.tracking.events['error']);
+                options.events.push(sky.tracking.events['error']);
             }
 
 
@@ -1002,7 +960,7 @@ toolkit.omniture = (function(config, utils, h26,
                 i, j, k, x, name;
 
             for (name in options.loadVariables){
-                addVariable(name,options.loadVariables[name]);
+                setVariable(name,options.loadVariables[name]);
             }
 
             this.loadPlugins(s);
@@ -1014,12 +972,13 @@ toolkit.omniture = (function(config, utils, h26,
             }
 
 
-            //if (prod.length) s.products = prod.join(',');
-            if (options.loadEvents.length)   s.events = options.loadEvents.join(',');
+            if (s.events)   {
+                s.events = s.events.join(',');
+            }
             for (var variable in options.loadVariables){
                 s[variable] = options.loadVariables[variable];
             }
-            for (k in config.defaults) this.addVariable (k, sky.tracking.defaults[k]);
+            for (k in config.defaults) setVariable (k, sky.tracking.defaults[k]);
 
             //URL length optimisation
             s.pageURL="D=Referer";
@@ -1458,7 +1417,6 @@ toolkit.tracking = (function(omniture, logger){
         page.events.push('event' + item.event);
         if (item.onPageLoad) {
             page.loadEvents.push(item.name);
-            omniture.variables.loadEvents.push(omniture.events[item.name]); //todo: remove this line so we only have a single translate function in a different file
         }
     }
 
@@ -1510,7 +1468,7 @@ toolkit.tracking = (function(omniture, logger){
     }
 
     function addVariable(variable, val){
-        omniture.addVariable(variable, val);
+        omniture.setVariable(variable, val);
         omniture.addLinkTrackVariable(variable);
         logger.log('prop',variable, val);
     }

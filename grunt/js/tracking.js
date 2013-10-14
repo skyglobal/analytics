@@ -194,7 +194,7 @@ toolkit.tracking = (function(omniture, logger){
     }
 
     function addVariable(variable, val){
-        omniture.addVariable(variable, val);
+        omniture.setVariable(variable, val);
         omniture.addLinkTrackVariable(variable);
         logger.log('prop',variable, val);
     }

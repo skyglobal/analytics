@@ -2,12 +2,7 @@ if (typeof toolkit==='undefined') toolkit={};
 if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
 toolkit.omniture.config = (function(){
 
-    var eVars = {
-            'pageDescription': 'eVar19',
-            'fullPageDescription': 'eVar55',
-            'siteName' : 'eVar14'
-        },
-        trackedData = {
+    var trackedData = {
 //            todo: add tnt eVar18 if needed?
 //            todo: add insight_tracking eVar46 if needed?
 //            todo: add campaigns eVar45 if needed?
@@ -27,6 +22,7 @@ toolkit.omniture.config = (function(){
             contentId: ['prop21','eVar15'],
             siteName: ['prop23','eVar14'],
             browseMethod: ['prop24'],
+            section: ['prop23','eVar14'],
             section0: ['prop25','eVar26'],
             section1: ['prop27','eVar29'],
             section2: ['prop31','eVar30'],
@@ -42,7 +38,9 @@ toolkit.omniture.config = (function(){
             newRepeat: ["prop70", "eVar70"],
             visitNum: ["prop69", "eVar69"],
             visitorID: ["visitorID"],
-            section: ['']
+            pageName: ["pageName"],
+            pageDescription: ['eVar19'], //todo: andrew - correct term?
+            fullPageDescription: ['eVar55'] //todo: andrew - correct term?
         },
         trackedEvents = { //todo: add event1 + event20
             pageLoad: 'event1',
@@ -63,24 +61,6 @@ toolkit.omniture.config = (function(){
             activateStart: 'event78',
             activateComplete: 'event79',
             liveChat: "event36"
-        },
-        trackedDataValues = {
-            site: undefined,
-            section: undefined,
-            section0: undefined,
-            section1: undefined,
-            section2: undefined,
-            contentType: undefined,
-            contentID: undefined,
-            headline: undefined,
-            browseMethod: undefined,
-            search: undefined,
-            searchTerms: undefined,
-            searchType: undefined,
-            videoTitle: undefined,
-            errors: undefined,
-            siteName: undefined,
-            channel: undefined
         },
         defaults = {
             trackingServer: 'metrics.sky.com',
@@ -111,8 +91,6 @@ toolkit.omniture.config = (function(){
     return {
         trackedEvents: trackedEvents,
         trackedData: trackedData,
-        trackedDataValues: trackedDataValues,
-        eVars: eVars,
         defaults: defaults
     };
 

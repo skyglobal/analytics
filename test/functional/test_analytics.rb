@@ -26,7 +26,7 @@ def sitecat_mapping
     'section' => 'c27',
     'step 3 section' => 'c31',
     'contentType' => 'c20',
-    'page' => 'pageName',
+    'pageName' => 'pageName',
     'event' => 'events',
     'url' => 'c9',
     'link_tracking' => 'c15',
@@ -63,7 +63,7 @@ class AnalyticsTest < AcceptanceTest
   end
 
   it "Tracks the correct page name" do
-    tracked('page').must_equal 'sky/portal/mysky/Analytics demo page'
+    tracked('pageName').must_equal 'sky/portal/mysky/Analytics demo page'
     tracked('url').must_equal current_url  # url
     tracked('sub_section_1').must_include 'sky/portal/mysky/skyglobal'
     tracked('sub_section_2').must_include 'analytics'
@@ -82,7 +82,7 @@ class AnalyticsTest < AcceptanceTest
     tracked('event').must_include sitecat_mapping['click_event'] # link clicked
     tracked('link_tracking').must_include 'standard-anchor-link' # link name
     tracked('link_tracking').must_include 'mysky/analytics-demo-page' # page name included on link click
-    tracked('page').must_include 'Analytics demo page' # page name
+    tracked('pageName').must_include 'Analytics demo page' # page name
   end
 
   it "Tracks a button being clicked" do
