@@ -24,16 +24,21 @@ toolkit.omniture = (function(config, utils, h26,
         if (data.length==1){
             s[data[0]] = val;
         } else {
-            s[data[0]] = 'D=' + data[1].replace('eVar','v').replace('prop','c');
-            s[data[1]] = val;
+            var i=1,
+                map = 'D=' + data[0].replace('eVar','v').replace('prop','c');
+            s[data[0]] = val;
+            for (i; i<data.length; i++){
+                s[data[i]] = map;
+            }
         }
     }
+
+
     function setPageDescriptions(options){
         s.pageURL="D=Referer";  //todo: andrew, i dont see s.referer beingset
         s.section =  options.section;
         s.siteName = 'sky/portal/' + options.site;
         s.pageName = s.siteName + "/" + options.page;
-        s.channel = s.siteName + '/' + s.section;
         s.section1 = s.siteName + '/' +  s.section.split('/').slice(0,1).join('/');
         s.section2 = s.siteName + '/' +  s.section.split('/').slice(0,2).join('/');
         s.section3 = s.siteName + '/' +  s.section.split('/').slice(0,3).join('/');
@@ -42,7 +47,7 @@ toolkit.omniture = (function(config, utils, h26,
         if (options.headline) {
             s[eVars.fullPageDescription] = (options.site + '/' + options.section+ '/' + options.headline).substring(0,255);
         } else{
-            s[eVars.fullPageDescription] = options.pageName.substring(0,255);
+            s[eVars.fullPageDescription] = s.pageName.substring(0,255);
         }
     }
 
@@ -64,48 +69,95 @@ toolkit.omniture = (function(config, utils, h26,
 
     var sky = sky ? sky : {};
     sky.tracking = {
-        settings: config.settings,
+        defaults: config.defaults,
+        trackedDataValues: config.trackedDataValues,
         variables: config.trackedData,
         events: config.trackedEvents,
         loadVariables: {},
         loadEvents: [],
         addVariable: addVariable,
+        setup: function(options){
+            // Initial defaults:
+            var prod = [],
+                i, j, k, x, name;
+
+            for (var data in sky.tracking.trackedDataValues){
+                if (sky.tracking.trackedDataValues[data]) {
+                    sky.tracking.trackedDataValues[data] = sky.tracking.trackedDataValues[data].toLowerCase();
+                }
+            }
+
+            options.siteName = 'sky/portal/' + options.site;
+            options.pageName = options.siteName + "/" + options.page;
+            options.eVar19 = options.site + "/" + options.page;
+
+            //            set page Description
+            if (options.headline) {
+                options.eVar55 = (options.site + '/' + options.section+ '/' + options.headline).substring(0,255);
+            } else{
+                options.eVar55 = options.pageName.substring(0,255);
+            }
+
+            options.channel = options.siteName + '/' + options.section;
+            //setting section 0,1,2 to the split section value or all the same if only one section
+            for (i = 0; i < 3 ; ++i) {
+                options['section' + i] = options.siteName + '/' +  options.section.split('/').slice(0,i+1).join('/');
+            }
+
+            if (options.searchResults !== undefined ) {
+                options.loadEvents.push(sky.tracking.events['searchResults']);
+                if (options.searchResults == 0) {
+                    options.loadEvents.push(sky.tracking.events['zeroResults']);
+                }
+            }
+
+            if (options.errors) {
+                options.loadEvents.push(sky.tracking.events['error']);
+            }
+
+
+            // Overwrite defaults with passed parameters
+            for (name in options) {
+                sky.tracking.defaults[name] = options[name];
+            }
+        },
 
         pageView:  function (options) {
-            var name;
 
-            s = s_gi(config.account);
+            sky.tracking.setup(options);
+
 
             setPageDescriptions(options);
-            setSearchVars(options);
-            setErrorEvents(options);
+//            setSearchVars(options);
+//            setErrorEvents(options);
 
-            // set default eVars
-            for (name in config.defaults) {
-                addVariable(name, config.defaults[name].toLowerCase());
-            }
-            // set passed eVar parameters
-            for (name in options) {
-                addVariable(name,options[name].toLowerCase());
-            }
-            // set passed loadVariable parameters
+            s = s_gi(options.account);
+
+            var prod = [],
+                i, j, k, x, name;
+
             for (name in options.loadVariables){
                 addVariable(name,options.loadVariables[name]);
-            }
-            // set passed loadEvent parameters
-            if (options.loadEvents.length)   {
-                s.events = options.loadEvents.join(',');
             }
 
             this.loadPlugins(s);
 
             window.s_bskyb = this.s = s;
 
-            if (s.setObjectIDs) {
+            if (config.defaults.setObjectIDs) {
                 s.setupDynamicObjectIDs();
             }
 
+
+            //if (prod.length) s.products = prod.join(',');
+            if (options.loadEvents.length)   s.events = options.loadEvents.join(',');
+            for (var variable in options.loadVariables){
+                s[variable] = options.loadVariables[variable];
+            }
+            for (k in config.defaults) this.setVar ( s , k , sky.tracking.defaults[k]);
+
             //URL length optimisation
+            s.pageURL="D=Referer";
             if(s.prop12){    s.eVar31="D=c12";  }
             if(s.prop1){    s.eVar1="D=c1";  }
             if(s.prop16){    s.eVar3="D=c16";  }
@@ -127,7 +179,7 @@ toolkit.omniture = (function(config, utils, h26,
             if(s.eVar69){s.prop69=s.eVar69;}
             if(s.eVar70){s.prop70 = "D=v70";}
             if(s.eVar55){s.prop55 = "D=v55";}
-            if(s.track){
+            if(sky.tracking.defaults.track){
                 s.t();
             }
         },
@@ -146,14 +198,24 @@ toolkit.omniture = (function(config, utils, h26,
             s.Media.close(m_Name);
         },
 
+        setVar: function ( s , vname , val ) {
+            var vl = this.variables[vname] || [vname];  ['prop24','evar234']  | ['siteName']
+            for (var i = 0 ; i < vl.length ; ++i ){
+                s[vl[i]] = val;
+            }
+        },
+
+
+
+
 
         featuredContentClickManual: function(place,description) {
             var s = sky.tracking.s;
             s.prop15 = String(place)+"|"+String(description) + "|" + s.pageName.replace("sky/portal/","");
             s.eVar7 = "D=c15";
-            s.events = config.trackedEvents['linkClick'];
+            s.events = sky.tracking.events['linkClick'];
             s.linkTrackVars='prop39,eVar39,prop15,eVar7,events';
-            s.linkTrackEvents=config.trackedEvents['linkClick'];
+            s.linkTrackEvents=sky.tracking.events['linkClick'];
             s.tl(this,'o','Link Click',null,'navigate');
         },
 
@@ -161,9 +223,9 @@ toolkit.omniture = (function(config, utils, h26,
             var s = sky.tracking.s;
             s.prop15 = String(place)+"|"+String(description) + "|" + s.pageName.replace("sky/portal/","");
             s.eVar7 = "D=c15";
-            s.events = config.trackedEvents['linkClick'];
+            s.events = sky.tracking.events['linkClick'];
             s.linkTrackVars='prop39,eVar39,prop15,eVar7,events';
-            s.linkTrackEvents=config.trackedEvents['linkClick'];
+            s.linkTrackEvents=sky.tracking.events['linkClick'];
             s.tl(this,'o','Link Click');
         },
 
@@ -276,11 +338,11 @@ toolkit.omniture = (function(config, utils, h26,
 
             pluginsLoaded = true;
         },
-       reset: function(){
-           if (!this.s){ return; }
-           this.s.linkTrackVars = '';
-           this.s.events = '';
-           this.s.linkTrackEvents = '';
+        reset: function(){
+            if (!this.s){ return; }
+            this.s.linkTrackVars = '';
+            this.s.events = '';
+            this.s.linkTrackEvents = '';
         },
         utils: utils
     };

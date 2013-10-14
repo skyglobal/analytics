@@ -29,7 +29,7 @@ def sitecat_mapping
     'page' => 'pageName',
     'event' => 'events',
     'url' => 'c9',
-    'link_tracking' => 'v7',
+    'link_tracking' => 'c15',
     'click_event' => 'event6',
     'sub_section_1' => 'c25',
     'sub_section_2' => 'c27',
@@ -47,8 +47,8 @@ def sitecat_mapping
     'drink' => 'v72',
     'how_about_pina_coladas' => 'v73',
     'colour' => 'v71',
-    'search_term' => 'v1',
-    'search_type' => 'v31'
+    'search_term' => 'c1',
+    'search_type' => 'c12'
   }
 end
 
@@ -125,8 +125,8 @@ class AnalyticsTest < AcceptanceTest
 
   it "Tracks a custom variable on page load with additional prop" do
     click_link "Custom Page Load"
-    tracked('my_custom_variable').must_include 'my custom eVar value'
-    tracked('my_custom_variable_prop').must_include 'D=v41'
+    tracked('my_custom_variable_prop').must_include 'my custom eVar value'
+    tracked('my_custom_variable').must_include 'D=c41'
   end
 
   it "Tracks a custom prop on page load" do

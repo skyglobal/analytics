@@ -109,6 +109,7 @@ toolkit.omniture.plugins.channelManager = (function(){
     }
 
     function setVariables(s){
+        s.channel = s.siteName + '/' + s.section;
         if(s._campaignID){
             s._campaignID = s._campaignID.toLowerCase(); //todo: streamline all this toLowerCase jaxx
             s.eVar45=s._campaignID;
@@ -189,12 +190,12 @@ toolkit.omniture.plugins.channelManager = (function(){
 
 
 
-    function load(omniture, skyTracking){
+    function load(omniture, config){
         readCookies();
 
         omniture.seList = seList;
         omniture.channelManager = channelManager;
-        omniture.linkInternalFilters = skyTracking.settings.linkInternalFilters;
+        omniture.linkInternalFilters = config.defaults.linkInternalFilters;
         omniture.channelManager('attr,dcmp','','s_campaign','0');
 
         setInsightTracking(omniture);
