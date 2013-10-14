@@ -114,7 +114,7 @@ class AnalyticsTest < AcceptanceTest
   it "Tracks an ajax event only once per click" do
     click_link "Ajax Event"
     click_link "Ajax Event"
-    tracked('event').must_equal "#{sitecat_mapping['ajax_happened']},#{sitecat_mapping['page_load']}"
+    tracked('event').must_equal "#{sitecat_mapping['page_load']},#{sitecat_mapping['ajax_happened']}"
   end
 
   it "Tracks a custom event on page load" do

@@ -21,14 +21,13 @@ toolkit.omniture.config = (function(){
             contentType: ['prop20','eVar20'],
             contentId: ['prop21','eVar15'],
             siteName: ['prop23','eVar14'],
-            browseMethod: ['prop24'],
             section: ['prop23','eVar14'],
+            browseMethod: ['prop24'],
             section0: ['prop25','eVar26'],
             section1: ['prop27','eVar29'],
             section2: ['prop31','eVar30'],
             videoTitle: ['prop26','eVar28'],
             channel: ['eVar24','channel','hier1'],
-            partTime: ['prop35','eVar35'],
             samId: ['prop39','eVar39'],
             loginStatus: ['eVar11'],
             ageGender: ['eVar12'],
@@ -40,6 +39,7 @@ toolkit.omniture.config = (function(){
             visitorID: ["visitorID"],
             pageName: ["pageName"],
             pageDescription: ['eVar19'], //todo: andrew - correct term?
+            partner: ['prop16','eVar3'], //todo: andrew - correct term?
             fullPageDescription: ['eVar55'] //todo: andrew - correct term?
         },
         trackedEvents = { //todo: add event1 + event20
@@ -77,9 +77,8 @@ toolkit.omniture.config = (function(){
             linkTrackVars: 'None',
             linkTrackEvents: 'None',
             browseMethod: 'web',
-            url: (String(window.location.href).indexOf('?')>0)?String(window.location.href).split('?')[0]:window.location.href,
+            url: window.location.href.toString().split('?')[0],
             server: window.location.hostname,
-            partTime: 'Day_Hour_Quarter',
             QScmpId: 'cmpid,aff',
             QScmpIdInt: 'cmpid_int',
             useForcedLinkTracking: true,

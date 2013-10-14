@@ -1,7 +1,3 @@
-/* eexp-global-v1.2
- * moving to H26 and forced link tracking - date 07/05/2013 - AJG
- *
- */
 if (typeof toolkit==='undefined') toolkit={};
 if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
 toolkit.omniture = (function(config, utils, h26,
@@ -18,7 +14,7 @@ toolkit.omniture = (function(config, utils, h26,
         s = {},
         mappedVars = {};
 
-    function setVariable(prop, val){ //todo: rename to setVariable?
+    function setVariable(prop, val){
         if(!val){ return; }
         var i= 1,map,
             data = config.trackedData[prop] || [prop];
@@ -26,12 +22,16 @@ toolkit.omniture = (function(config, utils, h26,
         if (data.length==1){
             s[data[0]] = val;
         } else {
-            map = 'D=' + data[0].replace('eVar','v').replace('prop','c');
+            map = 'D=' + data[0].replace('eVar','v').replace('prop','c').replace('channel','ch'); //todo: test channel being first in vars list
             s[data[0]] = val;
             for (i; i<data.length; i++){
                 s[data[i]] = map;
             }
         }
+    }
+
+    function setEvent(event){
+
     }
 
     function getVariable(prop){
@@ -50,13 +50,18 @@ toolkit.omniture = (function(config, utils, h26,
     }
 
     function setPageDescriptions(options){
+        setVariable('url',options.url);//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('contentType',options.contentType);//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('contentId',options.contentId);//todo: andrew, delete? i dont see s.referer beingset
         setVariable('pageURL','D=Referer');//todo: andrew, delete? i dont see s.referer beingset
         setVariable('siteName','sky/portal/' + options.site);
+        setVariable('section','sky/portal/' + options.site);
         setVariable('pageName', getVariable('siteName') + "/" + options.page);
         setVariable('section0', getVariable('siteName') + '/' +  options.section.split('/').slice(0,1).join('/'));
         setVariable('section1', getVariable('siteName') + '/' +  options.section.split('/').slice(0,2).join('/'));
         setVariable('section2', getVariable('siteName') + '/' +  options.section.split('/').slice(0,3).join('/'));
         setVariable('pageDescription', options.site + "/" + options.page);
+        setVariable('headline', options.headline);
 
         if (options.headline) {
             setVariable('fullPageDescription', (options.site + '/' + options.section+ '/' + options.headline).substring(0,255));
@@ -67,7 +72,9 @@ toolkit.omniture = (function(config, utils, h26,
 
     function setSearchVars(options){
         if (options.searchResults !== undefined ) {
-            s.searchResults = options.searchResults;
+            setVariable('searchResults', options.searchResults);
+            setVariable('searchType', options.searchType); //todo: andrew, added these - neccersary or added as custom var on page js
+            setVariable('searchTerms', options.searchTerms); //todo: andrew, added these - neccersary or added as custom var on page js
             s.events.push(config.trackedEvents['searchResults']);
             if (options.searchResults === 0) {
                 s.events.push(config.trackedEvents['zeroResults']);
@@ -77,6 +84,7 @@ toolkit.omniture = (function(config, utils, h26,
 
     function setErrorEvents(options){
         if (options.errors) {
+            setVariable('errors', options.errors);
             s.events.push(config.trackedEvents['error']);
         }
     }
@@ -89,45 +97,28 @@ toolkit.omniture = (function(config, utils, h26,
         setVariable: setVariable,
         addLinkTrackVariable: addLinkTrackVariable,
         addEvent: addEvent,
-        setup: function(options){
-            // Initial defaults:
-            var prod = [],
-                i, j, k, x, name;
-
-            if (options.searchResults !== undefined ) {
-                options.events.push(sky.tracking.events['searchResults']);
-                if (options.searchResults == 0) {
-                    options.events.push(sky.tracking.events['zeroResults']);
-                }
-            }
-
-            if (options.errors) {
-                options.events.push(sky.tracking.events['error']);
-            }
-
-
-            // Overwrite defaults with passed parameters
-            for (name in options) {
-                sky.tracking.defaults[name] = options[name];
-            }
-        },
 
         pageView:  function (options) {
+            var name;
+            config.options = options;
+
             s = s_gi(options.account);
-
-            sky.tracking.setup(options);
-
+            s.events = [config.trackedEvents['pageLoad']];
+            s.setVariable = setVariable; //hacky much?
 
             setPageDescriptions(options);
-//            setSearchVars(options);
-//            setErrorEvents(options);
-
-
-            var prod = [],
-                i, j, k, x, name;
+            setSearchVars(options);
+            setErrorEvents(options);
 
             for (name in options.loadVariables){
-                setVariable(name,options.loadVariables[name]);
+                setVariable(name, options.loadVariables[name]);
+            }
+            for (name in options.loadEvents){
+                s.events.push(config.trackedEvents[options.loadEvents[name]]);
+            }
+
+            for (name in config.defaults) {
+                setVariable(name, options[name] || config.defaults[name]);
             }
 
             this.loadPlugins(s);
@@ -138,38 +129,10 @@ toolkit.omniture = (function(config, utils, h26,
                 s.setupDynamicObjectIDs();
             }
 
-
             if (s.events)   {
                 s.events = s.events.join(',');
             }
-            for (var variable in options.loadVariables){
-                s[variable] = options.loadVariables[variable];
-            }
-            for (k in config.defaults) setVariable (k, sky.tracking.defaults[k]);
 
-            //URL length optimisation
-            s.pageURL="D=Referer";
-            if(s.prop12){    s.eVar31="D=c12";  }
-            if(s.prop1){    s.eVar1="D=c1";  }
-            if(s.prop16){    s.eVar3="D=c16";  }
-            if(s.prop17){    s.eVar8="D=c17";  }
-            if(s.prop3){    s.eVar13="D=c3";  }
-            if(s.prop2){    s.eVar2="D=c2";  }
-            if(s.prop5){    s.eVar5="D=c5";  }
-            if(s.prop9){    s.eVar9="D=c9";  }
-            if(s.prop36){    s.eVar36="D=c36";  }
-            if(s.prop20){    s.eVar20="D=c20";  }
-            if(s.prop21){    s.eVar15="D=c21";  }
-            if(s.prop23){    s.eVar14="D=c23";  }
-            if(s.prop25){    s.eVar26="D=c25";  }
-            if(s.prop27){    s.eVar29="D=c27";  }
-            if(s.prop31){    s.eVar30="D=c31";  }
-            if(s.prop26){    s.eVar28="D=c26";  }
-            if(s.channel){ s.eVar24=s.hier1="D=ch";  }
-            if(s.prop35){    s.eVar35="D=c35";  }
-            if(s.eVar69){s.prop69=s.eVar69;}
-            if(s.eVar70){s.prop70 = "D=v70";}
-            if(s.eVar55){s.prop55 = "D=v55";}
             if(sky.tracking.defaults.track){
                 s.t();
             }
@@ -324,7 +287,7 @@ toolkit.omniture = (function(config, utils, h26,
             channelManager.load(s, config);
             userHistory.load(s, config);
             testAndTarget.load(s);
-            mediaModule.load(s);
+            mediaModule.load(s, config);
             newOrRepeatVisits.load(s, config);
 
             pluginsLoaded = true;
