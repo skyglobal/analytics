@@ -4,7 +4,7 @@ if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
 
 toolkit.omniture.plugins.userHistory = (function(){
 
-    var omniture, skyTracking;
+    var omniture, config;
     var loggedIn = 'Logged In';
     var notLoggedIn = 'not logged-in';
     var cookies = loadCookies();
@@ -74,11 +74,11 @@ toolkit.omniture.plugins.userHistory = (function(){
         omniture.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
         var c_pastEv = omniture.clickThruQuality(
             omniture.eVar47,
-            skyTracking.events['firstPageVisited'],
-            skyTracking.events['secondPageVisited'],
+            config.trackedEvents['firstPageVisited'],
+            config.trackedEvents['secondPageVisited'],
             's_ctq'
         );
-        if(c_pastEv) { skyTracking.loadEvents.push(c_pastEv); }
+        if(c_pastEv) { omniture.loadEvents.push(c_pastEv); }
         omniture.eVar17 = omniture.getFullReferringDomains();
 
 
@@ -90,9 +90,9 @@ toolkit.omniture.plugins.userHistory = (function(){
         }
     }
 
-    function load(s, _skyTracking){
+    function load(s, _config){
         omniture = s;
-        skyTracking = _skyTracking;
+        config = _config;
 
         omniture.getFullReferringDomains = getFullReferringDomains;
         omniture.getAndPersistValue = getAndPersistValue;

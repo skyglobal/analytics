@@ -4,6 +4,7 @@ if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
 
 toolkit.omniture.plugins.newOrRepeatVisits = (function(){
 
+    var omniture, config;
     var getVisitNum = new Function("var s=this,e=new Date(),cval,cvisit,ct=e.getTime(),c='s_vnum',c2='s_invisit';e.setTime(ct+30*24*60*60*1000);cval=s.c_r(c);if(cval){var i=cval.indexOf('&vn='),str=cval.substring(i+4,cval.length),k;}cvisit=s.c_r(c2);if(cvisit){if(str){e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else return 'unknown visit number';}else{if(str){str++;k=cval.substring(0,i);e.setTime(k);s.c_w(c,k+'&vn='+str,e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else{s.c_w(c,ct+30*24*60*60*1000+'&vn=1',e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return 1;}}");
 
     /*
@@ -27,18 +28,20 @@ toolkit.omniture.plugins.newOrRepeatVisits = (function(){
         }
     };
 
-    function setVars(omniture, config){
+    function setVars(){
         omniture.eVar70 = omniture.getNewRepeat(30, "s_getNewRepeat");
-        if(omniture.eVar70 == "Repeat"){  config.loadEvents.push(config.events['repeatVisit']);}//todo: test this
+        if(omniture.eVar70 == "Repeat"){  omniture.loadEvents.push(config.events['repeatVisit']);}//todo: test this
         omniture.eVar69 = omniture.getVisitNum();
     }
 
-    function load(omniture, config){
+    function load(s, _config){
+        omniture = s;
+        config = _config;
 
         omniture.getNewRepeat = getNewRepeat;
         omniture.getVisitNum = getVisitNum;
 
-        setVars(omniture, config);
+        setVars();
     }
 
     return {

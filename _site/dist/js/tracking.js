@@ -43,12 +43,7 @@ toolkit.omniture.config = (function(){
             newRepeat: ["prop70", "eVar70"],
             visitNum: ["prop69", "eVar69"],
             visitorID: ["visitorID"],
-            QScmpId: [],
-            QScmpIdInt: [],
-            account: [],
-            section: [''],
-            loadEvents: [],
-            loadVariables: []
+            section: ['']
         },
         trackedEvents = { //todo: add event1 + event20
             pageLoad: 'event1',
@@ -692,6 +687,7 @@ if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
 
 toolkit.omniture.plugins.newOrRepeatVisits = (function(){
 
+    var omniture, config;
     var getVisitNum = new Function("var s=this,e=new Date(),cval,cvisit,ct=e.getTime(),c='s_vnum',c2='s_invisit';e.setTime(ct+30*24*60*60*1000);cval=s.c_r(c);if(cval){var i=cval.indexOf('&vn='),str=cval.substring(i+4,cval.length),k;}cvisit=s.c_r(c2);if(cvisit){if(str){e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else return 'unknown visit number';}else{if(str){str++;k=cval.substring(0,i);e.setTime(k);s.c_w(c,k+'&vn='+str,e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else{s.c_w(c,ct+30*24*60*60*1000+'&vn=1',e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return 1;}}");
 
     /*
@@ -715,18 +711,20 @@ toolkit.omniture.plugins.newOrRepeatVisits = (function(){
         }
     };
 
-    function setVars(omniture, config){
+    function setVars(){
         omniture.eVar70 = omniture.getNewRepeat(30, "s_getNewRepeat");
-        if(omniture.eVar70 == "Repeat"){  config.loadEvents.push(config.events['repeatVisit']);}//todo: test this
+        if(omniture.eVar70 == "Repeat"){  omniture.loadEvents.push(config.events['repeatVisit']);}//todo: test this
         omniture.eVar69 = omniture.getVisitNum();
     }
 
-    function load(omniture, config){
+    function load(s, _config){
+        omniture = s;
+        config = _config;
 
         omniture.getNewRepeat = getNewRepeat;
         omniture.getVisitNum = getVisitNum;
 
-        setVars(omniture, config);
+        setVars();
     }
 
     return {
@@ -746,7 +744,7 @@ if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
 
 toolkit.omniture.plugins.userHistory = (function(){
 
-    var omniture, skyTracking;
+    var omniture, config;
     var loggedIn = 'Logged In';
     var notLoggedIn = 'not logged-in';
     var cookies = loadCookies();
@@ -816,11 +814,11 @@ toolkit.omniture.plugins.userHistory = (function(){
         omniture.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
         var c_pastEv = omniture.clickThruQuality(
             omniture.eVar47,
-            skyTracking.events['firstPageVisited'],
-            skyTracking.events['secondPageVisited'],
+            config.trackedEvents['firstPageVisited'],
+            config.trackedEvents['secondPageVisited'],
             's_ctq'
         );
-        if(c_pastEv) { skyTracking.loadEvents.push(c_pastEv); }
+        if(c_pastEv) { omniture.loadEvents.push(c_pastEv); }
         omniture.eVar17 = omniture.getFullReferringDomains();
 
 
@@ -832,9 +830,9 @@ toolkit.omniture.plugins.userHistory = (function(){
         }
     }
 
-    function load(s, _skyTracking){
+    function load(s, _config){
         omniture = s;
-        skyTracking = _skyTracking;
+        config = _config;
 
         omniture.getFullReferringDomains = getFullReferringDomains;
         omniture.getAndPersistValue = getAndPersistValue;
@@ -930,8 +928,6 @@ toolkit.omniture = (function(config, utils, h26,
         trackedDataValues: config.trackedDataValues,
         variables: config.trackedData,
         events: config.trackedEvents,
-        loadVariables: {},
-        loadEvents: [],
         addVariable: addVariable,
         setup: function(options){
             // Initial defaults:
@@ -1011,7 +1007,7 @@ toolkit.omniture = (function(config, utils, h26,
             for (var variable in options.loadVariables){
                 s[variable] = options.loadVariables[variable];
             }
-            for (k in config.defaults) this.setVar ( s , k , sky.tracking.defaults[k]);
+            for (k in config.defaults) this.addVariable (k, sky.tracking.defaults[k]);
 
             //URL length optimisation
             s.pageURL="D=Referer";
@@ -1187,11 +1183,11 @@ toolkit.omniture = (function(config, utils, h26,
 
 
 //            todo: double check ordering with .bk file
-            channelManager.load(s, sky.tracking);
-            userHistory.load(s, sky.tracking);
+            channelManager.load(s, config);
+            userHistory.load(s, config);
             testAndTarget.load(s);
             mediaModule.load(s);
-            newOrRepeatVisits.load(s, sky.tracking);
+            newOrRepeatVisits.load(s, config);
 
             pluginsLoaded = true;
         },

@@ -42,12 +42,7 @@ toolkit.omniture.config = (function(){
             newRepeat: ["prop70", "eVar70"],
             visitNum: ["prop69", "eVar69"],
             visitorID: ["visitorID"],
-            QScmpId: [],
-            QScmpIdInt: [],
-            account: [],
-            section: [''],
-            loadEvents: [],
-            loadVariables: []
+            section: ['']
         },
         trackedEvents = { //todo: add event1 + event20
             pageLoad: 'event1',

@@ -73,8 +73,6 @@ toolkit.omniture = (function(config, utils, h26,
         trackedDataValues: config.trackedDataValues,
         variables: config.trackedData,
         events: config.trackedEvents,
-        loadVariables: {},
-        loadEvents: [],
         addVariable: addVariable,
         setup: function(options){
             // Initial defaults:
@@ -154,7 +152,7 @@ toolkit.omniture = (function(config, utils, h26,
             for (var variable in options.loadVariables){
                 s[variable] = options.loadVariables[variable];
             }
-            for (k in config.defaults) this.setVar ( s , k , sky.tracking.defaults[k]);
+            for (k in config.defaults) this.addVariable (k, sky.tracking.defaults[k]);
 
             //URL length optimisation
             s.pageURL="D=Referer";
@@ -330,11 +328,11 @@ toolkit.omniture = (function(config, utils, h26,
 
 
 //            todo: double check ordering with .bk file
-            channelManager.load(s, sky.tracking);
-            userHistory.load(s, sky.tracking);
+            channelManager.load(s, config);
+            userHistory.load(s, config);
             testAndTarget.load(s);
             mediaModule.load(s);
-            newOrRepeatVisits.load(s, sky.tracking);
+            newOrRepeatVisits.load(s, config);
 
             pluginsLoaded = true;
         },
