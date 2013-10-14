@@ -931,8 +931,7 @@ toolkit.omniture = (function(config, utils, h26,
         }
     }
 
-    var sky = sky ? sky : {};
-    sky.tracking = {
+    var omniture = {
         defaults: config.defaults,
         variables: config.trackedData,
         events: config.trackedEvents,
@@ -946,7 +945,7 @@ toolkit.omniture = (function(config, utils, h26,
 
             s = s_gi(options.account);
             s.events = [config.trackedEvents['pageLoad']];
-            s.setVariable = setVariable; //hacky much?
+            s.setVariable = setVariable; //hacky much? so plugins can access this. should set on somethign else
 
             setPageDescriptions(options);
             setSearchVars(options);
@@ -956,7 +955,7 @@ toolkit.omniture = (function(config, utils, h26,
                 setVariable(name, options.loadVariables[name]);
             }
             for (name in options.loadEvents){
-                s.events.push(config.trackedEvents[options.loadEvents[name]]);//todo:nasty
+                s.events.push(config.trackedEvents[options.loadEvents[name]]);
             }
 
             for (name in config.defaults) {
@@ -975,56 +974,24 @@ toolkit.omniture = (function(config, utils, h26,
                 s.events = s.events.join(',');
             }
 
-            if(sky.tracking.defaults.track){
+            if(omniture.defaults.track){
                 s.t();
             }
         },
 
 
         MovieStartManual: function(m_Name,m_Length,m_Player) {
-            var s = sky.tracking.s;
+            var s = omniture.s;
             s.Media.open(m_Name,m_Length,m_Player);
             s.Media.play(m_Name,'0');
         },
 
 
         MovieEndManual: function(m_Name,m_Pos) {
-            var s = sky.tracking.s;
+            var s = omniture.s;
             s.Media.stop(m_Name,m_Pos);
             s.Media.close(m_Name);
         },
-
-        setVar: function ( s , vname , val ) {
-            var vl = this.variables[vname] || [vname];  ['prop24','evar234']  | ['siteName']
-            for (var i = 0 ; i < vl.length ; ++i ){
-                s[vl[i]] = val;
-            }
-        },
-
-
-
-
-
-        featuredContentClickManual: function(place,description) {
-            var s = sky.tracking.s;
-            s.prop15 = String(place)+"|"+String(description) + "|" + s.pageName.replace("sky/portal/","");
-            s.eVar7 = "D=c15";
-            s.events = sky.tracking.events['linkClick'];
-            s.linkTrackVars='prop39,eVar39,prop15,eVar7,events';
-            s.linkTrackEvents=sky.tracking.events['linkClick'];
-            s.tl(this,'o','Link Click',null,'navigate');
-        },
-
-        clickSamePage: function(place,description) {
-            var s = sky.tracking.s;
-            s.prop15 = String(place)+"|"+String(description) + "|" + s.pageName.replace("sky/portal/","");
-            s.eVar7 = "D=c15";
-            s.events = sky.tracking.events['linkClick'];
-            s.linkTrackVars='prop39,eVar39,prop15,eVar7,events';
-            s.linkTrackEvents=sky.tracking.events['linkClick'];
-            s.tl(this,'o','Link Click');
-        },
-
 
         loadPlugins: function(s) {
             if(pluginsLoaded){ return; }
@@ -1144,7 +1111,7 @@ toolkit.omniture = (function(config, utils, h26,
     };
 
 
-    return sky.tracking;
+    return omniture;
 
 }(toolkit.omniture.config,
     toolkit.omniture.utils,
