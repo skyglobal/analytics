@@ -713,7 +713,7 @@ toolkit.omniture.plugins.newOrRepeatVisits = (function(){
 
     function setVars(){
         omniture.eVar70 = omniture.getNewRepeat(30, "s_getNewRepeat");
-        if(omniture.eVar70 == "Repeat"){  omniture.loadEvents.push(config.events['repeatVisit']);}//todo: test this
+        if(omniture.eVar70 == "Repeat"){  omniture.events.push(config.events['repeatVisit']);}//todo: test this
         omniture.eVar69 = omniture.getVisitNum();
     }
 
@@ -888,6 +888,16 @@ toolkit.omniture = (function(config, utils, h26,
         }
     }
 
+    function addLinkTrackVariable(variable){
+        if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
+        s.linkTrackVars += config.trackedData[variable];
+    }
+
+    function addEvent(event){
+        if (s.events.length>0) s.events += ',';
+        s.events += config.trackedEvents[event];
+        s.linkTrackEvents = s.events;
+    }
 
     function setPageDescriptions(options){
         s.pageURL="D=Referer";  //todo: andrew, i dont see s.referer beingset
@@ -929,6 +939,8 @@ toolkit.omniture = (function(config, utils, h26,
         variables: config.trackedData,
         events: config.trackedEvents,
         addVariable: addVariable,
+        addLinkTrackVariable: addLinkTrackVariable,
+        addEvent: addEvent,
         setup: function(options){
             // Initial defaults:
             var prod = [],
@@ -976,6 +988,7 @@ toolkit.omniture = (function(config, utils, h26,
         },
 
         pageView:  function (options) {
+            s = s_gi(options.account);
 
             sky.tracking.setup(options);
 
@@ -984,7 +997,6 @@ toolkit.omniture = (function(config, utils, h26,
 //            setSearchVars(options);
 //            setErrorEvents(options);
 
-            s = s_gi(options.account);
 
             var prod = [],
                 i, j, k, x, name;
@@ -1376,7 +1388,7 @@ toolkit.tracking = (function(omniture, logger){
             $el = $(e.currentTarget),
             context;
 
-        addEvents('linkClick');
+        addEvent('linkClick');
         addVariable('events');
         addVariable('linkDetails', getProperties($el));
         addVariable('refDomain', refDomain);
@@ -1389,7 +1401,7 @@ toolkit.tracking = (function(omniture, logger){
             context = $el.attr('data-tracking-context') || utils.getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
             addVariable('searchTerms', context);
-            addEvents('search');
+            addEvent('search');
         }
 
         logger.log('end');
@@ -1488,7 +1500,7 @@ toolkit.tracking = (function(omniture, logger){
     function addCustomClickEvents($el){
         var customEvent = $el.attr('data-tracking-event');
         if (!customEvent) return;
-        addEvents(customEvent);
+        addEvent(customEvent);
     }
 
     function addCustomClickVariable($el){
@@ -1497,17 +1509,15 @@ toolkit.tracking = (function(omniture, logger){
         addVariable(customVariable,utils.getText($el));
     }
 
-    function addVariable(prop, val){
-        omniture.addVariable(prop, val);
-        omniture.s.linkTrackVars += ',' + omniture.variables[prop];
-        logger.log('prop',prop, val);
+    function addVariable(variable, val){
+        omniture.addVariable(variable, val);
+        omniture.addLinkTrackVariable(variable);
+        logger.log('prop',variable, val);
     }
 
-    function addEvents(event){
-        if (omniture.s.events.length>0) omniture.s.events += ',';
-        omniture.s.events += omniture.events[event];
-        omniture.s.linkTrackEvents = omniture.s.events;
-        logger.log('events', event, omniture.events[event]);
+    function addEvent(event){
+        omniture.addEvent(event);
+        logger.log('events', event, '');
     }
 
     bindEvents();

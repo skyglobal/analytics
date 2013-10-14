@@ -33,6 +33,16 @@ toolkit.omniture = (function(config, utils, h26,
         }
     }
 
+    function addLinkTrackVariable(variable){
+        if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
+        s.linkTrackVars += config.trackedData[variable];
+    }
+
+    function addEvent(event){
+        if (s.events.length>0) s.events += ',';
+        s.events += config.trackedEvents[event];
+        s.linkTrackEvents = s.events;
+    }
 
     function setPageDescriptions(options){
         s.pageURL="D=Referer";  //todo: andrew, i dont see s.referer beingset
@@ -74,6 +84,8 @@ toolkit.omniture = (function(config, utils, h26,
         variables: config.trackedData,
         events: config.trackedEvents,
         addVariable: addVariable,
+        addLinkTrackVariable: addLinkTrackVariable,
+        addEvent: addEvent,
         setup: function(options){
             // Initial defaults:
             var prod = [],
@@ -121,6 +133,7 @@ toolkit.omniture = (function(config, utils, h26,
         },
 
         pageView:  function (options) {
+            s = s_gi(options.account);
 
             sky.tracking.setup(options);
 
@@ -129,7 +142,6 @@ toolkit.omniture = (function(config, utils, h26,
 //            setSearchVars(options);
 //            setErrorEvents(options);
 
-            s = s_gi(options.account);
 
             var prod = [],
                 i, j, k, x, name;

@@ -30,7 +30,7 @@ toolkit.omniture.plugins.newOrRepeatVisits = (function(){
 
     function setVars(){
         omniture.eVar70 = omniture.getNewRepeat(30, "s_getNewRepeat");
-        if(omniture.eVar70 == "Repeat"){  omniture.loadEvents.push(config.events['repeatVisit']);}//todo: test this
+        if(omniture.eVar70 == "Repeat"){  omniture.events.push(config.events['repeatVisit']);}//todo: test this
         omniture.eVar69 = omniture.getVisitNum();
     }
 

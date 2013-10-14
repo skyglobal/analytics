@@ -73,7 +73,7 @@ toolkit.tracking = (function(omniture, logger){
             $el = $(e.currentTarget),
             context;
 
-        addEvents('linkClick');
+        addEvent('linkClick');
         addVariable('events');
         addVariable('linkDetails', getProperties($el));
         addVariable('refDomain', refDomain);
@@ -86,7 +86,7 @@ toolkit.tracking = (function(omniture, logger){
             context = $el.attr('data-tracking-context') || utils.getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
             addVariable('searchTerms', context);
-            addEvents('search');
+            addEvent('search');
         }
 
         logger.log('end');
@@ -185,7 +185,7 @@ toolkit.tracking = (function(omniture, logger){
     function addCustomClickEvents($el){
         var customEvent = $el.attr('data-tracking-event');
         if (!customEvent) return;
-        addEvents(customEvent);
+        addEvent(customEvent);
     }
 
     function addCustomClickVariable($el){
@@ -194,17 +194,15 @@ toolkit.tracking = (function(omniture, logger){
         addVariable(customVariable,utils.getText($el));
     }
 
-    function addVariable(prop, val){
-        omniture.addVariable(prop, val);
-        omniture.s.linkTrackVars += ',' + omniture.variables[prop];
-        logger.log('prop',prop, val);
+    function addVariable(variable, val){
+        omniture.addVariable(variable, val);
+        omniture.addLinkTrackVariable(variable);
+        logger.log('prop',variable, val);
     }
 
-    function addEvents(event){
-        if (omniture.s.events.length>0) omniture.s.events += ',';
-        omniture.s.events += omniture.events[event];
-        omniture.s.linkTrackEvents = omniture.s.events;
-        logger.log('events', event, omniture.events[event]);
+    function addEvent(event){
+        omniture.addEvent(event);
+        logger.log('events', event, '');
     }
 
     bindEvents();
