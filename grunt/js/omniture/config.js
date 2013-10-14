@@ -3,7 +3,11 @@ if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
 toolkit.omniture.config = (function(){
 
 //todo: merge these maps together into one
-    var trackedData = {
+    var eVars = {
+      'pageDescription': 'eVar19',
+      'fullPageDescription': 'eVar55'
+    },
+    trackedData = {
 //            todo: add tnt eVar18 if needed?
 //            todo: add insight_tracking eVar46 if needed?
 //            todo: add campaigns eVar45 if needed?
@@ -12,6 +16,7 @@ toolkit.omniture.config = (function(){
 //            todo: add keyword eVar8 if needed?
 //            todo: add partner eVar16 if needed?
 //            todo: add keyword eVar17 if needed?
+//            todo: add pageDescription eVar19 if needed?
         searchType: ['prop12','eVar31'],
         searchTerms: ['prop1','eVar1'],
         searchResults: ['prop34'],
@@ -65,25 +70,7 @@ toolkit.omniture.config = (function(){
         activateComplete: 'event79',
         liveChat: "event36"
     },
-    trackedDataValues = {
-        site: undefined,
-        section: undefined,
-        section0: undefined,
-        section1: undefined,
-        section2: undefined,
-        contentType: undefined,
-        contentID: undefined,
-        headline: undefined,
-        browseMethod: undefined,
-        search: undefined,
-        searchTerms: undefined,
-        searchType: undefined,
-        videoTitle: undefined,
-        errors: undefined,
-        siteName: undefined,
-        channel: undefined
-    },
-    settings = {
+    defaults = {
         trackingServer: 'metrics.sky.com',
         trackingServerSecure: 'smetrics.sky.com',
         visitorNamespace: 'bskyb',
@@ -98,7 +85,7 @@ toolkit.omniture.config = (function(){
         linkTrackVars: 'None',
         linkTrackEvents: 'None',
         browseMethod: 'web',
-        url: (String(window.location.href).indexOf('?')>0)?String(window.location.href).split('?')[0]:window.location.href,
+        url: window.location.href.toString().split('?')[0],
         server: window.location.hostname,
         partTime: 'Day_Hour_Quarter',
         QScmpId: 'cmpid,aff',
@@ -110,10 +97,10 @@ toolkit.omniture.config = (function(){
     };
 
     return {
+        eVars: eVars,
         trackedEvents: trackedEvents,
         trackedData: trackedData,
-        trackedDataValues: trackedDataValues,
-        settings: settings
+        defaults: defaults
     };
 
 }());

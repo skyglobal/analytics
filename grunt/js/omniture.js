@@ -13,117 +13,99 @@ toolkit.omniture = (function(config, utils, h26,
     ){
 
     var pluginsLoaded = false,
+        eVars = config.eVars,
         s_objectID = h26.s_objectID,
         s_gi = h26.s_gi,
         s = {};
 
+    function addVariable(prop, val){ //todo: rename to setVariable?
+        if(!val){ return; }
+        var data = config.trackedData[prop] || [prop];
+        if (data.length==1){
+            s[data[0]] = val;
+        } else {
+            s[data[0]] = 'D=' + data[1].replace('eVar','v').replace('prop','c');
+            s[data[1]] = val;
+        }
+    }
+    function setPageDescriptions(options){
+        s.pageURL="D=Referer";  //todo: andrew, i dont see s.referer beingset
+        s.section =  options.section;
+        s.siteName = 'sky/portal/' + options.site;
+        s.pageName = s.siteName + "/" + options.page;
+        s.channel = s.siteName + '/' + s.section;
+        s.section1 = s.siteName + '/' +  s.section.split('/').slice(0,1).join('/');
+        s.section2 = s.siteName + '/' +  s.section.split('/').slice(0,2).join('/');
+        s.section3 = s.siteName + '/' +  s.section.split('/').slice(0,3).join('/');
+        s[eVars.pageDescription] = options.site + "/" + options.page;
+
+        if (options.headline) {
+            s[eVars.fullPageDescription] = (options.site + '/' + options.section+ '/' + options.headline).substring(0,255);
+        } else{
+            s[eVars.fullPageDescription] = options.pageName.substring(0,255);
+        }
+    }
+
+    function setSearchVars(options){
+        if (options.searchResults !== undefined ) {
+            s.searchResults = options.searchResults;
+            s.loadEvents.push(config.trackedEvents['searchResults']);
+            if (options.searchResults === 0) {
+                s.loadEvents.push(config.trackedEvents['zeroResults']);
+            }
+        }
+    }
+
+    function setErrorEvents(options){
+        if (options.errors) {
+            s.loadEvents.push(config.trackedEvents['error']);
+        }
+    }
+
     var sky = sky ? sky : {};
     sky.tracking = {
         settings: config.settings,
-        trackedDataValues: config.trackedDataValues,
         variables: config.trackedData,
+        events: config.trackedEvents,
         loadVariables: {},
         loadEvents: [],
-        events: config.trackedEvents,
-        setup: function(options){
-            // Initial defaults:
-            var prod = [],
-                i, j, k, x, name;
-
-            for (var data in sky.tracking.trackedDataValues){
-                if (sky.tracking.trackedDataValues[data]) {
-                    sky.tracking.trackedDataValues[data] = sky.tracking.trackedDataValues[data].toLowerCase();
-                }
-            }
-
-            options.siteName = 'sky/portal/' + options.site;
-            options.pageName = options.siteName + "/" + options.page;
-            options.eVar19 = options.site + "/" + options.page;
-
-    //            set page Description
-            if (options.headline) {
-                options.eVar55 = (options.site + '/' + options.section+ '/' + options.headline).substring(0,255);
-            } else{
-                options.eVar55 = options.pageName.substring(0,255);
-            }
-
-            options.channel = options.siteName + '/' + options.section;
-            //setting section 0,1,2 to the split section value or all the same if only one section
-            for (i = 0; i < 3 ; ++i) {
-                options['section' + i] = options.siteName + '/' +  options.section.split('/').slice(0,i+1).join('/');
-            }
-
-            if (options.searchResults !== undefined ) {
-                options.loadEvents.push(sky.tracking.events['searchResults']);
-                if (options.searchResults == 0) {
-                    options.loadEvents.push(sky.tracking.events['zeroResults']);
-                }
-            }
-
-            if (options.errors) {
-                options.loadEvents.push(sky.tracking.events['error']);
-            }
-
-
-            // Overwrite defaults with passed parameters
-            for (name in options) {
-                sky.tracking.settings[name] = options[name];
-            }
-        },
-
-        addVariable: function(prop, val){
-            if(!val){ return; }
-            var map, vars = {};
-            if (sky.tracking.variables[prop].length==1){
-                s[sky.tracking.variables[prop][0]] = val;
-            } else {
-                map = 'D=' + sky.tracking.variables[prop][1].replace('eVar','v').replace('prop','c');
-                s[sky.tracking.variables[prop][0]] = map;
-                s[sky.tracking.variables[prop][1]] = val;
-            }
-        },
+        addVariable: addVariable,
 
         pageView:  function (options) {
+            var name;
 
-            sky.tracking.setup(options);
-            s = s_gi(sky.tracking.settings.account);
+            s = s_gi(config.account);
 
-            var prod = [],
-                i, j, k, x, name;
+            setPageDescriptions(options);
+            setSearchVars(options);
+            setErrorEvents(options);
 
+            // set default eVars
+            for (name in config.defaults) {
+                addVariable(name, config.defaults[name].toLowerCase());
+            }
+            // set passed eVar parameters
+            for (name in options) {
+                addVariable(name,options[name].toLowerCase());
+            }
+            // set passed loadVariable parameters
             for (name in options.loadVariables){
-                sky.tracking.addVariable(name,options.loadVariables[name]);
+                addVariable(name,options.loadVariables[name]);
+            }
+            // set passed loadEvent parameters
+            if (options.loadEvents.length)   {
+                s.events = options.loadEvents.join(',');
             }
 
             this.loadPlugins(s);
 
             window.s_bskyb = this.s = s;
 
-
-            //todo: move. only used in time_part function
-            // Change below if EU law on DST start/end dates changes
-            s.currentYear=new Date().getFullYear();
-            var d = new Date ( s.currentYear , 2 , 31 );
-            s.dstStart = "03/"+(31-d.getDay())+"/"+s.currentYear;
-            d = new Date ( s.currentYear , 9 , 31 );
-            s.dstEnd = "10/"+(31-d.getDay())+"/"+s.currentYear;
-
-
-
-            if (sky.tracking.settings.setObjectIDs) {
+            if (s.setObjectIDs) {
                 s.setupDynamicObjectIDs();
             }
 
-
-            //if (prod.length) s.products = prod.join(',');
-            if (options.loadEvents.length)   s.events = options.loadEvents.join(',');
-            for (var variable in options.loadVariables){
-                s[variable] = options.loadVariables[variable];
-            }
-            for (k in sky.tracking.settings) this.setVar ( s , k , sky.tracking.settings[k]);
-
             //URL length optimisation
-            s.pageURL="D=Referer";
             if(s.prop12){    s.eVar31="D=c12";  }
             if(s.prop1){    s.eVar1="D=c1";  }
             if(s.prop16){    s.eVar3="D=c16";  }
@@ -145,7 +127,7 @@ toolkit.omniture = (function(config, utils, h26,
             if(s.eVar69){s.prop69=s.eVar69;}
             if(s.eVar70){s.prop70 = "D=v70";}
             if(s.eVar55){s.prop55 = "D=v55";}
-            if(sky.tracking.settings.track){
+            if(s.track){
                 s.t();
             }
         },
@@ -164,25 +146,14 @@ toolkit.omniture = (function(config, utils, h26,
             s.Media.close(m_Name);
         },
 
-        setVar: function ( s , vname , val ) {
-            var vl = this.variables[vname];
-            vl = vl ? vl : [vname];
-            for (var i = 0 ; i < vl.length ; ++i ){
-                s[vl[i]] = val;
-            }
-        },
-
-
-
-
 
         featuredContentClickManual: function(place,description) {
             var s = sky.tracking.s;
             s.prop15 = String(place)+"|"+String(description) + "|" + s.pageName.replace("sky/portal/","");
             s.eVar7 = "D=c15";
-            s.events = sky.tracking.events['linkClick'];
+            s.events = config.trackedEvents['linkClick'];
             s.linkTrackVars='prop39,eVar39,prop15,eVar7,events';
-            s.linkTrackEvents=sky.tracking.events['linkClick'];
+            s.linkTrackEvents=config.trackedEvents['linkClick'];
             s.tl(this,'o','Link Click',null,'navigate');
         },
 
@@ -190,9 +161,9 @@ toolkit.omniture = (function(config, utils, h26,
             var s = sky.tracking.s;
             s.prop15 = String(place)+"|"+String(description) + "|" + s.pageName.replace("sky/portal/","");
             s.eVar7 = "D=c15";
-            s.events = sky.tracking.events['linkClick'];
+            s.events = config.trackedEvents['linkClick'];
             s.linkTrackVars='prop39,eVar39,prop15,eVar7,events';
-            s.linkTrackEvents=sky.tracking.events['linkClick'];
+            s.linkTrackEvents=config.trackedEvents['linkClick'];
             s.tl(this,'o','Link Click');
         },
 

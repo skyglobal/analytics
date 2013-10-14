@@ -20,22 +20,15 @@ toolkit.omniture.plugins.userHistory = (function(){
         "f(r.indexOf(n[i])!=-1){r='';i=l+1;}}return r}");
 
     var clickThruQuality=function(scp,ct_ev,cp_ev,cpc){
-        var s = this,
-            ev, tct;
-        if (s.p_fo(ct_ev) == 1) {
-            if (!cpc) {
-                cpc = 's_cpc';
-            }
-            ev = s.events ? s.events + ',' : '';
-            if (scp) {
-                s.c_w(cpc, 1, 0);
-                return ct_ev;
-            } else {
-                if (s.c_r(cpc) >= 1) {
-                    s.c_w(cpc, 0, 0);
-                    return cp_ev;
-                }
-            }
+        var s = this;
+        if (s.p_fo(ct_ev) !== 1) { return; }
+        cpc = cpc || 's_cpc';
+        if (scp) {
+            s.c_w(cpc, 1, 0);
+            return ct_ev;
+        } else if (s.c_r(cpc) >= 1) {
+            s.c_w(cpc, 0, 0);
+            return cp_ev;
         }
     };
 
