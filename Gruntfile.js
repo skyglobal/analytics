@@ -19,7 +19,7 @@ module.exports = function(grunt) {
             analytics: ['lib/*.*']
         },
         jshint: {
-            analytics: ['grunt/js/tracking.js'],
+            analytics: ['grunt/js/analytics.js'],
             others: ['Gruntfile.js'],
             options: {
                 "globals": {
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
                     removeCombined: true,
                     generateSourceMaps: true,
                     modules:[{
-                        name: 'tracking'
+                        name: 'analytics'
                     }]
                 }
             }

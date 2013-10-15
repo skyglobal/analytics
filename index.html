@@ -8,7 +8,7 @@ title: Analytics
     <a name="using-me"></a>
     <h2>Using the Analytics</h2>
     <p class="developer-notes">
-        <a href='http://analytics.global.sky.com/{{ site.version }}/tracking.js'>http://analytics.global.sky.com/{{ site.version }}/tracking.js</a>
+        <a href='http://analytics.global.sky.com/{{ site.version }}/analytics.js'>http://analytics.global.sky.com/{{ site.version }}/tracking.js</a>
     </p>
     <a name="contributing"></a>
     <div class="sub-section">
@@ -51,7 +51,7 @@ title: Analytics
 //    headline: '',
 //    contentType: '',
 //    contentId: '',
-    toolkit.tracking.pageView({
+    analytics.linkClicks.pageView({
         site: 'mysky', //todo:mandatory. docs note this should not have sky/portal
         section: 'skyglobal/analytics', //todo:mandatory. docs note this should not start or end with /
         account: 'bskybmyaccountdev', //todo: mandatory

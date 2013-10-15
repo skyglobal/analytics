@@ -1,8 +1,7 @@
-if (typeof toolkit==='undefined') toolkit={};
-if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
-if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
+if (typeof analytics==='undefined') analytics={};
+if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
-toolkit.omniture.plugins.channelManager = (function(){
+analytics.plugins.channelManager = (function(){
 
     var persistant, session,
         persistantCookies = getCookie('s_pers'),
@@ -213,6 +212,6 @@ toolkit.omniture.plugins.channelManager = (function(){
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/channel-manager", function() {
-        return toolkit.omniture.plugins.channelManager;
+        return analytics.plugins.channelManager;
     });
 }

@@ -1,8 +1,7 @@
-if (typeof toolkit==='undefined') toolkit={};
-if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
-if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
+if (typeof analytics==='undefined') analytics={};
+if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
-toolkit.omniture.plugins.newOrRepeatVisits = (function(){
+analytics.plugins.newOrRepeatVisits = (function(){
 
     var omniture, config;
     var getVisitNum = new Function("var s=this,e=new Date(),cval,cvisit,ct=e.getTime(),c='s_vnum',c2='s_invisit';e.setTime(ct+30*24*60*60*1000);cval=s.c_r(c);if(cval){var i=cval.indexOf('&vn='),str=cval.substring(i+4,cval.length),k;}cvisit=s.c_r(c2);if(cvisit){if(str){e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else return 'unknown visit number';}else{if(str){str++;k=cval.substring(0,i);e.setTime(k);s.c_w(c,k+'&vn='+str,e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else{s.c_w(c,ct+30*24*60*60*1000+'&vn=1',e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return 1;}}");
@@ -52,6 +51,6 @@ toolkit.omniture.plugins.newOrRepeatVisits = (function(){
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/new-or-repeat-visits", function() {
-        return toolkit.omniture.plugins.newOrRepeatVisits;
+        return analytics.plugins.newOrRepeatVisits;
     });
 }

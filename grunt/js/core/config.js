@@ -1,6 +1,5 @@
-if (typeof toolkit==='undefined') toolkit={};
-if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
-toolkit.omniture.config = (function(){
+if (typeof analytics==='undefined') analytics={};
+analytics.config = (function(){
 
     var trackedData = {
 //            todo: add tnt eVar18 if needed?
@@ -97,7 +96,7 @@ toolkit.omniture.config = (function(){
 
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("omniture/config", function() {
-        return toolkit.omniture.config;
+    define("core/config", function() {
+        return analytics.config;
     });
 }

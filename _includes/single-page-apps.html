@@ -1,12 +1,12 @@
 <h2>Single Page Apps</h2>
 <p>Simulate a page load event for sites that make use of ajax by calling:</p>
-<code class="block">toolkit.tracking.pageView(config);</code>
+<code class="block">analytics.pageView(config);</code>
 <h3>Example</h3>
 <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
 <script type='text/javascript'>
     $('body').on('click', '#btn_ajax_event', function(e){
         e.preventDefault();
-        toolkit.tracking.pageView({
+        analytics.linkClicks.pageView({
             site: 'mysky',
             section: 'skyglobal/analytics',
             account: 'bskybmyaccountdev',

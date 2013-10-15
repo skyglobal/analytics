@@ -61,7 +61,7 @@
 </script>
 
     <!-- Tracking - aka: What you came here for -->
-    <script type='text/javascript' src="./dist/js/tracking.js"></script>
+    <script type='text/javascript' src="./dist/js/analytics.js"></script>
 </head>
 <body>
 
@@ -87,7 +87,7 @@
     <a name="using-me"></a>
     <h2>Using the Analytics</h2>
     <p class="developer-notes">
-        <a href='http://analytics.global.sky.com/0.6.0/tracking.js'>http://analytics.global.sky.com/0.6.0/tracking.js</a>
+        <a href='http://analytics.global.sky.com/0.6.0/analytics.js'>http://analytics.global.sky.com/0.6.0/tracking.js</a>
     </p>
     <a name="contributing"></a>
     <div class="sub-section">
@@ -142,10 +142,10 @@
 </dl>
 
 <p>Then you must tell the code to either add a pageView:
-<code >    toolkit.tracking.pageView(config); </code>
+<code >    analytics.pageView(config); </code>
 </p>
 <p>or to complete the setup, but without firing a pageView:
-<code >    toolkit.tracking.setup(config); </code>
+<code >    analytics.setup(config); </code>
 </p>
 <h4>Debugging</h4>
 <p>Outside of the config, you can easily execute the following after the page has loaded to start debugging:
@@ -208,7 +208,7 @@
 </dl>
 
 <h3 class="wiki-h3" data-tracking="false">Examples</h3>
-<p>Execute <code>toolkit.tracking.verify()</code> and click around below.</p>
+<p>Execute <code>analytics.verify()</code> and click around below.</p>
 <div class='example clearfix'>
 
     <div class="skycom_4 alpha">
@@ -296,7 +296,7 @@
             {'myCustomVar': <i>customConfig</i>}
         ]
     };
-    toolkit.tracking.pageView(config);
+    analytics.pageView(config);
 </code>
 
 <p>The <code>customConfig</code> object options are</p>
@@ -400,7 +400,7 @@ $('[data-tracking-variable=how_about_pina_coladas]').attr(
             {'myCustomEvent': <i>customConfig</i>}
         ]
     };
-    toolkit.tracking.pageView(config);
+    analytics.pageView(config);
 </code>
 
 <p>The <code>customConfig</code> object options are</p>
@@ -452,13 +452,13 @@ $('[data-tracking-variable=how_about_pina_coladas]').attr(
 <section class=wiki-section>
     <h2>Single Page Apps</h2>
 <p>Simulate a page load event for sites that make use of ajax by calling:</p>
-<code class="block">toolkit.tracking.pageView(config);</code>
+<code class="block">analytics.pageView(config);</code>
 <h3>Example</h3>
 <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
 <script type='text/javascript'>
     $('body').on('click', '#btn_ajax_event', function(e){
         e.preventDefault();
-        toolkit.tracking.pageView({
+        analytics.linkClicks.pageView({
             site: 'mysky',
             section: 'skyglobal/analytics',
             account: 'bskybmyaccountdev',
@@ -481,7 +481,7 @@ $('[data-tracking-variable=how_about_pina_coladas]').attr(
 //    headline: '',
 //    contentType: '',
 //    contentId: '',
-    toolkit.tracking.pageView({
+    analytics.linkClicks.pageView({
         site: 'mysky', //todo:mandatory. docs note this should not have sky/portal
         section: 'skyglobal/analytics', //todo:mandatory. docs note this should not start or end with /
         account: 'bskybmyaccountdev', //todo: mandatory

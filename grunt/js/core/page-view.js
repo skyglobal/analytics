@@ -1,6 +1,5 @@
-if (typeof toolkit==='undefined') toolkit={};
-if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
-toolkit.omniture = (function(config, utils, h26,
+if (typeof analytics==='undefined') analytics={};
+analytics.filePageView = (function(config, h26,
                              mediaModule,
                              testAndTarget,
                              channelManager,
@@ -97,7 +96,7 @@ toolkit.omniture = (function(config, utils, h26,
         addLinkTrackVariable: addLinkTrackVariable,
         addEvent: addEvent,
 
-        pageView:  function (options) {
+        corePageView:  function (options) {
             var name;
             config.options = options;
 
@@ -264,35 +263,32 @@ toolkit.omniture = (function(config, utils, h26,
             this.s.linkTrackVars = '';
             this.s.events = '';
             this.s.linkTrackEvents = '';
-        },
-        utils: utils
+        }
     };
 
 
     return omniture;
 
-}(toolkit.omniture.config,
-    toolkit.omniture.utils,
-    toolkit.omniture.h26,
-    toolkit.omniture.plugins.mediaModule,
-    toolkit.omniture.plugins.testAndTarget,
-    toolkit.omniture.plugins.channelManager,
-    toolkit.omniture.plugins.newOrRepeatVisits,
-    toolkit.omniture.plugins.userHistory
+}(analytics.config,
+    analytics.omniture,
+    analytics.plugins.mediaModule,
+    analytics.plugins.testAndTarget,
+    analytics.plugins.channelManager,
+    analytics.plugins.newOrRepeatVisits,
+    analytics.plugins.userHistory
 ));
 
 //just for require
 if (typeof window.define === "function" && window.define.amd) {
-    define("omniture", [
-        'omniture/config',
-        'omniture/utils',
-        'omniture/omniture-h26',
+    define("core/page-view", [
+        'core/config',
+        'core/omniture',
         'plugins/media-module',
         'plugins/test-and-target',
         'plugins/channel-manager',
         'plugins/new-or-repeat-visits',
         'plugins/user-history'
-    ], function(config, utils, mediaModule, testAndTarget, channelManager, newOrRepeatVisits,userHistory) {
-        return toolkit.omniture;
+    ], function(config, omniture, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory) {
+        return analytics.filePageView;
     });
 }

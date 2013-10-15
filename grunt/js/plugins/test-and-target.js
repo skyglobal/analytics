@@ -1,8 +1,7 @@
-if (typeof toolkit==='undefined') toolkit={};
-if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
-if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
+if (typeof analytics==='undefined') analytics={};
+if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
-toolkit.omniture.plugins.testAndTarget = (function(){
+analytics.plugins.testAndTarget = (function(){
 
     var trackTNT = function(v, p, b) {
         var s=this, n="s_tnt", p=(p)?p:n, v=(v)?v:n, r="",pm=false, b=(b)?b:true;
@@ -31,6 +30,6 @@ toolkit.omniture.plugins.testAndTarget = (function(){
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/test-and-target", function() {
-        return toolkit.omniture.plugins.testAndTarget;
+        return analytics.plugins.testAndTarget;
     });
 }

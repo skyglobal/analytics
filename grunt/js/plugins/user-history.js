@@ -1,8 +1,7 @@
-if (typeof toolkit==='undefined') toolkit={};
-if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
-if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
+if (typeof analytics==='undefined') analytics={};
+if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
-toolkit.omniture.plugins.userHistory = (function(){
+analytics.plugins.userHistory = (function(){
 
     var omniture, config;
     var loggedIn = 'Logged In';
@@ -110,6 +109,6 @@ toolkit.omniture.plugins.userHistory = (function(){
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/user-history", function() {
-        return toolkit.omniture.plugins.userHistory;
+        return analytics.plugins.userHistory;
     });
 }

@@ -1,6 +1,5 @@
-if (typeof toolkit==='undefined') toolkit={};
-if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
-toolkit.omniture.h26 = (function(){
+if (typeof analytics==='undefined') analytics={};
+analytics.omniture = (function(){
 
     /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
     var s_code='',
@@ -192,7 +191,7 @@ toolkit.omniture.h26 = (function(){
 
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("omniture/omniture-h26", function() {
-        return toolkit.omniture.h26;
+    define("core/omniture", function() {
+        return analytics.omniture;
     });
 }

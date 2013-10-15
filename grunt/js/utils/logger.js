@@ -1,6 +1,5 @@
-if (typeof toolkit==='undefined') toolkit={};
-if (typeof toolkit.tracking==='undefined') toolkit.tracking={};
-toolkit.tracking.logger = (function(){
+if (typeof analytics==='undefined') analytics={};
+analytics.logger = (function(){
 
     var vars = {
         verifying: false,
@@ -65,7 +64,7 @@ toolkit.tracking.logger = (function(){
 
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("tracking/logger", function() {
-        return toolkit.tracking.log;
+    define("utils/logger", function() {
+        return analytics.log;
     });
 }

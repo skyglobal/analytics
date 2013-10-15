@@ -27,7 +27,7 @@ def version_already_exists?
 end
 
 def files_to_upload
-  files = ["tracking.js", "tracking.js.map"]
+  files = ["analytics.js", "analytics.js.map"]
 end
 
 def content_type(file)
@@ -50,8 +50,8 @@ end
 
 desc 'Deploys a new version to the CDN'
 task :deploy_new_version do
-  analytics_file = File.open('_site/dist/js/tracking.js')
-  map_file = File.open('_site/dist/js/tracking.js.map')
+  analytics_file = File.open('_site/dist/js/analytics.js')
+  map_file = File.open('_site/dist/js/analytics.js.map')
   
   if version_already_exists?
     puts "Version #{latest_version_number} already exists. Exiting."

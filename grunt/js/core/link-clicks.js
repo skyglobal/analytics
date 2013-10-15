@@ -1,11 +1,10 @@
-if (typeof toolkit==='undefined') toolkit={};
-toolkit.tracking = (function(omniture, logger){
+if (typeof analytics==='undefined') analytics={};
+analytics.linkClicks = (function(omniture, logger){
 //todo: test turn verify on in config
 //todo: test val vs attr value and the rest of getText |
 //todo: test for live binding
 
     var page,
-        utils = omniture.utils,
         mandatory = ['site', 'section', 'account', 'page'];
 
     function bindVars(){
@@ -15,6 +14,24 @@ toolkit.tracking = (function(omniture, logger){
             variables:{},
             loadVariables:{}
         };
+    }
+
+    function safeString(str){
+        if (typeof str === 'undefined') { return ''; }
+        return str.trim().replace(/ /g,'-').replace(/[&,\+,:|]/g,'').toLowerCase();
+    }
+
+//    not using jQuery.parents([data-tracking-whatever]) as is slow in ie and ff
+    function checkParentForAttribute(el, attr){
+        if (!el || !el.getAttribute) { return ''; }
+        if (!!el.getAttribute(attr)){
+            return el.getAttribute(attr);
+        }
+        return checkParentForAttribute(el.parentNode, attr);
+    }
+
+    function getText($el){
+        return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
 
     function reset(){
@@ -58,7 +75,7 @@ toolkit.tracking = (function(omniture, logger){
             setup(custom);
         }
         page.events.push(omniture.events.pageLoad);
-        omniture.pageView ( page );
+        omniture.corePageView( page );
         logger.logPageView(omniture.s);
     }
 
@@ -83,7 +100,7 @@ toolkit.tracking = (function(omniture, logger){
 
 //todo: merge this concept in with custom vars and events
         if ($el.attr('data-tracking-search')){
-            context = $el.attr('data-tracking-context') || utils.getText($('#' + $el.attr('data-tracking-context-id')));
+            context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
             addVariable('searchTerms', context);
             addEvent('search');
@@ -95,21 +112,21 @@ toolkit.tracking = (function(omniture, logger){
 
 
     function getProperties($el){
-        var textClicked = utils.getText($el),
-            context = $el.attr('data-tracking-context') || utils.getText($('#' + $el.attr('data-tracking-context-id'))),
-            theme =  $el.attr('data-tracking-theme') || utils.checkParentForAttribute($el[0],'data-tracking-theme'),
-            other = utils.checkParentForAttribute($el[0],'data-tracking-other'),
-            pod =  utils.checkParentForAttribute($el[0],'data-tracking-pod'),
-            module = utils.checkParentForAttribute($el[0],'data-tracking-module');
+        var textClicked = getText($el),
+            context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id'))),
+            theme =  $el.attr('data-tracking-theme') || checkParentForAttribute($el[0],'data-tracking-theme'),
+            other = checkParentForAttribute($el[0],'data-tracking-other'),
+            pod =  checkParentForAttribute($el[0],'data-tracking-pod'),
+            module = checkParentForAttribute($el[0],'data-tracking-module');
 
         var linkDetails = [
-            utils.safeString(module),
-            utils.safeString(pod),
-            utils.safeString(other),
-            utils.safeString(context),
-            utils.safeString(theme),
-            utils.safeString(textClicked),
-            utils.safeString(omniture.s.pageName.replace(/sky\/portal\//g, ''))
+            safeString(module),
+            safeString(pod),
+            safeString(other),
+            safeString(context),
+            safeString(theme),
+            safeString(textClicked),
+            safeString(omniture.s.pageName.replace(/sky\/portal\//g, ''))
         ];
 
         logger.logLinkDetails(linkDetails, page);
@@ -190,7 +207,7 @@ toolkit.tracking = (function(omniture, logger){
     function addCustomClickVariable($el){
         var customVariable = $el.attr('data-tracking-variable');
         if (!customVariable) return;
-        addVariable(customVariable,utils.getText($el));
+        addVariable(customVariable,getText($el));
     }
 
     function addVariable(variable, val){
@@ -216,10 +233,10 @@ toolkit.tracking = (function(omniture, logger){
         track: track
     };
 
-}(toolkit.omniture, toolkit.tracking.logger));
+}(analytics.filePageView, analytics.logger));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("tracking", ["omniture", "tracking/logger"], function() {
-        return toolkit.tracking;
+    define("core/link-clicks", ["core/page-view", "utils/logger"], function() {
+        return analytics.linkClicks;
     });
 }

@@ -1,8 +1,7 @@
-if (typeof toolkit==='undefined') toolkit={};
-if (typeof toolkit.omniture==='undefined') toolkit.omniture={};
-if (typeof toolkit.omniture.plugins==='undefined') toolkit.omniture.plugins={};
+if (typeof analytics==='undefined') analytics={};
+if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
-toolkit.omniture.plugins.mediaModule = (function(){
+analytics.plugins.mediaModule = (function(){
 
     var omniture, config;
 
@@ -62,6 +61,6 @@ toolkit.omniture.plugins.mediaModule = (function(){
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/media-module", function() {
-        return toolkit.omniture.plugins.mediaModule;
+        return analytics.plugins.mediaModule;
     });
 }

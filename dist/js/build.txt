@@ -1,14 +1,15 @@
 
-tracking.js
+analytics.js
 ----------------
-omniture/config.js
-omniture/utils.js
-omniture/omniture-h26.js
+utils/polyfill.js
+core/config.js
+core/omniture.js
 plugins/media-module.js
 plugins/test-and-target.js
 plugins/channel-manager.js
 plugins/new-or-repeat-visits.js
 plugins/user-history.js
-omniture.js
-tracking/logger.js
-tracking.js
+core/page-view.js
+utils/logger.js
+core/link-clicks.js
+analytics.js

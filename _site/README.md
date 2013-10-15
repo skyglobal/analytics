@@ -4,15 +4,15 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
 
 ## Using Analytics
 ### JS
-"//analytics.global.sky.com/version-number/tracking.js"
+"//analytics.global.sky.com/version-number/analytics.js"
 
 ## Building Analytics Locally
 
 ### Code structure
-- lib/tracking.js
+- lib/analytics.js
   minified js containing the /source js files
 
-- lib/tracking.js.map
+- lib/analytics.js.map
   source map useful for debugging
 
 - views/
