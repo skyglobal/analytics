@@ -1,9 +1,8 @@
 if (typeof analytics==='undefined') analytics={};
 if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
-analytics.plugins.mediaModule = (function(){
-
-    var omniture, config;
+analytics.plugins.mediaModule = (function(omniture){
+//todo: expose chosen functions from within plugins to big bad world i.e. media player start and stop
 
     var m_Media_c="var m=s.m_i('Media');m.cn=function(n){var m=this;return m.s.rep(m.s.rep(m.s.rep(n,\"\\n\",''),\"\\r\",''),'--**--','')};m.open=function(n,l,p,b){var m=this,i=new Object,tm=new Date,a='',"
     +"x;n=m.cn(n);l=parseInt(l);if(!l)l=1;if(n&&p){if(!m.l)m.l=new Object;if(m.l[n])m.close(n);if(b&&b.id)a=b.id;for (x in m.l)if(m.l[x]&&m.l[x].a==a)m.close(m.l[x].n);i.n=n;i.l=l;i.p=m.cn(p);i.a=a;i.t=0"
@@ -35,32 +34,47 @@ analytics.plugins.mediaModule = (function(){
     +"'?500:5000);'+c2);o[f4]=-1;if(m.s.isie)o[f3]=1;o[f7]=0;o[f1](0,0)}};m.as=new Function('e','var m=s_c_il['+m._in+'],l,n;if(m.autoTrack&&m.s.d.getElementsByTagName){l=m.s.d.getElementsByTagName(m.s.i"
     +"sie?\"OBJECT\":\"EMBED\");if(l)for(n=0;n<l.length;n++)m.a(l[n]);}');if(s.wd.attachEvent)s.wd.attachEvent('onload',m.as);else if(s.wd.addEventListener)s.wd.addEventListener('load',m.as,false)";
 
-    function setVars(){
-        omniture.setVariable('videoTitle', config.options.videoTitle);
-        omniture.Media.autoTrack=false;
-        omniture.Media.trackWhilePlaying=true;
-        omniture.Media.trackVars="None";
-        omniture.Media.trackEvents="None";
+
+
+    function MovieStartManual(m_Name,m_Length,m_Player) {
+        s.Media.open(m_Name,m_Length,m_Player);
+        s.Media.play(m_Name,'0');
     }
 
-    function load(s, _config){
-        omniture = s;
-        config = _config;
 
-        omniture.m_Media_c = m_Media_c;
-        omniture.m_i("Media");
-        omniture.loadModule("Media");
+    function MovieEndManual(m_Name,m_Pos) {
+        s.Media.stop(m_Name,m_Pos);
+        s.Media.close(m_Name);
+    }
+
+
+    function setVars(){
+        s.Media.autoTrack=false;
+        s.Media.trackWhilePlaying=true;
+        s.Media.trackVars="None";
+        s.Media.trackEvents="None";
+    }
+
+    function load(s, config){
+
+        omniture.setVariable('videoTitle', config.videoTitle);
+
+        s.m_Media_c = m_Media_c;
+        s.m_i("Media");
+        s.loadModule("Media");
+
         setVars();
     }
 
+    //todo: dont return MovieEndManual - dont want to have to chain the returns! write an exposePlugin function
     return {
         load: load
     };
 
-}());
+}(analytics.omniture));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("plugins/media-module", function() {
+    define("plugins/media-module", ['core/omniture'], function() {
         return analytics.plugins.mediaModule;
     });
 }

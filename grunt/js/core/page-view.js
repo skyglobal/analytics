@@ -1,5 +1,5 @@
 if (typeof analytics==='undefined') analytics={};
-analytics.pageView = (function(config, h26,
+analytics.pageView = (function(config, omniture,
                              mediaModule,
                              testAndTarget,
                              channelManager,
@@ -8,10 +8,9 @@ analytics.pageView = (function(config, h26,
     ){
 
     var pluginsLoaded = false,
-        s_objectID = h26.s_objectID,
-        getVariable = h26.getVariable,
-        setVariable = h26.setVariable,
-        setEvent = h26.setEvent;
+        getVariable = omniture.getVariable,
+        setVariable = omniture.setVariable,
+        setEvent = omniture.setEvent;
 
     function setPageDescriptions(options){
         setVariable('url',options.url);//todo: andrew, delete? i dont see s.referer beingset
@@ -39,9 +38,9 @@ analytics.pageView = (function(config, h26,
             setVariable('searchResults', options.searchResults);
             setVariable('searchType', options.searchType); //todo: andrew, added these - neccersary or added as custom var on page js
             setVariable('searchTerms', options.searchTerms); //todo: andrew, added these - neccersary or added as custom var on page js
-            s.events.push(config.trackedEvents['searchResults']);
+            omniture.setEvent('searchResults');
             if (options.searchResults === 0) {
-                s.events.push(config.trackedEvents['zeroResults']);
+                omniture.setEvent('zeroResults');
             }
         }
     }
@@ -49,25 +48,15 @@ analytics.pageView = (function(config, h26,
     function setErrorEvents(options){
         if (options.errors) {
             setVariable('errors', options.errors);
-            s.events.push(config.trackedEvents['error']);
+            omniture.setEvent('error');
         }
     }
 
-
-    function reset(){
-        s.linkTrackVars = '';
-        s.events = '';
-        s.linkTrackEvents = '';
-    }
-
-    var omniture = {
-        track:  function (customConfig) {
+    function track(customConfig) {
             var name;
             config.options = customConfig;
 
             setEvent('pageLoad');
-
-            s.setVariable = setVariable; //hacky much? so plugins can access this. should set on somethign else
 
             setPageDescriptions(customConfig);
             setSearchVars(customConfig);
@@ -84,35 +73,15 @@ analytics.pageView = (function(config, h26,
                 setVariable(name, customConfig[name] || config[name]);
             }
 
-            this.loadPlugins(s);
+            loadPlugins();
 
-            window.s_bskyb = this.s = s;
-
-            if (config.setObjectIDs) {
-                s.setupDynamicObjectIDs();
+            if(config.track){ //todo: document this
+                omniture.track();
             }
+            omniture.reset();
+        }
 
-            if(config.track){
-                s.t();
-            }
-            reset();
-        },
-
-
-        MovieStartManual: function(m_Name,m_Length,m_Player) {
-            var s = omniture.s;
-            s.Media.open(m_Name,m_Length,m_Player);
-            s.Media.play(m_Name,'0');
-        },
-
-
-        MovieEndManual: function(m_Name,m_Pos) {
-            var s = omniture.s;
-            s.Media.stop(m_Name,m_Pos);
-            s.Media.close(m_Name);
-        },
-
-        loadPlugins: function(s) {
+    function loadPlugins() {
             if(pluginsLoaded){ return; }
 
             /*extra*/
@@ -218,12 +187,16 @@ analytics.pageView = (function(config, h26,
             mediaModule.load(s, config);
             newOrRepeatVisits.load(s, config);
 
+            if (config.setObjectIDs) {
+                s.setupDynamicObjectIDs();
+            }
+
             pluginsLoaded = true;
         }
+
+    return {
+        track: track
     };
-
-
-    return omniture;
 
 }(analytics.config,
     analytics.omniture,

@@ -49,6 +49,15 @@ analytics.omniture = (function(config){
     function trackLink(el){
         s.trackLink(el,'o','Link Click');
     }
+    function track(){
+        s.t();
+    }
+
+    function reset(){
+        s.linkTrackVars = '';
+        s.events = '';
+        s.linkTrackEvents = '';
+    }
 
     /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
     var s_code='',
@@ -238,7 +247,9 @@ analytics.omniture = (function(config){
         setLinkTrackVariable: setLinkTrackVariable,
         setLinkTrackEvent: setLinkTrackEvent,
         trackLink: trackLink,
-        init: init
+        track: track,
+        init: init,
+        reset: reset
     };
 
 }(analytics.config));
