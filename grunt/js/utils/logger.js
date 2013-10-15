@@ -23,7 +23,7 @@ analytics.logger = (function(){
         log('end');
     }
 
-    function logLinkDetails(info, config){
+    function logLinkDetails(info){
         if (vars.verifying){
             console.groupCollapsed('linkDetails');
             console.log('module: ', info[0]);
@@ -33,8 +33,6 @@ analytics.logger = (function(){
             console.log('theme: ', info[4]);
             console.log('textClicked: ', info[5]);
             console.log('pageName: ', info[6]);
-            console.log('site: ', config.site);
-            console.log('page: ', config.page);
             console.groupEnd();
         }
     }

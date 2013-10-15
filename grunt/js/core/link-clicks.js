@@ -4,18 +4,6 @@ analytics.linkClicks = (function(omniture, logger){
 //todo: test val vs attr value and the rest of getText |
 //todo: test for live binding
 
-    var page,
-        mandatory = ['site', 'section', 'account', 'page'];
-
-    function bindVars(){
-        page = {
-            events:[],
-            loadEvents:[],
-            variables:{},
-            loadVariables:{}
-        };
-    }
-
     function safeString(str){
         if (typeof str === 'undefined') { return ''; }
         return str.trim().replace(/ /g,'-').replace(/[&,\+,:|]/g,'').toLowerCase();
@@ -34,22 +22,6 @@ analytics.linkClicks = (function(omniture, logger){
         return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
 
-    function reset(){
-        bindVars();
-        omniture.reset();
-    }
-
-    function setup(custom){
-        $.extend(page, custom);
-        if (custom.debug){
-            logger.debug(true);
-        }
-//        todo: console warning if no site or section
-        checkMandatoryConfig();
-        setupCustomEventsAndVariables('Events');
-        setupCustomEventsAndVariables('Variables');
-    }
-
     function bindEvents(selector, evnt) {
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
         evnt = evnt || 'click toolkit.track';
@@ -58,32 +30,8 @@ analytics.linkClicks = (function(omniture, logger){
         });
     }
 
-    function checkMandatoryConfig(){
-        for (var name in mandatory){
-            if (!page[mandatory[name]]){
-                console.error('Mandatory config is missing: ', mandatory[name]);
-            }
-        }
-    }
-
-
-
-//PAGE VIEW TRACKING
-    function pageView(custom){
-        reset();
-        if (custom){
-            setup(custom);
-        }
-        page.events.push(omniture.events.pageLoad);
-        omniture.corePageView( page );
-        logger.logPageView(omniture.s);
-    }
-
-
-//LINK TRACKING
     function track(e){
-        checkMandatoryConfig();
-        reset();
+        omniture.reset();
         logger.log('start','tracking event', e);
         var refDomain = document.referrer,
             url = window.location.href.split('?')[0],
@@ -128,76 +76,12 @@ analytics.linkClicks = (function(omniture, logger){
             safeString(textClicked),
             safeString(omniture.s.pageName.replace(/sky\/portal\//g, ''))
         ];
-
-        logger.logLinkDetails(linkDetails, page);
+        logger.logLinkDetails(linkDetails);
 
         return linkDetails.join('|');
     }
 
 
-
-//    BELOW THIS LINE
-//    ADD EVENTS/VARS TO tracking CODE
-    function setupCustomVariable(item) {
-        var trackedData = [],
-            prop;
-        if (item.prop){
-            prop = 'prop' + item.prop;
-            trackedData.push(prop);
-        }
-        if (item.eVar){
-            prop = 'eVar' + item.eVar;
-            trackedData.push(prop);
-        }
-        omniture.variables[item.name] = trackedData;
-        if (item.onPageLoad) {
-            page.loadVariables[item.name] = item.value;
-        }
-    }
-
-    function setupCustomEvents(item) {
-        omniture.events[item.name] =  'event' + item.event;
-        page.events.push('event' + item.event);
-        if (item.onPageLoad) {
-            page.loadEvents.push(item.name);
-        }
-    }
-
-    function normaliseItem(item){
-        var properties, name;
-        for (name in item) {
-            if(item.hasOwnProperty(name)) {
-                properties = item[name];
-            }
-        }
-        return {
-            value: properties.value,
-            onPageLoad: properties.onPageLoad,
-            event: properties.event,
-            eVar: properties.eVar,
-            prop: properties.prop,
-            name: name
-        };
-    }
-
-    function setupCustomEventsAndVariables(type){
-        var arr = page['custom' + type],
-            i = 0,
-            len = arr.length,
-            item, trackedData;
-        for(i;i<len;i++){
-            item = normaliseItem(arr[i]);
-            if (type=='Variables') {
-                setupCustomVariable(item);
-            } else if (type=='Events') {
-                setupCustomEvents(item);
-            }
-        }
-    }
-
-
-//    BELOW THIS LINE
-//    ADD EVENTS/VARS TO OMNITURE CODE
     function addCustomClickEvents($el){
         var customEvent = $el.attr('data-tracking-event');
         if (!customEvent) return;
@@ -222,13 +106,10 @@ analytics.linkClicks = (function(omniture, logger){
     }
 
     bindEvents();
-    bindVars();
 
     return {
         debug: logger.debug,
         verify: logger.debug, //for backwards compatibility. added v0.6.0 8th Oct 2013. PM. remove once everyone know not to use it!
-        setup: setup,
-        pageView: pageView,
         bind: bindEvents,
         track: track
     };

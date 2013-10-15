@@ -458,7 +458,7 @@ $('[data-tracking-variable=how_about_pina_coladas]').attr(
 <script type='text/javascript'>
     $('body').on('click', '#btn_ajax_event', function(e){
         e.preventDefault();
-        analytics.linkClicks.pageView({
+        analytics.pageView({
             site: 'mysky',
             section: 'skyglobal/analytics',
             account: 'bskybmyaccountdev',
@@ -481,7 +481,7 @@ $('[data-tracking-variable=how_about_pina_coladas]').attr(
 //    headline: '',
 //    contentType: '',
 //    contentId: '',
-    analytics.linkClicks.pageView({
+    analytics.pageView({
         site: 'mysky', //todo:mandatory. docs note this should not have sky/portal
         section: 'skyglobal/analytics', //todo:mandatory. docs note this should not start or end with /
         account: 'bskybmyaccountdev', //todo: mandatory
