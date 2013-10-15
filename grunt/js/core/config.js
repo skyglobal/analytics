@@ -60,36 +60,36 @@ analytics.config = (function(){
             activateStart: 'event78',
             activateComplete: 'event79',
             liveChat: "event36"
-        },
-        defaults = {
-            trackingServer: 'metrics.sky.com',
-            trackingServerSecure: 'smetrics.sky.com',
-            visitorNamespace: 'bskyb',
-            charSet: 'UTF-8',
-            trackDownloadLinks: true,
-            trackExternalLinks: true,
-            trackInlineStats: true,
-            linkDownloadFileTypes: 'exe,zip,wav,mp3,mov,mpg,avi,wmv,pdf,doc,docx,xls,xlsx,ppt,pptx,air,wma,dmg',
-            //anyway to make this easier to have all?
-            linkInternalFilters: 'javascript:,skyintranet,sky.com,skysports.co.uk,skyarts.co.uk,skybet.com,skypoker.com,skybingo.com,skyvegas.com,teamtalk.com,football365.com,sportinglife.com,sportal.com,bettingzone.co.uk,fixtures365.com,teamsky.com,oddschecker.com,sport365.com,skysports.com,sky.zoopla.co.uk,skyoneonline.co.uk,bskybpensionplan.com,skymobileiphone.com,skymovies.com,skyone.co.uk,sky1.co.uk,skyoneonline.co.uk,m.skynews.com,skyrainforestrescueschoolschallenge.org,skybroadband.com,skyartsonline.co.uk,skymoviesactive.com,skyhub.bskyb.com,skyone.co.uk,sky.co.uk,skybet.mobi,socceram.com,teamtalk.co.za,football365.co.uk,jointhebiggerpicture.com,skysportsnewsradio.com,file,contact.sky.com,.rainforestrescue.com,.nowtv.com,'+window.location.host,
-            linkLeaveQueryString: false,
-            linkTrackVars: 'None',
-            linkTrackEvents: 'None',
-            browseMethod: 'web',
-            url: window.location.href.toString().split('?')[0],
-            server: window.location.hostname,
-            QScmpId: 'cmpid,aff',
-            QScmpIdInt: 'cmpid_int',
-            useForcedLinkTracking: true,
-            forceLinkTrackingTimeout: 500,
-            setObjectIDs: true,
-            track: true
         };
 
+
     return {
-        trackedEvents: trackedEvents,
         trackedData: trackedData,
-        defaults: defaults
+        trackedEvents: trackedEvents,
+        trackingServer: 'metrics.sky.com',
+        trackingServerSecure: 'smetrics.sky.com',
+        visitorNamespace: 'bskyb',
+        charSet: 'UTF-8',
+        trackDownloadLinks: true,
+        trackExternalLinks: true,
+        trackInlineStats: true,
+        linkDownloadFileTypes: 'exe,zip,wav,mp3,mov,mpg,avi,wmv,pdf,doc,docx,xls,xlsx,ppt,pptx,air,wma,dmg',
+        //anyway to make this easier to have all?
+        linkInternalFilters: 'javascript:,skyintranet,sky.com,skysports.co.uk,skyarts.co.uk,skybet.com,skypoker.com,skybingo.com,skyvegas.com,teamtalk.com,football365.com,sportinglife.com,sportal.com,bettingzone.co.uk,fixtures365.com,teamsky.com,oddschecker.com,sport365.com,skysports.com,sky.zoopla.co.uk,skyoneonline.co.uk,bskybpensionplan.com,skymobileiphone.com,skymovies.com,skyone.co.uk,sky1.co.uk,skyoneonline.co.uk,m.skynews.com,skyrainforestrescueschoolschallenge.org,skybroadband.com,skyartsonline.co.uk,skymoviesactive.com,skyhub.bskyb.com,skyone.co.uk,sky.co.uk,skybet.mobi,socceram.com,teamtalk.co.za,football365.co.uk,jointhebiggerpicture.com,skysportsnewsradio.com,file,contact.sky.com,.rainforestrescue.com,.nowtv.com,'+window.location.host,
+        linkLeaveQueryString: false,
+        linkTrackVars: 'None',
+        linkTrackEvents: 'None',
+        browseMethod: 'web',
+        url: window.location.href.toString().split('?')[0],
+        server: window.location.hostname,
+        QScmpId: 'cmpid,aff',
+        QScmpIdInt: 'cmpid_int',
+        useForcedLinkTracking: true,
+        forceLinkTrackingTimeout: 500,
+        setObjectIDs: true,
+        track: true,
+        loadEvents:[],
+        loadVariables:{}
     };
 
 }());

@@ -194,7 +194,7 @@ analytics.plugins.channelManager = (function(){
 
         omniture.seList = seList;
         omniture.channelManager = channelManager;
-        omniture.linkInternalFilters = config.defaults.linkInternalFilters;
+        omniture.linkInternalFilters = config.linkInternalFilters;
         omniture.channelManager('attr,dcmp','','s_campaign','0');
 
         setInsightTracking(omniture);

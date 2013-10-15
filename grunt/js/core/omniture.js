@@ -1,5 +1,33 @@
 if (typeof analytics==='undefined') analytics={};
-analytics.omniture = (function(){
+analytics.omniture = (function(config){
+//todo: put every reference to s inside this file. once done make s local.
+
+    window.s = {};//todo: make local
+    var mappedVars = {};
+
+    function init(account){
+        s = s_gi(account);
+    }
+
+    function setVariable(prop, val){
+        if(!val){ return; }
+        var i= 1,map,
+            data = config.trackedData[prop] || [prop];
+        mappedVars[prop] = val;
+        if (data.length==1){
+            s[data[0]] = val;
+        } else {
+            map = 'D=' + data[0].replace('eVar','v').replace('prop','c').replace('channel','ch'); //todo: test channel being first in vars list
+            s[data[0]] = val;
+            for (i; i<data.length; i++){
+                s[data[i]] = map;
+            }
+        }
+    }
+
+    function getVariable(prop){
+        return mappedVars[prop]; //todo: try to get from s if it isnt a mapped value. if worth the extra effort.
+    }
 
     /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
     var s_code='',
@@ -184,14 +212,18 @@ analytics.omniture = (function(){
 
     return {
         s_objectID: s_objectID,
-        s_gi: s_gi
+        s_gi: s_gi,
+        s: s,
+        setVariable: setVariable,
+        getVariable: getVariable,
+        init: init
     };
 
-}());
+}(analytics.config));
 
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("core/omniture", function() {
+    define("core/omniture", ['core/config'], function(config) {
         return analytics.omniture;
     });
 }

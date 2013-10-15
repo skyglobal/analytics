@@ -9,33 +9,9 @@ analytics.pageView = (function(config, h26,
 
     var pluginsLoaded = false,
         s_objectID = h26.s_objectID,
-        s_gi = h26.s_gi,
-        s = {},
-        mappedVars = {};
+        setVariable = h26.setVariable,
+        getVariable = h26.getVariable;
 
-    function setVariable(prop, val){
-        if(!val){ return; }
-        var i= 1,map,
-            data = config.trackedData[prop] || [prop];
-        mappedVars[prop] = val;
-        if (data.length==1){
-            s[data[0]] = val;
-        } else {
-            map = 'D=' + data[0].replace('eVar','v').replace('prop','c').replace('channel','ch'); //todo: test channel being first in vars list
-            s[data[0]] = val;
-            for (i; i<data.length; i++){
-                s[data[i]] = map;
-            }
-        }
-    }
-
-    function setEvent(event){
-
-    }
-
-    function getVariable(prop){
-        return mappedVars[prop]; //todo: try to get from s if it isnt a mapped value. if worth the extra effort.
-    }
 
     function addLinkTrackVariable(variable){
         if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
@@ -89,41 +65,39 @@ analytics.pageView = (function(config, h26,
     }
 
     var omniture = {
-        defaults: config.defaults,
         variables: config.trackedData,
         events: config.trackedEvents,
         setVariable: setVariable,
         addLinkTrackVariable: addLinkTrackVariable,
         addEvent: addEvent,
 
-        track:  function (options) {
+        track:  function (customConfig) {
             var name;
-            config.options = options;
+            config.options = customConfig;
 
-            s = s_gi(options.account);
             s.events = [config.trackedEvents['pageLoad']];
             s.setVariable = setVariable; //hacky much? so plugins can access this. should set on somethign else
 
-            setPageDescriptions(options);
-            setSearchVars(options);
-            setErrorEvents(options);
+            setPageDescriptions(customConfig);
+            setSearchVars(customConfig);
+            setErrorEvents(customConfig);
 
-            for (name in options.loadVariables){
-                setVariable(name, options.loadVariables[name]);
+            for (name in customConfig.loadVariables){
+                setVariable(name, customConfig.loadVariables[name]);
             }
-            for (name in options.loadEvents){
-                s.events.push(config.trackedEvents[options.loadEvents[name]]);
+            for (name in customConfig.loadEvents){
+                s.events.push(config.trackedEvents[customConfig.loadEvents[name]]);
             }
 
-            for (name in config.defaults) {
-                setVariable(name, options[name] || config.defaults[name]);
+            for (name in config) {
+                setVariable(name, customConfig[name] || config[name]);
             }
 
             this.loadPlugins(s);
 
             window.s_bskyb = this.s = s;
 
-            if (config.defaults.setObjectIDs) {
+            if (config.setObjectIDs) {
                 s.setupDynamicObjectIDs();
             }
 
@@ -131,7 +105,7 @@ analytics.pageView = (function(config, h26,
                 s.events = s.events.join(',');
             }
 
-            if(omniture.defaults.track){
+            if(config.track){
                 s.t();
             }
         },
@@ -259,10 +233,9 @@ analytics.pageView = (function(config, h26,
             pluginsLoaded = true;
         },
         reset: function(){
-            if (!this.s){ return; }
-            this.s.linkTrackVars = '';
-            this.s.events = '';
-            this.s.linkTrackEvents = '';
+            s.linkTrackVars = '';
+            s.events = '';
+            s.linkTrackEvents = '';
         }
     };
 

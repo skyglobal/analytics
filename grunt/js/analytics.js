@@ -1,53 +1,47 @@
 if (typeof analytics==='undefined') analytics={};
-analytics = (function(polyfill, config, linkClicks, pageView){
+analytics = (function(polyfill, config, omniture, linkClicks, pageView){
 
-    var page,
-        mandatory = ['site', 'section', 'account', 'page'];
+    var mandatory = ['site', 'section', 'account', 'page'];
 
-    function bindVars(){
-        page = {
-            events:[],
-            loadEvents:[],
-            variables:{},
-            loadVariables:{}
-        };
-    }
+    function setup(customConfig){
+        omniture.init(customConfig.account);
 
-    function setup(custom){
-        $.extend(page, custom);
-        if (custom.debug){
+        $.extend(config, customConfig);
+        if (config.debug){
 //            logger.debug(true);
         }
 //        todo: console warning if no site or section
         checkMandatoryConfig();
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
+        return config;
     }
 
     //PAGE VIEW TRACKING
     function reset(custom){
-        bindVars();
+        config.loadVariables={};
+        config.loadEvents=[];
         pageView.reset();
         if (custom){
             setup(custom);
         }
-
+        return config;
 //        logger.logPageView(omniture.s);
     }
 
     function checkMandatoryConfig(){
         for (var name in mandatory){
-            if (!page[mandatory[name]]){
+            if (!config[mandatory[name]]){
                 console.error('Mandatory config is missing: ', mandatory[name]);
             }
         }
     }
 
     function setupCustomEventsAndVariables(type){
-        var arr = page['custom' + type],
+        var arr = config['custom' + type],
             i = 0,
             len = arr.length,
-            item, trackedData;
+            item;
         for(i;i<len;i++){
             item = normaliseItem(arr[i]);
             if (type=='Variables') {
@@ -58,28 +52,35 @@ analytics = (function(polyfill, config, linkClicks, pageView){
         }
     }
 
-    function setupCustomVariable(item) {
-        var trackedData = [],
+    function addToVariableMap(varName, propValue, eVarValue){
+        var arrValues = [],
             prop;
-        if (item.prop){
-            prop = 'prop' + item.prop;
-            trackedData.push(prop);
+        if (propValue){
+            prop = 'prop' + propValue;
+            arrValues.push(prop);
         }
-        if (item.eVar){
-            prop = 'eVar' + item.eVar;
-            trackedData.push(prop);
+        if (eVarValue){
+            prop = 'eVar' + eVarValue;
+            arrValues.push(prop);
         }
-        pageView.variables[item.name] = trackedData;
+        config.trackedData[varName] = arrValues;
+    }
+
+    function addToEventMap(eventName, eventID){
+        config.trackedEvents[eventName] = 'event' + eventID;
+    }
+
+    function setupCustomVariable(item) {
+        addToVariableMap(item.name, item.prop, item.eVar);
         if (item.onPageLoad) {
-            page.loadVariables[item.name] = item.value;
+            config.loadVariables[item.name] = item.value;
         }
     }
 
     function setupCustomEvents(item) {
-        pageView.events[item.name] =  'event' + item.event;
-        page.events.push('event' + item.event);
+        addToEventMap(item.name, item.event);
         if (item.onPageLoad) {
-            page.loadEvents.push(item.name);
+            config.loadEvents.push(item.name);
         }
     }
 
@@ -103,7 +104,7 @@ analytics = (function(polyfill, config, linkClicks, pageView){
     return {
         linkClicks : linkClicks,
         pageView: function(customConfig){
-            reset(customConfig);
+            var page = reset(customConfig);
             pageView.track( page );
         },
         setup: setup
@@ -112,6 +113,7 @@ analytics = (function(polyfill, config, linkClicks, pageView){
 
 }(  analytics.polyfill,
     analytics.config,
+    analytics.omniture,
     analytics.linkClicks,
     analytics.pageView
 ));
@@ -121,9 +123,10 @@ if (typeof window.define === "function" && window.define.amd) {
     define("analytics", [
         'utils/polyfill',
         'core/config',
+        'core/omniture',
         'core/link-clicks',
         'core/page-view'
-    ], function(polyfill, config, linkClicks, pageView) {
+    ], function(polyfill, config, omniture, linkClicks, pageView) {
         return analytics;
     });
 }

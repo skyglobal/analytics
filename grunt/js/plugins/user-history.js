@@ -77,7 +77,7 @@ analytics.plugins.userHistory = (function(){
             config.trackedEvents['secondPageVisited'],
             's_ctq'
         );
-        if(c_pastEv) { omniture.loadEvents.push(c_pastEv); }
+        if(c_pastEv) { omniture.events.push(c_pastEv); }
         omniture.eVar17 = omniture.getFullReferringDomains();
 
 
