@@ -1,5 +1,5 @@
 if (typeof analytics==='undefined') analytics={};
-analytics.omniture = (function(config){
+analytics.omniture = (function(config, logger){
 //todo: put every reference to s inside this file. once done make s local.
 
     window.s = {};//todo: make local
@@ -50,6 +50,7 @@ analytics.omniture = (function(config){
         s.trackLink(el,'o','Link Click');
     }
     function track(){
+        logger.logPageView(s);
         s.t();
     }
 
@@ -252,11 +253,11 @@ analytics.omniture = (function(config){
         reset: reset
     };
 
-}(analytics.config));
+}(analytics.config, analytics.logger));
 
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("core/omniture", ['core/config'], function(config) {
+    define("core/omniture", ['core/config', 'utils/logger'], function(config, logger) {
         return analytics.omniture;
     });
 }

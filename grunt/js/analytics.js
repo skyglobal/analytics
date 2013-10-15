@@ -1,7 +1,8 @@
 if (typeof analytics==='undefined') analytics={};
-analytics = (function(polyfill, config, omniture, linkClicks, pageView){
+analytics = (function(polyfill, logger, config, omniture, linkClicks, pageView){
 //todo: stop referencing s in any other file
 //todo: stop referencing s.eVarxx and use alias or getVariable instead
+//todo: only use logger from omniture - get the setails from s or el being passed
 
 //todo: test turn verify on in config
 //todo: test val vs attr value and the rest of getText |
@@ -14,7 +15,7 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView){
 
         $.extend(config, customConfig);
         if (config.debug){
-//            logger.debug(true);
+            logger.debug(true);
         }
 //        todo: console warning if no site or section
         checkMandatoryConfig();
@@ -23,7 +24,6 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView){
         return config;
     }
 
-    //PAGE VIEW TRACKING
     function reset(custom){
         config.loadVariables={};
         config.loadEvents=[];
@@ -31,7 +31,6 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView){
             setup(custom);
         }
         return config;
-//        logger.logPageView(omniture.s);
     }
 
     function checkMandatoryConfig(){
@@ -117,6 +116,7 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView){
 
 
 }(  analytics.polyfill,
+    analytics.logger,
     analytics.config,
     analytics.omniture,
     analytics.linkClicks,
@@ -127,11 +127,12 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView){
 if (typeof window.define === "function" && window.define.amd) {
     define("analytics", [
         'utils/polyfill',
+        'utils/logger',
         'core/config',
         'core/omniture',
         'core/link-clicks',
         'core/page-view'
-    ], function(polyfill, config, omniture, linkClicks, pageView) {
+    ], function(polyfill, logger, config, omniture, linkClicks, pageView) {
         return analytics;
     });
 }

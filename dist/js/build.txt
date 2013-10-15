@@ -2,6 +2,7 @@
 analytics.js
 ----------------
 utils/polyfill.js
+utils/logger.js
 core/config.js
 core/omniture.js
 plugins/media-module.js
@@ -10,6 +11,5 @@ plugins/channel-manager.js
 plugins/new-or-repeat-visits.js
 plugins/user-history.js
 core/page-view.js
-utils/logger.js
 core/link-clicks.js
 analytics.js
