@@ -51,7 +51,7 @@ analytics.linkClicks = (function(omniture, logger){
         }
 
         logger.log('end');
-        s.trackLink(this,'o','Link Click');
+        omniture.trackLink(this);
     }
 
 
@@ -70,7 +70,7 @@ analytics.linkClicks = (function(omniture, logger){
             safeString(context),
             safeString(theme),
             safeString(textClicked),
-            safeString(s.pageName.replace(/sky\/portal\//g, ''))
+            safeString(omniture.getVariable('pageName').replace(/sky\/portal\//g, ''))
         ];
         logger.logLinkDetails(linkDetails);
 

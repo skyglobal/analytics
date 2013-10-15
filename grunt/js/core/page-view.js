@@ -19,7 +19,7 @@ analytics.pageView = (function(config, h26,
         setVariable('contentId',options.contentId);//todo: andrew, delete? i dont see s.referer beingset
         setVariable('pageURL','D=Referer');//todo: andrew, delete? i dont see s.referer beingset
         setVariable('siteName','sky/portal/' + options.site);
-        setVariable('section','sky/portal/' + options.site);
+        setVariable('section','sky/portal/' + options.site);//todo: andrew, delete? i dont see s.referer beingset
         setVariable('pageName', getVariable('siteName') + "/" + options.page);
         setVariable('section0', getVariable('siteName') + '/' +  options.section.split('/').slice(0,1).join('/'));
         setVariable('section1', getVariable('siteName') + '/' +  options.section.split('/').slice(0,2).join('/'));
