@@ -1,5 +1,11 @@
 if (typeof analytics==='undefined') analytics={};
 analytics = (function(polyfill, config, omniture, linkClicks, pageView){
+//todo: stop referencing s in any other file
+//todo: stop referencing s.eVarxx and use alias or getVariable instead
+
+//todo: test turn verify on in config
+//todo: test val vs attr value and the rest of getText |
+//todo: test for live binding
 
     var mandatory = ['site', 'section', 'account', 'page'];
 
@@ -21,7 +27,6 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView){
     function reset(custom){
         config.loadVariables={};
         config.loadEvents=[];
-        pageView.reset();
         if (custom){
             setup(custom);
         }

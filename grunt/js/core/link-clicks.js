@@ -1,8 +1,5 @@
 if (typeof analytics==='undefined') analytics={};
 analytics.linkClicks = (function(omniture, logger){
-//todo: test turn verify on in config
-//todo: test val vs attr value and the rest of getText |
-//todo: test for live binding
 
     function safeString(str){
         if (typeof str === 'undefined') { return ''; }
@@ -31,7 +28,6 @@ analytics.linkClicks = (function(omniture, logger){
     }
 
     function track(e){
-        omniture.reset();
         logger.log('start','tracking event', e);
         var refDomain = document.referrer,
             url = window.location.href.split('?')[0],
@@ -55,7 +51,7 @@ analytics.linkClicks = (function(omniture, logger){
         }
 
         logger.log('end');
-        omniture.s.trackLink(this,'o','Link Click');
+        s.trackLink(this,'o','Link Click');
     }
 
 
@@ -74,7 +70,7 @@ analytics.linkClicks = (function(omniture, logger){
             safeString(context),
             safeString(theme),
             safeString(textClicked),
-            safeString(omniture.s.pageName.replace(/sky\/portal\//g, ''))
+            safeString(s.pageName.replace(/sky\/portal\//g, ''))
         ];
         logger.logLinkDetails(linkDetails);
 
@@ -96,12 +92,13 @@ analytics.linkClicks = (function(omniture, logger){
 
     function addVariable(variable, val){
         omniture.setVariable(variable, val);
-        omniture.addLinkTrackVariable(variable);
+        omniture.setLinkTrackVariable(variable);
         logger.log('prop',variable, val);
     }
 
     function addEvent(event){
-        omniture.addEvent(event);
+        omniture.setEvent(event);
+        omniture.setLinkTrackEvent(event);
         logger.log('events', event, '');
     }
 
@@ -114,7 +111,7 @@ analytics.linkClicks = (function(omniture, logger){
         track: track
     };
 
-}(analytics.pageView, analytics.logger));
+}(analytics.omniture, analytics.logger));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("core/link-clicks", ["core/page-view", "utils/logger"], function() {

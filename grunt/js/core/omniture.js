@@ -9,6 +9,10 @@ analytics.omniture = (function(config){
         s = s_gi(account);
     }
 
+    function getVariable(prop){
+        return mappedVars[prop]; //todo: try to get from s if it isnt a mapped value. if worth the extra effort.
+    }
+
     function setVariable(prop, val){
         if(!val){ return; }
         var i= 1,map,
@@ -25,8 +29,21 @@ analytics.omniture = (function(config){
         }
     }
 
-    function getVariable(prop){
-        return mappedVars[prop]; //todo: try to get from s if it isnt a mapped value. if worth the extra effort.
+    function setLinkTrackVariable(variable){
+        if (!s.linkTrackVars) s.linkTrackVars = '';
+        if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
+        s.linkTrackVars += config.trackedData[variable];
+    }
+    function setLinkTrackEvent(event){ //todo: andrew, needed???
+        if (!s.linkTrackEvents) s.linkTrackEvents = '';
+        if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
+        s.linkTrackEvents += config.trackedEvents[event];
+    }
+
+    function setEvent(event){
+        if (!s.events) s.events = '';
+        if (s.events.length>0) s.events += ',';
+        s.events += config.trackedEvents[event];
     }
 
     /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
@@ -211,11 +228,11 @@ analytics.omniture = (function(config){
 
 
     return {
-        s_objectID: s_objectID,
-        s_gi: s_gi,
-        s: s,
-        setVariable: setVariable,
         getVariable: getVariable,
+        setVariable: setVariable,
+        setEvent: setEvent,
+        setLinkTrackVariable: setLinkTrackVariable,
+        setLinkTrackEvent: setLinkTrackEvent,
         init: init
     };
 

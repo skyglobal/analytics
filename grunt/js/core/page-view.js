@@ -9,20 +9,9 @@ analytics.pageView = (function(config, h26,
 
     var pluginsLoaded = false,
         s_objectID = h26.s_objectID,
+        getVariable = h26.getVariable,
         setVariable = h26.setVariable,
-        getVariable = h26.getVariable;
-
-
-    function addLinkTrackVariable(variable){
-        if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
-        s.linkTrackVars += config.trackedData[variable];
-    }
-
-    function addEvent(event){
-        if (s.events.length>0) s.events += ',';
-        s.events += config.trackedEvents[event];
-        s.linkTrackEvents = s.events;
-    }
+        setEvent = h26.setEvent;
 
     function setPageDescriptions(options){
         setVariable('url',options.url);//todo: andrew, delete? i dont see s.referer beingset
@@ -64,18 +53,20 @@ analytics.pageView = (function(config, h26,
         }
     }
 
-    var omniture = {
-        variables: config.trackedData,
-        events: config.trackedEvents,
-        setVariable: setVariable,
-        addLinkTrackVariable: addLinkTrackVariable,
-        addEvent: addEvent,
 
+    function reset(){
+        s.linkTrackVars = '';
+        s.events = '';
+        s.linkTrackEvents = '';
+    }
+
+    var omniture = {
         track:  function (customConfig) {
             var name;
             config.options = customConfig;
 
-            s.events = [config.trackedEvents['pageLoad']];
+            setEvent('pageLoad');
+
             s.setVariable = setVariable; //hacky much? so plugins can access this. should set on somethign else
 
             setPageDescriptions(customConfig);
@@ -86,7 +77,7 @@ analytics.pageView = (function(config, h26,
                 setVariable(name, customConfig.loadVariables[name]);
             }
             for (name in customConfig.loadEvents){
-                s.events.push(config.trackedEvents[customConfig.loadEvents[name]]);
+                setEvent(customConfig.loadEvents[name]);
             }
 
             for (name in config) {
@@ -101,13 +92,10 @@ analytics.pageView = (function(config, h26,
                 s.setupDynamicObjectIDs();
             }
 
-            if (s.events)   {
-                s.events = s.events.join(',');
-            }
-
             if(config.track){
                 s.t();
             }
+            reset();
         },
 
 
@@ -231,11 +219,6 @@ analytics.pageView = (function(config, h26,
             newOrRepeatVisits.load(s, config);
 
             pluginsLoaded = true;
-        },
-        reset: function(){
-            s.linkTrackVars = '';
-            s.events = '';
-            s.linkTrackEvents = '';
         }
     };
 
