@@ -1,5 +1,5 @@
 if (typeof analytics==='undefined') analytics={};
-analytics.filePageView = (function(config, h26,
+analytics.pageView = (function(config, h26,
                              mediaModule,
                              testAndTarget,
                              channelManager,
@@ -96,7 +96,7 @@ analytics.filePageView = (function(config, h26,
         addLinkTrackVariable: addLinkTrackVariable,
         addEvent: addEvent,
 
-        corePageView:  function (options) {
+        track:  function (options) {
             var name;
             config.options = options;
 
@@ -289,6 +289,6 @@ if (typeof window.define === "function" && window.define.amd) {
         'plugins/new-or-repeat-visits',
         'plugins/user-history'
     ], function(config, omniture, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory) {
-        return analytics.filePageView;
+        return analytics.pageView;
     });
 }

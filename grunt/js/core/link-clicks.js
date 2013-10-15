@@ -114,7 +114,7 @@ analytics.linkClicks = (function(omniture, logger){
         track: track
     };
 
-}(analytics.filePageView, analytics.logger));
+}(analytics.pageView, analytics.logger));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("core/link-clicks", ["core/page-view", "utils/logger"], function() {

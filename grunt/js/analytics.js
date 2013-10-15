@@ -1,5 +1,5 @@
 if (typeof analytics==='undefined') analytics={};
-analytics = (function(polyfill, config, linkClicks, filePageView){
+analytics = (function(polyfill, config, linkClicks, pageView){
 
     var page,
         mandatory = ['site', 'section', 'account', 'page'];
@@ -25,13 +25,13 @@ analytics = (function(polyfill, config, linkClicks, filePageView){
     }
 
     //PAGE VIEW TRACKING
-    function pageView(custom){
+    function reset(custom){
         bindVars();
-        filePageView.reset();
+        pageView.reset();
         if (custom){
             setup(custom);
         }
-        filePageView.corePageView( page );
+
 //        logger.logPageView(omniture.s);
     }
 
@@ -69,14 +69,14 @@ analytics = (function(polyfill, config, linkClicks, filePageView){
             prop = 'eVar' + item.eVar;
             trackedData.push(prop);
         }
-        filePageView.variables[item.name] = trackedData;
+        pageView.variables[item.name] = trackedData;
         if (item.onPageLoad) {
             page.loadVariables[item.name] = item.value;
         }
     }
 
     function setupCustomEvents(item) {
-        filePageView.events[item.name] =  'event' + item.event;
+        pageView.events[item.name] =  'event' + item.event;
         page.events.push('event' + item.event);
         if (item.onPageLoad) {
             page.loadEvents.push(item.name);
@@ -102,7 +102,10 @@ analytics = (function(polyfill, config, linkClicks, filePageView){
 
     return {
         linkClicks : linkClicks,
-        pageView: pageView,
+        pageView: function(customConfig){
+            reset(customConfig);
+            pageView.track( page );
+        },
         setup: setup
     };
 
@@ -110,7 +113,7 @@ analytics = (function(polyfill, config, linkClicks, filePageView){
 }(  analytics.polyfill,
     analytics.config,
     analytics.linkClicks,
-    analytics.filePageView
+    analytics.pageView
 ));
 
 //just for require
