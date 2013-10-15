@@ -16,9 +16,9 @@ analytics.plugins.testAndTarget = (function(){
         return r;
     };
 
-    function load(omniture){
-        omniture.trackTNT = trackTNT;
-        omniture.eVar18 = omniture.tnt = omniture.trackTNT(); //todo: andrew, need to set tnt to eVar18?
+    function load(){
+        s.trackTNT = trackTNT;
+        s.eVar18 = s.tnt = s.trackTNT(); //todo: andrew, need to set tnt to eVar18?
         if(typeof mboxLoadSCPlugin == "function"){mboxLoadSCPlugin(omniture);}
     }
 

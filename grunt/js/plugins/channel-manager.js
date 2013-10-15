@@ -100,14 +100,14 @@ analytics.plugins.channelManager = (function(){
         }
     }
 
-    function setInsightTracking(s){
+    function setInsightTracking(){
         var insight_tracking = s.getQueryParam('irct').toLowerCase();
         if (insight_tracking && insight_tracking !== session.irct) {
             s.eVar46 = s.getValOnce(insight_tracking, 'irct', 0);
         }
     }
 
-    function setVariables(s){
+    function setVariables(){
         s.channel = s.siteName + '/' + s.section;
         if(s._campaignID){
             s._campaignID = s._campaignID.toLowerCase(); //todo: streamline all this toLowerCase jaxx
@@ -116,7 +116,7 @@ analytics.plugins.channelManager = (function(){
     }
 
     //todo: andrew, why do we care so much about cheetah mail? delet?
-    function setCheetah(s){
+    function setCheetah(){
 //        todo: i think remove all below
         if (s.getQueryParam('om_mid').length > 0) {
             var cheetahmail_variable = s.getQueryParam('om_mid');
@@ -128,7 +128,7 @@ analytics.plugins.channelManager = (function(){
         }
     }
 
-    function setPartnerAndKeyWords(s){
+    function setPartnerAndKeyWords(){
         var keyword = (s._keywords) ? s._keywords.toLowerCase() : "",
             partner = (s._partner) ? s._partner.toLowerCase() : "",
             chan = (s._channel) ? s._channel.toLowerCase() : "",
@@ -168,7 +168,7 @@ analytics.plugins.channelManager = (function(){
     }
 
 //    todo: andrew, ilc still used? delete?
-    function setupIlcCampaign(s){
+    function setupIlcCampaign(){
         if(!s._channel && !s._campaignID){ return; }
 
         if(s.eVar45 && s.eVar45.indexOf('ilc-') !== 0){
@@ -189,19 +189,19 @@ analytics.plugins.channelManager = (function(){
 
 
 
-    function load(omniture, config){
+    function load(config){
         readCookies();
 
-        omniture.seList = seList;
-        omniture.channelManager = channelManager;
-        omniture.linkInternalFilters = config.linkInternalFilters;
-        omniture.channelManager('attr,dcmp','','s_campaign','0');
+        s.seList = seList;
+        s.channelManager = channelManager;
+        s.linkInternalFilters = config.linkInternalFilters;
+        s.channelManager('attr,dcmp','','s_campaign','0');
 
-        setInsightTracking(omniture);
-        setVariables(omniture);
-        setCheetah(omniture);
-        setPartnerAndKeyWords(omniture);
-        setupIlcCampaign(omniture);
+        setInsightTracking();
+        setVariables();
+        setCheetah();
+        setPartnerAndKeyWords();
+        setupIlcCampaign();
     }
 
     return {

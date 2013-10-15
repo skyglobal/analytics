@@ -55,7 +55,7 @@ analytics.plugins.mediaModule = (function(omniture){
         s.Media.trackEvents="None";
     }
 
-    function load(s, config){
+    function load(config, omniture){
 
         omniture.setVariable('videoTitle', config.videoTitle);
 

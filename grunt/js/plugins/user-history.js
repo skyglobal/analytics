@@ -3,7 +3,7 @@ if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
 analytics.plugins.userHistory = (function(){
 
-    var omniture, config;
+    var config;
     var loggedIn = 'Logged In';
     var notLoggedIn = 'not logged-in';
     var cookies = loadCookies();
@@ -19,22 +19,15 @@ analytics.plugins.userHistory = (function(){
         "f(r.indexOf(n[i])!=-1){r='';i=l+1;}}return r}");
 
     var clickThruQuality=function(scp,ct_ev,cp_ev,cpc){
-        var s = this,
-            ev, tct;
-        if (s.p_fo(ct_ev) == 1) {
-            if (!cpc) {
-                cpc = 's_cpc';
-            }
-            ev = s.events ? s.events + ',' : '';
-            if (scp) {
-                s.c_w(cpc, 1, 0);
-                return ct_ev;
-            } else {
-                if (s.c_r(cpc) >= 1) {
-                    s.c_w(cpc, 0, 0);
-                    return cp_ev;
-                }
-            }
+        var s = this;
+        if (s.p_fo(ct_ev) !== 1) { return ; }
+        cpc = cpc || 's_cpc';
+        if (scp) {
+            s.c_w(cpc, 1, 0);
+            return ct_ev;
+        } else if (s.c_r(cpc) >= 1) {
+            s.c_w(cpc, 0, 0);
+            return cp_ev;
         }
     };
 
@@ -54,48 +47,47 @@ analytics.plugins.userHistory = (function(){
 //    todo: andrew we deleted login events he he
     function setLoginVars( ) {
         if (cookies.skySSO) {
-            omniture.loginStatus = loggedIn;
+            s.loginStatus = loggedIn;
             if (cookies.skySSOLast != cookies.skySSO) {
-                omniture.c_w ('skySSOLast' , cookies.skySSO);
+                s.c_w ('skySSOLast' , cookies.skySSO);
             }
         } else {
-            omniture.loginStatus = notLoggedIn;
+            s.loginStatus = notLoggedIn;
         }
-        if (cookies.just){ omniture.samId = cookies.just; }
-        if (cookies.apd) { omniture.ageGender = cookies.apd + '|' + cookies.gpd; }
-        if (cookies.custype){ omniture.customerType = cookies.custype; }
-        if (cookies.ust) { omniture.optIn = cookies.ust + '|' + cookies.sid_tsaoptin; }
+        if (cookies.just){ s.samId = cookies.just; }
+        if (cookies.apd) { s.ageGender = cookies.apd + '|' + cookies.gpd; }
+        if (cookies.custype){ s.customerType = cookies.custype; }
+        if (cookies.ust) { s.optIn = cookies.ust + '|' + cookies.sid_tsaoptin; }
     }
 
     function setVisitVars(){
         var refURL=document.referrer;
 
-        omniture.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
-        var c_pastEv = omniture.clickThruQuality(
-            omniture.eVar47,
+        s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
+        var c_pastEv = s.clickThruQuality(
+            s.eVar47,
             config.trackedEvents['firstPageVisited'],
             config.trackedEvents['secondPageVisited'],
             's_ctq'
         );
-        if(c_pastEv) { omniture.events.push(c_pastEv); }
-        omniture.eVar17 = omniture.getFullReferringDomains();
+        if(c_pastEv) { s.events.push(c_pastEv); }
+        s.eVar17 = s.getFullReferringDomains();
 
 
         if (refURL){ //todo: refactor
             var iURL=refURL.indexOf('?')>-1?refURL.indexOf('?'):refURL.length;
             var qURL=refURL.indexOf('//')>-1?refURL.indexOf('//')+2:0;
             var rURL=refURL.indexOf('/',qURL)>-1?refURL.indexOf('/',qURL):iURL;
-            omniture.refDomain=refURL.substring(qURL,rURL);
+            s.refDomain=refURL.substring(qURL,rURL);
         }
     }
 
-    function load(s, _config){
-        omniture = s;
+    function load(_config){
         config = _config;
 
-        omniture.getFullReferringDomains = getFullReferringDomains;
-        omniture.getAndPersistValue = getAndPersistValue;
-        omniture.clickThruQuality = clickThruQuality;
+        s.getFullReferringDomains = getFullReferringDomains;
+        s.getAndPersistValue = getAndPersistValue;
+        s.clickThruQuality = clickThruQuality;
 
         setLoginVars();
         setVisitVars();

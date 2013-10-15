@@ -181,11 +181,11 @@ analytics.pageView = (function(config, omniture,
 
 
 //            todo: double check ordering with .bk file
-            channelManager.load(s, config);
-            userHistory.load(s, config);
-            testAndTarget.load(s);
-            mediaModule.load(s, config);
-            newOrRepeatVisits.load(s, config);
+            channelManager.load(config);
+            userHistory.load(config);
+            testAndTarget.load();
+            mediaModule.load(config, omniture);
+            newOrRepeatVisits.load(config);
 
             if (config.setObjectIDs) {
                 s.setupDynamicObjectIDs();
