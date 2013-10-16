@@ -102,6 +102,13 @@ analytics.plugins.channelManager = (function(omniture, config){
         }
     }
 
+    function setVariables(){
+        setVariable('s.channel', getVariable('siteName')); //todo: andrew, this meant to be the same?
+        if(s._campaignID){
+            setVariable('campaignID',s._campaignID.toLowerCase());
+        }
+    }
+
     function setInsightTracking(){
         var insight_tracking = s.getQueryParam('irct').toLowerCase();
         if (insight_tracking && insight_tracking !== session.irct) {
@@ -109,24 +116,15 @@ analytics.plugins.channelManager = (function(omniture, config){
         }
     }
 
-    function setVariables(){
-        setVariable('s.channel', getVariable('siteName')); //todo: andrew, this meant to be the same?
-        if(s._campaignID){
-            s._campaignID = s._campaignID.toLowerCase(); //todo: streamline all this toLowerCase jaxx
-            setVariable('ilcCampaign',s._campaignID);
-        }
-    }
-
     //todo: andrew, why do we care so much about cheetah mail? delet?
     function setCheetah(){
-//        todo: i think remove all below
-        if (s.getQueryParam('om_mid').length > 0) {
-            var cheetahmail_variable = s.getQueryParam('om_mid');
-            if(s._campaignID){ //todo: andrew, why do we keep using underscores?
-                s._campaignID = "cht-" + cheetahmail_variable + ":links__" + s._campaignID.replace("emc-","");
-            }  else{
-                s._campaignID = "cht-" + cheetahmail_variable;
+        var campaignID;
+        if (s.getQueryParam('om_mid').length > 0) { //        todo: i think remove all below
+            campaignID = "cht-" + s.getQueryParam('om_mid')
+            if(getVariable('campaignID')){ //todo: andrew, why do we keep using underscores?
+                campaignID  =+ ":links__" + getVariable('campaignID').replace("emc-","");
             }
+            setVariable('campaignID',campaignID);
         }
     }
 
@@ -141,27 +139,27 @@ analytics.plugins.channelManager = (function(omniture, config){
 //todo: remove campaign specific stuff knc?
         if (campaignID && campaignID.indexOf('knc-') === 0) {
             if(campaignID == "knc-"){
-                setVariable('ilcCampaign',getVariable('ilcCampaign') + partner + ":" + keyword);
+                setVariable('campaignID',getVariable('campaignID') + partner + ":" + keyword);
             }
             setVariable('externalSearchProvider',partner);
             setVariable('externalSearchTerm',keyword);
         }
         if(chan == "natural search"){
-            setVariable('ilcCampaign',"okc-natural search");
+            setVariable('campaignID',"okc-natural search");
             setVariable('externalSearchProvider',partner);
             setVariable('externalSearchTerm',keyword);
         }
         if (campaignID==="" && chan != "natural search") {
             if (chan=="direct load"){
-                setVariable('ilcCampaign',"direct load");
+                setVariable('campaignID',"direct load");
             }
             else if(chan != "direct load" && ref){
                 if(httpsSearch(ref) == "google"){
-                    setVariable('ilcCampaign',"okc-secured natural search");
+                    setVariable('campaignID',"okc-secured natural search");
                     setVariable('externalSearchProvider',"google");
                     setVariable('externalSearchTerm',"secured search term");
                 } else {
-                    setVariable('ilcCampaign',"oth-" + ref);
+                    setVariable('campaignID',"oth-" + ref);
                 }
             }
         }
@@ -169,22 +167,22 @@ analytics.plugins.channelManager = (function(omniture, config){
 
 //    todo: andrew, ilc still used? delete?
     function setupIlcCampaign(){
-        var ilcCampaign = omniture.getVariable('ilcCampaign') || '';
+        var campaignID = omniture.getVariable('campaignID') || '';
         if(!s._channel && !s._campaignID){ return; }
 
-        if(ilcCampaign.indexOf('ilc-') !== 0){
-            if((ilcCampaign=="direct load" || ilcCampaign.indexOf("oth-") === 0 ) &&
+        if(campaignID.indexOf('ilc-') !== 0){
+            if((campaignID=="direct load" || campaignID.indexOf("oth-") === 0 ) &&
                 session.cmp_cookie_session != "undefined/undefined" &&
                 session.cmp_cookie_session !== ""){
-                omniture.setVariable('ilcCampaign','');
+                omniture.setVariable('campaignID','');
             }
             if(!session.cmp_cookie_session || session.cmp_cookie_session == "undefined/undefined"){
-                session.cmp_cookie_session = omniture.getVariable('campaign');
-                omniture.setVariable('campaign',s.getValOnce(session.cmp_cookie_session, 'cmp_cookie_session', 0));
+                session.cmp_cookie_session = omniture.getVariable('campaignCookie');
+                omniture.setVariable('campaignCookie',s.getValOnce(session.cmp_cookie_session, 'cmp_cookie_session', 0));
             }
             if(!persistant.cmp_cookie || persistant.cmp_cookie == "undefined/undefined"){
-                persistant.cmp_cookie = omniture.getVariable('campaign');
-                omniture.setVariable('campaign',s.getValOnce(persistant.cmp_cookie, 'cmp_cookie', 30));
+                persistant.cmp_cookie = omniture.getVariable('campaignCookie');
+                omniture.setVariable('campaignCookie',s.getValOnce(persistant.cmp_cookie, 'cmp_cookie', 30));
             }
         }
     }
@@ -199,8 +197,8 @@ analytics.plugins.channelManager = (function(omniture, config){
         s.linkInternalFilters = config.linkInternalFilters;
         s.channelManager('attr,dcmp','','s_campaign','0');
 
-        setInsightTracking();
         setVariables();
+        setInsightTracking();
         setCheetah();
         setPartnerAndKeyWords();
         setupIlcCampaign();
