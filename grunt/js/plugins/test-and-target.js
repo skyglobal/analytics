@@ -1,7 +1,7 @@
 if (typeof analytics==='undefined') analytics={};
 if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
-analytics.plugins.testAndTarget = (function(){
+analytics.plugins.testAndTarget = (function(omniture, config){
 
     var trackTNT = function(v, p, b) {
         var s=this, n="s_tnt", p=(p)?p:n, v=(v)?v:n, r="",pm=false, b=(b)?b:true;
@@ -18,7 +18,8 @@ analytics.plugins.testAndTarget = (function(){
 
     function load(){
         s.trackTNT = trackTNT;
-        s.eVar18 = s.tnt = s.trackTNT(); //todo: andrew, need to set tnt to eVar18?
+        var tnt = omniture.setVariable('testAndTarget',s.trackTNT());
+        omniture.setVariable('tnt',tnt);
         if(typeof mboxLoadSCPlugin == "function"){mboxLoadSCPlugin(omniture);}
     }
 
@@ -26,10 +27,10 @@ analytics.plugins.testAndTarget = (function(){
         load: load
     };
 
-}());
+}(analytics.omniture, analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("plugins/test-and-target", function() {
+    define("plugins/test-and-target", ['core/omniture', 'core/config'], function(omniture, config) {
         return analytics.plugins.testAndTarget;
     });
 }

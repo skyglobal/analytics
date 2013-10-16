@@ -27,6 +27,7 @@ analytics.omniture = (function(config, logger){
                 s[data[i]] = map;
             }
         }
+        return val;
     }
 
     function setLinkTrackVariable(variable){

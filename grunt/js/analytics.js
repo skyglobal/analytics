@@ -4,6 +4,7 @@ analytics = (function(polyfill, logger, config, omniture, linkClicks, pageView){
 //todo: stop referencing s.eVarxx and use alias or getVariable instead
 //todo: only use logger from omniture - get the setails from s or el being passed
 
+//todo: write page to test require
 //todo: test turn verify on in config
 //todo: test val vs attr value and the rest of getText |
 //todo: test for live binding

@@ -6,10 +6,8 @@ analytics.config = (function(){
 //            todo: add insight_tracking eVar46 if needed?
 //            todo: add campaigns eVar45 if needed?
 //            todo: add more campaigns eVar47 if needed?
-//            todo: add partner eVar3 if needed?
 //            todo: add keyword eVar8 if needed?
 //            todo: add partner eVar16 if needed?
-//            todo: add keyword eVar17 if needed?
             searchType: ['prop12','eVar31'],
             searchTerms: ['prop1','eVar1'],
             searchResults: ['prop34'],
@@ -39,7 +37,13 @@ analytics.config = (function(){
             pageName: ["pageName"],
             pageDescription: ['eVar19'], //todo: andrew - correct term?
             partner: ['prop16','eVar3'], //todo: andrew - correct term?
-            fullPageDescription: ['eVar55'] //todo: andrew - correct term?
+            fullPageDescription: ['eVar55'], //todo: andrew - correct term?
+            ilcCampaign: ['prop45','eVar45'], //todo: andrew - correct term?
+            campaign: ['eVar47'], //todo: andrew - correct term?
+            insightCampaign: ['eVar46'], //todo: andrew - correct term?
+            externalSearchProvider: ['prop16','eVar3'], //todo: andrew - correct term?
+            externalSearchTerm: ['prop17','eVar8'], //todo: andrew - correct term?
+            testAndTarget: ['eVar18'] //todo: andrew - correct term?
         },
         trackedEvents = { //todo: add event1 + event20
             pageLoad: 'event1',

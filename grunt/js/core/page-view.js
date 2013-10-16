@@ -181,7 +181,7 @@ analytics.pageView = (function(config, omniture,
 
 
 //            todo: double check ordering with .bk file
-            channelManager.load(config);
+            channelManager.load(config); //must go first - user history needs it to set a campaign evar
             userHistory.load(config);
             testAndTarget.load();
             mediaModule.load(config, omniture);

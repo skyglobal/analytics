@@ -1,7 +1,7 @@
 if (typeof analytics==='undefined') analytics={};
 if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
-analytics.plugins.mediaModule = (function(omniture){
+analytics.plugins.mediaModule = (function(omniture, config){
 //todo: expose chosen functions from within plugins to big bad world i.e. media player start and stop
 
     var m_Media_c="var m=s.m_i('Media');m.cn=function(n){var m=this;return m.s.rep(m.s.rep(m.s.rep(n,\"\\n\",''),\"\\r\",''),'--**--','')};m.open=function(n,l,p,b){var m=this,i=new Object,tm=new Date,a='',"
@@ -55,7 +55,7 @@ analytics.plugins.mediaModule = (function(omniture){
         s.Media.trackEvents="None";
     }
 
-    function load(config, omniture){
+    function load(){
 
         omniture.setVariable('videoTitle', config.videoTitle);
 
@@ -71,10 +71,10 @@ analytics.plugins.mediaModule = (function(omniture){
         load: load
     };
 
-}(analytics.omniture));
+}(analytics.omniture, analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("plugins/media-module", ['core/omniture'], function() {
+    define("plugins/media-module", ['core/omniture', 'core/config'], function(omniture, config) {
         return analytics.plugins.mediaModule;
     });
 }

@@ -1,9 +1,8 @@
 if (typeof analytics==='undefined') analytics={};
 if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
-analytics.plugins.userHistory = (function(){
+analytics.plugins.userHistory = (function(omniture, config){
 
-    var config;
     var loggedIn = 'Logged In';
     var notLoggedIn = 'not logged-in';
     var cookies = loadCookies();
@@ -11,12 +10,6 @@ analytics.plugins.userHistory = (function(){
     var getAndPersistValue=new Function("v","c","e",""+
         "var s=this,a=new Date;e=e?e:0;a.setTime(a.getTime()+e*86400000);if("+
         "v)s.c_w(c,v,e?a:0);return s.c_r(c);");
-
-
-    var getFullReferringDomains=new Function(""+
-        "var s=this,dr=window.document.referrer,n=s.linkInternalFilters.spli"+
-        "t(',');if(dr){var r=dr.split('/')[2],l=n.length;for(i=0;i<=l;i++){i"+
-        "f(r.indexOf(n[i])!=-1){r='';i=l+1;}}return r}");
 
     var clickThruQuality=function(scp,ct_ev,cp_ev,cpc){
         var s = this;
@@ -47,45 +40,36 @@ analytics.plugins.userHistory = (function(){
 //    todo: andrew we deleted login events he he
     function setLoginVars( ) {
         if (cookies.skySSO) {
-            s.loginStatus = loggedIn;
+            omniture.setVariable('loginStatus', loggedIn);
             if (cookies.skySSOLast != cookies.skySSO) {
-                s.c_w ('skySSOLast' , cookies.skySSO);
+                s.c_w('skySSOLast' , cookies.skySSO);
             }
         } else {
-            s.loginStatus = notLoggedIn;
+            omniture.setVariable('loginStatus',notLoggedIn);
         }
-        if (cookies.just){ s.samId = cookies.just; }
-        if (cookies.apd) { s.ageGender = cookies.apd + '|' + cookies.gpd; }
-        if (cookies.custype){ s.customerType = cookies.custype; }
-        if (cookies.ust) { s.optIn = cookies.ust + '|' + cookies.sid_tsaoptin; }
+        if (cookies.just){ omniture.setVariable('samId',cookies.just); }
+        if (cookies.apd) { omniture.setVariable('ageGender',cookies.apd + '|' + cookies.gpd); }
+        if (cookies.custype){ omniture.setVariable('customerType', cookies.custype); }
+        if (cookies.ust) { omniture.setVariable('optIn', cookies.ust + '|' + cookies.sid_tsaoptin); }
     }
 
     function setVisitVars(){
-        var refURL=document.referrer;
-
         s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
         var c_pastEv = s.clickThruQuality(
-            s.eVar47,
+            omniture.getVariable('campaign'),
             config.trackedEvents['firstPageVisited'],
             config.trackedEvents['secondPageVisited'],
             's_ctq'
         );
-        if(c_pastEv) { s.events.push(c_pastEv); }
-        s.eVar17 = s.getFullReferringDomains();
+        if(c_pastEv) { omniture.setEvent(c_pastEv); }
 
-
-        if (refURL){ //todo: refactor
-            var iURL=refURL.indexOf('?')>-1?refURL.indexOf('?'):refURL.length;
-            var qURL=refURL.indexOf('//')>-1?refURL.indexOf('//')+2:0;
-            var rURL=refURL.indexOf('/',qURL)>-1?refURL.indexOf('/',qURL):iURL;
-            s.refDomain=refURL.substring(qURL,rURL);
+        if (document.referrer){
+            omniture.setVariable('refDomain',document.referrer.split('/')[2]);
         }
     }
 
-    function load(_config){
-        config = _config;
+    function load(){
 
-        s.getFullReferringDomains = getFullReferringDomains;
         s.getAndPersistValue = getAndPersistValue;
         s.clickThruQuality = clickThruQuality;
 
@@ -97,10 +81,12 @@ analytics.plugins.userHistory = (function(){
         load: load
     };
 
-}());
+}(analytics.omniture, analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("plugins/user-history", function() {
+    define("plugins/user-history", ['core/omniture', 'core/config'], function(omniture, config) {
         return analytics.plugins.userHistory;
     });
 }
+
+
