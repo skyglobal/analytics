@@ -104,7 +104,7 @@ analytics.plugins.channelManager = (function(omniture, config){
 
     function setVariables(){
         setVariable('channel', getVariable('siteName')); //todo: andrew, this meant to be the same?
-        var _campaign = getVariable('_campaignID','toLowerCase');
+        var _campaign = getVariable('_campaignID').toLowerCase();
         if(_campaign){
             setVariable('campaignID',_campaign);
         }
@@ -130,11 +130,11 @@ analytics.plugins.channelManager = (function(omniture, config){
     }
 
     function setPartnerAndKeyWords(){
-        var keyword = getVariable('_keywords','toLowerCase'),
-            partner = getVariable('_partner','toLowerCase'),
-            chan = getVariable('_channel','toLowerCase'),
-            ref = getVariable('_referringDomain','toLowerCase'),
-            campaignID = getVariable('_campaignID','toLowerCase');
+        var keyword = getVariable('_keywords').toLowerCase(),
+            partner = getVariable('_partner').toLowerCase(),
+            chan = getVariable('_channel').toLowerCase(),
+            ref = getVariable('_referringDomain').toLowerCase(),
+            campaignID = getVariable('_campaignID').toLowerCase();
 
 //todo: test the hell out of all these if statements before refactor!!!!
 //todo: remove campaign specific stuff knc?

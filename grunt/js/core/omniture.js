@@ -11,12 +11,8 @@ analytics.omniture = (function(config, logger){
         }
     }
 
-    function getVariable(prop, option){
-        var val = mappedVars[prop] || s[prop];
-        if (val && typeof val[option] === 'function'){
-            val = option[option](); //allow to return .toLowerCase() for example
-        }
-        return val;
+    function getVariable(prop){
+        return mappedVars[prop] || s[prop];
     }
 
     function setVariable(prop, val){
@@ -54,12 +50,16 @@ analytics.omniture = (function(config, logger){
     }
 
     function trackLink(el){
-        logger.logLinkClick(getVariable('linkDetails'), getVariable('events'), mappedVars);
+        log();
         s.trackLink(el,'o','Link Click');
     }
     function trackPage(){
-        logger.logPageView(s);
+        log();
         s.t();
+    }
+
+    function log(){
+        logger.logS(getVariable('linkDetails'), getVariable('events'), mappedVars);
     }
 
     function reset(){

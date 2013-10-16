@@ -43,37 +43,44 @@ analytics.logger = (function(config){
         }
         return '';
     }
-    function logLinkClick(linkDetails, events, mappedVars){
-            var arrDetails = linkDetails.split('|'),
-                x;
-            log('start','tracking event');
+    function logS(linkDetails, events, mappedVars){
+        var arrDetails, x;
+        console.group('tracking event');
 
-            console.groupCollapsed('linkDetails');
-            for (x in arrDetails){
-                log(config.linkDetailsMap[x], arrDetails[x]);
-            }
-            console.groupEnd();
-            arrDetails = events.split(',');
-            console.groupCollapsed('events');
-            for (x in arrDetails){
-                log(getEventName(arrDetails[x]), arrDetails[x]);
-            }
-            console.groupEnd();
-            console.groupCollapsed('All Changed Variables');
-            for (x in mappedVars){
-                if (mappedVars[x]!==config[x]){
-                    log(x, mappedVars[x]);
+            if (linkDetails){
+                console.groupCollapsed('linkDetails');
+                arrDetails = linkDetails.split('|');
+                for (x in arrDetails){
+                    log(config.linkDetailsMap[x], arrDetails[x]);
                 }
+                console.groupEnd();
             }
+            if (events){
+                arrDetails = events.split(',');
+                console.groupCollapsed('events');
+                for (x in arrDetails){
+                    log(getEventName(arrDetails[x]), arrDetails[x]);
+                }
+                console.groupEnd();
+            }
+            console.groupCollapsed('All Changed Variables');
+                for (x in mappedVars){
+                    if (mappedVars[x]!==config[x]){
+                        log(x, mappedVars[x]);
+                    }
+                }
+            console.groupEnd();
+            console.groupCollapsed('The Whole of omniture');
+                log('s',s);
             console.groupEnd();
 
-            log('end');
+        console.groupEnd();
     }
 
     return {
         debug: debug,
         logPageView: logPageView,
-        logLinkClick: logLinkClick,
+        logS: logS,
         log: log
     };
 

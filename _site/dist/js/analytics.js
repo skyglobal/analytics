@@ -176,37 +176,44 @@ analytics.logger = (function(config){
         }
         return '';
     }
-    function logLinkClick(linkDetails, events, mappedVars){
-            var arrDetails = linkDetails.split('|'),
-                x;
-            log('start','tracking event');
+    function logS(linkDetails, events, mappedVars){
+        var arrDetails, x;
+        console.group('tracking event');
 
-            console.groupCollapsed('linkDetails');
-            for (x in arrDetails){
-                log(config.linkDetailsMap[x], arrDetails[x]);
-            }
-            console.groupEnd();
-            arrDetails = events.split(',');
-            console.groupCollapsed('events');
-            for (x in arrDetails){
-                log(getEventName(arrDetails[x]), arrDetails[x]);
-            }
-            console.groupEnd();
-            console.groupCollapsed('All Changed Variables');
-            for (x in mappedVars){
-                if (mappedVars[x]!==config[x]){
-                    log(x, mappedVars[x]);
+            if (linkDetails){
+                console.groupCollapsed('linkDetails');
+                arrDetails = linkDetails.split('|');
+                for (x in arrDetails){
+                    log(config.linkDetailsMap[x], arrDetails[x]);
                 }
+                console.groupEnd();
             }
+            if (events){
+                arrDetails = events.split(',');
+                console.groupCollapsed('events');
+                for (x in arrDetails){
+                    log(getEventName(arrDetails[x]), arrDetails[x]);
+                }
+                console.groupEnd();
+            }
+            console.groupCollapsed('All Changed Variables');
+                for (x in mappedVars){
+                    if (mappedVars[x]!==config[x]){
+                        log(x, mappedVars[x]);
+                    }
+                }
+            console.groupEnd();
+            console.groupCollapsed('The Whole of omniture');
+                log('s',s);
             console.groupEnd();
 
-            log('end');
+        console.groupEnd();
     }
 
     return {
         debug: debug,
         logPageView: logPageView,
-        logLinkClick: logLinkClick,
+        logS: logS,
         log: log
     };
 
@@ -232,12 +239,8 @@ analytics.omniture = (function(config, logger){
         }
     }
 
-    function getVariable(prop, option){
-        var val = mappedVars[prop] || s[prop];
-        if (val && typeof val[option] === 'function'){
-            val = option[option](); //allow to return .toLowerCase() for example
-        }
-        return val;
+    function getVariable(prop){
+        return mappedVars[prop] || s[prop];
     }
 
     function setVariable(prop, val){
@@ -275,12 +278,16 @@ analytics.omniture = (function(config, logger){
     }
 
     function trackLink(el){
-        logger.logLinkClick(getVariable('linkDetails'), getVariable('events'), mappedVars);
+        log();
         s.trackLink(el,'o','Link Click');
     }
     function trackPage(){
-        logger.logPageView(s);
+        log();
         s.t();
+    }
+
+    function log(){
+        logger.logS(getVariable('linkDetails'), getVariable('events'), mappedVars);
     }
 
     function reset(){
@@ -722,7 +729,7 @@ analytics.plugins.channelManager = (function(omniture, config){
 
     function setVariables(){
         setVariable('channel', getVariable('siteName')); //todo: andrew, this meant to be the same?
-        var _campaign = getVariable('_campaignID','toLowerCase');
+        var _campaign = getVariable('_campaignID').toLowerCase();
         if(_campaign){
             setVariable('campaignID',_campaign);
         }
@@ -748,11 +755,11 @@ analytics.plugins.channelManager = (function(omniture, config){
     }
 
     function setPartnerAndKeyWords(){
-        var keyword = getVariable('_keywords','toLowerCase'),
-            partner = getVariable('_partner','toLowerCase'),
-            chan = getVariable('_channel','toLowerCase'),
-            ref = getVariable('_referringDomain','toLowerCase'),
-            campaignID = getVariable('_campaignID','toLowerCase');
+        var keyword = getVariable('_keywords').toLowerCase(),
+            partner = getVariable('_partner').toLowerCase(),
+            chan = getVariable('_channel').toLowerCase(),
+            ref = getVariable('_referringDomain').toLowerCase(),
+            campaignID = getVariable('_campaignID').toLowerCase();
 
 //todo: test the hell out of all these if statements before refactor!!!!
 //todo: remove campaign specific stuff knc?
