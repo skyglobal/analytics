@@ -1,16 +1,19 @@
 if (typeof analytics==='undefined') analytics={};
 analytics.omniture = (function(config, logger){
-//todo: put every reference to s inside this file. once done make s local.
 
-    window.s = {};//todo: make local
+    window.s = {};//todo: make local once s is not in any other files
     var mappedVars = {};
 
     function init(account){
         s = s_gi(account);
     }
 
-    function getVariable(prop){
-        return mappedVars[prop]; //todo: try to get from s if it isnt a mapped value. if worth the extra effort.
+    function getVariable(prop, option){
+        var val = mappedVars[prop] || s[prop];
+        if (val && typeof val[option] === 'function'){
+            val = option[option](); //allow to return .toLowerCase() for example
+        }
+        return val;
     }
 
     function setVariable(prop, val){
@@ -50,15 +53,20 @@ analytics.omniture = (function(config, logger){
     function trackLink(el){
         s.trackLink(el,'o','Link Click');
     }
-    function track(){
+    function trackPage(){
         logger.logPageView(s);
         s.t();
     }
 
     function reset(){
         s.linkTrackVars = '';
-        s.events = '';
         s.linkTrackEvents = '';
+        s.events = '';
+    }
+
+    function addPlugin(name, fn){
+        s[name] = fn;
+        return s[name];
     }
 
     /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
@@ -249,7 +257,8 @@ analytics.omniture = (function(config, logger){
         setLinkTrackVariable: setLinkTrackVariable,
         setLinkTrackEvent: setLinkTrackEvent,
         trackLink: trackLink,
-        track: track,
+        trackPage: trackPage,
+        addPlugin: addPlugin,
         init: init,
         reset: reset
     };

@@ -25,11 +25,11 @@ analytics = (function(polyfill, logger, config, omniture, linkClicks, pageView){
         return config;
     }
 
-    function reset(custom){
+    function reset(customConfig){
         config.loadVariables={};
         config.loadEvents=[];
-        if (custom){
-            setup(custom);
+        if (customConfig){
+            setup(customConfig);
         }
         return config;
     }

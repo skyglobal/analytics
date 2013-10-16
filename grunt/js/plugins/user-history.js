@@ -3,16 +3,14 @@ if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
 analytics.plugins.userHistory = (function(omniture, config){
 
-    var loggedIn = 'Logged In';
-    var notLoggedIn = 'not logged-in';
-    var cookies = loadCookies();
+    var loggedIn = 'Logged In',
+        notLoggedIn = 'not logged-in',
+        cookies = loadCookies(),
+        getAndPersistValue=new Function("v","c","e",
+            "var s=this,a=new Date;e=e?e:0;a.setTime(a.getTime()+e*86400000);if(v)s.c_w(c,v,e?a:0);return s.c_r(c);"
+        );
 
-    var getAndPersistValue=new Function("v","c","e",""+
-        "var s=this,a=new Date;e=e?e:0;a.setTime(a.getTime()+e*86400000);if("+
-        "v)s.c_w(c,v,e?a:0);return s.c_r(c);");
-
-    var clickThruQuality=function(scp,ct_ev,cp_ev,cpc){
-        var s = this;
+    function clickThruQuality(scp,ct_ev,cp_ev,cpc){
         if (s.p_fo(ct_ev) !== 1) { return ; }
         cpc = cpc || 's_cpc';
         if (scp) {
@@ -22,8 +20,7 @@ analytics.plugins.userHistory = (function(omniture, config){
             s.c_w(cpc, 0, 0);
             return cp_ev;
         }
-    };
-
+    }
 
     function loadCookies() {
         var i, cookie, cookies;
@@ -36,13 +33,11 @@ analytics.plugins.userHistory = (function(omniture, config){
         return o;
     }
 
-
-//    todo: andrew we deleted login events he he
-    function setLoginVars( ) {
+    function setLoginVars( ) { //    todo: andrew we deleted login events he he
         if (cookies.skySSO) {
             omniture.setVariable('loginStatus', loggedIn);
             if (cookies.skySSOLast != cookies.skySSO) {
-                s.c_w('skySSOLast' , cookies.skySSO);
+                s.c_w('skySSOLast', cookies.skySSO);
             }
         } else {
             omniture.setVariable('loginStatus',notLoggedIn);
@@ -51,30 +46,18 @@ analytics.plugins.userHistory = (function(omniture, config){
         if (cookies.apd) { omniture.setVariable('ageGender',cookies.apd + '|' + cookies.gpd); }
         if (cookies.custype){ omniture.setVariable('customerType', cookies.custype); }
         if (cookies.ust) { omniture.setVariable('optIn', cookies.ust + '|' + cookies.sid_tsaoptin); }
-    }
 
-    function setVisitVars(){
         s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
-        var c_pastEv = s.clickThruQuality(
-            omniture.getVariable('campaign'),
-            config.trackedEvents['firstPageVisited'],
-            config.trackedEvents['secondPageVisited'],
-            's_ctq'
-        );
+        var c_pastEv = s.clickThruQuality(omniture.getVariable('campaign'),config.trackedEvents['firstPageVisited'],config.trackedEvents['secondPageVisited'],'s_ctq');
         if(c_pastEv) { omniture.setEvent(c_pastEv); }
-
-        if (document.referrer){
-            omniture.setVariable('refDomain',document.referrer.split('/')[2]);
-        }
     }
+
 
     function load(){
-
-        s.getAndPersistValue = getAndPersistValue;
-        s.clickThruQuality = clickThruQuality;
+        omniture.addPlugin('getAndPersistValue',getAndPersistValue);
+        omniture.addPlugin('clickThruQuality',clickThruQuality);
 
         setLoginVars();
-        setVisitVars();
     }
 
     return {

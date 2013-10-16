@@ -10,6 +10,7 @@ plugins/test-and-target.js
 plugins/channel-manager.js
 plugins/new-or-repeat-visits.js
 plugins/user-history.js
+plugins/utils.js
 core/page-view.js
 core/link-clicks.js
 analytics.js

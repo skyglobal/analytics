@@ -1,24 +1,6 @@
 if (typeof analytics==='undefined') analytics={};
 analytics.linkClicks = (function(omniture, logger){
 
-    function safeString(str){
-        if (typeof str === 'undefined') { return ''; }
-        return str.trim().replace(/ /g,'-').replace(/[&,\+,:|]/g,'').toLowerCase();
-    }
-
-//    not using jQuery.parents([data-tracking-whatever]) as is slow in ie and ff
-    function checkParentForAttribute(el, attr){
-        if (!el || !el.getAttribute) { return ''; }
-        if (!!el.getAttribute(attr)){
-            return el.getAttribute(attr);
-        }
-        return checkParentForAttribute(el.parentNode, attr);
-    }
-
-    function getText($el){
-        return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
-    }
-
     function bindEvents(selector, evnt) {
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
         evnt = evnt || 'click toolkit.track';
@@ -29,21 +11,18 @@ analytics.linkClicks = (function(omniture, logger){
 
     function track(e){
         logger.log('start','tracking event', e);
-        var refDomain = document.referrer,
-            url = window.location.href.split('?')[0],
-            $el = $(e.currentTarget),
+        var $el = $(e.currentTarget),
             context;
 
         addEvent('linkClick');
         addVariable('events');
         addVariable('linkDetails', getProperties($el));
-        addVariable('refDomain', refDomain);
-        addVariable('url', url);
+        addVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
+        addVariable('url', window.location.href.split('?')[0]);
         addCustomClickVariable($el);
         addCustomClickEvents($el);
 
-//todo: merge this concept in with custom vars and events
-        if ($el.attr('data-tracking-search')){
+        if ($el.attr('data-tracking-search')){//todo: merge this concept in with custom vars and events
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
             addVariable('searchTerms', context);
@@ -100,6 +79,24 @@ analytics.linkClicks = (function(omniture, logger){
         omniture.setEvent(event);
         omniture.setLinkTrackEvent(event);
         logger.log('events', event, '');
+    }
+
+
+    function safeString(str){
+        if (typeof str === 'undefined') { return ''; }
+        return str.trim().replace(/ /g,'-').replace(/[&,\+,:|]/g,'').toLowerCase();
+    }
+
+    function checkParentForAttribute(el, attr){//    not using jQuery.parents([data-tracking-whatever]) as is slow in ie and ff
+        if (!el || !el.getAttribute) { return ''; }
+        if (!!el.getAttribute(attr)){
+            return el.getAttribute(attr);
+        }
+        return checkParentForAttribute(el.parentNode, attr);
+    }
+
+    function getText($el){
+        return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
 
     bindEvents();

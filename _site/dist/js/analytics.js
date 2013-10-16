@@ -198,17 +198,20 @@ if (typeof window.define === "function" && window.define.amd) {
 };
 if (typeof analytics==='undefined') analytics={};
 analytics.omniture = (function(config, logger){
-//todo: put every reference to s inside this file. once done make s local.
 
-    window.s = {};//todo: make local
+    window.s = {};//todo: make local once s is not in any other files
     var mappedVars = {};
 
     function init(account){
         s = s_gi(account);
     }
 
-    function getVariable(prop){
-        return mappedVars[prop]; //todo: try to get from s if it isnt a mapped value. if worth the extra effort.
+    function getVariable(prop, option){
+        var val = mappedVars[prop] || s[prop];
+        if (val && typeof val[option] === 'function'){
+            val = option[option](); //allow to return .toLowerCase() for example
+        }
+        return val;
     }
 
     function setVariable(prop, val){
@@ -248,15 +251,20 @@ analytics.omniture = (function(config, logger){
     function trackLink(el){
         s.trackLink(el,'o','Link Click');
     }
-    function track(){
+    function trackPage(){
         logger.logPageView(s);
         s.t();
     }
 
     function reset(){
         s.linkTrackVars = '';
-        s.events = '';
         s.linkTrackEvents = '';
+        s.events = '';
+    }
+
+    function addPlugin(name, fn){
+        s[name] = fn;
+        return s[name];
     }
 
     /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
@@ -447,7 +455,8 @@ analytics.omniture = (function(config, logger){
         setLinkTrackVariable: setLinkTrackVariable,
         setLinkTrackEvent: setLinkTrackEvent,
         trackLink: trackLink,
-        track: track,
+        trackPage: trackPage,
+        addPlugin: addPlugin,
         init: init,
         reset: reset
     };
@@ -511,19 +520,19 @@ analytics.plugins.mediaModule = (function(omniture, config){
 
 
     function setVars(){
+        s.m_i("Media");
         s.Media.autoTrack=false;
         s.Media.trackWhilePlaying=true;
         s.Media.trackVars="None";
         s.Media.trackEvents="None";
+        s.loadModule("Media");
     }
 
     function load(){
 
         omniture.setVariable('videoTitle', config.videoTitle);
+        omniture.setVariable('m_Media_c',m_Media_c);
 
-        s.m_Media_c = m_Media_c;
-        s.m_i("Media");
-        s.loadModule("Media");
 
         setVars();
     }
@@ -544,23 +553,26 @@ if (typeof analytics==='undefined') analytics={};
 if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
 analytics.plugins.testAndTarget = (function(omniture, config){
+    var wd;
 
     var trackTNT = function(v, p, b) {
-        var s=this, n="s_tnt", p=(p)?p:n, v=(v)?v:n, r="",pm=false, b=(b)?b:true;
+        var n="s_tnt", p=(p)?p:n, v=(v)?v:n, r="",pm=false, b=(b)?b:true;
         if(s.getQueryParam)
             pm = s.getQueryParam(p); //grab the parameter
         if(pm)
             r += (pm + ","); // append the parameter
-        if(s.wd[v] != undefined)
-            r += s.wd[v]; // get the global variable
+        if(wd[v] != undefined)
+            r += wd[v]; // get the global variable
         if(b)
-            s.wd[v] = ""; // Blank out the global variable for ajax requests
+            wd[v] = ""; // Blank out the global variable for ajax requests
         return r;
     };
 
     function load(){
-        s.trackTNT = trackTNT;
-        var tnt = omniture.setVariable('testAndTarget',s.trackTNT());
+        wd = omniture.getVariable('wd');
+
+        omniture.addPlugin('trackTNT', trackTNT);
+        var tnt = omniture.setVariable('testAndTarget', s.trackTNT());
         omniture.setVariable('tnt',tnt);
         if(typeof mboxLoadSCPlugin == "function"){mboxLoadSCPlugin(omniture);}
     }
@@ -585,7 +597,8 @@ analytics.plugins.channelManager = (function(omniture, config){
         persistantCookies = getCookie('s_pers'),
         sessionCookies = getCookie('s_sess'),
         setVariable = omniture.setVariable,
-        getVariable = omniture.getVariable;
+        getVariable = omniture.getVariable,
+        getQueryParam;
 
     function removePlus(string){
         return unescape(string.replace(/\+/g,'%20').toLowerCase());
@@ -681,9 +694,10 @@ analytics.plugins.channelManager = (function(omniture, config){
     }
 
     function setVariables(){
-        setVariable('s.channel', getVariable('siteName')); //todo: andrew, this meant to be the same?
-        if(s._campaignID){
-            setVariable('campaignID',s._campaignID.toLowerCase());
+        setVariable('channel', getVariable('siteName')); //todo: andrew, this meant to be the same?
+        var _campaign = getVariable('_campaignID','toLowerCase');
+        if(_campaign){
+            setVariable('campaignID',_campaign);
         }
     }
 
@@ -698,7 +712,7 @@ analytics.plugins.channelManager = (function(omniture, config){
     function setCheetah(){
         var campaignID;
         if (s.getQueryParam('om_mid').length > 0) { //        todo: i think remove all below
-            campaignID = "cht-" + s.getQueryParam('om_mid')
+            campaignID = "cht-" + s.getQueryParam('om_mid');
             if(getVariable('campaignID')){ //todo: andrew, why do we keep using underscores?
                 campaignID  =+ ":links__" + getVariable('campaignID').replace("emc-","");
             }
@@ -707,11 +721,11 @@ analytics.plugins.channelManager = (function(omniture, config){
     }
 
     function setPartnerAndKeyWords(){
-        var keyword = (s._keywords) ? s._keywords.toLowerCase() : "",
-            partner = (s._partner) ? s._partner.toLowerCase() : "",
-            chan = (s._channel) ? s._channel.toLowerCase() : "",
-            ref = (s._referringDomain) ? s._referringDomain.toLowerCase() : "",
-            campaignID = (s._campaignID) ? s._campaignID.toLowerCase() : "";
+        var keyword = getVariable('_keywords','toLowerCase'),
+            partner = getVariable('_partner','toLowerCase'),
+            chan = getVariable('_channel','toLowerCase'),
+            ref = getVariable('_referringDomain','toLowerCase'),
+            campaignID = getVariable('_campaignID','toLowerCase');
 
 //todo: test the hell out of all these if statements before refactor!!!!
 //todo: remove campaign specific stuff knc?
@@ -746,7 +760,8 @@ analytics.plugins.channelManager = (function(omniture, config){
 //    todo: andrew, ilc still used? delete?
     function setupIlcCampaign(){
         var campaignID = omniture.getVariable('campaignID') || '';
-        if(!s._channel && !s._campaignID){ return; }
+        var _channel = omniture.getVariable('_channel') || '';
+        if(!_channel && !campaignID){ return; } //todo: andrew, why _channel and not channel?
 
         if(campaignID.indexOf('ilc-') !== 0){
             if((campaignID=="direct load" || campaignID.indexOf("oth-") === 0 ) &&
@@ -770,9 +785,9 @@ analytics.plugins.channelManager = (function(omniture, config){
     function load(){
         readCookies();
 
-        s.seList = seList;
-        s.channelManager = channelManager;
-        s.linkInternalFilters = config.linkInternalFilters;
+        setVariable('seList',seList);
+        setVariable('linkInternalFilters',config.linkInternalFilters);
+        omniture.addPlugin('channelManager', channelManager);
         s.channelManager('attr,dcmp','','s_campaign','0');
 
         setVariables();
@@ -831,8 +846,8 @@ analytics.plugins.newOrRepeatVisits = (function(omniture, config){
 
     function load(){
 
-        s.getNewRepeat = getNewRepeat;
-        s.getVisitNum = getVisitNum;
+        omniture.addPlugin('getNewRepeat', getNewRepeat);
+        omniture.addPlugin('getVisitNum', getVisitNum);
 
         setVars();
     }
@@ -853,16 +868,14 @@ if (typeof analytics.plugins==='undefined') analytics.plugins={};
 
 analytics.plugins.userHistory = (function(omniture, config){
 
-    var loggedIn = 'Logged In';
-    var notLoggedIn = 'not logged-in';
-    var cookies = loadCookies();
+    var loggedIn = 'Logged In',
+        notLoggedIn = 'not logged-in',
+        cookies = loadCookies(),
+        getAndPersistValue=new Function("v","c","e",
+            "var s=this,a=new Date;e=e?e:0;a.setTime(a.getTime()+e*86400000);if(v)s.c_w(c,v,e?a:0);return s.c_r(c);"
+        );
 
-    var getAndPersistValue=new Function("v","c","e",""+
-        "var s=this,a=new Date;e=e?e:0;a.setTime(a.getTime()+e*86400000);if("+
-        "v)s.c_w(c,v,e?a:0);return s.c_r(c);");
-
-    var clickThruQuality=function(scp,ct_ev,cp_ev,cpc){
-        var s = this;
+    function clickThruQuality(scp,ct_ev,cp_ev,cpc){
         if (s.p_fo(ct_ev) !== 1) { return ; }
         cpc = cpc || 's_cpc';
         if (scp) {
@@ -872,8 +885,7 @@ analytics.plugins.userHistory = (function(omniture, config){
             s.c_w(cpc, 0, 0);
             return cp_ev;
         }
-    };
-
+    }
 
     function loadCookies() {
         var i, cookie, cookies;
@@ -886,13 +898,11 @@ analytics.plugins.userHistory = (function(omniture, config){
         return o;
     }
 
-
-//    todo: andrew we deleted login events he he
-    function setLoginVars( ) {
+    function setLoginVars( ) { //    todo: andrew we deleted login events he he
         if (cookies.skySSO) {
             omniture.setVariable('loginStatus', loggedIn);
             if (cookies.skySSOLast != cookies.skySSO) {
-                s.c_w('skySSOLast' , cookies.skySSO);
+                s.c_w('skySSOLast', cookies.skySSO);
             }
         } else {
             omniture.setVariable('loginStatus',notLoggedIn);
@@ -901,30 +911,18 @@ analytics.plugins.userHistory = (function(omniture, config){
         if (cookies.apd) { omniture.setVariable('ageGender',cookies.apd + '|' + cookies.gpd); }
         if (cookies.custype){ omniture.setVariable('customerType', cookies.custype); }
         if (cookies.ust) { omniture.setVariable('optIn', cookies.ust + '|' + cookies.sid_tsaoptin); }
-    }
 
-    function setVisitVars(){
         s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
-        var c_pastEv = s.clickThruQuality(
-            omniture.getVariable('campaign'),
-            config.trackedEvents['firstPageVisited'],
-            config.trackedEvents['secondPageVisited'],
-            's_ctq'
-        );
+        var c_pastEv = s.clickThruQuality(omniture.getVariable('campaign'),config.trackedEvents['firstPageVisited'],config.trackedEvents['secondPageVisited'],'s_ctq');
         if(c_pastEv) { omniture.setEvent(c_pastEv); }
-
-        if (document.referrer){
-            omniture.setVariable('refDomain',document.referrer.split('/')[2]);
-        }
     }
+
 
     function load(){
-
-        s.getAndPersistValue = getAndPersistValue;
-        s.clickThruQuality = clickThruQuality;
+        omniture.addPlugin('getAndPersistValue',getAndPersistValue);
+        omniture.addPlugin('clickThruQuality',clickThruQuality);
 
         setLoginVars();
-        setVisitVars();
     }
 
     return {
@@ -942,200 +940,171 @@ if (typeof window.define === "function" && window.define.amd) {
 
 ;
 if (typeof analytics==='undefined') analytics={};
-analytics.pageView = (function(config, omniture,
-                             mediaModule,
-                             testAndTarget,
-                             channelManager,
-                             newOrRepeatVisits,
-                             userHistory
-    ){
+if (typeof analytics.plugins==='undefined') analytics.plugins={};
+
+analytics.plugins.utils = (function(omniture, config){
+    /** Plugin Utility: Replace v1.0 */
+    var repl=new Function("x","o","n","var i=x.indexOf(o),l=n.length;while(x&&i>=0){x=x.substring(0,i)+n+x.substring(i+o.length);i=x.indexOf(o,i+l)}return x");
+    /** Utility Function: split v1.5 (JS 1.0 compatible) */
+    var split=new Function("l","d","var i,x=0,a=new Array;while(l){i=l.indexOf(d);i=i>-1?i:l.length;a[x++]=l.substring(0,i);l=l.substring(i+d.length);}return a");
+
+    var c_r = new Function("k", "" + "var s=this,d=new Date,v=s.c_rr(k),c=s.c_rr('s_pers'),i,m,e;if(v)ret" + "urn v;k=s.ape(k);i=c.indexOf(' '+k+'=');c=i<0?s.c_rr('s_sess'):c;i=" + "c.indexOf(' '+k+'=');m=i<0?i:c.indexOf('|',i);e=i<0?i:c.indexOf(';'" + ",i);m=m>0?m:e;v=i<0?'':s.epa(c.substring(i+2+k.length,m<0?c.length:" + "m));if(m>0&&m!=e)if(parseInt(c.substring(m+1,e<0?c.length:e))<d.get" + "Time()){d.setTime(d.getTime()-60000);s.c_w(s.epa(k),'',d);v='';}ret" + "urn v;");
+    var c_w = new Function("k", "v", "e", "" + "var s=this,d=new Date,ht=0,pn='s_pers',sn='s_sess',pc=0,sc=0,pv,sv,c,i,t;d.setTime(d.getTime()-60000);if(s.c_rr(k)) s.c_wr(k,'',d);k=s" + ".ape(k);pv=s.c_rr(pn);i=pv.indexOf(' '+k+'=');if(i>-1){pv=pv.substr" + "ing(0,i)+pv.substring(pv.indexOf(';',i)+1);pc=1;}sv=s.c_rr(sn);i=sv" + ".indexOf(' '+k+'=');if(i>-1){sv=sv.substring(0,i)+sv.substring(sv.i" + "ndexOf(';',i)+1);sc=1;}d=new Date;if(e){if(e.getTime()>d.getTime())" + "{pv+=' '+k+'='+s.ape(v)+'|'+e.getTime()+';';pc=1;}}else{sv+=' '+k+'" + "='+s.ape(v)+';';sc=1;}if(sc) s.c_wr(sn,sv,0);if(pc){t=pv;while(t&&t" + ".indexOf(';')!=-1){var t1=parseInt(t.substring(t.indexOf('|')+1,t.i" + "ndexOf(';')));t=t.substring(t.indexOf(';')+1);ht=ht<t1?t1:ht;}d.set" + "Time(ht);s.c_wr(pn,pv,d);}return v==s.c_r(s.epa(k));");
+    var p_fo=new Function("n","" +"var s=this;if(!s.__fo){s.__fo=new Object;}if(!s.__fo[n]){s.__fo[n]="+"new Object;return 1;}else {return 0;}");
+    var apl = new Function("L", "v", "d", "u", "var s=this,m=0;if(!L)L='';if(u){var i,n,a=s.split(L,d);for(i=0;i<a.length;i++){n=a[i];m=m||(u==1?(n==v):(n.toLowerCase()==v.toLowerCase()));}}if(!m)L=L?L+d+v:v;return L");
+    var getValOnce = new Function("v","c","e","" + "var s=this,k=s.c_r(c),a=new Date;e=e?e:0;if(v){a.setTime(a.getTime("+")+e*86400000);s.c_w(c,v,e?a:0);}return v==k?'':v");
+    var getObjectID = function (o) { return o.href;  }
+    var p_gpv=new Function("k","u","var s=this,v='',i=u.indexOf('?'),q;if(k&&i>-1){q=decodeURIComponent(u.substring(i+1));v=s.pt(q,'&','p_gvf',k)}return v");
+    var p_gvf=new Function("t","k","if(t){var s=this,i=t.indexOf('='),p=i<0?t:t.substring(0,i),v=i<0?'True':t.substring(i+1);if(p.toLowerCase()==k.toLowerCase())return s.epa(v)}return ''");
+    //getQueryParam 2.3
+    var getQueryParam=new Function("p","d","u",""+
+        "var s=this,v='',i,t;d=d?d:'';u=u?u:(s.pageURL?s.pageURL:s.wd.locati"+
+        "on);if(u=='f')u=s.gtfs().location;while(p){i=p.indexOf(',');i=i<0?p"+
+        ".length:i;t=s.p_gpv(p.substring(0,i),u+'');if(t){t=t.indexOf('#')>-"+
+        "1?t.substring(0,t.indexOf('#')):t;}if(t)v+=v?d+t:t;p=p.substring(i="+
+        "=p.length?i:i+1)}return v");
+
+    /** DynamicObjectIDs v1.4: Setup Dynamic Object IDs based on URL. // DEALS WITH DUPLICATE NAMES ON A SINGLE PAGE */
+    var setupDynamicObjectIDs=new Function(""+
+        "var s=this;if(!s.doi){s.doi=1;if(s.apv>3&&(!s.isie||!s.ismac||s.apv"+
+        ">=5)){if(s.wd.attachEvent)s.wd.attachEvent('onload',s.setOIDs);else"+
+        " if(s.wd.addEventListener)s.wd.addEventListener('load',s.setOIDs,fa"+
+        "lse);else{s.doiol=s.wd.onload;s.wd.onload=s.setOIDs}}s.wd.s_semapho"+
+        "re=1}");
+
+    function load(){
+        omniture.addPlugin('getValOnce', getValOnce);
+        omniture.addPlugin('getObjectID', getObjectID);
+        omniture.addPlugin('getQueryParam', getQueryParam);
+        omniture.addPlugin('repl', repl);
+        omniture.addPlugin('split', split);
+
+        omniture.addPlugin('c_rr', s.c_r);
+        omniture.addPlugin('c_wr', s.c_w);
+        omniture.addPlugin('c_r',  c_r);
+        omniture.addPlugin('c_w',  c_w);
+        omniture.addPlugin('p_fo', p_fo );
+        omniture.addPlugin('apl',  apl  );
+        omniture.addPlugin('p_gpv',p_gpv);
+        omniture.addPlugin('p_gvf',p_gvf);
+
+        omniture.addPlugin('setupDynamicObjectIDs',setupDynamicObjectIDs);
+        omniture.addPlugin('setOIDs',new Function("e",""+
+            "var s=s_c_il["+omniture.getVariable('_in')+"],b=s.eh(s.wd,'onload'),o='onclick',x,l,u,c,i"+
+            ",a=new Array;if(s.doiol){if(b)s[b]=s.wd[b];s.doiol(e)}if(s.d.links)"+
+            "{for(i=0;i<s.d.links.length;i++){l=s.d.links[i];c=l[o]?''+l[o]:'';b"+
+            "=s.eh(l,o);z=l[b]?''+l[b]:'';u=s.getObjectID(l);if(u&&c.indexOf('s_"+
+            "objectID')<0&&z.indexOf('s_objectID')<0){u=s.repl(u,'\"','');u=s.re"+
+            "pl(u,'\\n','').substring(0,97);l.s_oc=l[o];a[u]=a[u]?a[u]+1:1;x='';"+
+            "if(c.indexOf('.t(')>=0||c.indexOf('.tl(')>=0||c.indexOf('s_gs(')>=0"+
+            ")x='var x=\".tl(\";';x+='s_objectID=\"'+u+'_'+a[u]+'\";return this."+
+            "s_oc?this.s_oc(e):true';if(s.isns&&s.apv>=5)l.setAttribute(o,x);l[o"+
+            "]=new Function('e',x)}}}s.wd.s_semaphore=0;return true")
+        );
+
+        if (config.setObjectIDs) {
+            s.setupDynamicObjectIDs();
+        }
+    }
+
+    return {
+        load: load
+    };
+
+}(analytics.omniture, analytics.config));
+
+if (typeof window.define === "function" && window.define.amd) {
+    define("plugins/utils", ['core/omniture', 'core/config'], function(omniture, config) {
+        return analytics.plugins.utils;
+    });
+};
+if (typeof analytics==='undefined') analytics={};
+analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils){
 
     var pluginsLoaded = false,
-        getVariable = omniture.getVariable,
         setVariable = omniture.setVariable,
         setEvent = omniture.setEvent;
 
-    function setPageDescriptions(options){
-        setVariable('url',options.url);//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('contentType',options.contentType);//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('contentId',options.contentId);//todo: andrew, delete? i dont see s.referer beingset
+    function setPageDescriptions(){
+        var siteName = setVariable('siteName','sky/portal/' + config.site),
+            pageName = setVariable('pageName', siteName + "/" + config.page);
+        setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
         setVariable('pageURL','D=Referer');//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('siteName','sky/portal/' + options.site);
-        setVariable('section','sky/portal/' + options.site);//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('pageName', getVariable('siteName') + "/" + options.page);
-        setVariable('section0', getVariable('siteName') + '/' +  options.section.split('/').slice(0,1).join('/'));
-        setVariable('section1', getVariable('siteName') + '/' +  options.section.split('/').slice(0,2).join('/'));
-        setVariable('section2', getVariable('siteName') + '/' +  options.section.split('/').slice(0,3).join('/'));
-        setVariable('pageDescription', options.site + "/" + options.page);
-        setVariable('headline', options.headline);
+        setVariable('contentType',config.contentType);//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('url',config.url);//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('contentId',config.contentId);//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('section','sky/portal/' + config.site);//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('section0', siteName + '/' +  config.section.split('/').slice(0,1).join('/'));
+        setVariable('section1', siteName + '/' +  config.section.split('/').slice(0,2).join('/'));
+        setVariable('section2', siteName + '/' +  config.section.split('/').slice(0,3).join('/'));
+        setVariable('pageDescription', config.site + "/" + config.page);
+        setVariable('headline', config.headline);
 
-        if (options.headline) {
-            setVariable('fullPageDescription', (options.site + '/' + options.section+ '/' + options.headline).substring(0,255));
+        if (config.headline) {
+            setVariable('fullPageDescription', (config.site + '/' + config.section+ '/' + config.headline).substring(0,255));
         } else{
-            setVariable('fullPageDescription', getVariable('pageName').substring(0,255));
+            setVariable('fullPageDescription', pageName.substring(0,255));
         }
     }
 
-    function setSearchVars(options){
-        if (options.searchResults !== undefined ) {
-            setVariable('searchResults', options.searchResults);
-            setVariable('searchType', options.searchType); //todo: andrew, added these - neccersary or added as custom var on page js
-            setVariable('searchTerms', options.searchTerms); //todo: andrew, added these - neccersary or added as custom var on page js
-            omniture.setEvent('searchResults');
-            if (options.searchResults === 0) {
-                omniture.setEvent('zeroResults');
+    function setSearchVars(){
+        if (config.searchResults !== undefined ) {
+            setVariable('searchResults', config.searchResults);
+            setVariable('searchType', config.searchType); //todo: andrew, added these - neccersary or added as custom var on page js
+            setVariable('searchTerms', config.searchTerms); //todo: andrew, added these - neccersary or added as custom var on page js
+            setEvent('searchResults');
+            if (config.searchResults === 0) {
+                setEvent('zeroResults');
             }
         }
     }
 
-    function setErrorEvents(options){
-        if (options.errors) {
-            setVariable('errors', options.errors);
-            omniture.setEvent('error');
+    function setErrorEvents(){
+        if (config.errors) {
+            setVariable('errors', config.errors);
+            setEvent('error');
         }
     }
 
-    function track(customConfig) {
+    function track() {
             var name;
-            config.options = customConfig;
 
             setEvent('pageLoad');
 
-            setPageDescriptions(customConfig);
-            setSearchVars(customConfig);
-            setErrorEvents(customConfig);
+            setPageDescriptions();
+            setSearchVars();
+            setErrorEvents();
 
-            for (name in customConfig.loadVariables){
-                setVariable(name, customConfig.loadVariables[name]);
+            for (name in config.loadVariables){
+                setVariable(name, config.loadVariables[name]);
             }
-            for (name in customConfig.loadEvents){
-                setEvent(customConfig.loadEvents[name]);
+            for (name in config.loadEvents){
+                setEvent(config.loadEvents[name]);
             }
-
             for (name in config) {
-                setVariable(name, customConfig[name] || config[name]);
+                setVariable(name, config[name]);
             }
 
             loadPlugins();
 
             if(config.track){ //todo: document this
-                omniture.track();
+                omniture.trackPage();
             }
             omniture.reset();
         }
 
-    function loadPlugins() {
+    function loadPlugins() {//  todo: double check ordering. which ones are pge view plugins and which are setup?
             if(pluginsLoaded){ return; }
 
-            /*extra*/
-            s.c_rr = s.c_r;
-            s.c_r = new Function("k", "" + "var s=this,d=new Date,v=s.c_rr(k),c=s.c_rr('s_pers'),i,m,e;if(v)ret" + "urn v;k=s.ape(k);i=c.indexOf(' '+k+'=');c=i<0?s.c_rr('s_sess'):c;i=" + "c.indexOf(' '+k+'=');m=i<0?i:c.indexOf('|',i);e=i<0?i:c.indexOf(';'" + ",i);m=m>0?m:e;v=i<0?'':s.epa(c.substring(i+2+k.length,m<0?c.length:" + "m));if(m>0&&m!=e)if(parseInt(c.substring(m+1,e<0?c.length:e))<d.get" + "Time()){d.setTime(d.getTime()-60000);s.c_w(s.epa(k),'',d);v='';}ret" + "urn v;");
-            s.c_wr = s.c_w;
-            s.c_w = new Function("k", "v", "e", "" + "var s=this,d=new Date,ht=0,pn='s_pers',sn='s_sess',pc=0,sc=0,pv,sv," + "c,i,t;d.setTime(d.getTime()-60000);if(s.c_rr(k)) s.c_wr(k,'',d);k=s" + ".ape(k);pv=s.c_rr(pn);i=pv.indexOf(' '+k+'=');if(i>-1){pv=pv.substr" + "ing(0,i)+pv.substring(pv.indexOf(';',i)+1);pc=1;}sv=s.c_rr(sn);i=sv" + ".indexOf(' '+k+'=');if(i>-1){sv=sv.substring(0,i)+sv.substring(sv.i" + "ndexOf(';',i)+1);sc=1;}d=new Date;if(e){if(e.getTime()>d.getTime())" + "{pv+=' '+k+'='+s.ape(v)+'|'+e.getTime()+';';pc=1;}}else{sv+=' '+k+'" + "='+s.ape(v)+';';sc=1;}if(sc) s.c_wr(sn,sv,0);if(pc){t=pv;while(t&&t" + ".indexOf(';')!=-1){var t1=parseInt(t.substring(t.indexOf('|')+1,t.i" + "ndexOf(';')));t=t.substring(t.indexOf(';')+1);ht=ht<t1?t1:ht;}d.set" + "Time(ht);s.c_wr(pn,pv,d);}return v==s.c_r(s.epa(k));");
-
-            s.getValOnce = new Function("v","c","e","" + "var s=this,k=s.c_r(c),a=new Date;e=e?e:0;if(v){a.setTime(a.getTime("+")+e*86400000);s.c_w(c,v,e?a:0);}return v==k?'':v");
-
-            s.p_fo=new Function("n","" +"var s=this;if(!s.__fo){s.__fo=new Object;}if(!s.__fo[n]){s.__fo[n]="+"new Object;return 1;}else {return 0;}");
-            s.apl = new Function("L", "v", "d", "u", "var s=this,m=0;if(!L)L='';if(u){var i,n,a=s.split(L,d);for(i=0;i<a.length;i++){n=a[i];m=m||(u==1?(n==v):(n.toLowerCase()==v.toLowerCase()));}}if(!m)L=L?L+d+v:v;return L");
-
-
-
-
-            /*
-             * Plugin: getQueryParam 2.3
-             */
-            s.getQueryParam=new Function("p","d","u",""+
-                "var s=this,v='',i,t;d=d?d:'';u=u?u:(s.pageURL?s.pageURL:s.wd.locati"+
-                "on);if(u=='f')u=s.gtfs().location;while(p){i=p.indexOf(',');i=i<0?p"+
-                ".length:i;t=s.p_gpv(p.substring(0,i),u+'');if(t){t=t.indexOf('#')>-"+
-                "1?t.substring(0,t.indexOf('#')):t;}if(t)v+=v?d+t:t;p=p.substring(i="+
-                "=p.length?i:i+1)}return v");
-
-
-
-            s.p_gpv=new Function("k","u",""+
-                "var s=this,v='',i=u.indexOf('?'),q;if(k&&i>-1){q=decodeURIComponent"+
-                "(u.substring(i+1));v=s.pt(q,'&','p_gvf',k)}return v");
-
-
-
-
-            s.p_gvf=new Function("t","k",""+
-                "if(t){var s=this,i=t.indexOf('='),p=i<0?t:t.substring(0,i),v=i<0?'T"+
-                "rue':t.substring(i+1);if(p.toLowerCase()==k.toLowerCase())return s."+
-                "epa(v)}return ''");
-
-
-
-            /* DynamicObjectIDs config */
-            s.getObjectID = function (o) {
-                var ID=o.href;
-                return ID;
-            }
-
-
-// DEALS WITH DUPLICATE NAMES ON A SINGLE PAGE
-            /*
-             * DynamicObjectIDs v1.4: Setup Dynamic Object IDs based on URL
-             */
-            s.setupDynamicObjectIDs=new Function(""+
-                "var s=this;if(!s.doi){s.doi=1;if(s.apv>3&&(!s.isie||!s.ismac||s.apv"+
-                ">=5)){if(s.wd.attachEvent)s.wd.attachEvent('onload',s.setOIDs);else"+
-                " if(s.wd.addEventListener)s.wd.addEventListener('load',s.setOIDs,fa"+
-                "lse);else{s.doiol=s.wd.onload;s.wd.onload=s.setOIDs}}s.wd.s_semapho"+
-                "re=1}");
-
-
-
-            s.setOIDs=new Function("e",""+
-                "var s=s_c_il["+s._in+"],b=s.eh(s.wd,'onload'),o='onclick',x,l,u,c,i"+
-                ",a=new Array;if(s.doiol){if(b)s[b]=s.wd[b];s.doiol(e)}if(s.d.links)"+
-                "{for(i=0;i<s.d.links.length;i++){l=s.d.links[i];c=l[o]?''+l[o]:'';b"+
-                "=s.eh(l,o);z=l[b]?''+l[b]:'';u=s.getObjectID(l);if(u&&c.indexOf('s_"+
-                "objectID')<0&&z.indexOf('s_objectID')<0){u=s.repl(u,'\"','');u=s.re"+
-                "pl(u,'\\n','').substring(0,97);l.s_oc=l[o];a[u]=a[u]?a[u]+1:1;x='';"+
-                "if(c.indexOf('.t(')>=0||c.indexOf('.tl(')>=0||c.indexOf('s_gs(')>=0"+
-                ")x='var x=\".tl(\";';x+='s_objectID=\"'+u+'_'+a[u]+'\";return this."+
-                "s_oc?this.s_oc(e):true';if(s.isns&&s.apv>=5)l.setAttribute(o,x);l[o"+
-                "]=new Function('e',x)}}}s.wd.s_semaphore=0;return true");
-
-//*/
-
-
-
-
-
-
-            /*
-             * Plugin Utility: Replace v1.0
-             */
-            s.repl=new Function("x","o","n",""
-                +"var i=x.indexOf(o),l=n.length;while(x&&i>=0){x=x.substring(0,i)+n+x."
-                +"substring(i+o.length);i=x.indexOf(o,i+l)}return x");
-
-
-            /*
-             * Utility Function: split v1.5 (JS 1.0 compatible)
-             */
-            s.split=new Function("l","d",""
-                +"var i,x=0,a=new Array;while(l){i=l.indexOf(d);i=i>-1?i:l.length;a[x"
-                +"++]=l.substring(0,i);l=l.substring(i+d.length);}return a");
-
-
-
-//            todo: double check ordering with .bk file
-            channelManager.load(config); //must go first - user history needs it to set a campaign evar
-            userHistory.load(config);
+            utils.load(); //must go first - user history needs it to set a campaign evar
+            channelManager.load(); //must go first - user history needs it to set a campaign evar
+            userHistory.load();
             testAndTarget.load();
-            mediaModule.load(config, omniture);
-            newOrRepeatVisits.load(config);
-
-            if (config.setObjectIDs) {
-                s.setupDynamicObjectIDs();
-            }
+            mediaModule.load();
+            newOrRepeatVisits.load();
 
             pluginsLoaded = true;
-        }
+    }
 
     return {
         track: track
@@ -1147,11 +1116,11 @@ analytics.pageView = (function(config, omniture,
     analytics.plugins.testAndTarget,
     analytics.plugins.channelManager,
     analytics.plugins.newOrRepeatVisits,
-    analytics.plugins.userHistory
+    analytics.plugins.userHistory,
+    analytics.plugins.utils
 ));
 
-//just for require
-if (typeof window.define === "function" && window.define.amd) {
+if (typeof window.define === "function" && window.define.amd) {//just for require
     define("core/page-view", [
         'core/config',
         'core/omniture',
@@ -1159,31 +1128,14 @@ if (typeof window.define === "function" && window.define.amd) {
         'plugins/test-and-target',
         'plugins/channel-manager',
         'plugins/new-or-repeat-visits',
-        'plugins/user-history'
-    ], function(config, omniture, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory) {
+        'plugins/user-history',
+        'plugins/utils'
+    ], function(config, omniture, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory, utils) {
         return analytics.pageView;
     });
 };
 if (typeof analytics==='undefined') analytics={};
 analytics.linkClicks = (function(omniture, logger){
-
-    function safeString(str){
-        if (typeof str === 'undefined') { return ''; }
-        return str.trim().replace(/ /g,'-').replace(/[&,\+,:|]/g,'').toLowerCase();
-    }
-
-//    not using jQuery.parents([data-tracking-whatever]) as is slow in ie and ff
-    function checkParentForAttribute(el, attr){
-        if (!el || !el.getAttribute) { return ''; }
-        if (!!el.getAttribute(attr)){
-            return el.getAttribute(attr);
-        }
-        return checkParentForAttribute(el.parentNode, attr);
-    }
-
-    function getText($el){
-        return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
-    }
 
     function bindEvents(selector, evnt) {
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
@@ -1195,21 +1147,18 @@ analytics.linkClicks = (function(omniture, logger){
 
     function track(e){
         logger.log('start','tracking event', e);
-        var refDomain = document.referrer,
-            url = window.location.href.split('?')[0],
-            $el = $(e.currentTarget),
+        var $el = $(e.currentTarget),
             context;
 
         addEvent('linkClick');
         addVariable('events');
         addVariable('linkDetails', getProperties($el));
-        addVariable('refDomain', refDomain);
-        addVariable('url', url);
+        addVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
+        addVariable('url', window.location.href.split('?')[0]);
         addCustomClickVariable($el);
         addCustomClickEvents($el);
 
-//todo: merge this concept in with custom vars and events
-        if ($el.attr('data-tracking-search')){
+        if ($el.attr('data-tracking-search')){//todo: merge this concept in with custom vars and events
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
             addVariable('searchTerms', context);
@@ -1268,6 +1217,24 @@ analytics.linkClicks = (function(omniture, logger){
         logger.log('events', event, '');
     }
 
+
+    function safeString(str){
+        if (typeof str === 'undefined') { return ''; }
+        return str.trim().replace(/ /g,'-').replace(/[&,\+,:|]/g,'').toLowerCase();
+    }
+
+    function checkParentForAttribute(el, attr){//    not using jQuery.parents([data-tracking-whatever]) as is slow in ie and ff
+        if (!el || !el.getAttribute) { return ''; }
+        if (!!el.getAttribute(attr)){
+            return el.getAttribute(attr);
+        }
+        return checkParentForAttribute(el.parentNode, attr);
+    }
+
+    function getText($el){
+        return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
+    }
+
     bindEvents();
 
     return {
@@ -1311,11 +1278,11 @@ analytics = (function(polyfill, logger, config, omniture, linkClicks, pageView){
         return config;
     }
 
-    function reset(custom){
+    function reset(customConfig){
         config.loadVariables={};
         config.loadEvents=[];
-        if (custom){
-            setup(custom);
+        if (customConfig){
+            setup(customConfig);
         }
         return config;
     }

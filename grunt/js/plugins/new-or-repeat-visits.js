@@ -36,8 +36,8 @@ analytics.plugins.newOrRepeatVisits = (function(omniture, config){
 
     function load(){
 
-        s.getNewRepeat = getNewRepeat;
-        s.getVisitNum = getVisitNum;
+        omniture.addPlugin('getNewRepeat', getNewRepeat);
+        omniture.addPlugin('getVisitNum', getVisitNum);
 
         setVars();
     }

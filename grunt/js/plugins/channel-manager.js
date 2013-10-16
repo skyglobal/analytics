@@ -7,7 +7,8 @@ analytics.plugins.channelManager = (function(omniture, config){
         persistantCookies = getCookie('s_pers'),
         sessionCookies = getCookie('s_sess'),
         setVariable = omniture.setVariable,
-        getVariable = omniture.getVariable;
+        getVariable = omniture.getVariable,
+        getQueryParam;
 
     function removePlus(string){
         return unescape(string.replace(/\+/g,'%20').toLowerCase());
@@ -103,9 +104,10 @@ analytics.plugins.channelManager = (function(omniture, config){
     }
 
     function setVariables(){
-        setVariable('s.channel', getVariable('siteName')); //todo: andrew, this meant to be the same?
-        if(s._campaignID){
-            setVariable('campaignID',s._campaignID.toLowerCase());
+        setVariable('channel', getVariable('siteName')); //todo: andrew, this meant to be the same?
+        var _campaign = getVariable('_campaignID','toLowerCase');
+        if(_campaign){
+            setVariable('campaignID',_campaign);
         }
     }
 
@@ -120,7 +122,7 @@ analytics.plugins.channelManager = (function(omniture, config){
     function setCheetah(){
         var campaignID;
         if (s.getQueryParam('om_mid').length > 0) { //        todo: i think remove all below
-            campaignID = "cht-" + s.getQueryParam('om_mid')
+            campaignID = "cht-" + s.getQueryParam('om_mid');
             if(getVariable('campaignID')){ //todo: andrew, why do we keep using underscores?
                 campaignID  =+ ":links__" + getVariable('campaignID').replace("emc-","");
             }
@@ -129,11 +131,11 @@ analytics.plugins.channelManager = (function(omniture, config){
     }
 
     function setPartnerAndKeyWords(){
-        var keyword = (s._keywords) ? s._keywords.toLowerCase() : "",
-            partner = (s._partner) ? s._partner.toLowerCase() : "",
-            chan = (s._channel) ? s._channel.toLowerCase() : "",
-            ref = (s._referringDomain) ? s._referringDomain.toLowerCase() : "",
-            campaignID = (s._campaignID) ? s._campaignID.toLowerCase() : "";
+        var keyword = getVariable('_keywords','toLowerCase'),
+            partner = getVariable('_partner','toLowerCase'),
+            chan = getVariable('_channel','toLowerCase'),
+            ref = getVariable('_referringDomain','toLowerCase'),
+            campaignID = getVariable('_campaignID','toLowerCase');
 
 //todo: test the hell out of all these if statements before refactor!!!!
 //todo: remove campaign specific stuff knc?
@@ -168,7 +170,8 @@ analytics.plugins.channelManager = (function(omniture, config){
 //    todo: andrew, ilc still used? delete?
     function setupIlcCampaign(){
         var campaignID = omniture.getVariable('campaignID') || '';
-        if(!s._channel && !s._campaignID){ return; }
+        var _channel = omniture.getVariable('_channel') || '';
+        if(!_channel && !campaignID){ return; } //todo: andrew, why _channel and not channel?
 
         if(campaignID.indexOf('ilc-') !== 0){
             if((campaignID=="direct load" || campaignID.indexOf("oth-") === 0 ) &&
@@ -192,9 +195,9 @@ analytics.plugins.channelManager = (function(omniture, config){
     function load(){
         readCookies();
 
-        s.seList = seList;
-        s.channelManager = channelManager;
-        s.linkInternalFilters = config.linkInternalFilters;
+        setVariable('seList',seList);
+        setVariable('linkInternalFilters',config.linkInternalFilters);
+        omniture.addPlugin('channelManager', channelManager);
         s.channelManager('attr,dcmp','','s_campaign','0');
 
         setVariables();
