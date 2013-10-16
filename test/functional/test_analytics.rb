@@ -155,8 +155,8 @@ class AnalyticsTest < AcceptanceTest
     tracked('colour').must_include 'Blue'
   end
 
-  it "tracks when the toolkit.track event is triggered" do
-    page.execute_script("$('span[data-tracking]').trigger('toolkit.track')")
+  it "tracks when the analytics.track event is triggered" do
+    page.execute_script("$('span[data-tracking]').trigger('analytics.track')")
     tracked('link_tracking').must_include 'a-non-anchor'
   end
 

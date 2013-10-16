@@ -2,8 +2,8 @@
 analytics.js
 ----------------
 utils/polyfill.js
-utils/logger.js
 core/config.js
+utils/logger.js
 core/omniture.js
 plugins/media-module.js
 plugins/test-and-target.js

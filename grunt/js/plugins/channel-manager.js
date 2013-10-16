@@ -7,8 +7,7 @@ analytics.plugins.channelManager = (function(omniture, config){
         persistantCookies = getCookie('s_pers'),
         sessionCookies = getCookie('s_sess'),
         setVariable = omniture.setVariable,
-        getVariable = omniture.getVariable,
-        getQueryParam;
+        getVariable = omniture.getVariable;
 
     function removePlus(string){
         return unescape(string.replace(/\+/g,'%20').toLowerCase());
@@ -195,8 +194,8 @@ analytics.plugins.channelManager = (function(omniture, config){
     function load(){
         readCookies();
 
-        setVariable('seList',seList);
-        setVariable('linkInternalFilters',config.linkInternalFilters);
+        s.linkInternalFilters = config.linkInternalFilters;
+        s.seList = seList;
         omniture.addPlugin('channelManager', channelManager);
         s.channelManager('attr,dcmp','','s_campaign','0');
 

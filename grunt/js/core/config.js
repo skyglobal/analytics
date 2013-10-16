@@ -1,7 +1,10 @@
 if (typeof analytics==='undefined') analytics={};
 analytics.config = (function(){
 
-    var trackedData = {
+    var linkDetailsMap = [
+            'module','pod','other','context','theme','textClicked','pageName'
+        ],
+        trackedData = {
 //            todo: add tnt eVar18 if needed?
 //            todo: add insight_tracking eVar46 if needed?
 //            todo: add campaigns eVar45 if needed?
@@ -70,6 +73,7 @@ analytics.config = (function(){
     return {
         trackedData: trackedData,
         trackedEvents: trackedEvents,
+        linkDetailsMap: linkDetailsMap,
         trackingServer: 'metrics.sky.com',
         trackingServerSecure: 'smetrics.sky.com',
         visitorNamespace: 'bskyb',

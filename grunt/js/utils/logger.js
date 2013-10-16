@@ -1,5 +1,5 @@
 if (typeof analytics==='undefined') analytics={};
-analytics.logger = (function(){
+analytics.logger = (function(config){
 
     var vars = {
         verifying: false,
@@ -23,27 +23,12 @@ analytics.logger = (function(){
         log('end');
     }
 
-    function logLinkDetails(info){
-        if (vars.verifying){
-            console.groupCollapsed('linkDetails');
-            console.log('module: ', info[0]);
-            console.log('pod: ', info[1]);
-            console.log('other: ', info[2]);
-            console.log('context: ', info[3]);
-            console.log('theme: ', info[4]);
-            console.log('textClicked: ', info[5]);
-            console.log('pageName: ', info[6]);
-            console.groupEnd();
-        }
-    }
-
-    function log(type, prop, val){
+    function log(prop, val){
         if (!vars.verifying){ return; }
-        if (type=='start'){
-            if (val && val.preventDefault) { val.preventDefault(); }
-            console.group(prop);
+        if (prop=='start'){
+            console.group(val);
             $('#' + vars.verifyOutputId).html('');
-        } else if (type=='end'){
+        } else if (prop=='end'){
             console.groupEnd();
         } else {
             console.log(prop +': ', val);
@@ -51,18 +36,52 @@ analytics.logger = (function(){
         }
     }
 
+    function getEventName(eventID){
+        var events = config.trackedEvents, name;
+        for (name in events){
+            if (events[name]==eventID) return name;
+        }
+        return '';
+    }
+    function logLinkClick(linkDetails, events, mappedVars){
+            var arrDetails = linkDetails.split('|'),
+                x;
+            log('start','tracking event');
+
+            console.groupCollapsed('linkDetails');
+            for (x in arrDetails){
+                log(config.linkDetailsMap[x], arrDetails[x]);
+            }
+            console.groupEnd();
+            arrDetails = events.split(',');
+            console.groupCollapsed('events');
+            for (x in arrDetails){
+                log(getEventName(arrDetails[x]), arrDetails[x]);
+            }
+            console.groupEnd();
+            console.groupCollapsed('All Changed Variables');
+            for (x in mappedVars){
+                if (mappedVars[x]!==config[x]){
+                    log(x, mappedVars[x]);
+                }
+            }
+            console.groupEnd();
+
+            log('end');
+    }
+
     return {
         debug: debug,
         logPageView: logPageView,
-        logLinkDetails: logLinkDetails,
+        logLinkClick: logLinkClick,
         log: log
     };
 
-}());
+}(analytics.config));
 
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("utils/logger", function() {
+    define("utils/logger", ['core/config'], function(config) {
         return analytics.log;
     });
 }

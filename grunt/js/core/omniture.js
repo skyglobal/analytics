@@ -6,6 +6,9 @@ analytics.omniture = (function(config, logger){
 
     function init(account){
         s = s_gi(account);
+        if (config.debug){
+            logger.debug(true);
+        }
     }
 
     function getVariable(prop, option){
@@ -51,6 +54,7 @@ analytics.omniture = (function(config, logger){
     }
 
     function trackLink(el){
+        logger.logLinkClick(getVariable('linkDetails'), getVariable('events'), mappedVars);
         s.trackLink(el,'o','Link Click');
     }
     function trackPage(){

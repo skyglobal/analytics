@@ -50,18 +50,19 @@ analytics.plugins.mediaModule = (function(omniture, config){
 
     function setVars(){
         s.m_i("Media");
-        s.Media.autoTrack=false;
-        s.Media.trackWhilePlaying=true;
-        s.Media.trackVars="None";
-        s.Media.trackEvents="None";
+        omniture.setVariable('Media', {
+            autoTrack:false,
+            trackWhilePlaying:true,
+            trackVars:"None",
+            trackEvents : "None"}
+        );
         s.loadModule("Media");
     }
 
     function load(){
 
         omniture.setVariable('videoTitle', config.videoTitle);
-        omniture.setVariable('m_Media_c',m_Media_c);
-
+        s.m_Media_c = m_Media_c;
 
         setVars();
     }

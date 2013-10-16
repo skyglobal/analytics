@@ -22,78 +22,12 @@ if (typeof window.define === "function" && window.define.amd) {
     });
 };
 if (typeof analytics==='undefined') analytics={};
-analytics.logger = (function(){
-
-    var vars = {
-        verifying: false,
-        verifyOutputId: 'toolkit-tracking-verify'
-    };
-
-
-    function debug(on){
-        if (on || on === undefined){
-            vars.verifying = true;
-            $('body').append('<div id="' + vars.verifyOutputId + '"></div>');
-        } else {
-            vars.verifying = false;
-            $('#' + vars.verifyOutputId).remove();
-        }
-    }
-
-    function logPageView(tracked){
-        log('start','pageView event triggered');
-        log('','omniture', tracked);
-        log('end');
-    }
-
-    function logLinkDetails(info){
-        if (vars.verifying){
-            console.groupCollapsed('linkDetails');
-            console.log('module: ', info[0]);
-            console.log('pod: ', info[1]);
-            console.log('other: ', info[2]);
-            console.log('context: ', info[3]);
-            console.log('theme: ', info[4]);
-            console.log('textClicked: ', info[5]);
-            console.log('pageName: ', info[6]);
-            console.groupEnd();
-        }
-    }
-
-    function log(type, prop, val){
-        if (!vars.verifying){ return; }
-        if (type=='start'){
-            if (val && val.preventDefault) { val.preventDefault(); }
-            console.group(prop);
-            $('#' + vars.verifyOutputId).html('');
-        } else if (type=='end'){
-            console.groupEnd();
-        } else {
-            console.log(prop +': ', val);
-            $('#' + vars.verifyOutputId).append('<div class="' + prop + '">' + prop +': ' + val + '</div>');
-        }
-    }
-
-    return {
-        debug: debug,
-        logPageView: logPageView,
-        logLinkDetails: logLinkDetails,
-        log: log
-    };
-
-}());
-
-
-if (typeof window.define === "function" && window.define.amd) {
-    define("utils/logger", [],function() {
-        return analytics.log;
-    });
-}
-;
-if (typeof analytics==='undefined') analytics={};
 analytics.config = (function(){
 
-    var trackedData = {
+    var linkDetailsMap = [
+            'module','pod','other','context','theme','textClicked','pageName'
+        ],
+        trackedData = {
 //            todo: add tnt eVar18 if needed?
 //            todo: add insight_tracking eVar46 if needed?
 //            todo: add campaigns eVar45 if needed?
@@ -162,6 +96,7 @@ analytics.config = (function(){
     return {
         trackedData: trackedData,
         trackedEvents: trackedEvents,
+        linkDetailsMap: linkDetailsMap,
         trackingServer: 'metrics.sky.com',
         trackingServerSecure: 'smetrics.sky.com',
         visitorNamespace: 'bskyb',
@@ -197,6 +132,94 @@ if (typeof window.define === "function" && window.define.amd) {
     });
 };
 if (typeof analytics==='undefined') analytics={};
+analytics.logger = (function(config){
+
+    var vars = {
+        verifying: false,
+        verifyOutputId: 'toolkit-tracking-verify'
+    };
+
+
+    function debug(on){
+        if (on || on === undefined){
+            vars.verifying = true;
+            $('body').append('<div id="' + vars.verifyOutputId + '"></div>');
+        } else {
+            vars.verifying = false;
+            $('#' + vars.verifyOutputId).remove();
+        }
+    }
+
+    function logPageView(tracked){
+        log('start','pageView event triggered');
+        log('','omniture', tracked);
+        log('end');
+    }
+
+    function log(prop, val){
+        if (!vars.verifying){ return; }
+        if (prop=='start'){
+            console.group(val);
+            $('#' + vars.verifyOutputId).html('');
+        } else if (prop=='end'){
+            console.groupEnd();
+        } else {
+            console.log(prop +': ', val);
+            $('#' + vars.verifyOutputId).append('<div class="' + prop + '">' + prop +': ' + val + '</div>');
+        }
+    }
+
+    function getEventName(eventID){
+        var events = config.trackedEvents, name;
+        for (name in events){
+            if (events[name]==eventID) return name;
+        }
+        return '';
+    }
+    function logLinkClick(linkDetails, events, mappedVars){
+            var arrDetails = linkDetails.split('|'),
+                x;
+            log('start','tracking event');
+
+            console.groupCollapsed('linkDetails');
+            for (x in arrDetails){
+                log(config.linkDetailsMap[x], arrDetails[x]);
+            }
+            console.groupEnd();
+            arrDetails = events.split(',');
+            console.groupCollapsed('events');
+            for (x in arrDetails){
+                log(getEventName(arrDetails[x]), arrDetails[x]);
+            }
+            console.groupEnd();
+            console.groupCollapsed('All Changed Variables');
+            for (x in mappedVars){
+                if (mappedVars[x]!==config[x]){
+                    log(x, mappedVars[x]);
+                }
+            }
+            console.groupEnd();
+
+            log('end');
+    }
+
+    return {
+        debug: debug,
+        logPageView: logPageView,
+        logLinkClick: logLinkClick,
+        log: log
+    };
+
+}(analytics.config));
+
+
+if (typeof window.define === "function" && window.define.amd) {
+    define("utils/logger", ['core/config'], function(config) {
+        return analytics.log;
+    });
+}
+;
+if (typeof analytics==='undefined') analytics={};
 analytics.omniture = (function(config, logger){
 
     window.s = {};//todo: make local once s is not in any other files
@@ -204,6 +227,9 @@ analytics.omniture = (function(config, logger){
 
     function init(account){
         s = s_gi(account);
+        if (config.debug){
+            logger.debug(true);
+        }
     }
 
     function getVariable(prop, option){
@@ -249,6 +275,7 @@ analytics.omniture = (function(config, logger){
     }
 
     function trackLink(el){
+        logger.logLinkClick(getVariable('linkDetails'), getVariable('events'), mappedVars);
         s.trackLink(el,'o','Link Click');
     }
     function trackPage(){
@@ -521,18 +548,19 @@ analytics.plugins.mediaModule = (function(omniture, config){
 
     function setVars(){
         s.m_i("Media");
-        s.Media.autoTrack=false;
-        s.Media.trackWhilePlaying=true;
-        s.Media.trackVars="None";
-        s.Media.trackEvents="None";
+        omniture.setVariable('Media', {
+            autoTrack:false,
+            trackWhilePlaying:true,
+            trackVars:"None",
+            trackEvents : "None"}
+        );
         s.loadModule("Media");
     }
 
     function load(){
 
         omniture.setVariable('videoTitle', config.videoTitle);
-        omniture.setVariable('m_Media_c',m_Media_c);
-
+        s.m_Media_c = m_Media_c;
 
         setVars();
     }
@@ -597,8 +625,7 @@ analytics.plugins.channelManager = (function(omniture, config){
         persistantCookies = getCookie('s_pers'),
         sessionCookies = getCookie('s_sess'),
         setVariable = omniture.setVariable,
-        getVariable = omniture.getVariable,
-        getQueryParam;
+        getVariable = omniture.getVariable;
 
     function removePlus(string){
         return unescape(string.replace(/\+/g,'%20').toLowerCase());
@@ -785,8 +812,8 @@ analytics.plugins.channelManager = (function(omniture, config){
     function load(){
         readCookies();
 
-        setVariable('seList',seList);
-        setVariable('linkInternalFilters',config.linkInternalFilters);
+        s.linkInternalFilters = config.linkInternalFilters;
+        s.seList = seList;
         omniture.addPlugin('channelManager', channelManager);
         s.channelManager('attr,dcmp','','s_campaign','0');
 
@@ -1135,18 +1162,17 @@ if (typeof window.define === "function" && window.define.amd) {//just for requir
     });
 };
 if (typeof analytics==='undefined') analytics={};
-analytics.linkClicks = (function(omniture, logger){
+analytics.linkClicks = (function(omniture){
 
     function bindEvents(selector, evnt) {
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
-        evnt = evnt || 'click toolkit.track';
+        evnt = evnt || 'click analytics.track';//todo: allow analytics.track to fire even if selector doesnt match
         $(document).on(evnt, clickSelector, function(e) {
             track(e);
         });
     }
 
     function track(e){
-        logger.log('start','tracking event', e);
         var $el = $(e.currentTarget),
             context;
 
@@ -1164,9 +1190,8 @@ analytics.linkClicks = (function(omniture, logger){
             addVariable('searchTerms', context);
             addEvent('search');
         }
-
-        logger.log('end');
         omniture.trackLink(this);
+        omniture.reset();
     }
 
 
@@ -1187,7 +1212,6 @@ analytics.linkClicks = (function(omniture, logger){
             safeString(textClicked),
             safeString(omniture.getVariable('pageName').replace(/sky\/portal\//g, ''))
         ];
-        logger.logLinkDetails(linkDetails);
 
         return linkDetails.join('|');
     }
@@ -1208,13 +1232,11 @@ analytics.linkClicks = (function(omniture, logger){
     function addVariable(variable, val){
         omniture.setVariable(variable, val);
         omniture.setLinkTrackVariable(variable);
-        logger.log('prop',variable, val);
     }
 
     function addEvent(event){
         omniture.setEvent(event);
         omniture.setLinkTrackEvent(event);
-        logger.log('events', event, '');
     }
 
 
@@ -1238,25 +1260,20 @@ analytics.linkClicks = (function(omniture, logger){
     bindEvents();
 
     return {
-        debug: logger.debug,
-        verify: logger.debug, //for backwards compatibility. added v0.6.0 8th Oct 2013. PM. remove once everyone know not to use it!
         bind: bindEvents,
         track: track
     };
 
-}(analytics.omniture, analytics.logger));
+}(analytics.omniture));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("core/link-clicks", ["core/page-view", "utils/logger"], function() {
+    define("core/link-clicks", ["core/page-view"], function() {
         return analytics.linkClicks;
     });
 };
 if (typeof analytics==='undefined') analytics={};
-analytics = (function(polyfill, logger, config, omniture, linkClicks, pageView){
-//todo: stop referencing s in any other file
-//todo: stop referencing s.eVarxx and use alias or getVariable instead
-//todo: only use logger from omniture - get the setails from s or el being passed
-
+analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
+//todo: test clicking button/link twice doesnt stack events
 //todo: write page to test require
 //todo: test turn verify on in config
 //todo: test val vs attr value and the rest of getText |
@@ -1265,13 +1282,9 @@ analytics = (function(polyfill, logger, config, omniture, linkClicks, pageView){
     var mandatory = ['site', 'section', 'account', 'page'];
 
     function setup(customConfig){
+        $.extend(config, customConfig);
         omniture.init(customConfig.account);
 
-        $.extend(config, customConfig);
-        if (config.debug){
-            logger.debug(true);
-        }
-//        todo: console warning if no site or section
         checkMandatoryConfig();
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
@@ -1365,28 +1378,29 @@ analytics = (function(polyfill, logger, config, omniture, linkClicks, pageView){
             var page = reset(customConfig);
             pageView.track( page );
         },
-        setup: setup
+        setup: setup,
+        debug: logger.debug
     };
 
 
 }(  analytics.polyfill,
-    analytics.logger,
     analytics.config,
     analytics.omniture,
     analytics.linkClicks,
-    analytics.pageView
+    analytics.pageView,
+    analytics.logger
 ));
 
 //just for require
 if (typeof window.define === "function" && window.define.amd) {
     define("analytics", [
         'utils/polyfill',
-        'utils/logger',
         'core/config',
         'core/omniture',
         'core/link-clicks',
-        'core/page-view'
-    ], function(polyfill, logger, config, omniture, linkClicks, pageView) {
+        'core/page-view',
+        'utils/logger'
+    ], function(polyfill, config, omniture, linkClicks, pageView, logger) {
         return analytics;
     });
 };

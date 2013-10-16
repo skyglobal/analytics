@@ -1,16 +1,15 @@
 if (typeof analytics==='undefined') analytics={};
-analytics.linkClicks = (function(omniture, logger){
+analytics.linkClicks = (function(omniture){
 
     function bindEvents(selector, evnt) {
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
-        evnt = evnt || 'click toolkit.track';
+        evnt = evnt || 'click analytics.track';//todo: allow analytics.track to fire even if selector doesnt match
         $(document).on(evnt, clickSelector, function(e) {
             track(e);
         });
     }
 
     function track(e){
-        logger.log('start','tracking event', e);
         var $el = $(e.currentTarget),
             context;
 
@@ -28,9 +27,8 @@ analytics.linkClicks = (function(omniture, logger){
             addVariable('searchTerms', context);
             addEvent('search');
         }
-
-        logger.log('end');
         omniture.trackLink(this);
+        omniture.reset();
     }
 
 
@@ -51,7 +49,6 @@ analytics.linkClicks = (function(omniture, logger){
             safeString(textClicked),
             safeString(omniture.getVariable('pageName').replace(/sky\/portal\//g, ''))
         ];
-        logger.logLinkDetails(linkDetails);
 
         return linkDetails.join('|');
     }
@@ -72,13 +69,11 @@ analytics.linkClicks = (function(omniture, logger){
     function addVariable(variable, val){
         omniture.setVariable(variable, val);
         omniture.setLinkTrackVariable(variable);
-        logger.log('prop',variable, val);
     }
 
     function addEvent(event){
         omniture.setEvent(event);
         omniture.setLinkTrackEvent(event);
-        logger.log('events', event, '');
     }
 
 
@@ -102,16 +97,14 @@ analytics.linkClicks = (function(omniture, logger){
     bindEvents();
 
     return {
-        debug: logger.debug,
-        verify: logger.debug, //for backwards compatibility. added v0.6.0 8th Oct 2013. PM. remove once everyone know not to use it!
         bind: bindEvents,
         track: track
     };
 
-}(analytics.omniture, analytics.logger));
+}(analytics.omniture));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("core/link-clicks", ["core/page-view", "utils/logger"], function() {
+    define("core/link-clicks", ["core/page-view"], function() {
         return analytics.linkClicks;
     });
 }
