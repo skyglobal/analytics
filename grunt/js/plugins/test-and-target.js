@@ -1,7 +1,7 @@
-if (typeof analytics==='undefined') analytics={};
-if (typeof analytics.plugins==='undefined') analytics.plugins={};
+if (typeof _analytics==='undefined') _analytics={};
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-analytics.plugins.testAndTarget = (function(omniture, config){
+_analytics.plugins.testAndTarget = (function(omniture, config){
     var wd;
 
     var trackTNT = function(v, p, b) {
@@ -30,10 +30,10 @@ analytics.plugins.testAndTarget = (function(omniture, config){
         load: load
     };
 
-}(analytics.omniture, analytics.config));
+}(_analytics.omniture, _analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/test-and-target", ['core/omniture', 'core/config'], function(omniture, config) {
-        return analytics.plugins.testAndTarget;
+        return _analytics.plugins.testAndTarget;
     });
 }

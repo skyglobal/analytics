@@ -1,7 +1,7 @@
-if (typeof analytics==='undefined') analytics={};
-if (typeof analytics.plugins==='undefined') analytics.plugins={};
+if (typeof _analytics==='undefined') _analytics={};
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-analytics.plugins.userHistory = (function(omniture, config){
+_analytics.plugins.userHistory = (function(omniture, config){
 
     var loggedIn = 'Logged In',
         notLoggedIn = 'not logged-in',
@@ -64,11 +64,11 @@ analytics.plugins.userHistory = (function(omniture, config){
         load: load
     };
 
-}(analytics.omniture, analytics.config));
+}(_analytics.omniture, _analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/user-history", ['core/omniture', 'core/config'], function(omniture, config) {
-        return analytics.plugins.userHistory;
+        return _analytics.plugins.userHistory;
     });
 }
 

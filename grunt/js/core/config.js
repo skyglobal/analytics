@@ -1,5 +1,5 @@
-if (typeof analytics==='undefined') analytics={};
-analytics.config = (function(){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.config = (function(){
 
     var linkDetailsMap = [
             'module','pod','other','context','theme','textClicked','pageName'
@@ -105,6 +105,6 @@ analytics.config = (function(){
 
 if (typeof window.define === "function" && window.define.amd) {
     define("core/config", function() {
-        return analytics.config;
+        return _analytics.config;
     });
 }

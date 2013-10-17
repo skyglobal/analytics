@@ -1,5 +1,5 @@
-if (typeof analytics==='undefined') analytics={};
-analytics.omniture = (function(config, logger){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.omniture = (function(config, logger){
 
     window.s = {};//todo: make local once s is not in any other files
     var mappedVars = {};
@@ -267,11 +267,11 @@ analytics.omniture = (function(config, logger){
         reset: reset
     };
 
-}(analytics.config, analytics.logger));
+}(_analytics.config, _analytics.logger));
 
 
 if (typeof window.define === "function" && window.define.amd) {
     define("core/omniture", ['core/config', 'utils/logger'], function(config, logger) {
-        return analytics.omniture;
+        return _analytics.omniture;
     });
 }

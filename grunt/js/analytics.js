@@ -1,7 +1,6 @@
-if (typeof analytics==='undefined') analytics={};
-analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.setup = (function(polyfill, config, omniture, linkClicks, pageView, logger){
 //todo: write page to test require
-//todo: test turn debug on in config
 //todo: test val vs attr value and the rest of getText | + all things logged
 //todo: test for live binding
 
@@ -99,7 +98,7 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
         };
     }
 
-    return {
+    window.analytics = {
         linkClicks : linkClicks,
         pageView: function(customConfig){
             var page = reset(customConfig);
@@ -108,14 +107,15 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
         setup: setup,
         debug: logger.debug
     };
+    return analytics;
 
 
-}(  analytics.polyfill,
-    analytics.config,
-    analytics.omniture,
-    analytics.linkClicks,
-    analytics.pageView,
-    analytics.logger
+}(  _analytics.polyfill,
+    _analytics.config,
+    _analytics.omniture,
+    _analytics.linkClicks,
+    _analytics.pageView,
+    _analytics.logger
 ));
 
 //just for require
@@ -128,6 +128,6 @@ if (typeof window.define === "function" && window.define.amd) {
         'core/page-view',
         'utils/logger'
     ], function(polyfill, config, omniture, linkClicks, pageView, logger) {
-        return analytics;
+        return _analytics.setup;
     });
 }

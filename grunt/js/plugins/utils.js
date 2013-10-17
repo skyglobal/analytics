@@ -1,7 +1,7 @@
-if (typeof analytics==='undefined') analytics={};
-if (typeof analytics.plugins==='undefined') analytics.plugins={};
+if (typeof _analytics==='undefined') _analytics={};
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-analytics.plugins.utils = (function(omniture, config){
+_analytics.plugins.utils = (function(omniture, config){
     /** Plugin Utility: Replace v1.0 */
     var repl=new Function("x","o","n","var i=x.indexOf(o),l=n.length;while(x&&i>=0){x=x.substring(0,i)+n+x.substring(i+o.length);i=x.indexOf(o,i+l)}return x");
     /** Utility Function: split v1.5 (JS 1.0 compatible) */
@@ -70,10 +70,10 @@ analytics.plugins.utils = (function(omniture, config){
         load: load
     };
 
-}(analytics.omniture, analytics.config));
+}(_analytics.omniture, _analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/utils", ['core/omniture', 'core/config'], function(omniture, config) {
-        return analytics.plugins.utils;
+        return _analytics.plugins.utils;
     });
 }

@@ -1,5 +1,5 @@
-if (typeof analytics==='undefined') analytics={};
-analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils){
 
     var pluginsLoaded = false,
         setVariable = omniture.setVariable,
@@ -90,14 +90,14 @@ analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channel
         track: track
     };
 
-}(analytics.config,
-    analytics.omniture,
-    analytics.plugins.mediaModule,
-    analytics.plugins.testAndTarget,
-    analytics.plugins.channelManager,
-    analytics.plugins.newOrRepeatVisits,
-    analytics.plugins.userHistory,
-    analytics.plugins.utils
+}(  _analytics.config,
+    _analytics.omniture,
+    _analytics.plugins.mediaModule,
+    _analytics.plugins.testAndTarget,
+    _analytics.plugins.channelManager,
+    _analytics.plugins.newOrRepeatVisits,
+    _analytics.plugins.userHistory,
+    _analytics.plugins.utils
 ));
 
 if (typeof window.define === "function" && window.define.amd) {//just for require
@@ -111,6 +111,6 @@ if (typeof window.define === "function" && window.define.amd) {//just for requir
         'plugins/user-history',
         'plugins/utils'
     ], function(config, omniture, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory, utils) {
-        return analytics.pageView;
+        return _analytics.pageView;
     });
 }

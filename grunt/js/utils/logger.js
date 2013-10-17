@@ -1,5 +1,5 @@
-if (typeof analytics==='undefined') analytics={};
-analytics.logger = (function(config){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.logger = (function(config){
 
     var debugging= false,
         debugOutputId= 'analytics-debug';
@@ -42,6 +42,7 @@ analytics.logger = (function(config){
         return '';
     }
     function logS(linkDetails, events, mappedVars){
+        if (!debugging){ return; }
         var arrDetails, x;
         console.group('tracking event');
 
@@ -82,11 +83,11 @@ analytics.logger = (function(config){
         log: log
     };
 
-}(analytics.config));
+}(_analytics.config));
 
 
 if (typeof window.define === "function" && window.define.amd) {
     define("utils/logger", ['core/config'], function(config) {
-        return analytics.log;
+        return _analytics.logger;
     });
 }

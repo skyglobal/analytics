@@ -1,6 +1,6 @@
 
-if (typeof analytics==='undefined') analytics={};
-analytics.polyfill = (function(){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.polyfill = (function(){
 
     if(typeof String.prototype.trim !== 'function') {
         String.prototype.trim = function() {
@@ -18,11 +18,11 @@ analytics.polyfill = (function(){
 //just for require
 if (typeof window.define === "function" && window.define.amd) {
     define("utils/polyfill", [],function() {
-        return analytics.polyfill;
+        return _analytics.polyfill;
     });
 };
-if (typeof analytics==='undefined') analytics={};
-analytics.config = (function(){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.config = (function(){
 
     var linkDetailsMap = [
             'module','pod','other','context','theme','textClicked','pageName'
@@ -128,11 +128,11 @@ analytics.config = (function(){
 
 if (typeof window.define === "function" && window.define.amd) {
     define("core/config", [],function() {
-        return analytics.config;
+        return _analytics.config;
     });
 };
-if (typeof analytics==='undefined') analytics={};
-analytics.logger = (function(config){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.logger = (function(config){
 
     var debugging= false,
         debugOutputId= 'analytics-debug';
@@ -175,6 +175,7 @@ analytics.logger = (function(config){
         return '';
     }
     function logS(linkDetails, events, mappedVars){
+        if (!debugging){ return; }
         var arrDetails, x;
         console.group('tracking event');
 
@@ -215,17 +216,17 @@ analytics.logger = (function(config){
         log: log
     };
 
-}(analytics.config));
+}(_analytics.config));
 
 
 if (typeof window.define === "function" && window.define.amd) {
     define("utils/logger", ['core/config'], function(config) {
-        return analytics.log;
+        return _analytics.logger;
     });
 }
 ;
-if (typeof analytics==='undefined') analytics={};
-analytics.omniture = (function(config, logger){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.omniture = (function(config, logger){
 
     window.s = {};//todo: make local once s is not in any other files
     var mappedVars = {};
@@ -493,18 +494,18 @@ analytics.omniture = (function(config, logger){
         reset: reset
     };
 
-}(analytics.config, analytics.logger));
+}(_analytics.config, _analytics.logger));
 
 
 if (typeof window.define === "function" && window.define.amd) {
     define("core/omniture", ['core/config', 'utils/logger'], function(config, logger) {
-        return analytics.omniture;
+        return _analytics.omniture;
     });
 };
-if (typeof analytics==='undefined') analytics={};
-if (typeof analytics.plugins==='undefined') analytics.plugins={};
+if (typeof _analytics==='undefined') _analytics={};
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-analytics.plugins.mediaModule = (function(omniture, config){
+_analytics.plugins.mediaModule = (function(omniture, config){
 //todo: expose chosen functions from within plugins to big bad world i.e. media player start and stop
 
     var m_Media_c="var m=s.m_i('Media');m.cn=function(n){var m=this;return m.s.rep(m.s.rep(m.s.rep(n,\"\\n\",''),\"\\r\",''),'--**--','')};m.open=function(n,l,p,b){var m=this,i=new Object,tm=new Date,a='',"
@@ -575,17 +576,17 @@ analytics.plugins.mediaModule = (function(omniture, config){
         load: load
     };
 
-}(analytics.omniture, analytics.config));
+}(_analytics.omniture, _analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/media-module", ['core/omniture', 'core/config'], function(omniture, config) {
-        return analytics.plugins.mediaModule;
+        return _analytics.plugins.mediaModule;
     });
 };
-if (typeof analytics==='undefined') analytics={};
-if (typeof analytics.plugins==='undefined') analytics.plugins={};
+if (typeof _analytics==='undefined') _analytics={};
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-analytics.plugins.testAndTarget = (function(omniture, config){
+_analytics.plugins.testAndTarget = (function(omniture, config){
     var wd;
 
     var trackTNT = function(v, p, b) {
@@ -614,17 +615,17 @@ analytics.plugins.testAndTarget = (function(omniture, config){
         load: load
     };
 
-}(analytics.omniture, analytics.config));
+}(_analytics.omniture, _analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/test-and-target", ['core/omniture', 'core/config'], function(omniture, config) {
-        return analytics.plugins.testAndTarget;
+        return _analytics.plugins.testAndTarget;
     });
 };
-if (typeof analytics==='undefined') analytics={};
-if (typeof analytics.plugins==='undefined') analytics.plugins={};
+if (typeof _analytics==='undefined') _analytics={};
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-analytics.plugins.channelManager = (function(omniture, config){
+_analytics.plugins.channelManager = (function(omniture, config){
 
     var persistant, session,
         persistantCookies = getCookie('s_pers'),
@@ -833,17 +834,17 @@ analytics.plugins.channelManager = (function(omniture, config){
         load: load
     };
 
-}(analytics.omniture, analytics.config));
+}(_analytics.omniture, _analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/channel-manager", ['core/omniture', 'core/config'], function(omniture, config) {
-        return analytics.plugins.channelManager;
+        return _analytics.plugins.channelManager;
     });
 };
-if (typeof analytics==='undefined') analytics={};
-if (typeof analytics.plugins==='undefined') analytics.plugins={};
+if (typeof _analytics==='undefined') _analytics={};
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-analytics.plugins.newOrRepeatVisits = (function(omniture, config){
+_analytics.plugins.newOrRepeatVisits = (function(omniture, config){
 
     var getVisitNum = new Function("var s=this,e=new Date(),cval,cvisit,ct=e.getTime(),c='s_vnum',c2='s_invisit';e.setTime(ct+30*24*60*60*1000);cval=s.c_r(c);if(cval){var i=cval.indexOf('&vn='),str=cval.substring(i+4,cval.length),k;}cvisit=s.c_r(c2);if(cvisit){if(str){e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else return 'unknown visit number';}else{if(str){str++;k=cval.substring(0,i);e.setTime(k);s.c_w(c,k+'&vn='+str,e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return str;}else{s.c_w(c,ct+30*24*60*60*1000+'&vn=1',e);e.setTime(ct+30*60*1000);s.c_w(c2,'true',e);return 1;}}");
 
@@ -888,17 +889,17 @@ analytics.plugins.newOrRepeatVisits = (function(omniture, config){
         load: load
     };
 
-}(analytics.omniture, analytics.config));
+}(_analytics.omniture, _analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/new-or-repeat-visits", ['core/omniture', 'core/config'], function(omniture, config) {
-        return analytics.plugins.newOrRepeatVisits;
+        return _analytics.plugins.newOrRepeatVisits;
     });
 };
-if (typeof analytics==='undefined') analytics={};
-if (typeof analytics.plugins==='undefined') analytics.plugins={};
+if (typeof _analytics==='undefined') _analytics={};
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-analytics.plugins.userHistory = (function(omniture, config){
+_analytics.plugins.userHistory = (function(omniture, config){
 
     var loggedIn = 'Logged In',
         notLoggedIn = 'not logged-in',
@@ -961,20 +962,20 @@ analytics.plugins.userHistory = (function(omniture, config){
         load: load
     };
 
-}(analytics.omniture, analytics.config));
+}(_analytics.omniture, _analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/user-history", ['core/omniture', 'core/config'], function(omniture, config) {
-        return analytics.plugins.userHistory;
+        return _analytics.plugins.userHistory;
     });
 }
 
 
 ;
-if (typeof analytics==='undefined') analytics={};
-if (typeof analytics.plugins==='undefined') analytics.plugins={};
+if (typeof _analytics==='undefined') _analytics={};
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-analytics.plugins.utils = (function(omniture, config){
+_analytics.plugins.utils = (function(omniture, config){
     /** Plugin Utility: Replace v1.0 */
     var repl=new Function("x","o","n","var i=x.indexOf(o),l=n.length;while(x&&i>=0){x=x.substring(0,i)+n+x.substring(i+o.length);i=x.indexOf(o,i+l)}return x");
     /** Utility Function: split v1.5 (JS 1.0 compatible) */
@@ -1043,15 +1044,15 @@ analytics.plugins.utils = (function(omniture, config){
         load: load
     };
 
-}(analytics.omniture, analytics.config));
+}(_analytics.omniture, _analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/utils", ['core/omniture', 'core/config'], function(omniture, config) {
-        return analytics.plugins.utils;
+        return _analytics.plugins.utils;
     });
 };
-if (typeof analytics==='undefined') analytics={};
-analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils){
 
     var pluginsLoaded = false,
         setVariable = omniture.setVariable,
@@ -1142,14 +1143,14 @@ analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channel
         track: track
     };
 
-}(analytics.config,
-    analytics.omniture,
-    analytics.plugins.mediaModule,
-    analytics.plugins.testAndTarget,
-    analytics.plugins.channelManager,
-    analytics.plugins.newOrRepeatVisits,
-    analytics.plugins.userHistory,
-    analytics.plugins.utils
+}(  _analytics.config,
+    _analytics.omniture,
+    _analytics.plugins.mediaModule,
+    _analytics.plugins.testAndTarget,
+    _analytics.plugins.channelManager,
+    _analytics.plugins.newOrRepeatVisits,
+    _analytics.plugins.userHistory,
+    _analytics.plugins.utils
 ));
 
 if (typeof window.define === "function" && window.define.amd) {//just for require
@@ -1163,11 +1164,11 @@ if (typeof window.define === "function" && window.define.amd) {//just for requir
         'plugins/user-history',
         'plugins/utils'
     ], function(config, omniture, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory, utils) {
-        return analytics.pageView;
+        return _analytics.pageView;
     });
 };
-if (typeof analytics==='undefined') analytics={};
-analytics.linkClicks = (function(config, omniture){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.linkClicks = (function(config, omniture){
 
     function bindEvents(selector, evnt) {
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
@@ -1269,17 +1270,16 @@ analytics.linkClicks = (function(config, omniture){
         track: track
     };
 
-}(analytics.config, analytics.omniture));
+}(_analytics.config, _analytics.omniture));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("core/link-clicks", ["core/config","core/page-view"], function() {
-        return analytics.linkClicks;
+        return _analytics.linkClicks;
     });
 };
-if (typeof analytics==='undefined') analytics={};
-analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.setup = (function(polyfill, config, omniture, linkClicks, pageView, logger){
 //todo: write page to test require
-//todo: test turn debug on in config
 //todo: test val vs attr value and the rest of getText | + all things logged
 //todo: test for live binding
 
@@ -1377,7 +1377,7 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
         };
     }
 
-    return {
+    window.analytics = {
         linkClicks : linkClicks,
         pageView: function(customConfig){
             var page = reset(customConfig);
@@ -1386,14 +1386,15 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
         setup: setup,
         debug: logger.debug
     };
+    return analytics;
 
 
-}(  analytics.polyfill,
-    analytics.config,
-    analytics.omniture,
-    analytics.linkClicks,
-    analytics.pageView,
-    analytics.logger
+}(  _analytics.polyfill,
+    _analytics.config,
+    _analytics.omniture,
+    _analytics.linkClicks,
+    _analytics.pageView,
+    _analytics.logger
 ));
 
 //just for require
@@ -1406,7 +1407,7 @@ if (typeof window.define === "function" && window.define.amd) {
         'core/page-view',
         'utils/logger'
     ], function(polyfill, config, omniture, linkClicks, pageView, logger) {
-        return analytics;
+        return _analytics.setup;
     });
 };
 //# sourceMappingURL=analytics.js.map

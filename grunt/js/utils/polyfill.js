@@ -1,5 +1,5 @@
-if (typeof analytics==='undefined') analytics={};
-analytics.polyfill = (function(){
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.polyfill = (function(){
 
     if(typeof String.prototype.trim !== 'function') {
         String.prototype.trim = function() {
@@ -17,6 +17,6 @@ analytics.polyfill = (function(){
 //just for require
 if (typeof window.define === "function" && window.define.amd) {
     define("utils/polyfill", function() {
-        return analytics.polyfill;
+        return _analytics.polyfill;
     });
 }

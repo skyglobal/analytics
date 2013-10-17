@@ -1,7 +1,7 @@
-if (typeof analytics==='undefined') analytics={};
-if (typeof analytics.plugins==='undefined') analytics.plugins={};
+if (typeof _analytics==='undefined') _analytics={};
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-analytics.plugins.channelManager = (function(omniture, config){
+_analytics.plugins.channelManager = (function(omniture, config){
 
     var persistant, session,
         persistantCookies = getCookie('s_pers'),
@@ -210,10 +210,10 @@ analytics.plugins.channelManager = (function(omniture, config){
         load: load
     };
 
-}(analytics.omniture, analytics.config));
+}(_analytics.omniture, _analytics.config));
 
 if (typeof window.define === "function" && window.define.amd) {
     define("plugins/channel-manager", ['core/omniture', 'core/config'], function(omniture, config) {
-        return analytics.plugins.channelManager;
+        return _analytics.plugins.channelManager;
     });
 }
