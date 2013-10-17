@@ -78,6 +78,7 @@ analytics.config = (function(){
         trackingServerSecure: 'smetrics.sky.com',
         visitorNamespace: 'bskyb',
         charSet: 'UTF-8',
+        trackLinks: true,
         trackDownloadLinks: true,
         trackExternalLinks: true,
         trackInlineStats: true,

@@ -15,6 +15,8 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
         checkMandatoryConfig();
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
+
+        linkClicks.bind();
         return config;
     }
 
