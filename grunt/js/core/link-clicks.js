@@ -2,6 +2,7 @@ if (typeof analytics==='undefined') analytics={};
 analytics.linkClicks = (function(config, omniture){
 
     function bindEvents(selector, evnt) {
+        if(!config.trackLinks){return;}
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
         evnt = evnt || 'click analytics.track';//todo: allow analytics.track to fire even if selector doesnt match
         $(document).on(evnt, clickSelector, function(e) {
@@ -93,8 +94,6 @@ analytics.linkClicks = (function(config, omniture){
     function getText($el){
         return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
-
-    bindEvents();
 
     return {
         bind: bindEvents,
