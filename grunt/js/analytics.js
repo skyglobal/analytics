@@ -1,9 +1,9 @@
 if (typeof analytics==='undefined') analytics={};
 analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
-//todo: test clicking button/link twice doesnt stack events
+//todo: test clicking button/link twice doesnt stack events i.e. reset after linkClick
 //todo: write page to test require
-//todo: test turn verify on in config
-//todo: test val vs attr value and the rest of getText |
+//todo: test turn debug on in config
+//todo: test val vs attr value and the rest of getText | + all things logged
 //todo: test for live binding
 
     var mandatory = ['site', 'section', 'account', 'page'];

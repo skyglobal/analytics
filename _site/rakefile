@@ -5,7 +5,7 @@ require 'rake/testtask'
 # Create a rake task for running tests
 Rake::TestTask.new do |t|
   t.name = :functional
-  t.pattern = "test/functional/test_*.rb"
+  t.pattern = "test/functional/*.rb"
 end
 
 def s3

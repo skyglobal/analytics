@@ -142,15 +142,29 @@
 </dl>
 
 <p>Then you must tell the code to either add a pageView:
-<code >    analytics.pageView(config); </code>
+    <code >    analytics.pageView(config); </code>
 </p>
-<p>or to complete the setup, but without firing a pageView:
-<code >    analytics.setup(config); </code>
-</p>
+
 <h4>Debugging</h4>
 <p>Outside of the config, you can easily execute the following after the page has loaded to start debugging:
     <code class="block">    toolking.tracking.debug(<i>[true|false]</i>);</code>
 </p>
+
+<h4>Example config</h4>
+<code class="block">    analytics.pageView({
+        site: 'global',
+        section: 'skyglobal/analytics',
+        account: 'bskybdemodev',
+        page: 'Analytics demo page',
+        customEvents: [
+            {'magic_happened': {event: 101}}
+        ],
+        customVariables: [
+            {'drink': {'eVar': 72}},
+        ],
+        debug: true
+    });
+</code>
     </div>
 </section>
 
@@ -208,7 +222,7 @@
 </dl>
 
 <h3 class="wiki-h3" data-tracking="false">Examples</h3>
-<p>Execute <code>analytics.verify()</code> and click around below.</p>
+<p>Execute <code>analytics.debug()</code> and click around below.</p>
 <div class='example clearfix'>
 
     <div class="skycom_4 alpha">
@@ -446,6 +460,23 @@ $('[data-tracking-variable=how_about_pina_coladas]').attr(
     The tracking event will trigger as if the user had clicked the element themselves.
 </p>
 <code class="block">$('.element').trigger('analytics.track');</code>
+
+<div class="skycom_12 alpha">
+    <a class='btn in-page-cta' href='#!' id='manualTrackNotDouble'>Anchor not being double tracked</a>
+    <span class='btn in-page-cta' href='#!' id='manualTrack'>Span manually tracked by JS</span>
+    <a class='btn in-page-cta' data-tracking=false href='#!' id='manualTrackingOff'>Anchor being tracked with JS</a>
+</div>
+<script>
+    $('#manualTrackingOff').on('click', function(){
+       $(this).trigger('analytics-track');
+    });
+    $('#manualTrack').on('click', function(){
+       $(this).trigger('analytics-track');
+    });
+    $('#manualTrackNotDouble').on('click', function(){
+       $(this).trigger('analytics-track');
+    });
+</script>
 </section>
 
 <a name="single-page-apps"></a>
@@ -493,8 +524,7 @@ $('[data-tracking-variable=how_about_pina_coladas]').attr(
             {'colour': {'eVar': 71}},
             {'drink': {'eVar': 72}},
             {'how_about_pina_coladas': {'eVar': 73}},
-        ],
-        debug: true
+        ]
     });
 </script>
         </div>

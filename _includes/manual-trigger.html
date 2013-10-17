@@ -4,3 +4,20 @@
     The tracking event will trigger as if the user had clicked the element themselves.
 </p>
 <code class="block">$('.element').trigger('analytics.track');</code>
+
+<div class="skycom_12 alpha">
+    <a class='btn in-page-cta' href='#!' id='manualTrackNotDouble'>Anchor not being double tracked</a>
+    <span class='btn in-page-cta' href='#!' id='manualTrack'>Span manually tracked by JS</span>
+    <a class='btn in-page-cta' data-tracking=false href='#!' id='manualTrackingOff'>Anchor being tracked with JS</a>
+</div>
+<script>
+    $('#manualTrackingOff').on('click', function(){
+       $(this).trigger('analytics-track');
+    });
+    $('#manualTrack').on('click', function(){
+       $(this).trigger('analytics-track');
+    });
+    $('#manualTrackNotDouble').on('click', function(){
+       $(this).trigger('analytics-track');
+    });
+</script>

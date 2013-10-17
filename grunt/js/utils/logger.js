@@ -1,19 +1,17 @@
 if (typeof analytics==='undefined') analytics={};
 analytics.logger = (function(config){
 
-    var vars = {
-        verifying: false,
-        verifyOutputId: 'toolkit-tracking-verify'
-    };
-
+    var debugging= false,
+        debugOutputId= 'analytics-debug';
 
     function debug(on){
         if (on || on === undefined){
-            vars.verifying = true;
-            $('body').append('<div id="' + vars.verifyOutputId + '"></div>');
+            debugging = true;
+            $('body #' + debugOutputId).remove();
+            $('body').append('<div id="' + debugOutputId + '"></div>');
         } else {
-            vars.verifying = false;
-            $('#' + vars.verifyOutputId).remove();
+            debugging = false;
+            $('#' + debugOutputId).remove();
         }
     }
 
@@ -24,15 +22,15 @@ analytics.logger = (function(config){
     }
 
     function log(prop, val){
-        if (!vars.verifying){ return; }
+        if (!debugging){ return; }
         if (prop=='start'){
             console.group(val);
-            $('#' + vars.verifyOutputId).html('');
+            $('#' + debugOutputId).html('');
         } else if (prop=='end'){
             console.groupEnd();
         } else {
             console.log(prop +': ', val);
-            $('#' + vars.verifyOutputId).append('<div class="' + prop + '">' + prop +': ' + val + '</div>');
+            $('#' + debugOutputId).append('<div class="' + prop + '">' + prop +': ' + val + '</div>');
         }
     }
 

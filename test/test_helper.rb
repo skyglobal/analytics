@@ -4,6 +4,7 @@ require 'minitest-capybara'
 require 'capybara/poltergeist'
 require 'rack/test'
 require 'addressable/uri'
+require_relative 'utils.rb'
 
 require File.expand_path '../../app.rb', __FILE__
 

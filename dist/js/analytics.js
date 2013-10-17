@@ -134,19 +134,17 @@ if (typeof window.define === "function" && window.define.amd) {
 if (typeof analytics==='undefined') analytics={};
 analytics.logger = (function(config){
 
-    var vars = {
-        verifying: false,
-        verifyOutputId: 'toolkit-tracking-verify'
-    };
-
+    var debugging= false,
+        debugOutputId= 'analytics-debug';
 
     function debug(on){
         if (on || on === undefined){
-            vars.verifying = true;
-            $('body').append('<div id="' + vars.verifyOutputId + '"></div>');
+            debugging = true;
+            $('body #' + debugOutputId).remove();
+            $('body').append('<div id="' + debugOutputId + '"></div>');
         } else {
-            vars.verifying = false;
-            $('#' + vars.verifyOutputId).remove();
+            debugging = false;
+            $('#' + debugOutputId).remove();
         }
     }
 
@@ -157,15 +155,15 @@ analytics.logger = (function(config){
     }
 
     function log(prop, val){
-        if (!vars.verifying){ return; }
+        if (!debugging){ return; }
         if (prop=='start'){
             console.group(val);
-            $('#' + vars.verifyOutputId).html('');
+            $('#' + debugOutputId).html('');
         } else if (prop=='end'){
             console.groupEnd();
         } else {
             console.log(prop +': ', val);
-            $('#' + vars.verifyOutputId).append('<div class="' + prop + '">' + prop +': ' + val + '</div>');
+            $('#' + debugOutputId).append('<div class="' + prop + '">' + prop +': ' + val + '</div>');
         }
     }
 
@@ -1169,7 +1167,7 @@ if (typeof window.define === "function" && window.define.amd) {//just for requir
     });
 };
 if (typeof analytics==='undefined') analytics={};
-analytics.linkClicks = (function(omniture){
+analytics.linkClicks = (function(config, omniture){
 
     function bindEvents(selector, evnt) {
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
@@ -1271,19 +1269,19 @@ analytics.linkClicks = (function(omniture){
         track: track
     };
 
-}(analytics.omniture));
+}(analytics.config, analytics.omniture));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("core/link-clicks", ["core/page-view"], function() {
+    define("core/link-clicks", ["core/config","core/page-view"], function() {
         return analytics.linkClicks;
     });
 };
 if (typeof analytics==='undefined') analytics={};
 analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
-//todo: test clicking button/link twice doesnt stack events
+//todo: test clicking button/link twice doesnt stack events i.e. reset after linkClick
 //todo: write page to test require
-//todo: test turn verify on in config
-//todo: test val vs attr value and the rest of getText |
+//todo: test turn debug on in config
+//todo: test val vs attr value and the rest of getText | + all things logged
 //todo: test for live binding
 
     var mandatory = ['site', 'section', 'account', 'page'];
