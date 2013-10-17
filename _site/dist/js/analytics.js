@@ -1278,7 +1278,6 @@ if (typeof window.define === "function" && window.define.amd) {
 };
 if (typeof analytics==='undefined') analytics={};
 analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
-//todo: test clicking button/link twice doesnt stack events i.e. reset after linkClick
 //todo: write page to test require
 //todo: test turn debug on in config
 //todo: test val vs attr value and the rest of getText | + all things logged
@@ -1316,8 +1315,9 @@ analytics = (function(polyfill, config, omniture, linkClicks, pageView, logger){
     function setupCustomEventsAndVariables(type){
         var arr = config['custom' + type],
             i = 0,
-            len = arr.length,
-            item;
+            len, item;
+        if (!arr) { return; }
+        len = arr.length;
         for(i;i<len;i++){
             item = normaliseItem(arr[i]);
             if (type=='Variables') {

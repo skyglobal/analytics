@@ -1,0 +1,24 @@
+<h2>Search Tracking</h2>
+<p>
+    Search events and variables can be tracked automatically if you add the correct <code>data-</code> attributes into the HTML.
+</p>
+
+<h3 class="wiki-h3">Examples</h3>
+<p>Execute <code>analytics.debug()</code> and click around below.</p>
+<div class='example clearfix'>
+
+    <div class='skycom_4 alpha skycom_clear sky-form'>
+        <input id="weather-search" type="text" placeholder="Postcode or town">
+        <button class="btn" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-search">Search</button>
+    </div>
+    <div class="skycom_8">
+        Using 'data-tracking-search' with 'data-tracking-context-id' will activate the Omniture Search Variables.
+    </div>
+    <code class="skycom-2 alpha html">HTML</code>
+    <div class="skycom-9 ">
+        <code class="block html">&lt;input id="search" type="text" placeholder="Postcode or town">
+&lt;button data-tracking-search="weather" data-tracking-context-id="search">Search&lt;/button></code>
+    </div>
+    <code class="skycom-2 alpha js">Javascript</code>
+    <div class="skycom-9 js"><i>none</i></div>
+</div>

@@ -14,7 +14,7 @@ class AnalyticsTest < AcceptanceTest
   # After this, subsequent pages should not have event16 
 
   it "tracks search vars" do
-    fill_in 'weather-location-search', with: 'Milkshake search'
+    fill_in 'weather-search', with: 'Milkshake search'
     find('button[data-tracking-search]').click
     tracked('event').must_include sitecat_mapping['click_event'] # link clicked
     tracked('link_tracking').must_include '|search|'

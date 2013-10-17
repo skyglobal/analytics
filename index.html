@@ -21,9 +21,13 @@ title: Analytics
 </section>
 
 
-<a name="link-tracking"></a>
+<a name="tracking-clicks"></a>
 <section class="wiki-section">
-    {% include link-tracking.html %}
+    {% include tracking-clicks.html %}
+</section>
+<a name="tracking-searches"></a>
+<section class="wiki-section">
+    {% include tracking-searches.html %}
 </section>
 
 <a name="custom-vars"></a>
@@ -52,9 +56,9 @@ title: Analytics
 //    contentType: '',
 //    contentId: '',
     analytics.pageView({
-        site: 'mysky', //todo:mandatory. docs note this should not have sky/portal
+        site: 'global', //todo:mandatory. docs note this should not have sky/portal
         section: 'skyglobal/analytics', //todo:mandatory. docs note this should not start or end with /
-        account: 'bskybmyaccountdev', //todo: mandatory
+        account: 'bskybglobaldev', //todo: mandatory
         page: 'Analytics demo page', //todo: mandatory
         customEvents: [
             {'magic_happened': {event: 101}}
