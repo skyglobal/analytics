@@ -6,7 +6,7 @@ define("require-demo", ['analytics'], function(analytics) {
         headline: '',
         contentType: 'skyglobal',
         contentId: '',
-        account: 'bskybmyaccountdev',
+        account: 'bskybglobaldev',
         page: 'Analytics require demo page'
     });
 

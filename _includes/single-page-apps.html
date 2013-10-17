@@ -7,10 +7,10 @@
     $('body').on('click', '#btn_ajax_event', function(e){
         e.preventDefault();
         analytics.pageView({
-            site: 'mysky',
+            site: 'global',
             section: 'skyglobal/analytics',
-            account: 'bskybmyaccountdev',
-            page: 'Analytics demo page',
+            account: 'bskybglobaldev',
+            page: 'Analytics single page apps demo page',
             customEvents: [
                 {'ajax_happened': {event: 101, onPageLoad: true}}
             ],
