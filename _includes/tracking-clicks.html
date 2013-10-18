@@ -1,9 +1,7 @@
 <h2>Tracking Clicks</h2>
 <p>
     Pages are commonly split up in the following areas: Modules, Pods and other.
-    You may also want to track Editorial-Themes or the Context along with clicked text.
-</p>
-<p>By default we automatically track the <code>text</code> that is clicked along with the <code>site</code> name.  In order of priority, we track: data-tracking-label, alt, value, name, or lastly the text.
+    You may also want to track Editorial-Themes or the Context along with the clicked text<sup>1</sup>.
 </p>
 <h3 class="wiki-h3">Optional tracking Attributes</h3>
 <p>
@@ -41,10 +39,14 @@
         <br/>Must be used with <code>data-tracking-context-id</code>.
         <br/> eg. <code>data-tracking-search=weather data-tracking-context-id=search-box</code></dd>
     <dt class="skycom_4 alpha">data-tracking</dt>
-    <dd class="skycom_8">Add this to an element you do/dont want tracked
+    <dd class="skycom_8">Add this to an element you do/do not want tracked
         <br/>A way to force tracking of an element or to stop the tracking of an element.
         <br/> eg. <code>data-tracking=false</code></dd>
 </dl>
+<p><sup>1</sup>
+    By default we automatically track the <code>text</code> that is clicked along with the <code>site</code> name.
+    In order of priority, we track <code>text</code> by looking for the attributes: 'data-tracking-label', 'alt', 'value' and 'name'. If these are not found we will use the elements inner-text.
+</p>
 
 <h3 class="wiki-h3" data-tracking="false">Examples</h3>
 <div class='example clearfix'>
@@ -108,7 +110,7 @@
 
     <div class="skycom_4 alpha has-code-example" >
         <span class="toggle-code-example" for=tracking-label></span>
-        <a class='btn primary-cta' data-tracking-label='label-text' href="http://sky.com">Link tracked with different text</a>
+        <a class='btn primary-cta' data-tracking-label='label-text' href="#!">Link tracked with different text</a>
     </div>
     <div class="skycom_8">
         By adding '<code>data-tracking-label</code>' you can change the text that is tracked.

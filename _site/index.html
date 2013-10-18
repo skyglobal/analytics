@@ -127,30 +127,30 @@
 
 <dl class="clearfix ">
     <dt class="skycom_4 alpha">site</dt>
-    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dd class="skycom_8">[mandatory] Team Identifier e.g. 'sports', 'mysky' or 'skycom' etc.</dd>
     <dt class="skycom_4 alpha">section</dt>
-    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dd class="skycom_8">[mandatory] General page location, slash deliminated. e.g. 'make-the-most/tv-preference'</dd>
     <dt class="skycom_4 alpha">account</dt>
-    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dd class="skycom_8">[mandatory] Omniture account name. e.g. bskybskycomaccountprod</dd>
     <dt class="skycom_4 alpha">page</dt>
-    <dd class="skycom_8">[mandatory] --- desciption here ---</dd>
+    <dd class="skycom_8">[mandatory] Unique identifier for your page e.g. "mini connector - registration success"</dd>
     <dt class="skycom_4 alpha">headline</dt>
-    <dd class="skycom_8">[optional] --- desciption here ---</dd>
+    <dd class="skycom_8">[optional] Subject title for the page article</dd>
     <dt class="skycom_4 alpha">contentType</dt>
-    <dd class="skycom_8">[optional] --- desciption here ---</dd>
+    <dd class="skycom_8">[optional] Type of page descriptor</dd>
     <dt class="skycom_4 alpha">contentId</dt>
-    <dd class="skycom_8">[optional] --- desciption here ---</dd>
+    <dd class="skycom_8">[optional] UID for articles over time (i.e. if headline text is duplicated)</dd>
     <dt class="skycom_4 alpha">customVariables</dt>
-    <dd class="skycom_8">[optional] An object used to add your own tracking variable mapped to an Omniture id. <a href="#custom-vars">details here >></a></dd>
+    <dd class="skycom_8">[optional] A way to customise tracking for your site. <a href="#custom-vars">details here >></a></dd>
     <dt class="skycom_4 alpha">customEvents</dt>
-    <dd class="skycom_8">[optional] An object used to add your own tracking event mapped to an Omniture id. <a href="#custom-events">details here >></a></dd>
+    <dd class="skycom_8">[optional] A way to customise tracking for your site. <a href="#custom-events">details here >></a></dd>
     <dt class="skycom_4 alpha">debug</dt>
     <dd class="skycom_8">[optional] [boolean]. Turn on debug on page load to capture the page view event</dd>
 </dl>
 
 <h4>Debugging</h4>
 <p>You can either add <code>debug:true</code> or execute the following to enable debugging:
-    <code class="">    toolking.tracking.debug(<i>[true|false]</i>);</code>
+    <code class="">    analytics.debug(<i>[true|false]</i>);</code>
     <a href="debug-on-load.html">Click here to see debug on load</a> in action.
 </p>
 
@@ -180,9 +180,7 @@
     <h2>Tracking Clicks</h2>
 <p>
     Pages are commonly split up in the following areas: Modules, Pods and other.
-    You may also want to track Editorial-Themes or the Context along with clicked text.
-</p>
-<p>By default we automatically track the <code>text</code> that is clicked along with the <code>site</code> name.  In order of priority, we track: data-tracking-label, alt, value, name, or lastly the text.
+    You may also want to track Editorial-Themes or the Context along with the clicked text<sup>1</sup>.
 </p>
 <h3 class="wiki-h3">Optional tracking Attributes</h3>
 <p>
@@ -220,10 +218,14 @@
         <br/>Must be used with <code>data-tracking-context-id</code>.
         <br/> eg. <code>data-tracking-search=weather data-tracking-context-id=search-box</code></dd>
     <dt class="skycom_4 alpha">data-tracking</dt>
-    <dd class="skycom_8">Add this to an element you do/dont want tracked
+    <dd class="skycom_8">Add this to an element you do/do not want tracked
         <br/>A way to force tracking of an element or to stop the tracking of an element.
         <br/> eg. <code>data-tracking=false</code></dd>
 </dl>
+<p><sup>1</sup>
+    By default we automatically track the <code>text</code> that is clicked along with the <code>site</code> name.
+    In order of priority, we track <code>text</code> by looking for the attributes: 'data-tracking-label', 'alt', 'value' and 'name'. If these are not found we will use the elements inner-text.
+</p>
 
 <h3 class="wiki-h3" data-tracking="false">Examples</h3>
 <div class='example clearfix'>
@@ -287,7 +289,7 @@
 
     <div class="skycom_4 alpha has-code-example" >
         <span class="toggle-code-example" for=tracking-label></span>
-        <a class='btn primary-cta' data-tracking-label='label-text' href="http://sky.com">Link tracked with different text</a>
+        <a class='btn primary-cta' data-tracking-label='label-text' href="#!">Link tracked with different text</a>
     </div>
     <div class="skycom_8">
         By adding '<code>data-tracking-label</code>' you can change the text that is tracked.
@@ -476,9 +478,15 @@
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
+            <code class="block js">analytics.pageView({
+    ...
+    drink: [
+        {'colour': {var: 72 }}
+    ]
+});</code>
             <code class="js block">&lt;script>//script to update data-tracking-value attribute
-                $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
-                &lt;/script></code>
+    $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
+&lt;/script></code>
         </div>
     </div>
 
@@ -498,7 +506,8 @@
 
     <div class="code-example" id=custom-vars-radio>
         <code class="skycom-2 alpha html">HTML</code>
-        <div class="skycom-9"><code class="block html">&lt;label>Do you like Pina Coldas?&lt;/label>
+        <div class="skycom-9">
+            <code class="block html">&lt;label>Do you like Pina Coldas?&lt;/label>
 &lt;input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/>
 &lt;label for='radio_yes'>Yes&lt;/label>
 &lt;input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/>
@@ -507,6 +516,12 @@
             </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
+            <code class="block js">analytics.pageView({
+    ...
+    drink: [
+       {'how_about_pina_coladas': {var: 73 }}
+    ]
+});</code>
             <code class="js block">&lt;script>//script to update data-tracking-value attribute
     $('[data-tracking-variable=how_about_pina_coladas]').attr(
       'data-tracking-value',
@@ -533,7 +548,38 @@
             <code class=" block html">&lt;button  data-tracking-variable="colour">Blue&lt;/button>
 &lt;button data-tracking-variable="colour">Gray&lt;/button></code></div>
         <code class="skycom-2 alpha js">Javascript</code>
-        <div class="skycom-9 js">none        </div>
+        <div class="skycom-9 js"><code class="block js">analytics.pageView({
+    ...
+    customVariables: [
+        {'colour': {var: 71 }}
+    ]
+});</code>        </div>
+    </div>
+
+
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-var-load></span>
+        <a class='btn in-page-cta' href='#!' id='btn-page-load-var'>Custom Var Page Load</a>
+    </div>
+    <div class="skycom-8">To track a custom variable when the page, add <code>onPageLoad: true</code> in the config.</div>
+
+    <div class="code-example" id=custom-var-load>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    <i>none</i>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+        ...
+        customEvents: [
+            {'magic_happened': {var: 101, value:'im on load', onPageLoad: true}}
+        ]
+    };
+analytics.pageView(config);
+            </code>
+        </div>
     </div>
 
 </div>
@@ -648,13 +694,13 @@
         <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
     </div>
     <div class="skycom_8">
-        Trigger a page load event on single page apps.
+        Trigger a page load event on single page apps. Pass in the updated <code>config</code> to the <code>pageView</code> function.
     </div>
 
     <div class="code-example" id=single-page-app>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
-            <code class="html block">&lt;span id='trackingOff'>tracked with js&lt;/span>            </code>
+            <code class="html block">none</code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">

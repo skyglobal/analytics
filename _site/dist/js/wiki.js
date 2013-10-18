@@ -1,3 +1,4 @@
+
 if (typeof _wiki==='undefined') _wiki={};
 _wiki.setup = (function(){
 
@@ -85,7 +86,7 @@ _wiki.setup = (function(){
 
 //just for require
 if (typeof window.define === "function" && window.define.amd) {
-    define("wiki", function() {
+    define("wiki", [],function() {
         return _wiki;
     });
-}
+};

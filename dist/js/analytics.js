@@ -1282,6 +1282,10 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
 //todo: write page to test require
 //todo: test val vs attr value and the rest of getText | + all things logged
 //todo: test for live binding
+//    todo: check referrer is working
+//    todo: check     Similar CTA's, different actions is working
+//    todo: check     search event is working
+//    todo: test     customVarPageView
 
     var mandatory = ['site', 'section', 'account', 'page'];
 
@@ -1410,4 +1414,3 @@ if (typeof window.define === "function" && window.define.amd) {
         return _analytics.setup;
     });
 };
-//# sourceMappingURL=analytics.js.map

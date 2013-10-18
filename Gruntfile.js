@@ -52,7 +52,7 @@ module.exports = function(grunt) {
                     baseUrl: "grunt/js",
                     dir: "dist/js",
                     removeCombined: true,
-                    generateSourceMaps: true,
+                    generateSourceMaps: false,
                     modules:[{
                         name: 'analytics'
                     },{
