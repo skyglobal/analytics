@@ -41,11 +41,11 @@ _analytics.config = (function(){
             pageDescription: ['eVar19'], //todo: andrew - correct term?
             partner: ['prop16','eVar3'], //todo: andrew - correct term?
             fullPageDescription: ['eVar55'], //todo: andrew - correct term?
-            campaignID: ['prop45','eVar45'], //todo: andrew - correct term?
+            fullCampaign: ['prop45','eVar45'],
             campaignCookie: ['eVar47'], //todo: andrew - correct term?
-            insightCampaign: ['eVar46'], //todo: andrew - correct term?
-            externalSearchProvider: ['prop16','eVar3'], //todo: andrew - correct term?
-            externalSearchTerm: ['prop17','eVar8'], //todo: andrew - correct term?
+            insightCampaign: ['eVar46'],
+            externalSearchProvider: ['prop16','eVar3'],
+            externalSearchTerm: ['prop17','eVar8'],
             testAndTarget: ['eVar18'] //todo: andrew - correct term?
         },
         trackedEvents = { //todo: add event1 + event20

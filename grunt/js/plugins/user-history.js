@@ -33,11 +33,14 @@ _analytics.plugins.userHistory = (function(omniture, config){
         return o;
     }
 
-    function setLoginVars( ) { //    todo: andrew we deleted login events he he
+    function setLoginVars( ) {
         if (cookies.skySSO) {
             omniture.setVariable('loginStatus', loggedIn);
             if (cookies.skySSOLast != cookies.skySSO) {
                 s.c_w('skySSOLast', cookies.skySSO);
+                var fl = cookies.skyLoginFrom ? cookies.skyLoginFrom.split(',') : ['generic','l'];
+                var loginType = (fl[1] == 'l') ? 'loginComplete' : 'regComplete';
+                omniture.setEvent(loginType);
             }
         } else {
             omniture.setVariable('loginStatus',notLoggedIn);

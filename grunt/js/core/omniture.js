@@ -37,13 +37,13 @@ _analytics.omniture = (function(config, logger){
         if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
         s.linkTrackVars += config.trackedData[variable];
     }
-    function setLinkTrackEvent(event){ //todo: andrew, needed???
+    function setLinkTrackEvent(event){
         if (!s.linkTrackEvents) s.linkTrackEvents = '';
         if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
         s.linkTrackEvents += config.trackedEvents[event];
     }
 
-    function setEvent(event){
+    function setEvent(event){//todo: ensure events aren't duplicated. maybe.
         if (!s.events) s.events = '';
         if (s.events.length>0) s.events += ',';
         s.events += config.trackedEvents[event];
@@ -63,6 +63,7 @@ _analytics.omniture = (function(config, logger){
     }
 
     function reset(){
+        setVariable('linkDetails','');
         s.linkTrackVars = '';
         s.linkTrackEvents = '';
         s.events = '';

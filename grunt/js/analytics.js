@@ -7,6 +7,7 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
 //    todo: check     Similar CTA's, different actions is working
 //    todo: check     search event is working
 //    todo: test     customVarPageView
+//    todo: test     click link, then click ajax button - shouldn't see previous linkDetails
 
     var mandatory = ['site', 'section', 'account', 'page'];
 

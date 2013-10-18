@@ -35,19 +35,6 @@ _analytics.plugins.mediaModule = (function(omniture, config){
     +"sie?\"OBJECT\":\"EMBED\");if(l)for(n=0;n<l.length;n++)m.a(l[n]);}');if(s.wd.attachEvent)s.wd.attachEvent('onload',m.as);else if(s.wd.addEventListener)s.wd.addEventListener('load',m.as,false)";
 
 
-
-    function MovieStartManual(m_Name,m_Length,m_Player) {
-        s.Media.open(m_Name,m_Length,m_Player);
-        s.Media.play(m_Name,'0');
-    }
-
-
-    function MovieEndManual(m_Name,m_Pos) {
-        s.Media.stop(m_Name,m_Pos);
-        s.Media.close(m_Name);
-    }
-
-
     function setVars(){
         s.m_i("Media");
         omniture.setVariable('Media', {

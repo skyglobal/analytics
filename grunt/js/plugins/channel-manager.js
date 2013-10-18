@@ -102,14 +102,6 @@ _analytics.plugins.channelManager = (function(omniture, config){
         }
     }
 
-    function setVariables(){
-        setVariable('channel', getVariable('siteName')); //todo: andrew, this meant to be the same?
-        var _campaign = getVariable('_campaignID').toLowerCase();
-        if(_campaign){
-            setVariable('campaignID',_campaign);
-        }
-    }
-
     function setInsightTracking(){
         var insight_tracking = s.getQueryParam('irct').toLowerCase();
         if (insight_tracking && insight_tracking !== session.irct) {
@@ -117,16 +109,15 @@ _analytics.plugins.channelManager = (function(omniture, config){
         }
     }
 
-    //todo: andrew, why do we care so much about cheetah mail? delet?
-    function setCheetah(){
-        var campaignID;
-        if (s.getQueryParam('om_mid').length > 0) { //        todo: i think remove all below
-            campaignID = "cht-" + s.getQueryParam('om_mid');
-            if(getVariable('campaignID')){ //todo: andrew, why do we keep using underscores?
-                campaignID  =+ ":links__" + getVariable('campaignID').replace("emc-","");
-            }
-            setVariable('campaignID',campaignID);
+
+    function setCheetah(){ //todo: check with andrew to delete after 1-1-14.
+        if (s.getQueryParam('om_mid').length < 0) { return; }
+
+        var campaignID = "cht-" + s.getQueryParam('om_mid');
+        if(getVariable('fullCampaign')){
+            campaignID  =+ ":links__" + getVariable('fullCampaign').replace("emc-","");
         }
+        setVariable('fullCampaign',campaignID);
     }
 
     function setPartnerAndKeyWords(){
@@ -136,59 +127,47 @@ _analytics.plugins.channelManager = (function(omniture, config){
             ref = getVariable('_referringDomain').toLowerCase(),
             campaignID = getVariable('_campaignID').toLowerCase();
 
-//todo: test the hell out of all these if statements before refactor!!!!
-//todo: remove campaign specific stuff knc?
-        if (campaignID && campaignID.indexOf('knc-') === 0) {
-            if(campaignID == "knc-"){
-                setVariable('campaignID',getVariable('campaignID') + partner + ":" + keyword);
+        if (campaignID.indexOf('knc-') === 0) {//knc = paid search
+            var campaignEnd = partner + ":" + keyword;
+            if(campaignID !== "knc-"){
+                campaignEnd = '-' + campaignEnd;
             }
+            setVariable('fullCampaign',getVariable('fullCampaign') + campaignEnd);
             setVariable('externalSearchProvider',partner);
             setVariable('externalSearchTerm',keyword);
-        }
-        if(chan == "natural search"){
-            setVariable('campaignID',"okc-natural search");
+        } else if(chan == "natural search"){
+            setVariable('fullCampaign',"okc-natural search");
             setVariable('externalSearchProvider',partner);
             setVariable('externalSearchTerm',keyword);
-        }
-        if (campaignID==="" && chan != "natural search") {
-            if (chan=="direct load"){
-                setVariable('campaignID',"direct load");
-            }
-            else if(chan != "direct load" && ref){
-                if(httpsSearch(ref) == "google"){
-                    setVariable('campaignID',"okc-secured natural search");
-                    setVariable('externalSearchProvider',"google");
-                    setVariable('externalSearchTerm',"secured search term");
-                } else {
-                    setVariable('campaignID',"oth-" + ref);
-                }
-            }
+        } else if (chan=="direct load"){
+            setVariable('fullCampaign',"direct load");
+        } else if(ref && httpsSearch(ref) == "google"){
+            setVariable('fullCampaign',"okc-secured natural search");
+            setVariable('externalSearchProvider',"google");
+            setVariable('externalSearchTerm',"secured search term");
+        } else if (ref) {
+            setVariable('fullCampaign',"oth-" + ref);
+        } else if(campaignID){
+            setVariable('fullCampaign',campaignID);
         }
     }
 
-//    todo: andrew, ilc still used? delete?
-    function setupIlcCampaign(){
-        var campaignID = omniture.getVariable('campaignID') || '';
-        var _channel = omniture.getVariable('_channel') || '';
-        if(!_channel && !campaignID){ return; } //todo: andrew, why _channel and not channel?
+    function setupCampaignCookies(){
+        var campaignID = omniture.getVariable('fullCampaign') || '';
+        if(!campaignID || campaignID.indexOf('ilc-') === 0){ return; }
+        var hasSessionCookie =  (session.cmp_cookie_session && session.cmp_cookie_session !== "undefined/undefined");
+        var hasPersistantCookie =  (persistant.cmp_cookie && persistant.cmp_cookie !== "undefined/undefined");
 
-        if(campaignID.indexOf('ilc-') !== 0){
-            if((campaignID=="direct load" || campaignID.indexOf("oth-") === 0 ) &&
-                session.cmp_cookie_session != "undefined/undefined" &&
-                session.cmp_cookie_session !== ""){
-                omniture.setVariable('campaignID','');
-            }
-            if(!session.cmp_cookie_session || session.cmp_cookie_session == "undefined/undefined"){
-                session.cmp_cookie_session = omniture.getVariable('campaignCookie');
-                omniture.setVariable('campaignCookie',s.getValOnce(session.cmp_cookie_session, 'cmp_cookie_session', 0));
-            }
-            if(!persistant.cmp_cookie || persistant.cmp_cookie == "undefined/undefined"){
-                persistant.cmp_cookie = omniture.getVariable('campaignCookie');
-                omniture.setVariable('campaignCookie',s.getValOnce(persistant.cmp_cookie, 'cmp_cookie', 30));
-            }
+        if((campaignID=="direct load" || campaignID.indexOf("oth-") === 0 ) && hasSessionCookie){
+            omniture.setVariable('fullCampaign','');
+        }
+        if(!hasSessionCookie){
+            omniture.setVariable('campaignCookie',s.getValOnce(omniture.getVariable('campaignCookie'), 'cmp_cookie_session', 0));
+        }
+        if(!hasPersistantCookie){
+            omniture.setVariable('campaign',s.getValOnce(omniture.getVariable('campaignCookie'), 'cmp_cookie', 30));
         }
     }
-
 
 
     function load(){
@@ -199,11 +178,10 @@ _analytics.plugins.channelManager = (function(omniture, config){
         omniture.addPlugin('channelManager', channelManager);
         s.channelManager('attr,dcmp','','s_campaign','0');
 
-        setVariables();
+        setPartnerAndKeyWords();
         setInsightTracking();
         setCheetah();
-        setPartnerAndKeyWords();
-        setupIlcCampaign();
+        setupCampaignCookies();
     }
 
     return {
