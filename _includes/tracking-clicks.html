@@ -3,7 +3,6 @@
     Pages are commonly split up in the following areas: Modules, Pods and other.
     You may also want to track Editorial-Themes or the Context along with clicked text.
 </p>
-<h3 class="wiki-h3">Basic tracking info</h3>
 <p>By default we automatically track the <code>text</code> that is clicked along with the <code>site</code> name.  In order of priority, we track: data-tracking-label, alt, value, name, or lastly the text.
 </p>
 <h3 class="wiki-h3">Optional tracking Attributes</h3>
@@ -48,69 +47,82 @@
 </dl>
 
 <h3 class="wiki-h3" data-tracking="false">Examples</h3>
-<p>Execute <code>analytics.debug()</code> and click around below.</p>
 <div class='example clearfix'>
 
-    <div class="skycom_4 alpha">
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=standard-link></span>
         <a href="#!">Standard link</a>
     </div>
     <div class="skycom_8">
-        'a' tags will be tracked automatically
+        '<code>a</code>' tags will be tracked automatically
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">    &lt;a href='#' >link&lt;/a>    </code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=standard-link>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;a href='#' >link&lt;/a>    </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
-
-    <div class='skycom_4 alpha skycom_clear'>
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=standard-button></span>
         <button class="btn sign-post">Normal Button</button>
     </div>
     <div class="skycom_8">
-        'button' tags will be tracked automatically
+        '<code>button</code>' tags will be tracked automatically
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">    &lt;button>Button&lt;/button>    </code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=standard-button>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;button>Button&lt;/button>    </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
-
-    <div class='skycom_4 alpha skycom_clear'>
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=input-button></span>
         <input type="submit" value="Submit Button"/>
     </div>
     <div class="skycom_8">
-        'input' tags with type=submit will be tracked automatically
+        '<code>input</code>' tags with <code>type=submit</code> will be tracked automatically
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">    &lt;input type="submit" value="Submit"/>    </code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=input-button>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;input type="submit" value="Submit"/>    </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
-    <div class="skycom_4 alpha">
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=everything-else></span>
         <span data-tracking id='a-non-anchor'>Tracking everything else</span>
     </div>
     <div class="skycom_8">
-        the attribute 'data-tracking' needs to be added to any other tags you wish to track
+        the attribute '<code>data-tracking</code>' needs to be added to any other tags you wish to track
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">    &lt;span data-tracking >Span&lt;/span>    </code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=everything-else>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;span data-tracking >Span&lt;/span>    </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
 
-    <div class='skycom_4 alpha'>
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=tracking-label></span>
         <a class='btn primary-cta' data-tracking-label='label-text' href="http://sky.com">Link tracked with different text</a>
     </div>
     <div class="skycom_8">
-        By adding 'data-tracking-label' you can change the text that is tracked.
+        By adding '<code>data-tracking-label</code>' you can change the text that is tracked.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">    &lt;a data-tracking-label='label-text' href="#">Link&lt;/a></code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=tracking-label>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;a data-tracking-label='label-text' href="#">Link&lt;/a></code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
 
-    <div class="skycom_4 alpha">
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=tracking-context></span>
         <div >
             <a href="#!"  data-tracking-context='context'>Similar CTA's, different actions</a>
         </div>
@@ -119,17 +131,21 @@
         </div>
     </div>
     <div class="skycom_8">
-        By adding 'data-tracking-context' you can differentiate between 2 CTA's that do different things. E.g. Remote Record buttons that record different programmes.
+        By adding '<code>data-tracking-context</code>' you can differentiate between 2 CTA's that do different things.<br/>
+        E.g. Remote Record buttons that record different programmes.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <div class="skycom-9"><code class="block html">&lt;a href="#" data-tracking-context='Sky News'>Record&lt;/a>
+    <div class="code-example" id=tracking-context>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9"><code class="block html">&lt;a href="#" data-tracking-context='Sky News'>Record&lt;/a>
 &lt;a href="#" data-tracking-context='Sky Sports'>Record&lt;/a></code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
     </div>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
 
 
-    <div class="skycom_4 alpha" data-tracking-module=testing>
+    <div class="skycom_4 alpha has-code-example" data-tracking-module=testing>
+        <span class="toggle-code-example" for=tracking-module></span>
         <div data-tracking-pod=pod-1>
             <a href="#!">Same module, pod 1</a>
         </div>
@@ -138,10 +154,11 @@
         </div>
     </div>
     <div class="skycom_8">
-        By adding 'data-tracking-pod' and 'data-tracking-module' you can provide more information about where in the page links are located.
+        By adding '<code>data-tracking-pod</code>' and '<code>data-tracking-module</code>' you can provide more information about where in the page links are located.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <div class="skycom-9"><code class="block html">&lt;div data-tracking-module=testing>
+    <div class="code-example" id=tracking-module>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9"><code class="block html">&lt;div data-tracking-module=testing>
     &lt;div data-tracking-pod=pod-1>
         &lt;a href="#!" >pod 1&lt;/a>
     &lt;/div>
@@ -149,11 +166,13 @@
         &lt;a href="#!">pod 2&lt;/a>
     &lt;/div>
 &lt;/div></code></div>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
 
-    <div class="skycom_4 alpha" >
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=tracking-other></span>
         <div data-tracking-other=js-off-link>
             <a href="#!">Tracking further info</a>
         </div>
@@ -162,11 +181,12 @@
         </div>
     </div>
     <div class="skycom_8">
-        'data-tracking-other' can be used to track any other useful info, i.e. when navigation gets past 2 levels.<br/>
-        'data-tracking-theme' can be used to allow editors monitor page elements that are related over time.
+        '<code>data-tracking-other</code>' can be used to track any other useful info, i.e. when navigation gets past 2 levels.<br/>
+        '<code>data-tracking-theme</code>' can be used to allow editors monitor page elements that are related over time.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <div class="skycom-9"><code class="block html">&lt;div data-tracking-module=testing>
+    <div class="code-example" id=tracking-other>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9"><code class="block html">&lt;div data-tracking-module=testing>
     &lt;div data-tracking-other=js-off-link>
         &lt;a href="#!" >Other info&lt;/a>
     &lt;/div>
@@ -174,21 +194,29 @@
         &lt;a href="#!">Themes&lt;/a>
     &lt;/div>
 &lt;/div></code></div>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
 
-    <div class='skycom_4 alpha'>
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=not-tracking></span>
         <a data-tracking="false" href="#!" id="anchor-not-tracked">Standard link, not tracked</a>
         <button class="btn" data-tracking="false" id="button-not-tracked" >Normal button, not tracked</button>
         <input type=submit data-tracking="false" value="Submit button, not tracked" id="submit-not-tracked" />
     </div>
     <div class="skycom_8">
-        By adding 'data-tracking=false' you can stop any element from tracked automatically.
+        By adding '<code>data-tracking=false</code>' you can stop any element from tracked automatically.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">&lt;a data-tracking=false href="#">link&lt;/a></code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=not-tracking>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" html block">&lt;a data-tracking=false href="#">link&lt;/a>
+&lt;button class="btn" data-tracking="false" id="button-not-tracked" >button&lt;/button>
+&lt;input type=submit data-tracking="false" value="Submit" id="submit-not-tracked" /></code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
 </div>

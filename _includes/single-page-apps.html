@@ -1,24 +1,23 @@
 <h2>Single Page Apps</h2>
-<p>Simulate a page load event for sites that make use of ajax by calling:</p>
-<code class="block">analytics.pageView(config);</code>
-<h3>Example</h3>
-<a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
-<script type='text/javascript'>
-    $('body').on('click', '#btn_ajax_event', function(e){
-        e.preventDefault();
-        analytics.pageView({
-            site: 'global',
-            section: 'skyglobal/analytics',
-            account: 'bskybglobaldev',
-            page: 'Analytics single page apps demo page',
-            customEvents: [
-                {'ajax_happened': {event: 101, onPageLoad: true}}
-            ],
-            customVariables: [
-                {'colour': {var: 71 }},
-                {'drink': {'var': 72 }},
-                {'how_about_pina_coladas': {'var': 73 }}
-            ]
-        });
-    });
-</script>
+<p>For apps where the page content changes without a page-refresh, you can track the new page being loaded by calling the <code>pageView</code> function again.</p>
+<h3 class="wiki-h3">Examples</h3>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=single-page-app></span>
+        <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
+    </div>
+    <div class="skycom_8">
+        Trigger a page load event on single page apps.
+    </div>
+
+    <div class="code-example" id=single-page-app>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">&lt;span id='trackingOff'>tracked with js&lt;/span>            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">analytics.pageView(config);            </code>
+        </div>
+    </div>
+</div>

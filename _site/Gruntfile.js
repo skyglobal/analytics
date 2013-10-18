@@ -11,8 +11,8 @@ module.exports = function(grunt) {
     grunt.initConfig({
         watch: {
             'analytics': {
-                files: [ 'grunt/js/*.js', 'Gruntfile.js' ],
-                tasks: ['jshint','requirejs']
+                files: [ 'grunt/js/*.js', 'grunt/sass/**/*.*', 'Gruntfile.js' ],
+                tasks: ['jshint','requirejs','compass']
             }
         },
         clean: {
@@ -55,6 +55,8 @@ module.exports = function(grunt) {
                     generateSourceMaps: true,
                     modules:[{
                         name: 'analytics'
+                    },{
+                        name: 'wiki'
                     }]
                 }
             }

@@ -1,5 +1,5 @@
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.linkClicks = (function(config, omniture){
+_analytics.linkClick = (function(config, omniture){
 
     function bindEvents(selector, evnt) {
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
@@ -104,7 +104,7 @@ _analytics.linkClicks = (function(config, omniture){
 }(_analytics.config, _analytics.omniture));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("core/link-clicks", ["core/config","core/page-view"], function() {
-        return _analytics.linkClicks;
+    define("core/link-click", ["core/config","core/page-view"], function() {
+        return _analytics.linkClick;
     });
 }

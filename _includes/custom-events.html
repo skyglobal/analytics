@@ -13,44 +13,50 @@
     <dd class="skycom_8">[boolean] Set if the event should be passed to Omniture when the page loads</dd>
 </dl>
 
-<h3 class="wiki-h3">Sending the Event when a link is clicked</h3>
-<div class="skycom-4 alpha">
-    <a class='btn in-page-cta' href='#!' id='btn_custom_event' data-tracking-event='magic_happened'>Custom Event</a>
-</div>
-<p class="skycom-8">Add <code>data-tracking-event=<i>eventName</i></code> to the relevant element.</p>
-<code class="skycom-2 alpha">HTML</code>
-<code class="skycom-9">    &lt;a href='#' data-tracking-event='magic_happened'>Custom Event&lt;/a>
-</code>
-<code class="skycom-2 alpha">Javascript</code>
-<div class="skycom-9">
-    <code class=" block">    var config = {
-        ...
-        customEvents: [
-            {'magic_happened': {event: 101}}
-        ]
-    };
-    analytics.pageView(config);
-    </code>
-</div>
-
-
-<h3 class="wiki-h3">Sending the Event when the page is viewed</h3>
-<div class="skycom-4 alpha">
-    <a class='btn in-page-cta' href='custom-page-load.html' id='btn_page_load'>Custom Page Load</a>
-</div>
-<p class="skycom-8">Add <code>onPageLoad: true</code> in the config.</p>
-
-<code class="skycom-2 alpha">HTML</code>
-<code class="skycom-9">    <i>none</i>
-</code>
-<code class="skycom-2 alpha">Javascript</code>
+<h3 class="wiki-h3">Examples</h3>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-events></span>
+        <a class='btn in-page-cta' href='#!' id='btn_custom_event' data-tracking-event='magic_happened'>Custom Event</a>
+    </div>
+    <div class="skycom-8">To track a custom event when an element is clicked, add <code>data-tracking-event=<i>eventName</i></code> to the relevant element.</div>
+    <div class="code-example" id=custom-events>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;a href='#' data-tracking-event='magic_happened'>Custom Event&lt;/a></code>
+        <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-<code class=" block">    var config = {
-        ...
-        customEvents: [
-            {'magic_happened': {event: 101, onPageLoad: true}}
-        ]
-    };
-    analytics.pageView(config);
-</code>
+            <code class="js block">    var config = {
+                ...
+                customEvents: [
+                    {'magic_happened': {event: 101}}
+                ]
+            };
+            analytics.pageView(config);
+            </code>
         </div>
+    </div>
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-events-load></span>
+        <a class='btn in-page-cta' href='custom-page-load.html' id='btn_page_load'>Custom Page Load</a>
+    </div>
+    <div class="skycom-8">To track a custom event when the page, add <code>onPageLoad: true</code> in the config.</div>
+
+    <div class="code-example" id=custom-events-load>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    <i>none</i>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+                ...
+                customEvents: [
+                    {'magic_happened': {event: 101, onPageLoad: true}}
+                ]
+            };
+            analytics.pageView(config);
+            </code>
+        </div>
+    </div>
+</div>

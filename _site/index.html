@@ -6,7 +6,7 @@
 <head>
     <title>Sky Analytics API Demo Page</title>
 
-    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/0.4.8/stylesheets/toolkit.css">
+    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/0.5.1/stylesheets/toolkit.css">
     <link rel="stylesheet" href="./dist/css/wiki.css">
     <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
 
@@ -89,10 +89,20 @@
     <h2>Using the Analytics</h2>
     <p class="developer-notes">
         Please use the following:
-        <code class="block">    &lt;script src=http://analytics.global.sky.com/0.6.0/analytics.js>&lt;/script></code>
-        OR
-        <a href="require-js.html">Click here to see requireJS working</a>.
-    </p>
+        <code class="html">    &lt;script src=http://analytics.global.sky.com/0.6.0/analytics.js>&lt;/script></code>.
+        If your project uses RequireJS, <a href="require-js.html">Click here to see an example</a>.
+</p><p>Then add the following onto your page with the correct account details to initialise the tracking.    </p>
+
+    <code class="block js">   analytics.pageView({
+        site: 'global',
+        section: 'skyglobal/analytics',
+        account: 'bskybdemodev',
+        page: 'Analytics demo page'
+    });</code>
+    <p>Boom.    Job Done.    </p>
+    <p> Now <code>anchors</code>, <code>buttons</code>, <code>submits</code> and any element with <code>[data-tracking]</code> are automatically tracking.</p>
+
+
     <a name="contributing"></a>
     <div class="sub-section">
         <h3 class="wiki-h3">Contributing</h3>
@@ -103,24 +113,17 @@
 
 <dl class="clearfix ">
     <dt class="skycom_4 alpha">Feature Requests</dt>
-    <dd class="skycom_8">Please check <a href="https://github.com/skyglobal/analytics/issues">here</a> to see if there is already a similar request. If not, create a New
+    <dd class="skycom_8">If there is no similar request <a href="https://github.com/skyglobal/analytics/issues">here</a>, create a New
         Issue and flag it as an '<code>enhancement</code>'</dd>
     <dt class="skycom_4 alpha">Bug Reporting</dt>
-    <dd class="skycom_8">Please check <a href="https://github.com/skyglobal/analytics/issues">here</a> to see if there is already a similar request. If not, create a New
+    <dd class="skycom_8">If there is no similar request <a href="https://github.com/skyglobal/analytics/issues">here</a>, create a New
         Issue and flag it as a '<code>bug</code>'</dd>
 </dl>
     </div>
     <a name="getting-started"></a>
     <div class="sub-section">
-        <h3 class="wiki-h3">Getting Started</h3>
-<p> Once tracking has been initialised,
-    <code>anchors</code>, <code>buttons</code>, <code>submits</code> and any element with <code>[data-tracking]</code> are automatically tracking.
-    You Can also manually trigger tracking using JS.
-</p>
-
-<h4>Initialising</h4>
-<p>The are a number of details that needs to be passed to the tracking code, which should be passed through as a single object.  Please get the applicable details for your project from <code>implementation@bskyb.com</code>.</p>
-<p>The following can be added to the <code>config</code> object:</p>
+        <h3 class="wiki-h3">Config in Detail</h3>
+<p>To get you config correct, please get the details for your project from <code>implementation@bskyb.com</code>.  The following shows the options:</p>
 
 <dl class="clearfix ">
     <dt class="skycom_4 alpha">site</dt>
@@ -137,32 +140,30 @@
     <dd class="skycom_8">[optional] --- desciption here ---</dd>
     <dt class="skycom_4 alpha">contentId</dt>
     <dd class="skycom_8">[optional] --- desciption here ---</dd>
-    <dt class="skycom_4 alpha">debug</dt>
-    <dd class="skycom_8">[optional] [true|false]. Turn on debug on page load to capture the page view event</dd>
     <dt class="skycom_4 alpha">customVariables</dt>
     <dd class="skycom_8">[optional] An object used to add your own tracking variable mapped to an Omniture id. <a href="#custom-vars">details here >></a></dd>
     <dt class="skycom_4 alpha">customEvents</dt>
     <dd class="skycom_8">[optional] An object used to add your own tracking event mapped to an Omniture id. <a href="#custom-events">details here >></a></dd>
+    <dt class="skycom_4 alpha">debug</dt>
+    <dd class="skycom_8">[optional] [boolean]. Turn on debug on page load to capture the page view event</dd>
 </dl>
 
-<p>Then you must tell the code to either add a pageView:
-    <code >    analytics.pageView(config); </code>
-</p>
-
 <h4>Debugging</h4>
-<p>Outside of the config, you can easily execute the following after the page has loaded to start debugging:
-    <code class="block">    toolking.tracking.debug(<i>[true|false]</i>);</code>
+<p>You can either add <code>debug:true</code> or execute the following to enable debugging:
+    <code class="">    toolking.tracking.debug(<i>[true|false]</i>);</code>
     <a href="debug-on-load.html">Click here to see debug on load</a> in action.
 </p>
 
+<p>Try <code>analytics.debug()</code> now and click around below.</p>
+
 <h4>Example config</h4>
-<code class="block">    analytics.pageView({
+<code class="block js">    analytics.pageView({
         site: 'global',
         section: 'skyglobal/analytics',
         account: 'bskybdemodev',
         page: 'Analytics demo page',
         customEvents: [
-            {'magic_happened': {event: 101}}
+            {'magic_happened': {event: 101, onPageLoad:true}}
         ],
         customVariables: [
             {'drink': {'eVar': 72}},
@@ -181,7 +182,6 @@
     Pages are commonly split up in the following areas: Modules, Pods and other.
     You may also want to track Editorial-Themes or the Context along with clicked text.
 </p>
-<h3 class="wiki-h3">Basic tracking info</h3>
 <p>By default we automatically track the <code>text</code> that is clicked along with the <code>site</code> name.  In order of priority, we track: data-tracking-label, alt, value, name, or lastly the text.
 </p>
 <h3 class="wiki-h3">Optional tracking Attributes</h3>
@@ -226,69 +226,82 @@
 </dl>
 
 <h3 class="wiki-h3" data-tracking="false">Examples</h3>
-<p>Execute <code>analytics.debug()</code> and click around below.</p>
 <div class='example clearfix'>
 
-    <div class="skycom_4 alpha">
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=standard-link></span>
         <a href="#!">Standard link</a>
     </div>
     <div class="skycom_8">
-        'a' tags will be tracked automatically
+        '<code>a</code>' tags will be tracked automatically
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">    &lt;a href='#' >link&lt;/a>    </code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=standard-link>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;a href='#' >link&lt;/a>    </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
-
-    <div class='skycom_4 alpha skycom_clear'>
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=standard-button></span>
         <button class="btn sign-post">Normal Button</button>
     </div>
     <div class="skycom_8">
-        'button' tags will be tracked automatically
+        '<code>button</code>' tags will be tracked automatically
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">    &lt;button>Button&lt;/button>    </code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=standard-button>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;button>Button&lt;/button>    </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
-
-    <div class='skycom_4 alpha skycom_clear'>
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=input-button></span>
         <input type="submit" value="Submit Button"/>
     </div>
     <div class="skycom_8">
-        'input' tags with type=submit will be tracked automatically
+        '<code>input</code>' tags with <code>type=submit</code> will be tracked automatically
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">    &lt;input type="submit" value="Submit"/>    </code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=input-button>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;input type="submit" value="Submit"/>    </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
-    <div class="skycom_4 alpha">
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=everything-else></span>
         <span data-tracking id='a-non-anchor'>Tracking everything else</span>
     </div>
     <div class="skycom_8">
-        the attribute 'data-tracking' needs to be added to any other tags you wish to track
+        the attribute '<code>data-tracking</code>' needs to be added to any other tags you wish to track
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">    &lt;span data-tracking >Span&lt;/span>    </code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=everything-else>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;span data-tracking >Span&lt;/span>    </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
 
-    <div class='skycom_4 alpha'>
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=tracking-label></span>
         <a class='btn primary-cta' data-tracking-label='label-text' href="http://sky.com">Link tracked with different text</a>
     </div>
     <div class="skycom_8">
-        By adding 'data-tracking-label' you can change the text that is tracked.
+        By adding '<code>data-tracking-label</code>' you can change the text that is tracked.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">    &lt;a data-tracking-label='label-text' href="#">Link&lt;/a></code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=tracking-label>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;a data-tracking-label='label-text' href="#">Link&lt;/a></code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
 
-    <div class="skycom_4 alpha">
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=tracking-context></span>
         <div >
             <a href="#!"  data-tracking-context='context'>Similar CTA's, different actions</a>
         </div>
@@ -297,17 +310,21 @@
         </div>
     </div>
     <div class="skycom_8">
-        By adding 'data-tracking-context' you can differentiate between 2 CTA's that do different things. E.g. Remote Record buttons that record different programmes.
+        By adding '<code>data-tracking-context</code>' you can differentiate between 2 CTA's that do different things.<br/>
+        E.g. Remote Record buttons that record different programmes.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <div class="skycom-9"><code class="block html">&lt;a href="#" data-tracking-context='Sky News'>Record&lt;/a>
+    <div class="code-example" id=tracking-context>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9"><code class="block html">&lt;a href="#" data-tracking-context='Sky News'>Record&lt;/a>
 &lt;a href="#" data-tracking-context='Sky Sports'>Record&lt;/a></code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
     </div>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
 
 
-    <div class="skycom_4 alpha" data-tracking-module=testing>
+    <div class="skycom_4 alpha has-code-example" data-tracking-module=testing>
+        <span class="toggle-code-example" for=tracking-module></span>
         <div data-tracking-pod=pod-1>
             <a href="#!">Same module, pod 1</a>
         </div>
@@ -316,10 +333,11 @@
         </div>
     </div>
     <div class="skycom_8">
-        By adding 'data-tracking-pod' and 'data-tracking-module' you can provide more information about where in the page links are located.
+        By adding '<code>data-tracking-pod</code>' and '<code>data-tracking-module</code>' you can provide more information about where in the page links are located.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <div class="skycom-9"><code class="block html">&lt;div data-tracking-module=testing>
+    <div class="code-example" id=tracking-module>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9"><code class="block html">&lt;div data-tracking-module=testing>
     &lt;div data-tracking-pod=pod-1>
         &lt;a href="#!" >pod 1&lt;/a>
     &lt;/div>
@@ -327,11 +345,13 @@
         &lt;a href="#!">pod 2&lt;/a>
     &lt;/div>
 &lt;/div></code></div>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
 
-    <div class="skycom_4 alpha" >
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=tracking-other></span>
         <div data-tracking-other=js-off-link>
             <a href="#!">Tracking further info</a>
         </div>
@@ -340,11 +360,12 @@
         </div>
     </div>
     <div class="skycom_8">
-        'data-tracking-other' can be used to track any other useful info, i.e. when navigation gets past 2 levels.<br/>
-        'data-tracking-theme' can be used to allow editors monitor page elements that are related over time.
+        '<code>data-tracking-other</code>' can be used to track any other useful info, i.e. when navigation gets past 2 levels.<br/>
+        '<code>data-tracking-theme</code>' can be used to allow editors monitor page elements that are related over time.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <div class="skycom-9"><code class="block html">&lt;div data-tracking-module=testing>
+    <div class="code-example" id=tracking-other>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9"><code class="block html">&lt;div data-tracking-module=testing>
     &lt;div data-tracking-other=js-off-link>
         &lt;a href="#!" >Other info&lt;/a>
     &lt;/div>
@@ -352,22 +373,30 @@
         &lt;a href="#!">Themes&lt;/a>
     &lt;/div>
 &lt;/div></code></div>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
 
-    <div class='skycom_4 alpha'>
+    <div class="skycom_4 alpha has-code-example" >
+        <span class="toggle-code-example" for=not-tracking></span>
         <a data-tracking="false" href="#!" id="anchor-not-tracked">Standard link, not tracked</a>
         <button class="btn" data-tracking="false" id="button-not-tracked" >Normal button, not tracked</button>
         <input type=submit data-tracking="false" value="Submit button, not tracked" id="submit-not-tracked" />
     </div>
     <div class="skycom_8">
-        By adding 'data-tracking=false' you can stop any element from tracked automatically.
+        By adding '<code>data-tracking=false</code>' you can stop any element from tracked automatically.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <code class="skycom-9 html">&lt;a data-tracking=false href="#">link&lt;/a></code>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
+    <div class="code-example" id=not-tracking>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" html block">&lt;a data-tracking=false href="#">link&lt;/a>
+&lt;button class="btn" data-tracking="false" id="button-not-tracked" >button&lt;/button>
+&lt;input type=submit data-tracking="false" value="Submit" id="submit-not-tracked" /></code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js"><i>none</i></code>
+    </div>
 
 </div>
 </section>
@@ -379,23 +408,25 @@
 </p>
 
 <h3 class="wiki-h3">Examples</h3>
-<p>Execute <code>analytics.debug()</code> and click around below.</p>
 <div class='example clearfix'>
 
-    <div class='skycom_4 alpha skycom_clear sky-form'>
+    <div class='skycom_4 alpha skycom_clear sky-form has-code-example'>
+        <span class="toggle-code-example" for=search-events></span>
         <input id="weather-search" type="text" placeholder="Postcode or town">
         <button class="btn" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-search">Search</button>
     </div>
     <div class="skycom_8">
-        Using 'data-tracking-search' with 'data-tracking-context-id' will activate the Omniture Search Variables.
+        Using '<code>data-tracking-search</code>' with '<code>data-tracking-context-id</code>' will activate the Omniture Search Variables.
     </div>
-    <code class="skycom-2 alpha html">HTML</code>
-    <div class="skycom-9 ">
-        <code class="block html">&lt;input id="search" type="text" placeholder="Postcode or town">
+    <div class="code-example" id=search-events>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="block html">&lt;input id="search" type="text" placeholder="Postcode or town">
 &lt;button data-tracking-search="weather" data-tracking-context-id="search">Search&lt;/button></code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9 js"><i>none</i></div>
     </div>
-    <code class="skycom-2 alpha js">Javascript</code>
-    <div class="skycom-9 js"><i>none</i></div>
 </div>
 </section>
 
@@ -403,103 +434,109 @@
 <section class="wiki-section">
     <h2>Custom Variables</h2>
 <p>
-    You will need variable Name and Omniture ID. These should be added to the tracking config on initialisation.
-</p>
-<code class="block">    var config = {
-        ...
-        customVariables: [
-            {'myCustomVar': <i>customConfig</i>}
-        ]
-    };
-    analytics.pageView(config);
-</code>
-
-<p>The <code>customConfig</code> object options are</p>
+    When initialising, you will need to add <code>customVariables</code> array which may contain some options:</p>
 <dl class="clearfix ">
     <dt class="skycom_4 alpha">var</dt>
     <dd class="skycom_8">[int] Omniture Variable Id. Needed for xxx type reporting</dd>
     <dt class="skycom_4 alpha">prop</dt>
     <dd class="skycom_8">[int] Omniture Prop Id.Needed for xxx type reporting</dd>
     <dt class="skycom_4 alpha">onPageLoad</dt>
-    <dd class="skycom_8">[boolean] Set if the variable should be sent on 'pageView'</dd>
+    <dd class="skycom_8">[optional][boolean] Set if the variable should be sent on 'pageView'</dd>
     <dt class="skycom_4 alpha">value</dt>
-    <dd class="skycom_8">[string] Should be set if <code>onPageLoad</code> is set</dd>
+    <dd class="skycom_8">[optional][string] Should be set if <code>onPageLoad</code> is set</dd>
 </dl>
 
 <p>
-    To get a value to go with your variable, you must bind it to an HTML element using the attribute
-    <code>data-tracking-variable</code> and setting it to your variable name.  This element also needs the attribute
-    <code>data-tracking-value</code> so we know what to send to Omniture.
-    If this attribute is omitted, the value of the item clicked will be tracked.
+    The name of this object needs to match an HTML element using the attribute
+    <code>data-tracking-variable</code>.
+    Optionally, <code>data-tracking-value</code> can also be used to send an alternate value to Omniture,
+    otherwise the text clicked will be tracked.
 </p>
 
-<h3 class="wiki-h3">Tracking <code>drink</code> and setting the value to a text box</h3>
-<div class="skycom_4 alpha">
-    <form id='text-input' class="sky-form">
-        <label for='input_field'>What is your favourite drink?</label> <br>
-        <input id='input_field' name='input_field' type='text' /><br>
-        <button data-tracking-variable='drink' data-tracking-value=""  class='btn primary-cta'>Submit</button>
-    </form>
-</div>
-<div class="skycom_8">
-    <code class="block">&lt;label for='input_field'>What is your favourite drink?&lt;/label>
-&lt;input id='input_field' name='input_field' type='text' />
-&lt;button data-tracking-variable='drink' data-tracking-value="" class='btn primary-cta'>Submit&lt;/button>
-&lt;script>//script to update data-tracking-value attribute
-$('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
-&lt;/script></code>
-</div>
+<h3 class="wiki-h3">Examples</h3>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-vars></span>
+        <form id='text-input' class="sky-form">
+            <label for='input_field'>What is your favourite drink?</label> <br>
+            <input id='input_field' name='input_field' type='text' /><br>
+            <button data-tracking-variable='drink' data-tracking-value=""  class='btn primary-cta'>Submit</button>
+        </form>
+    </div>
+    <div class="skycom_8">
+        Tracking <code>drink</code> and setting the value to the content of a text box.
+    </div>
 
-<h3 class="wiki-h3 skycom-clear">Tracking <code>how_about_pina_coladas</code> and setting it to the selected radio button</h3>
-<div class="skycom_4 alpha">
-    <form id='radio-input' class="sky-form">
-        <label>Do you like Pina Coldas?</label> <br>
-        <input id='radio_yes' checked name='radio_field' type='radio' value='yes_to_pinas'/><label for='radio_yes'>Yes</label>
-        <input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/><label for='radio_no'>No</label>
-        <br>
-        <button data-tracking-variable='how_about_pina_coladas' data-tracking-value="" class='btn primary-cta'>Submit</button>
-    </form>
-</div>
-<div class="skycom_8">
+    <div class="code-example" id=custom-vars>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;label for='input_field'>What is your favourite drink?&lt;/label>
+    &lt;input id='input_field' name='input_field' type='text' />
+    &lt;button data-tracking-variable='drink' data-tracking-value="" class='btn primary-cta'>Submit&lt;/button></code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">&lt;script>//script to update data-tracking-value attribute
+                $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
+                &lt;/script></code>
+        </div>
+    </div>
 
-    <code class="block">&lt;label>Do you like Pina Coldas?&lt;/label>
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-vars-radio></span>
+        <form id='radio-input' class="sky-form">
+            <label>Do you like Pina Coldas?</label> <br>
+            <input id='radio_yes' checked name='radio_field' type='radio' value='yes_to_pinas'/><label for='radio_yes'>Yes</label>
+            <input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/><label for='radio_no'>No</label>
+            <br>
+            <button data-tracking-variable='how_about_pina_coladas' data-tracking-value="" class='btn primary-cta'>Submit</button>
+        </form>
+    </div>
+    <div class="skycom_8">
+        Tracking <code>how_about_pina_coladas</code> and setting it to the selected radio button
+    </div>
+
+    <div class="code-example" id=custom-vars-radio>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9"><code class="block html">&lt;label>Do you like Pina Coldas?&lt;/label>
 &lt;input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/>
 &lt;label for='radio_yes'>Yes&lt;/label>
 &lt;input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/>
 &lt;label for='radio_no'>No&lt;/label>
-&lt;button data-tracking-variable='how_about_pina_coladas' class='btn primary-cta'>Submit&lt;/button>
-&lt;script>//script to update data-tracking-value attribute
-$('[data-tracking-variable=how_about_pina_coladas]').attr(
-    'data-tracking-value',
-    $('input[name=radio_field]:checked').val()
-);
+&lt;button data-tracking-variable='how_about_pina_coladas' class='btn primary-cta'>Submit&lt;/button></code>
+            </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">&lt;script>//script to update data-tracking-value attribute
+    $('[data-tracking-variable=how_about_pina_coladas]').attr(
+      'data-tracking-value',
+        $('input[name=radio_field]:checked').val()
+    );
 &lt;/script></code>
-</div>
+        </div>
+    </div>
 
-<h3 class="wiki-h3 skycom-clear">Tracking <code>colour</code> and setting it to the value of the button clicked</h3>
-<div class="skycom_4 alpha">
-    <button id='colour-button-blue' data-tracking-variable="colour" class="btn">Blue</button>
-    <button id='colour-button-secondary' data-tracking-variable="colour" class="btn secondary">Gray</button>
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-vars-value></span>
+        <button id='colour-button-blue' data-tracking-variable="colour" class="btn">Blue</button>
+        <button id='colour-button-secondary' data-tracking-variable="colour" class="btn secondary">Gray</button>
+    </div>
+    <div class="skycom_8">
+        Tracking <code>colour</code> and setting it to the value of the button clicked
+    </div>
+
+
+    <div class="code-example" id=custom-vars-value>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;button  data-tracking-variable="colour">Blue&lt;/button>
+&lt;button data-tracking-variable="colour">Gray&lt;/button></code></div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9 js">none        </div>
+    </div>
+
 </div>
-<div class="skycom_8">
-    <code class="block">&lt;button  data-tracking-variable="colour">Blue&lt;/button>
-&lt;button data-tracking-variable="colour">Gray&lt;/button></code>
-</div>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('[data-tracking-variable=how_about_pina_coladas]').attr('data-tracking-value',$('input[name=radio_field]:checked').val());
-        $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
-        $('#input_field').on('blur', function(e){
-            $('[data-tracking-variable=drink]').attr('data-tracking-value',$(this).val());
-        });
-        $('#radio-input input').on('click', function(e){
-            $('[data-tracking-variable=how_about_pina_coladas]').attr('data-tracking-value',$(this).val());
-        });
-        $('#text-input button, #radio-input button').on('click', function(e){
-            e.preventDefault();
-        });
-    });
-</script>
 </section>
 
 <a name="custom-events"></a>
@@ -519,102 +556,112 @@ $('[data-tracking-variable=how_about_pina_coladas]').attr(
     <dd class="skycom_8">[boolean] Set if the event should be passed to Omniture when the page loads</dd>
 </dl>
 
-<h3 class="wiki-h3">Sending the Event when a link is clicked</h3>
-<div class="skycom-4 alpha">
-    <a class='btn in-page-cta' href='#!' id='btn_custom_event' data-tracking-event='magic_happened'>Custom Event</a>
-</div>
-<p class="skycom-8">Add <code>data-tracking-event=<i>eventName</i></code> to the relevant element.</p>
-<code class="skycom-2 alpha">HTML</code>
-<code class="skycom-9">    &lt;a href='#' data-tracking-event='magic_happened'>Custom Event&lt;/a>
-</code>
-<code class="skycom-2 alpha">Javascript</code>
-<div class="skycom-9">
-    <code class=" block">    var config = {
-        ...
-        customEvents: [
-            {'magic_happened': {event: 101}}
-        ]
-    };
-    analytics.pageView(config);
-    </code>
-</div>
-
-
-<h3 class="wiki-h3">Sending the Event when the page is viewed</h3>
-<div class="skycom-4 alpha">
-    <a class='btn in-page-cta' href='custom-page-load.html' id='btn_page_load'>Custom Page Load</a>
-</div>
-<p class="skycom-8">Add <code>onPageLoad: true</code> in the config.</p>
-
-<code class="skycom-2 alpha">HTML</code>
-<code class="skycom-9">    <i>none</i>
-</code>
-<code class="skycom-2 alpha">Javascript</code>
+<h3 class="wiki-h3">Examples</h3>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-events></span>
+        <a class='btn in-page-cta' href='#!' id='btn_custom_event' data-tracking-event='magic_happened'>Custom Event</a>
+    </div>
+    <div class="skycom-8">To track a custom event when an element is clicked, add <code>data-tracking-event=<i>eventName</i></code> to the relevant element.</div>
+    <div class="code-example" id=custom-events>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;a href='#' data-tracking-event='magic_happened'>Custom Event&lt;/a></code>
+        <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-<code class=" block">    var config = {
-        ...
-        customEvents: [
-            {'magic_happened': {event: 101, onPageLoad: true}}
-        ]
-    };
-    analytics.pageView(config);
-</code>
+            <code class="js block">    var config = {
+                ...
+                customEvents: [
+                    {'magic_happened': {event: 101}}
+                ]
+            };
+            analytics.pageView(config);
+            </code>
         </div>
+    </div>
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-events-load></span>
+        <a class='btn in-page-cta' href='custom-page-load.html' id='btn_page_load'>Custom Page Load</a>
+    </div>
+    <div class="skycom-8">To track a custom event when the page, add <code>onPageLoad: true</code> in the config.</div>
+
+    <div class="code-example" id=custom-events-load>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    <i>none</i>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+                ...
+                customEvents: [
+                    {'magic_happened': {event: 101, onPageLoad: true}}
+                ]
+            };
+            analytics.pageView(config);
+            </code>
+        </div>
+    </div>
+</div>
 </section>
 
 <a name="manual"></a>
 <section class=wiki-section>
     <h2>Manually Trigger Tracking</h2>
 <p>
-    You can trigger tracking any time in JS using the following.
-    The tracking event will trigger as if the user had clicked the element themselves.
+    You can trigger tracking using JS, and the event will be sent to Omniture as if the user had clicked the element themselves.
 </p>
-<code class="block">$('.element').trigger('analytics.track');</code>
 
-<div class="skycom_12 alpha">
-    <a class='btn in-page-cta' href='#!' id='manualTrackNotDouble'>Anchor not being double tracked</a>
-    <span class='btn in-page-cta' href='#!' id='manualTrack'>Span manually tracked by JS</span>
-    <a class='btn in-page-cta' data-tracking=false href='#!' id='manualTrackingOff'>Anchor being tracked with JS</a>
+<h3 class="wiki-h3">Examples</h3>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=manual></span>
+        <a class='btn in-page-cta' href='#!' id='manualTrackNotDouble'>Anchor not being double tracked</a> <br/>
+        <span class='btn in-page-cta' href='#!' id='manualTrack'>Span manually tracked by JS</span><br/>
+        <a class='btn in-page-cta' data-tracking=false href='#!' id='manualTrackingOff'>Anchor being tracked with JS</a>
+    </div>
+    <div class="skycom_8">
+        All elements can be tracked via JS. even id <code>data-tracking=false</code> attribute exists.
+    </div>
+
+    <div class="code-example" id=manual>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">&lt;span id='trackingOff'>tracked with js&lt;/span>            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">$('#trackingOff').trigger('analytics.track');            </code>
+        </div>
+    </div>
 </div>
-<script>
-    $('#manualTrackingOff').on('click', function(){
-       $(this).trigger('analytics-track');
-    });
-    $('#manualTrack').on('click', function(){
-       $(this).trigger('analytics-track');
-    });
-    $('#manualTrackNotDouble').on('click', function(){
-       $(this).trigger('analytics-track');
-    });
-</script>
 </section>
 
 <a name="single-page-apps"></a>
 <section class=wiki-section>
     <h2>Single Page Apps</h2>
-<p>Simulate a page load event for sites that make use of ajax by calling:</p>
-<code class="block">analytics.pageView(config);</code>
-<h3>Example</h3>
-<a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
-<script type='text/javascript'>
-    $('body').on('click', '#btn_ajax_event', function(e){
-        e.preventDefault();
-        analytics.pageView({
-            site: 'mysky',
-            section: 'skyglobal/analytics',
-            account: 'bskybmyaccountdev',
-            page: 'Analytics demo page',
-            customEvents: [
-                {'ajax_happened': {event: 101, onPageLoad: true}}
-            ],
-            customVariables: [
-                {'colour': {var: 71 }},
-                {'drink': {'var': 72 }},
-                {'how_about_pina_coladas': {'var': 73 }}
-            ]
-        });
-    });
-</script>
+<p>For apps where the page content changes without a page-refresh, you can track the new page being loaded by calling the <code>pageView</code> function again.</p>
+<h3 class="wiki-h3">Examples</h3>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=single-page-app></span>
+        <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
+    </div>
+    <div class="skycom_8">
+        Trigger a page load event on single page apps.
+    </div>
+
+    <div class="code-example" id=single-page-app>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">&lt;span id='trackingOff'>tracked with js&lt;/span>            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">analytics.pageView(config);            </code>
+        </div>
+    </div>
+</div>
 </section>
 <script type="text/javascript" charset="utf-8">
 
@@ -639,7 +686,7 @@ $('[data-tracking-variable=how_about_pina_coladas]').attr(
 </script>
         </div>
     </div>
-    <!--<script src="dist/scripts/lib/require.js" data-main='dist/scripts/wiki'></script>-->
+    <script src="./dist/js/wiki.js"></script>
 </div>
 </body>
 </html>

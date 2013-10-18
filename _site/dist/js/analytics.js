@@ -1168,7 +1168,7 @@ if (typeof window.define === "function" && window.define.amd) {//just for requir
     });
 };
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.linkClicks = (function(config, omniture){
+_analytics.linkClick = (function(config, omniture){
 
     function bindEvents(selector, evnt) {
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
@@ -1273,12 +1273,12 @@ _analytics.linkClicks = (function(config, omniture){
 }(_analytics.config, _analytics.omniture));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("core/link-clicks", ["core/config","core/page-view"], function() {
-        return _analytics.linkClicks;
+    define("core/link-click", ["core/config","core/page-view"], function() {
+        return _analytics.linkClick;
     });
 };
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.setup = (function(polyfill, config, omniture, linkClicks, pageView, logger){
+_analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
 //todo: write page to test require
 //todo: test val vs attr value and the rest of getText | + all things logged
 //todo: test for live binding
@@ -1378,7 +1378,7 @@ _analytics.setup = (function(polyfill, config, omniture, linkClicks, pageView, l
     }
 
     window.analytics = {
-        linkClicks : linkClicks,
+        linkClick : linkClick.track,
         pageView: function(customConfig){
             var page = reset(customConfig);
             pageView.track( page );
@@ -1392,7 +1392,7 @@ _analytics.setup = (function(polyfill, config, omniture, linkClicks, pageView, l
 }(  _analytics.polyfill,
     _analytics.config,
     _analytics.omniture,
-    _analytics.linkClicks,
+    _analytics.linkClick,
     _analytics.pageView,
     _analytics.logger
 ));
@@ -1403,10 +1403,10 @@ if (typeof window.define === "function" && window.define.amd) {
         'utils/polyfill',
         'core/config',
         'core/omniture',
-        'core/link-clicks',
+        'core/link-click',
         'core/page-view',
         'utils/logger'
-    ], function(polyfill, config, omniture, linkClicks, pageView, logger) {
+    ], function(polyfill, config, omniture, linkClick, pageView, logger) {
         return _analytics.setup;
     });
 };

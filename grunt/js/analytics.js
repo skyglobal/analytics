@@ -1,5 +1,5 @@
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.setup = (function(polyfill, config, omniture, linkClicks, pageView, logger){
+_analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
 //todo: write page to test require
 //todo: test val vs attr value and the rest of getText | + all things logged
 //todo: test for live binding
@@ -99,7 +99,7 @@ _analytics.setup = (function(polyfill, config, omniture, linkClicks, pageView, l
     }
 
     window.analytics = {
-        linkClicks : linkClicks,
+        linkClick : linkClick.track,
         pageView: function(customConfig){
             var page = reset(customConfig);
             pageView.track( page );
@@ -113,7 +113,7 @@ _analytics.setup = (function(polyfill, config, omniture, linkClicks, pageView, l
 }(  _analytics.polyfill,
     _analytics.config,
     _analytics.omniture,
-    _analytics.linkClicks,
+    _analytics.linkClick,
     _analytics.pageView,
     _analytics.logger
 ));
@@ -124,10 +124,10 @@ if (typeof window.define === "function" && window.define.amd) {
         'utils/polyfill',
         'core/config',
         'core/omniture',
-        'core/link-clicks',
+        'core/link-click',
         'core/page-view',
         'utils/logger'
-    ], function(polyfill, config, omniture, linkClicks, pageView, logger) {
+    ], function(polyfill, config, omniture, linkClick, pageView, logger) {
         return _analytics.setup;
     });
 }

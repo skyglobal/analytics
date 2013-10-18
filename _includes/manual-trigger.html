@@ -1,23 +1,28 @@
 <h2>Manually Trigger Tracking</h2>
 <p>
-    You can trigger tracking any time in JS using the following.
-    The tracking event will trigger as if the user had clicked the element themselves.
+    You can trigger tracking using JS, and the event will be sent to Omniture as if the user had clicked the element themselves.
 </p>
-<code class="block">$('.element').trigger('analytics.track');</code>
 
-<div class="skycom_12 alpha">
-    <a class='btn in-page-cta' href='#!' id='manualTrackNotDouble'>Anchor not being double tracked</a>
-    <span class='btn in-page-cta' href='#!' id='manualTrack'>Span manually tracked by JS</span>
-    <a class='btn in-page-cta' data-tracking=false href='#!' id='manualTrackingOff'>Anchor being tracked with JS</a>
+<h3 class="wiki-h3">Examples</h3>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=manual></span>
+        <a class='btn in-page-cta' href='#!' id='manualTrackNotDouble'>Anchor not being double tracked</a> <br/>
+        <span class='btn in-page-cta' href='#!' id='manualTrack'>Span manually tracked by JS</span><br/>
+        <a class='btn in-page-cta' data-tracking=false href='#!' id='manualTrackingOff'>Anchor being tracked with JS</a>
+    </div>
+    <div class="skycom_8">
+        All elements can be tracked via JS. even id <code>data-tracking=false</code> attribute exists.
+    </div>
+
+    <div class="code-example" id=manual>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">&lt;span id='trackingOff'>tracked with js&lt;/span>            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">$('#trackingOff').trigger('analytics.track');            </code>
+        </div>
+    </div>
 </div>
-<script>
-    $('#manualTrackingOff').on('click', function(){
-       $(this).trigger('analytics-track');
-    });
-    $('#manualTrack').on('click', function(){
-       $(this).trigger('analytics-track');
-    });
-    $('#manualTrackNotDouble').on('click', function(){
-       $(this).trigger('analytics-track');
-    });
-</script>

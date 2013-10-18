@@ -12,5 +12,9 @@ plugins/new-or-repeat-visits.js
 plugins/user-history.js
 plugins/utils.js
 core/page-view.js
-core/link-clicks.js
+core/link-click.js
 analytics.js
+
+wiki.js
+----------------
+wiki.js
