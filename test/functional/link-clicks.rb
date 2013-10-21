@@ -23,7 +23,7 @@ class AnalyticsTest < AcceptanceTest
   it "A button being clicked twice doesn't have the events stacked'" do
     click_button "Normal Button"
     click_button "Normal Button"
-    trackedEvents.must_equal eventsMap[:linkClick]
+    trackedEvents.must_equal [eventsMap[:linkClick]]
     trackedVariable('linkDetails', :prop).must_include 'normal-button'
   end
 

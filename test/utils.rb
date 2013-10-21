@@ -20,7 +20,7 @@ def trackedVariable(name, variable_type=:eVar)
 end
 
 def trackedEvents()
-  last_sitecat_request.query_values['events']
+  last_sitecat_request.query_values['events'].split(',')
 end
 
 def references(name, variable_type=:eVar)

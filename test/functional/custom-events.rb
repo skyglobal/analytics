@@ -12,4 +12,11 @@ class AnalyticsTest < AcceptanceTest
     trackedEvents.must_include eventsMap[:custom_page_load]
   end
 
+  it "Tracks a custom event on button click" do
+    click_link "Custom Event"
+    trackedEvents.wont_include eventsMap[:pageLoad]
+    trackedEvents.must_include eventsMap[:linkClick]
+    trackedEvents.must_include eventsMap[:magic_happened]
+  end
+
 end

@@ -15,8 +15,7 @@ class AnalyticsTest < AcceptanceTest
   it "Tracks an ajax event only once per click" do
     click_link "Ajax Event"
     click_link "Ajax Event"
-    trackedEvents.must_equal "#{eventsMap[:pageLoad]},#{eventsMap[:ajax_happened]}"
+    trackedEvents.must_equal [eventsMap[:pageLoad],eventsMap[:ajax_happened]]
   end
-
 
 end
