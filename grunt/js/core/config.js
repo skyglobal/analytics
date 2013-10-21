@@ -95,6 +95,7 @@ _analytics.config = (function(){
         forceLinkTrackingTimeout: 500,
         setObjectIDs: true,
         track: true,
+        trackLinks: true,
         loadEvents:[],
         loadVariables:{}
     };

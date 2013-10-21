@@ -118,6 +118,7 @@ _analytics.config = (function(){
         forceLinkTrackingTimeout: 500,
         setObjectIDs: true,
         track: true,
+        trackLinks: true,
         loadEvents:[],
         loadVariables:{}
     };
@@ -1125,6 +1126,7 @@ if (typeof _analytics==='undefined') _analytics={};
 _analytics.linkClick = (function(config, omniture){
 
     function bindEvents(selector, evnt) {
+        if(!config.trackLinks){return;}
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
         evnt = evnt || 'click analytics.track';//todo: allow analytics.track to fire even if selector doesnt match
         $(document).on(evnt, clickSelector, function(e) {
@@ -1217,8 +1219,6 @@ _analytics.linkClick = (function(config, omniture){
         return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
     }
 
-    bindEvents();
-
     return {
         bind: bindEvents,
         track: track
@@ -1251,6 +1251,8 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
         checkMandatoryConfig();
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
+        linkClick.bind();
+
         return config;
     }
 

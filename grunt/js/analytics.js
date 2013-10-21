@@ -18,6 +18,8 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
         checkMandatoryConfig();
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
+        linkClick.bind();
+
         return config;
     }
 
