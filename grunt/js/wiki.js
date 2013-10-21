@@ -80,13 +80,10 @@ _wiki.setup = (function(){
 
     function manualTrigger(){
         $('#manualTrackingOff').on('click', function(){
-            $(this).trigger('analytics-track');
+            $('#manualTrackingOff').trigger('analytics-track');
         });
-        $('#manualTrack').on('click', function(){
-            $(this).trigger('analytics-track');
-        });
-        $('#manualTrackNotDouble').on('click', function(){
-            $(this).trigger('analytics-track');
+        $('#manualTrack').on('click', function(e){
+            $('#manualTrack').trigger('analytics-track');
         });
     }
 

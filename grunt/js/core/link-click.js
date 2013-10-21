@@ -4,8 +4,12 @@ _analytics.linkClick = (function(config, omniture){
     function bindEvents(selector, evnt) {
         if(!config.trackLinks){return;}
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
-        evnt = evnt || 'click analytics.track';//todo: allow analytics.track to fire even if selector doesnt match
+        evnt = evnt || 'click';
         $(document).on(evnt, clickSelector, function(e) {
+            track(e);
+        });
+        $(document).on('analytics-track','*', function(e) {
+            e.stopPropagation();
             track(e);
         });
     }
