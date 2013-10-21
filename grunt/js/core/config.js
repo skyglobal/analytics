@@ -4,7 +4,7 @@ _analytics.config = (function(){
     var linkDetailsMap = [
             'module','pod','other','context','theme','textClicked','pageName'
         ],
-        variables = {
+        variablesMap = {
             searchType: ['prop12','eVar31'],
             searchTerms: ['prop1','eVar1'],
             searchResults: ['prop34'],
@@ -42,7 +42,7 @@ _analytics.config = (function(){
             externalSearchTerm: ['prop17','eVar8'],
             testAndTarget: ['eVar18'] //todo: andrew - correct term?
         },
-        events = {
+        eventsMap = {
             pageLoad: 'event1',
             error: 'event3',
             linkClick: 'event6',
@@ -69,9 +69,10 @@ _analytics.config = (function(){
 
 
     return {
-        variables: variables,
-        events: events,
+        variablesMap: variablesMap,
+        eventsMap: eventsMap,
         linkDetailsMap: linkDetailsMap,
+        variableBasedEvents: variableBasedEvents,
         trackingServer: 'metrics.sky.com',
         trackingServerSecure: 'smetrics.sky.com',
         visitorNamespace: 'bskyb',

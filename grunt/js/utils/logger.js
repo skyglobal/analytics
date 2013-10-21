@@ -34,10 +34,10 @@ _analytics.logger = (function(config){
     }
 
     function getEventName(eventID){
-        var events = config.events,
+        var eventsMap = config.eventsMap,
             name;
-        for (name in events){
-            if (events[name]==eventID) return name;
+        for (name in eventsMap){
+            if (eventsMap[name]==eventID) return name;
         }
         return '';
     }

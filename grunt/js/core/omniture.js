@@ -18,7 +18,7 @@ _analytics.omniture = (function(config, logger){
     function setVariable(prop, val){
         if(!val){ return; }
         var i= 1,map,
-            data = config.variables[prop] || [prop];
+            data = config.variablesMap[prop] || [prop];
         mappedVars[prop] = val;
         if (data.length==1){
             s[data[0]] = val;
@@ -35,18 +35,18 @@ _analytics.omniture = (function(config, logger){
     function setLinkTrackVariable(variable){
         if (!s.linkTrackVars) s.linkTrackVars = '';
         if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
-        s.linkTrackVars += config.variables[variable];
+        s.linkTrackVars += config.variablesMap[variable];
     }
     function setLinkTrackEvent(event){
         if (!s.linkTrackEvents) s.linkTrackEvents = '';
         if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
-        s.linkTrackEvents += config.events[event];
+        s.linkTrackEvents += config.eventsMap[event];
     }
 
     function setEvent(event){//todo: ensure events aren't duplicated. maybe.
         if (!s.events) s.events = '';
         if (s.events.length>0) s.events += ',';
-        s.events += config.events[event];
+        s.events += config.eventsMap[event];
     }
 
     function trackLink(el){

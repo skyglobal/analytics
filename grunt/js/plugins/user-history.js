@@ -47,7 +47,7 @@ _analytics.plugins.userHistory = (function(omniture, config){
         if (cookies.ust) { omniture.setVariable('optIn', cookies.ust + '|' + cookies.sid_tsaoptin); }
 
         s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
-        var c_pastEv = s.clickThruQuality(omniture.getVariable('campaign'),config.events['firstPageVisited'],config.events['secondPageVisited'],'s_ctq');
+        var c_pastEv = s.clickThruQuality(omniture.getVariable('campaign'),config.eventsMap['firstPageVisited'],config.eventsMap['secondPageVisited'],'s_ctq');
         if(c_pastEv) { omniture.setEvent(c_pastEv); }
     }
 

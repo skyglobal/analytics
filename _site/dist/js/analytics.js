@@ -27,13 +27,7 @@ _analytics.config = (function(){
     var linkDetailsMap = [
             'module','pod','other','context','theme','textClicked','pageName'
         ],
-        trackedData = {
-//            todo: add tnt eVar18 if needed?
-//            todo: add insight_tracking eVar46 if needed?
-//            todo: add campaigns eVar45 if needed?
-//            todo: add more campaigns eVar47 if needed?
-//            todo: add keyword eVar8 if needed?
-//            todo: add partner eVar16 if needed?
+        variablesMap = {
             searchType: ['prop12','eVar31'],
             searchTerms: ['prop1','eVar1'],
             searchResults: ['prop34'],
@@ -71,32 +65,37 @@ _analytics.config = (function(){
             externalSearchTerm: ['prop17','eVar8'],
             testAndTarget: ['eVar18'] //todo: andrew - correct term?
         },
-        trackedEvents = { //todo: add event1 + event20
+        eventsMap = {
             pageLoad: 'event1',
             error: 'event3',
             linkClick: 'event6',
             firstPageVisited: 'event7',
             secondPageVisited: 'event8',
-            loginStart: 'event17',
+            searchResults: 'event15',
             loginComplete: 'event16',
+            loginStart: 'event17',
             regComplete: 'event18',
             regStart: 'event19',
             repeatVisit: 'event20',
             optIn: 'event25',
-            searchResults: 'event15',
             zeroResults: 'event26',
+            liveChat: "event36",
             passwordStart: 'event76',
             passwordComplete: 'event77',
             activateStart: 'event78',
-            activateComplete: 'event79',
-            liveChat: "event36"
+            activateComplete: 'event79'
+        },
+        variableBasedEvents = {
+            'searchResults': 'searchResults',
+            'errors': 'error'
         };
 
 
     return {
-        trackedData: trackedData,
-        trackedEvents: trackedEvents,
+        variablesMap: variablesMap,
+        eventsMap: eventsMap,
         linkDetailsMap: linkDetailsMap,
+        variableBasedEvents: variableBasedEvents,
         trackingServer: 'metrics.sky.com',
         trackingServerSecure: 'smetrics.sky.com',
         visitorNamespace: 'bskyb',
@@ -138,13 +137,12 @@ _analytics.logger = (function(config){
         debugOutputId= 'analytics-debug';
 
     function debug(on){
+        $('#' + debugOutputId).remove();
         if (on || on === undefined){
             debugging = true;
-            $('body #' + debugOutputId).remove();
             $('body').append('<div id="' + debugOutputId + '"></div>');
         } else {
             debugging = false;
-            $('#' + debugOutputId).remove();
         }
     }
 
@@ -168,16 +166,17 @@ _analytics.logger = (function(config){
     }
 
     function getEventName(eventID){
-        var events = config.trackedEvents, name;
-        for (name in events){
-            if (events[name]==eventID) return name;
+        var eventsMap = config.eventsMap,
+            name;
+        for (name in eventsMap){
+            if (eventsMap[name]==eventID) return name;
         }
         return '';
     }
     function logS(linkDetails, events, mappedVars){
         if (!debugging){ return; }
         var arrDetails, x;
-        console.group('tracking event');
+        log('start','tracking event');
 
             if (linkDetails){
                 console.groupCollapsed('linkDetails');
@@ -206,7 +205,7 @@ _analytics.logger = (function(config){
                 log('s',s);
             console.groupEnd();
 
-        console.groupEnd();
+        log('end');
     }
 
     return {
@@ -245,7 +244,7 @@ _analytics.omniture = (function(config, logger){
     function setVariable(prop, val){
         if(!val){ return; }
         var i= 1,map,
-            data = config.trackedData[prop] || [prop];
+            data = config.variablesMap[prop] || [prop];
         mappedVars[prop] = val;
         if (data.length==1){
             s[data[0]] = val;
@@ -262,18 +261,18 @@ _analytics.omniture = (function(config, logger){
     function setLinkTrackVariable(variable){
         if (!s.linkTrackVars) s.linkTrackVars = '';
         if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
-        s.linkTrackVars += config.trackedData[variable];
+        s.linkTrackVars += config.variablesMap[variable];
     }
     function setLinkTrackEvent(event){
         if (!s.linkTrackEvents) s.linkTrackEvents = '';
         if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
-        s.linkTrackEvents += config.trackedEvents[event];
+        s.linkTrackEvents += config.eventsMap[event];
     }
 
     function setEvent(event){//todo: ensure events aren't duplicated. maybe.
         if (!s.events) s.events = '';
         if (s.events.length>0) s.events += ',';
-        s.events += config.trackedEvents[event];
+        s.events += config.eventsMap[event];
     }
 
     function trackLink(el){
@@ -767,10 +766,12 @@ _analytics.plugins.channelManager = (function(omniture, config){
     function setupCampaignCookies(){
         var campaignID = omniture.getVariable('fullCampaign') || '';
         if(!campaignID || campaignID.indexOf('ilc-') === 0){ return; }
-        var hasSessionCookie =  (session.cmp_cookie_session && session.cmp_cookie_session !== "undefined/undefined");
-        var hasPersistantCookie =  (persistant.cmp_cookie && persistant.cmp_cookie !== "undefined/undefined");
+        var hasSessionCookie =  (session.cmp_cookie_session && session.cmp_cookie_session !== "undefined/undefined"),
+            hasPersistantCookie =  (persistant.cmp_cookie && persistant.cmp_cookie !== "undefined/undefined"),
+            directLoadOrOther = (campaignID=="direct load" || campaignID.indexOf("oth-") === 0 );
 
-        if((campaignID=="direct load" || campaignID.indexOf("oth-") === 0 ) && hasSessionCookie){
+
+        if(directLoadOrOther && hasSessionCookie){
             omniture.setVariable('fullCampaign','');
         }
         if(!hasSessionCookie){
@@ -898,16 +899,12 @@ _analytics.plugins.userHistory = (function(omniture, config){
     }
 
     function setLoginVars( ) {
-        if (cookies.skySSO) {
-            omniture.setVariable('loginStatus', loggedIn);
-            if (cookies.skySSOLast != cookies.skySSO) {
-                s.c_w('skySSOLast', cookies.skySSO);
-                var fl = cookies.skyLoginFrom ? cookies.skyLoginFrom.split(',') : ['generic','l'];
-                var loginType = (fl[1] == 'l') ? 'loginComplete' : 'regComplete';
-                omniture.setEvent(loginType);
-            }
-        } else {
-            omniture.setVariable('loginStatus',notLoggedIn);
+        omniture.setVariable('loginStatus', (cookies.skySSO) ? loggedIn : notLoggedIn);
+        if (cookies.skySSO && cookies.skySSOLast != cookies.skySSO) {
+            s.c_w('skySSOLast', cookies.skySSO);
+            var fl = cookies.skyLoginFrom ? cookies.skyLoginFrom.split(',') : ['generic','l'];
+            var loginType = (fl[1] == 'l') ? 'loginComplete' : 'regComplete';
+            omniture.setEvent(loginType);
         }
         if (cookies.just){ omniture.setVariable('samId',cookies.just); }
         if (cookies.apd) { omniture.setVariable('ageGender',cookies.apd + '|' + cookies.gpd); }
@@ -915,7 +912,7 @@ _analytics.plugins.userHistory = (function(omniture, config){
         if (cookies.ust) { omniture.setVariable('optIn', cookies.ust + '|' + cookies.sid_tsaoptin); }
 
         s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
-        var c_pastEv = s.clickThruQuality(omniture.getVariable('campaign'),config.trackedEvents['firstPageVisited'],config.trackedEvents['secondPageVisited'],'s_ctq');
+        var c_pastEv = s.clickThruQuality(omniture.getVariable('campaign'),config.eventsMap['firstPageVisited'],config.eventsMap['secondPageVisited'],'s_ctq');
         if(c_pastEv) { omniture.setEvent(c_pastEv); }
     }
 
@@ -1047,22 +1044,9 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
         }
     }
 
-    function setSearchVars(){
-        if (config.searchResults !== undefined ) {
-            setVariable('searchResults', config.searchResults);
-            setVariable('searchType', config.searchType); //todo: andrew, added these - neccersary or added as custom var on page js
-            setVariable('searchTerms', config.searchTerms); //todo: andrew, added these - neccersary or added as custom var on page js
-            setEvent('searchResults');
-            if (config.searchResults === 0) {
-                setEvent('zeroResults');
-            }
-        }
-    }
-
-    function setErrorEvents(){
-        if (config.errors) {
-            setVariable('errors', config.errors);
-            setEvent('error');
+    function setVariableBasedEvents(variable){
+        if (config.variableBasedEvents[variable]){
+            setEvent(config.variableBasedEvents[variable]);
         }
     }
 
@@ -1072,11 +1056,10 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
             setEvent('pageLoad');
 
             setPageDescriptions();
-            setSearchVars();
-            setErrorEvents();
 
             for (name in config.loadVariables){
                 setVariable(name, config.loadVariables[name]);
+                setVariableBasedEvents(name);
             }
             for (name in config.loadEvents){
                 setEvent(config.loadEvents[name]);
@@ -1097,7 +1080,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
             if(pluginsLoaded){ return; }
 
             utils.load(); //must go first - user history needs it to set a campaign evar
-            channelManager.load(); //must go first - user history needs it to set a campaign evar
+            channelManager.load(); //must go second - user history needs it to set a campaign evar
             userHistory.load();
             testAndTarget.load();
             mediaModule.load();
@@ -1311,11 +1294,11 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
             prop = 'eVar' + eVarValue;
             arrValues.push(prop);
         }
-        config.trackedData[varName] = arrValues;
+        config.variablesMap[varName] = arrValues;
     }
 
     function addToEventMap(eventName, eventID){
-        config.trackedEvents[eventName] = 'event' + eventID;
+        config.eventsMap[eventName] = 'event' + eventID;
     }
 
     function setupCustomVariable(item) {
