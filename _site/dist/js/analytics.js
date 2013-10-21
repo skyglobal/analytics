@@ -29,7 +29,7 @@ _analytics.config = (function(){
         ],
         variablesMap = {
             searchType: ['prop12','eVar31'],
-            searchTerms: ['prop1','eVar1'],
+            searchTerm: ['prop1','eVar1'],
             searchResults: ['prop34'],
             headline: ['prop3','eVar13'],
             errors: ['prop2','eVar2'],
@@ -174,7 +174,7 @@ _analytics.logger = (function(config){
         return '';
     }
     function logS(linkDetails, events, mappedVars){
-        if (!debugging){ return; }
+        if (!(debugging && console && console.group)){ return; }
         var arrDetails, x;
         log('start','tracking event');
 
@@ -230,6 +230,10 @@ _analytics.omniture = (function(config, logger){
     window.s = {};//todo: make local once s is not in any other files
     var mappedVars = {};
 
+    function obfuscate(val){
+        return val.replace('eVar','v').replace('prop','c').replace('channel','ch'); //todo: test channel being first in vars list
+    }
+
     function init(account){
         s = s_gi(account);
         if (config.debug){
@@ -242,15 +246,13 @@ _analytics.omniture = (function(config, logger){
     }
 
     function setVariable(prop, val){
-        if(!val){ return; }
+        if(typeof val === "undefined" || prop=='events'){ return; }
         var i= 1,map,
             data = config.variablesMap[prop] || [prop];
         mappedVars[prop] = val;
-        if (data.length==1){
-            s[data[0]] = val;
-        } else {
-            map = 'D=' + data[0].replace('eVar','v').replace('prop','c').replace('channel','ch'); //todo: test channel being first in vars list
-            s[data[0]] = val;
+        s[data[0]] = val;
+        if (data.length>1){
+            map = 'D=' + obfuscate(data[0]);
             for (i; i<data.length; i++){
                 s[data[i]] = map;
             }
@@ -275,6 +277,11 @@ _analytics.omniture = (function(config, logger){
         s.events += config.eventsMap[event];
     }
 
+    function setVariableBasedEvents(variable){
+        if (config.variableBasedEvents[variable]){
+            setEvent(config.variableBasedEvents[variable]);
+        }
+    }
     function trackLink(el){
         log();
         s.trackLink(el,'o','Link Click');
@@ -485,6 +492,7 @@ _analytics.omniture = (function(config, logger){
         getVariable: getVariable,
         setVariable: setVariable,
         setEvent: setEvent,
+        setVariableBasedEvents: setVariableBasedEvents,
         setLinkTrackVariable: setLinkTrackVariable,
         setLinkTrackEvent: setLinkTrackEvent,
         trackLink: trackLink,
@@ -1044,11 +1052,6 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
         }
     }
 
-    function setVariableBasedEvents(variable){
-        if (config.variableBasedEvents[variable]){
-            setEvent(config.variableBasedEvents[variable]);
-        }
-    }
 
     function track() {
             var name;
@@ -1059,7 +1062,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
 
             for (name in config.loadVariables){
                 setVariable(name, config.loadVariables[name]);
-                setVariableBasedEvents(name);
+                omniture.setVariableBasedEvents(name);
             }
             for (name in config.loadEvents){
                 setEvent(config.loadEvents[name]);
@@ -1143,7 +1146,7 @@ _analytics.linkClick = (function(config, omniture){
         if ($el.attr('data-tracking-search')){//todo: merge this concept in with custom vars and events
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
-            addVariable('searchTerms', context);
+            addVariable('searchTerm', context);
             addEvent('search');
         }
         omniture.trackLink(this);

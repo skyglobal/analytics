@@ -24,7 +24,7 @@ _analytics.linkClick = (function(config, omniture){
         if ($el.attr('data-tracking-search')){//todo: merge this concept in with custom vars and events
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
-            addVariable('searchTerms', context);
+            addVariable('searchTerm', context);
             addEvent('search');
         }
         omniture.trackLink(this);

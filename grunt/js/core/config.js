@@ -6,7 +6,7 @@ _analytics.config = (function(){
         ],
         variablesMap = {
             searchType: ['prop12','eVar31'],
-            searchTerms: ['prop1','eVar1'],
+            searchTerm: ['prop1','eVar1'],
             searchResults: ['prop34'],
             headline: ['prop3','eVar13'],
             errors: ['prop2','eVar2'],

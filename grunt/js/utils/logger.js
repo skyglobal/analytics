@@ -42,7 +42,7 @@ _analytics.logger = (function(config){
         return '';
     }
     function logS(linkDetails, events, mappedVars){
-        if (!debugging){ return; }
+        if (!(debugging && console && console.group)){ return; }
         var arrDetails, x;
         log('start','tracking event');
 

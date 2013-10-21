@@ -27,11 +27,6 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
         }
     }
 
-    function setVariableBasedEvents(variable){
-        if (config.variableBasedEvents[variable]){
-            setEvent(config.variableBasedEvents[variable]);
-        }
-    }
 
     function track() {
             var name;
@@ -42,7 +37,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
 
             for (name in config.loadVariables){
                 setVariable(name, config.loadVariables[name]);
-                setVariableBasedEvents(name);
+                omniture.setVariableBasedEvents(name);
             }
             for (name in config.loadEvents){
                 setEvent(config.loadEvents[name]);
