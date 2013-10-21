@@ -8,8 +8,8 @@ class AnalyticsTest < AcceptanceTest
 
   it "Tracks an ajax page load" do
     click_link "Ajax Event"
-    trackedEvents.must_include eventsMap[:pageLoad] # page load
-    trackedEvents.must_include eventsMap[:ajax_happened] # custom event
+    trackedEvents.must_include eventsMap[:pageLoad]
+    trackedEvents.must_include eventsMap[:ajax_happened]
   end
 
   it "Tracks an ajax event only once per click" do

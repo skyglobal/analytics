@@ -8,11 +8,12 @@ class AnalyticsTest < AcceptanceTest
 
   it "Tracks a link being clicked and linkDetails is mapped correctly" do
     click_link "Standard link"
-    trackedEvents.must_include eventsMap[:linkClick] # link clicked
-    trackedVariable('linkDetails', :prop).must_include 'standard-link' # link name
-    trackedVariable('linkDetails', :prop).must_include 'global/analytics-demo-page' # page name included on link click
+    trackedEvents.must_include eventsMap[:linkClick]
+    trackedEvents.wont_include eventsMap[:pageLoad]
+    trackedVariable('linkDetails', :prop).must_include 'standard-link'
+    trackedVariable('linkDetails', :prop).must_include 'global/analytics-demo-page'
     trackedVariable('linkDetails').must_include references('linkDetails', :prop)
-    trackedVariable('pageName', :pagename).must_include 'Analytics demo page' # page name
+    trackedVariable('pageName', :pagename).must_include 'Analytics demo page'
   end
 
   it "Tracks a button being clicked" do
@@ -25,12 +26,6 @@ class AnalyticsTest < AcceptanceTest
     click_button "Normal Button"
     trackedEvents.must_equal [eventsMap[:linkClick]]
     trackedVariable('linkDetails', :prop).must_include 'normal-button'
-  end
-
-  it "Tracks a button with an event attached" do
-    click_link "Custom Event"
-    trackedEvents.must_include eventsMap[:magic_happened]
-    trackedVariable('linkDetails', :prop).must_include 'custom-event'
   end
 
   it "Tracks a link being clicked within a module and pod" do

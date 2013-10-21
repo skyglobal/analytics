@@ -8,6 +8,7 @@ class AnalyticsTest < AcceptanceTest
 
   it "Tracks a custom event on page load" do
     click_link "Custom Page Load"
+    trackedEvents.wont_include eventsMap[:linkClick]
     trackedEvents.must_include eventsMap[:pageLoad]
     trackedEvents.must_include eventsMap[:custom_page_load]
   end
@@ -17,6 +18,7 @@ class AnalyticsTest < AcceptanceTest
     trackedEvents.wont_include eventsMap[:pageLoad]
     trackedEvents.must_include eventsMap[:linkClick]
     trackedEvents.must_include eventsMap[:magic_happened]
+    trackedVariable('linkDetails', :prop).must_include 'custom-event'
   end
 
 end

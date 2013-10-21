@@ -8,6 +8,7 @@ class AnalyticsTest < AcceptanceTest
 
   it "Tracks page view" do
     trackedEvents.must_include eventsMap[:pageLoad]
+    trackedEvents.wont_include eventsMap[:linkClick]
   end
 
   it "Tracks the correct page name, without debug info" do
@@ -15,8 +16,8 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('url', :prop).must_equal current_url  # url
     trackedVariable('section0', :prop).must_include 'sky/portal/global/skyglobal'
     trackedVariable('section1', :prop).must_include 'analytics'
-    #find('#analytics-debug ') todo: assert this doesnt exist
-    #trackedVariable('link_tracking').must_be nil #todo: this.
+    trackedVariable('linkDetails').must_be_nil
+    assert has_no_css?('#analytics-debug')
   end
 
   it "Debug can be turned on on page load" do
@@ -26,8 +27,8 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('section0', :prop).must_include 'sky/portal/global/skyglobal'
     trackedVariable('section1', :prop).must_include 'analytics'
     trackedVariable('section2', :prop).must_include 'debug'
-    #find('#analytics-debug .pageLoad').must_equal 'pageLoad: event1'todo: assert this exists
-    #find('#analytics-debug .pageName').must_equal 'pageName: sky/portal/anlytics/Analytics debug demo page'
+    find('#analytics-debug .pageLoad').text.must_equal 'pageLoad: event1'
+    find('#analytics-debug .pageName').text.must_equal 'pageName: sky/portal/global/Analytics debug demo page'
   end
 
   it "Tracks page view using requireJS" do
