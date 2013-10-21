@@ -94,8 +94,7 @@ _analytics.config = (function(){
         useForcedLinkTracking: true,
         forceLinkTrackingTimeout: 500,
         setObjectIDs: true,
-        track: true,
-        trackLinks: true,
+        trackLinks: true, //todo: document
         loadEvents:[],
         loadVariables:{}
     };

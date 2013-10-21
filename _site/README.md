@@ -52,13 +52,13 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
   - make install # ok, fine, this step probably takes more than 30 seconds...
   - curl https://npmjs.org/install.sh | sh
 3. Install grunt either globally, or run the following to use the bundled project grunt
-  - ./node_modules/grunt-cli/bin/grunt
+  - npm install
 
 ### Running
 
 1. In the root of the project, run the following:
   - bundle
-  - jekyll serve
+  - jekyll serve --watch
 2. In another terminal run 'grunt watch' (add ' --beautify' to help debugging)
 3. You should be able to see the documentation site in your browser on http://localhost:4000
 

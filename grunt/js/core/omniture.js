@@ -1,11 +1,11 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.omniture = (function(config, logger){
 
-    window.s = {};//todo: make local once s is not in any other files
+    window.s = {};
     var mappedVars = {};
 
-    function obfuscate(val){
-        return val.replace('eVar','v').replace('prop','c').replace('channel','ch'); //todo: test channel being first in vars list
+    function obfuscate(val){ //todo: test channel being first in vars list
+        return val.replace('eVar','v').replace('prop','c').replace('channel','ch');
     }
 
     function init(account){
@@ -46,7 +46,7 @@ _analytics.omniture = (function(config, logger){
         s.linkTrackEvents += config.eventsMap[event];
     }
 
-    function setEvent(event){//todo: ensure events aren't duplicated. maybe.
+    function setEvent(event){
         if (!s.events) s.events = '';
         if (s.events.length>0) s.events += ',';
         s.events += config.eventsMap[event];

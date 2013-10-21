@@ -10,10 +10,10 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
             pageName = setVariable('pageName', siteName + "/" + config.page);
         setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
         setVariable('pageURL','D=Referer');//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('contentType',config.contentType);//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('url',config.url);//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('contentId',config.contentId);//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('section','sky/portal/' + config.site);//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('contentType',config.contentType);
+        setVariable('url',config.url);
+        setVariable('contentId',config.contentId);
+        setVariable('section','sky/portal/' + config.site);
         setVariable('section0', siteName + '/' +  config.section.split('/').slice(0,1).join('/'));
         setVariable('section1', siteName + '/' +  config.section.split('/').slice(0,2).join('/'));
         setVariable('section2', siteName + '/' +  config.section.split('/').slice(0,3).join('/'));
@@ -47,10 +47,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
             }
 
             loadPlugins();
-
-            if(config.track){ //todo: document this
-                omniture.trackPage();
-            }
+            omniture.trackPage();
             omniture.reset();
         }
 

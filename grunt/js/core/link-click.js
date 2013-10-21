@@ -26,7 +26,7 @@ _analytics.linkClick = (function(config, omniture){
         addCustomClickVariable($el);
         addCustomClickEvents($el);
 
-        if ($el.attr('data-tracking-search')){//todo: merge this concept in with custom vars and events
+        if ($el.attr('data-tracking-search')){
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
             addVariable('searchTerm', context);

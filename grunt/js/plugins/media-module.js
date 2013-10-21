@@ -2,7 +2,6 @@ if (typeof _analytics==='undefined') _analytics={};
 if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
 _analytics.plugins.mediaModule = (function(omniture, config){
-//todo: expose chosen functions from within plugins to big bad world i.e. media player start and stop
 
     var m_Media_c="var m=s.m_i('Media');m.cn=function(n){var m=this;return m.s.rep(m.s.rep(m.s.rep(n,\"\\n\",''),\"\\r\",''),'--**--','')};m.open=function(n,l,p,b){var m=this,i=new Object,tm=new Date,a='',"
     +"x;n=m.cn(n);l=parseInt(l);if(!l)l=1;if(n&&p){if(!m.l)m.l=new Object;if(m.l[n])m.close(n);if(b&&b.id)a=b.id;for (x in m.l)if(m.l[x]&&m.l[x].a==a)m.close(m.l[x].n);i.n=n;i.l=l;i.p=m.cn(p);i.a=a;i.t=0"
@@ -54,7 +53,6 @@ _analytics.plugins.mediaModule = (function(omniture, config){
         setVars();
     }
 
-    //todo: dont return MovieEndManual - dont want to have to chain the returns! write an exposePlugin function
     return {
         load: load
     };
