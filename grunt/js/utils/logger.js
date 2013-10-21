@@ -64,7 +64,7 @@ _analytics.logger = (function(config){
             }
             console.groupCollapsed('All Changed Variables');
                 for (x in mappedVars){
-                    if (mappedVars[x]!==config[x]){
+                    if (mappedVars[x]!==String(config[x])){
                         log(x, mappedVars[x]);
                     }
                 }

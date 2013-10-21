@@ -196,7 +196,7 @@ _analytics.logger = (function(config){
             }
             console.groupCollapsed('All Changed Variables');
                 for (x in mappedVars){
-                    if (mappedVars[x]!==config[x]){
+                    if (mappedVars[x]!==String(config[x])){
                         log(x, mappedVars[x]);
                     }
                 }
@@ -245,10 +245,11 @@ _analytics.omniture = (function(config, logger){
         return mappedVars[prop] || s[prop];
     }
 
-    function setVariable(prop, val){
+    function setVariable(prop, val){ //todo: unit test 0 as val. test val is typeof string
         if(typeof val === "undefined" || prop=='events'){ return; }
         var i= 1,map,
             data = config.variablesMap[prop] || [prop];
+        val = val.toString();
         mappedVars[prop] = val;
         s[data[0]] = val;
         if (data.length>1){

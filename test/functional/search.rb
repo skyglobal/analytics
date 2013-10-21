@@ -20,10 +20,10 @@ class AnalyticsTest < AcceptanceTest
   end
 
   #todo: andrew, why do this? --- > when zero this should also send the zeroResults event
-  it "tracks search results" do
+  it "tracks search results and prop of 0 (int) is sent to omniture" do
     click_button('Show Results page')
     trackedEvents.must_include eventsMap[:searchResults] # link clicked
-    #trackedVariable('searchResults', :prop).must_include '1'
+    trackedVariable('searchResults', :prop).must_include '0'
     trackedVariable('searchType', :prop).must_include 'weather'
     trackedVariable('searchTerm', :prop).must_include 'london'
   end
