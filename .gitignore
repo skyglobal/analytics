@@ -3,5 +3,4 @@ access
 .sass-cache
 .idea
 analytics.iml
-node_modules/*
-_site/node_modules/*
+node_modules

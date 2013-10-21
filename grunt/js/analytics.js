@@ -1,5 +1,6 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
+//todo: write omniture.send method
 //todo: write page to test require
 //todo: test val vs attr value and the rest of getText | + all things logged
 //todo: test for live binding
