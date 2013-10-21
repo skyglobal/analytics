@@ -15,38 +15,90 @@ def last_sitecat_request
   Addressable::URI.parse http_request(/metrics.sky.com/).first.url
 end
 
-def tracked(value)
-  last_sitecat_request.query_values[sitecat_mapping[value]]
+def trackedVariable(name, variable_type=:eVar)
+  last_sitecat_request.query_values[variablesMap[name.to_sym][variable_type.to_sym]]
 end
 
-def sitecat_mapping
+def trackedEvents()
+  last_sitecat_request.query_values['events']
+end
+
+def references(name, variable_type=:eVar)
+  'D=' + variablesMap[name.to_sym][variable_type.to_sym]
+end
+
+def variablesMap
   {
-      'section' => 'c27',
-      'step 3 section' => 'c31',
-      'contentType' => 'c20',
-      'pageName' => 'pageName',
-      'event' => 'events',
-      'url' => 'c9',
-      'link_tracking' => 'c15',
-      'click_event' => 'event6',
-      'sub_section_1' => 'c25',
-      'sub_section_2' => 'c27',
-      'sub_section_3' => 'c31',
-      'party_id' => 'c39',
-      'page_load' => 'event1',
-      'login_complete' => 'event16',
-      'link_clicked' => 'event6',
-      'custom_page_load' => 'event99',
-      'my_custom_variable' => 'v41',
-      'my_custom_variable_prop' => 'c41',
-      'my_custom_prop' => 'c40',
-      'ajax_happened' => 'event101',
-      'magic_happened' => 'event101',
-      'drink' => 'v72',
-      'how_about_pina_coladas' => 'v73',
-      'colour' => 'v71',
-      'search_term' => 'c1',
-      'search_type' => 'c12',
-      'search' => 'undefined', #todo: set to correct event
+      searchType:{prop: 'c12',eVar: 'v31'},
+      searchTerm:{prop: 'c1',eVar: 'v1'},
+      searchResults:{prop: 'c34'},
+      headline:{prop: 'c3',eVar: 'v13'},
+      errors:{prop: 'c2',eVar: 'v2'},
+      url:{prop: 'c9',eVar: 'v9'},
+      refDomain:{prop: 'c36',eVar: 'v36'},
+      contentType:{prop: 'c20',eVar: 'v20'},
+      contentId:{prop: 'c21',eVar: 'v15'},
+      siteName:{prop: 'c23',eVar: 'v14'},
+      section:{prop: 'c23',eVar: 'v14'},
+      browseMethod:{prop: 'c24'},
+      section0:{prop: 'c25',eVar: 'v26'},
+      section1:{prop: 'c27',eVar: 'v29'},
+      section2:{prop: 'c31',eVar: 'v30'},
+      videoTitle:{prop: 'c26',eVar: 'v28'},
+      channel: {eVar: 'v24',channel:'channel',hier: 'hier1'},
+      samId:{prop: 'c39',eVar: 'v39'},
+      loginStatus: {eVar: 'v11'},
+      ageGender: {eVar: 'v12'},
+      skyPackage: {eVar: 'v16'},
+      optIn: {eVar: 'v38'},
+      linkDetails:{prop: 'c15',eVar: 'v7'},
+      newRepeat: {prop: "c70", eVar: "v70"},
+      visitNum: {prop: "c69", eVar: "v69"},
+      visitorID: {visitor: "visitorID"},
+      pageName: { pagename: "pageName"},
+      pageDescription: {eVar: 'v19'},
+      partner:{prop: 'c16',eVar: 'v3'},
+      fullPageDescription: {eVar: 'v55'},
+      fullCampaign:{prop: 'c45',eVar: 'v45'},
+      campaignCookie: {eVar: 'v47'},
+      insightCampaign: {eVar: 'v46'},
+      externalSearchProvider:{prop: 'c16',eVar: 'v3'},
+      externalSearchTerm:{prop: 'c17',eVar: 'v8'},
+      testAndTarget: {eVar: 'v18'},
+      my_custom_variable: {eVar: 'v41', prop:  'c41'},
+      my_custom_prop: {prop: 'c40'},
+      drink: {eVar: 'v72'},
+      how_about_pina_coladas: {eVar: 'v73'},
+      colour: {eVar: 'v71'},
+  }
+end
+
+
+
+
+
+def eventsMap
+  {
+      pageLoad: 'event1',
+      error: 'event3',
+      linkClick: 'event6',
+      firstPageVisited: 'event7',
+      secondPageVisited: 'event8',
+      searchResults: 'event15',
+      loginComplete: 'event16',
+      loginStart: 'event17',
+      regComplete: 'event18',
+      regStart: 'event19',
+      repeatVisit: 'event20',
+      optIn: 'event25',
+      zeroResults: 'event26',
+      liveChat: "event36",
+      passwordStart: 'event76',
+      passwordComplete: 'event77',
+      activateStart: 'event78',
+      activateComplete: 'event79',
+      custom_page_load:'event99',
+      ajax_happened: 'event101',
+      magic_happened: 'event101',
   }
 end

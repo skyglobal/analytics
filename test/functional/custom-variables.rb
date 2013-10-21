@@ -8,13 +8,13 @@ class AnalyticsTest < AcceptanceTest
 
   it "Tracks a custom variable on page load with additional prop" do
     click_link "Custom Page Load"
-    tracked('my_custom_variable_prop').must_include 'my custom eVar value'
-    tracked('my_custom_variable').must_include 'D=c41'
+    trackedVariable('my_custom_variable', :prop).must_equal 'my custom eVar value'
+    trackedVariable('my_custom_variable').must_equal references('my_custom_variable', :prop)
   end
 
   it "Tracks a custom prop on page load" do
     click_link "Custom Page Load"
-    tracked('my_custom_prop').must_include 'my custom prop value'
+    trackedVariable('my_custom_prop', :prop).must_equal 'my custom prop value'
   end
 
   it "tracks custom variables assigned after page load in a text field" do
@@ -22,7 +22,7 @@ class AnalyticsTest < AcceptanceTest
     within('#text-input') do
       click_button 'Submit'
     end
-    tracked('drink').must_include 'Milkshake'
+    trackedVariable('drink').must_equal 'Milkshake'
   end
 
   it "tracks custom variables assigned after page load from a radio button" do
@@ -30,12 +30,12 @@ class AnalyticsTest < AcceptanceTest
       choose 'Yes'
       click_button 'Submit'
     end
-    tracked('how_about_pina_coladas').must_include 'yes_to_pinas'
+    trackedVariable('how_about_pina_coladas').must_equal 'yes_to_pinas'
   end
 
   it "tracks a custom variable assigned on page load but set with a button click" do
     click_button 'colour-button-blue'
-    tracked('colour').must_include 'Blue'
+    trackedVariable('colour').must_equal 'Blue'
   end
 
 end
