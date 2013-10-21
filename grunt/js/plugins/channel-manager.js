@@ -155,10 +155,12 @@ _analytics.plugins.channelManager = (function(omniture, config){
     function setupCampaignCookies(){
         var campaignID = omniture.getVariable('fullCampaign') || '';
         if(!campaignID || campaignID.indexOf('ilc-') === 0){ return; }
-        var hasSessionCookie =  (session.cmp_cookie_session && session.cmp_cookie_session !== "undefined/undefined");
-        var hasPersistantCookie =  (persistant.cmp_cookie && persistant.cmp_cookie !== "undefined/undefined");
+        var hasSessionCookie =  (session.cmp_cookie_session && session.cmp_cookie_session !== "undefined/undefined"),
+            hasPersistantCookie =  (persistant.cmp_cookie && persistant.cmp_cookie !== "undefined/undefined"),
+            directLoadOrOther = (campaignID=="direct load" || campaignID.indexOf("oth-") === 0 );
 
-        if((campaignID=="direct load" || campaignID.indexOf("oth-") === 0 ) && hasSessionCookie){
+
+        if(directLoadOrOther && hasSessionCookie){
             omniture.setVariable('fullCampaign','');
         }
         if(!hasSessionCookie){

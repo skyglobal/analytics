@@ -46,6 +46,7 @@ def sitecat_mapping
       'how_about_pina_coladas' => 'v73',
       'colour' => 'v71',
       'search_term' => 'c1',
-      'search_type' => 'c12'
+      'search_type' => 'c12',
+      'search' => 'undefined', #todo: set to correct event
   }
 end

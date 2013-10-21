@@ -34,16 +34,12 @@ _analytics.plugins.userHistory = (function(omniture, config){
     }
 
     function setLoginVars( ) {
-        if (cookies.skySSO) {
-            omniture.setVariable('loginStatus', loggedIn);
-            if (cookies.skySSOLast != cookies.skySSO) {
-                s.c_w('skySSOLast', cookies.skySSO);
-                var fl = cookies.skyLoginFrom ? cookies.skyLoginFrom.split(',') : ['generic','l'];
-                var loginType = (fl[1] == 'l') ? 'loginComplete' : 'regComplete';
-                omniture.setEvent(loginType);
-            }
-        } else {
-            omniture.setVariable('loginStatus',notLoggedIn);
+        omniture.setVariable('loginStatus', (cookies.skySSO) ? loggedIn : notLoggedIn);
+        if (cookies.skySSO && cookies.skySSOLast != cookies.skySSO) {
+            s.c_w('skySSOLast', cookies.skySSO);
+            var fl = cookies.skyLoginFrom ? cookies.skyLoginFrom.split(',') : ['generic','l'];
+            var loginType = (fl[1] == 'l') ? 'loginComplete' : 'regComplete';
+            omniture.setEvent(loginType);
         }
         if (cookies.just){ omniture.setVariable('samId',cookies.just); }
         if (cookies.apd) { omniture.setVariable('ageGender',cookies.apd + '|' + cookies.gpd); }
@@ -51,7 +47,7 @@ _analytics.plugins.userHistory = (function(omniture, config){
         if (cookies.ust) { omniture.setVariable('optIn', cookies.ust + '|' + cookies.sid_tsaoptin); }
 
         s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
-        var c_pastEv = s.clickThruQuality(omniture.getVariable('campaign'),config.trackedEvents['firstPageVisited'],config.trackedEvents['secondPageVisited'],'s_ctq');
+        var c_pastEv = s.clickThruQuality(omniture.getVariable('campaign'),config.events['firstPageVisited'],config.events['secondPageVisited'],'s_ctq');
         if(c_pastEv) { omniture.setEvent(c_pastEv); }
     }
 

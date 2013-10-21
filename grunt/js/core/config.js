@@ -4,13 +4,7 @@ _analytics.config = (function(){
     var linkDetailsMap = [
             'module','pod','other','context','theme','textClicked','pageName'
         ],
-        trackedData = {
-//            todo: add tnt eVar18 if needed?
-//            todo: add insight_tracking eVar46 if needed?
-//            todo: add campaigns eVar45 if needed?
-//            todo: add more campaigns eVar47 if needed?
-//            todo: add keyword eVar8 if needed?
-//            todo: add partner eVar16 if needed?
+        variables = {
             searchType: ['prop12','eVar31'],
             searchTerms: ['prop1','eVar1'],
             searchResults: ['prop34'],
@@ -48,31 +42,35 @@ _analytics.config = (function(){
             externalSearchTerm: ['prop17','eVar8'],
             testAndTarget: ['eVar18'] //todo: andrew - correct term?
         },
-        trackedEvents = { //todo: add event1 + event20
+        events = {
             pageLoad: 'event1',
             error: 'event3',
             linkClick: 'event6',
             firstPageVisited: 'event7',
             secondPageVisited: 'event8',
-            loginStart: 'event17',
+            searchResults: 'event15',
             loginComplete: 'event16',
+            loginStart: 'event17',
             regComplete: 'event18',
             regStart: 'event19',
             repeatVisit: 'event20',
             optIn: 'event25',
-            searchResults: 'event15',
             zeroResults: 'event26',
+            liveChat: "event36",
             passwordStart: 'event76',
             passwordComplete: 'event77',
             activateStart: 'event78',
-            activateComplete: 'event79',
-            liveChat: "event36"
+            activateComplete: 'event79'
+        },
+        variableBasedEvents = {
+            'searchResults': 'searchResults',
+            'errors': 'error'
         };
 
 
     return {
-        trackedData: trackedData,
-        trackedEvents: trackedEvents,
+        variables: variables,
+        events: events,
         linkDetailsMap: linkDetailsMap,
         trackingServer: 'metrics.sky.com',
         trackingServerSecure: 'smetrics.sky.com',

@@ -90,7 +90,7 @@
     <p class="developer-notes">
         Please use the following:
         <code class="html">    &lt;script src=http://analytics.global.sky.com/0.6.0/analytics.js>&lt;/script></code>.
-        If your project uses RequireJS, <a href="require-js.html">Click here to see an example</a>.
+        If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p><p>Then add the following onto your page with the correct account details to initialise the tracking.    </p>
 
     <code class="block js">   analytics.pageView({
@@ -406,10 +406,17 @@
 <section class="wiki-section">
     <h2>Search Tracking</h2>
 <p>
-    Search events and variables can be tracked automatically if you add the correct <code>data-</code> attributes into the HTML.
+    To track <code>searchType</code> and <code>searchTerms</code>, you need to add the following into your HTML:
 </p>
+<dl>
+    <dt class="skycom_4 alpha">data-tracking-search</dt>
+    <dd class="skycom_8">Add this to the search button and set it to the type of search e.g. weather</dd>
+    <dt class="skycom_4 alpha">data-tracking-context-id</dt>
+    <dd class="skycom_8">Add this to the search button and set it to the id of the element that contains what was searched for.</dd>
+</dl>
+<p>Once the search is complete and results have been returned, the above info should be sent on pageView along with how many results we're returned.</p>
 
-<h3 class="wiki-h3">Examples</h3>
+<h3 class="wiki-h3 clear">Examples</h3>
 <div class='example clearfix'>
 
     <div class='skycom_4 alpha skycom_clear sky-form has-code-example'>
@@ -428,6 +435,45 @@
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9 js"><i>none</i></div>
+    </div>
+
+    <div class='skycom_4 alpha skycom_clear sky-form has-code-example'>
+        <span class="toggle-code-example" for=search-events-onload></span>
+        <button class="btn" type="submit" id='search-results-pageView'>Show Results page</button>
+    </div>
+    <div class="skycom_8">
+        Trigger a <code>pageView</code> with loadVariables: searchResults, searchType and searchTerm.
+    </div>
+    <div class="code-example" id=search-events-onload>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="block html">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9 "><code class="block js">analytics.pageView({
+    site: 'global',
+    section: 'skyglobal/analytics',
+    account: 'bskybglobaldev',
+    page: 'Analytics search results page',
+    loadVariables: { 'searchResults': 1, 'searchType':'weather', 'searchTerm': 'london' }
+});
+        </code></div>
+    </div>
+
+    <div class='skycom_4 alpha skycom_clear sky-form has-code-example'>
+        <span class="toggle-code-example" for=search-events-ajax></span>
+        <button class="btn" type="submit" id='search-results-via-ajax'>Showing Results section via ajax</button>
+    </div>
+    <div class="skycom_8">
+
+    </div>
+    <div class="code-example" id=search-events-ajax>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="block html">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9 "><code class="block js"> dunno </code></div>
     </div>
 </div>
 </section>

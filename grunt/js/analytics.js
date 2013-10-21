@@ -65,11 +65,11 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
             prop = 'eVar' + eVarValue;
             arrValues.push(prop);
         }
-        config.trackedData[varName] = arrValues;
+        config.variables[varName] = arrValues;
     }
 
     function addToEventMap(eventName, eventID){
-        config.trackedEvents[eventName] = 'event' + eventID;
+        config.events[eventName] = 'event' + eventID;
     }
 
     function setupCustomVariable(item) {

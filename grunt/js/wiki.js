@@ -5,6 +5,7 @@ _wiki.setup = (function(){
         $('.toggle-code-example').on('click', toggleCodeExamples);
         $('#btn_ajax_event').on('click', ajaxPageView);
         $('#btn-page-load-var').on('click', customVarPageView);
+        $('#search-results-pageView').on('click', searchResultsPageView);
         updateCustomVariableValues();
         manualTrigger();
     }
@@ -50,6 +51,17 @@ _wiki.setup = (function(){
                 {'drink': {'var': 72 }},
                 {'how_about_pina_coladas': {'var': 73 }}
             ]
+        });
+    }
+
+    function searchResultsPageView(e){
+        e.preventDefault();
+        analytics.pageView({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybglobaldev',
+            page: 'Analytics single page apps demo page',
+            loadVariables: { 'searchResults': 0, 'searchType':'weather', 'searchTerm': 'london' }
         });
     }
 

@@ -5,13 +5,12 @@ _analytics.logger = (function(config){
         debugOutputId= 'analytics-debug';
 
     function debug(on){
+        $('#' + debugOutputId).remove();
         if (on || on === undefined){
             debugging = true;
-            $('body #' + debugOutputId).remove();
             $('body').append('<div id="' + debugOutputId + '"></div>');
         } else {
             debugging = false;
-            $('#' + debugOutputId).remove();
         }
     }
 
@@ -35,7 +34,8 @@ _analytics.logger = (function(config){
     }
 
     function getEventName(eventID){
-        var events = config.trackedEvents, name;
+        var events = config.events,
+            name;
         for (name in events){
             if (events[name]==eventID) return name;
         }
@@ -44,7 +44,7 @@ _analytics.logger = (function(config){
     function logS(linkDetails, events, mappedVars){
         if (!debugging){ return; }
         var arrDetails, x;
-        console.group('tracking event');
+        log('start','tracking event');
 
             if (linkDetails){
                 console.groupCollapsed('linkDetails');
@@ -73,7 +73,7 @@ _analytics.logger = (function(config){
                 log('s',s);
             console.groupEnd();
 
-        console.groupEnd();
+        log('end');
     }
 
     return {

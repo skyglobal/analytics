@@ -27,22 +27,9 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
         }
     }
 
-    function setSearchVars(){
-        if (config.searchResults !== undefined ) {
-            setVariable('searchResults', config.searchResults);
-            setVariable('searchType', config.searchType); //todo: andrew, added these - neccersary or added as custom var on page js
-            setVariable('searchTerms', config.searchTerms); //todo: andrew, added these - neccersary or added as custom var on page js
-            setEvent('searchResults');
-            if (config.searchResults === 0) {
-                setEvent('zeroResults');
-            }
-        }
-    }
-
-    function setErrorEvents(){
-        if (config.errors) {
-            setVariable('errors', config.errors);
-            setEvent('error');
+    function setVariableBasedEvents(variable){
+        if (config.variableBasedEvents[variable]){
+            setEvent(config.variableBasedEvents[variable]);
         }
     }
 
@@ -52,11 +39,10 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
             setEvent('pageLoad');
 
             setPageDescriptions();
-            setSearchVars();
-            setErrorEvents();
 
             for (name in config.loadVariables){
                 setVariable(name, config.loadVariables[name]);
+                setVariableBasedEvents(name);
             }
             for (name in config.loadEvents){
                 setEvent(config.loadEvents[name]);
@@ -77,7 +63,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
             if(pluginsLoaded){ return; }
 
             utils.load(); //must go first - user history needs it to set a campaign evar
-            channelManager.load(); //must go first - user history needs it to set a campaign evar
+            channelManager.load(); //must go second - user history needs it to set a campaign evar
             userHistory.load();
             testAndTarget.load();
             mediaModule.load();
