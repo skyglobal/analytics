@@ -7,10 +7,10 @@ utils/logger.js
 core/omniture.js
 plugins/media-module.js
 plugins/test-and-target.js
+plugins/utils.js
 plugins/channel-manager.js
 plugins/new-or-repeat-visits.js
 plugins/user-history.js
-plugins/utils.js
 core/page-view.js
 core/link-click.js
 analytics.js

@@ -9,7 +9,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
         var siteName = setVariable('siteName','sky/portal/' + config.site),
             pageName = setVariable('pageName', siteName + "/" + config.page);
         setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
-        setVariable('pageURL','D=Referer');//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('pageURL','D=referrer');//todo: andrew, delete? i dont see s.referer beingset
         setVariable('contentType',config.contentType);
         setVariable('url',config.url);
         setVariable('contentId',config.contentId);

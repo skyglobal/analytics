@@ -64,8 +64,31 @@ _analytics.plugins.utils = (function(omniture, config){
         }
     }
 
+
+
+    function referredByGoogle(){
+        return (document.referrer.indexOf("www.google.") > -1 && document.referrer.indexOf("q=&") > -1) ? true : false;
+    }
+
+    function getCookie(name) {
+        if (!document.cookie) { return; }
+        var cookieValue="", i,cookie,
+            cookies = document.cookie.split(';');
+        for (i = 0; i < cookies.length; i++) {
+            cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+        return cookieValue;
+    }
+
+
     return {
-        load: load
+        load: load,
+        referredByGoogle: referredByGoogle,
+        getCookie: getCookie
     };
 
 }(_analytics.omniture, _analytics.config));

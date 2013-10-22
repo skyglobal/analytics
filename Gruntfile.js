@@ -60,6 +60,18 @@ module.exports = function(grunt) {
                     }]
                 }
             }
+        },
+        mocha: {
+            all: {
+                src: (function() {
+                    var pattern = grunt.option('pattern') || '*';
+                    return ['test/unit/' + pattern + '.html'];
+                }()),
+                options: {
+                    run: false,
+                    log: false // Set to true to see console.log() output on the terminal
+                }
+            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -68,7 +80,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-mocha');
 
     grunt.registerTask('default', ['clean', 'jshint', 'requirejs', 'compass']);
     grunt.registerTask('hint', ['jshint']);
+    grunt.registerTask('test', ['mocha']);
 };
