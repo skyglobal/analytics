@@ -32,15 +32,14 @@ _analytics.config = (function(){
             visitNum: ["prop69", "eVar69"],
             visitorID: ["visitorID"],
             pageName: ["pageName"],
-            pageDescription: ['eVar19'], //todo: andrew - correct term?
-            partner: ['prop16','eVar3'], //todo: andrew - correct term?
-            fullPageDescription: ['eVar55'], //todo: andrew - correct term?
             fullCampaign: ['prop45','eVar45'],
-            campaignCookie: ['eVar47'], //todo: andrew - correct term?
             insightCampaign: ['eVar46'],
-            externalSearchProvider: ['prop16','eVar3'],
+            searchEngine: ['prop16','eVar3'],
             externalSearchTerm: ['prop17','eVar8'],
-            testAndTarget: ['eVar18'] //todo: andrew - correct term?
+            pageConversion: ['eVar19'],
+            fullPageDescription: ['eVar55'],
+            testAndTarget: ['eVar18'],
+            sessionCampaign: ['eVar47']
         },
         eventsMap = {
             pageLoad: 'event1',

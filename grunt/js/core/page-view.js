@@ -17,7 +17,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
         setVariable('section0', siteName + '/' +  config.section.split('/').slice(0,1).join('/'));
         setVariable('section1', siteName + '/' +  config.section.split('/').slice(0,2).join('/'));
         setVariable('section2', siteName + '/' +  config.section.split('/').slice(0,3).join('/'));
-        setVariable('pageDescription', config.site + "/" + config.page);
+        setVariable('pageConversion', config.site + "/" + config.page);
         setVariable('headline', config.headline);
 
         if (config.headline) {

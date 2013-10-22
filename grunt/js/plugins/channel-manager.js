@@ -133,17 +133,17 @@ _analytics.plugins.channelManager = (function(omniture, config){
                 campaignEnd = '-' + campaignEnd;
             }
             setVariable('fullCampaign',getVariable('fullCampaign') + campaignEnd);
-            setVariable('externalSearchProvider',partner);
+            setVariable('searchEngine',partner);
             setVariable('externalSearchTerm',keyword);
         } else if(chan == "natural search"){
             setVariable('fullCampaign',"okc-natural search");
-            setVariable('externalSearchProvider',partner);
+            setVariable('searchEngine',partner);
             setVariable('externalSearchTerm',keyword);
         } else if (chan=="direct load"){
             setVariable('fullCampaign',"direct load");
         } else if(ref && httpsSearch(ref) == "google"){
             setVariable('fullCampaign',"okc-secured natural search");
-            setVariable('externalSearchProvider',"google");
+            setVariable('searchEngine',"google");
             setVariable('externalSearchTerm',"secured search term");
         } else if (ref) {
             setVariable('fullCampaign',"oth-" + ref);
@@ -164,10 +164,10 @@ _analytics.plugins.channelManager = (function(omniture, config){
             omniture.setVariable('fullCampaign','');
         }
         if(!hasSessionCookie){
-            omniture.setVariable('campaignCookie',s.getValOnce(omniture.getVariable('campaignCookie'), 'cmp_cookie_session', 0));
+            omniture.setVariable('sessionCampaign',s.getValOnce(omniture.getVariable('sessionCampaign'), 'cmp_cookie_session', 0));
         }
         if(!hasPersistantCookie){
-            omniture.setVariable('campaign',s.getValOnce(omniture.getVariable('campaignCookie'), 'cmp_cookie', 30));
+            omniture.setVariable('campaign',s.getValOnce(omniture.getVariable('sessionCampaign'), 'cmp_cookie', 30));
         }
     }
 

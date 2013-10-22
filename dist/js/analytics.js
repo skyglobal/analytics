@@ -55,15 +55,14 @@ _analytics.config = (function(){
             visitNum: ["prop69", "eVar69"],
             visitorID: ["visitorID"],
             pageName: ["pageName"],
-            pageDescription: ['eVar19'], //todo: andrew - correct term?
-            partner: ['prop16','eVar3'], //todo: andrew - correct term?
-            fullPageDescription: ['eVar55'], //todo: andrew - correct term?
             fullCampaign: ['prop45','eVar45'],
-            campaignCookie: ['eVar47'], //todo: andrew - correct term?
             insightCampaign: ['eVar46'],
-            externalSearchProvider: ['prop16','eVar3'],
+            searchEngine: ['prop16','eVar3'],
             externalSearchTerm: ['prop17','eVar8'],
-            testAndTarget: ['eVar18'] //todo: andrew - correct term?
+            pageConversion: ['eVar19'],
+            fullPageDescription: ['eVar55'],
+            testAndTarget: ['eVar18'],
+            sessionCampaign: ['eVar47']
         },
         eventsMap = {
             pageLoad: 'event1',
@@ -117,8 +116,7 @@ _analytics.config = (function(){
         useForcedLinkTracking: true,
         forceLinkTrackingTimeout: 500,
         setObjectIDs: true,
-        track: true,
-        trackLinks: true,
+        trackLinks: true, //todo: document
         loadEvents:[],
         loadVariables:{}
     };
@@ -228,11 +226,11 @@ if (typeof window.define === "function" && window.define.amd) {
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.omniture = (function(config, logger){
 
-    window.s = {};//todo: make local once s is not in any other files
+    window.s = {};
     var mappedVars = {};
 
-    function obfuscate(val){
-        return val.replace('eVar','v').replace('prop','c').replace('channel','ch'); //todo: test channel being first in vars list
+    function obfuscate(val){ //todo: test channel being first in vars list
+        return val.replace('eVar','v').replace('prop','c').replace('channel','ch');
     }
 
     function init(account){
@@ -273,7 +271,7 @@ _analytics.omniture = (function(config, logger){
         s.linkTrackEvents += config.eventsMap[event];
     }
 
-    function setEvent(event){//todo: ensure events aren't duplicated. maybe.
+    function setEvent(event){
         if (!s.events) s.events = '';
         if (s.events.length>0) s.events += ',';
         s.events += config.eventsMap[event];
@@ -516,7 +514,6 @@ if (typeof _analytics==='undefined') _analytics={};
 if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
 _analytics.plugins.mediaModule = (function(omniture, config){
-//todo: expose chosen functions from within plugins to big bad world i.e. media player start and stop
 
     var m_Media_c="var m=s.m_i('Media');m.cn=function(n){var m=this;return m.s.rep(m.s.rep(m.s.rep(n,\"\\n\",''),\"\\r\",''),'--**--','')};m.open=function(n,l,p,b){var m=this,i=new Object,tm=new Date,a='',"
     +"x;n=m.cn(n);l=parseInt(l);if(!l)l=1;if(n&&p){if(!m.l)m.l=new Object;if(m.l[n])m.close(n);if(b&&b.id)a=b.id;for (x in m.l)if(m.l[x]&&m.l[x].a==a)m.close(m.l[x].n);i.n=n;i.l=l;i.p=m.cn(p);i.a=a;i.t=0"
@@ -568,7 +565,6 @@ _analytics.plugins.mediaModule = (function(omniture, config){
         setVars();
     }
 
-    //todo: dont return MovieEndManual - dont want to have to chain the returns! write an exposePlugin function
     return {
         load: load
     };
@@ -754,17 +750,17 @@ _analytics.plugins.channelManager = (function(omniture, config){
                 campaignEnd = '-' + campaignEnd;
             }
             setVariable('fullCampaign',getVariable('fullCampaign') + campaignEnd);
-            setVariable('externalSearchProvider',partner);
+            setVariable('searchEngine',partner);
             setVariable('externalSearchTerm',keyword);
         } else if(chan == "natural search"){
             setVariable('fullCampaign',"okc-natural search");
-            setVariable('externalSearchProvider',partner);
+            setVariable('searchEngine',partner);
             setVariable('externalSearchTerm',keyword);
         } else if (chan=="direct load"){
             setVariable('fullCampaign',"direct load");
         } else if(ref && httpsSearch(ref) == "google"){
             setVariable('fullCampaign',"okc-secured natural search");
-            setVariable('externalSearchProvider',"google");
+            setVariable('searchEngine',"google");
             setVariable('externalSearchTerm',"secured search term");
         } else if (ref) {
             setVariable('fullCampaign',"oth-" + ref);
@@ -785,10 +781,10 @@ _analytics.plugins.channelManager = (function(omniture, config){
             omniture.setVariable('fullCampaign','');
         }
         if(!hasSessionCookie){
-            omniture.setVariable('campaignCookie',s.getValOnce(omniture.getVariable('campaignCookie'), 'cmp_cookie_session', 0));
+            omniture.setVariable('sessionCampaign',s.getValOnce(omniture.getVariable('sessionCampaign'), 'cmp_cookie_session', 0));
         }
         if(!hasPersistantCookie){
-            omniture.setVariable('campaign',s.getValOnce(omniture.getVariable('campaignCookie'), 'cmp_cookie', 30));
+            omniture.setVariable('campaign',s.getValOnce(omniture.getVariable('sessionCampaign'), 'cmp_cookie', 30));
         }
     }
 
@@ -1037,14 +1033,14 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
             pageName = setVariable('pageName', siteName + "/" + config.page);
         setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
         setVariable('pageURL','D=Referer');//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('contentType',config.contentType);//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('url',config.url);//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('contentId',config.contentId);//todo: andrew, delete? i dont see s.referer beingset
-        setVariable('section','sky/portal/' + config.site);//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('contentType',config.contentType);
+        setVariable('url',config.url);
+        setVariable('contentId',config.contentId);
+        setVariable('section','sky/portal/' + config.site);
         setVariable('section0', siteName + '/' +  config.section.split('/').slice(0,1).join('/'));
         setVariable('section1', siteName + '/' +  config.section.split('/').slice(0,2).join('/'));
         setVariable('section2', siteName + '/' +  config.section.split('/').slice(0,3).join('/'));
-        setVariable('pageDescription', config.site + "/" + config.page);
+        setVariable('pageConversion', config.site + "/" + config.page);
         setVariable('headline', config.headline);
 
         if (config.headline) {
@@ -1074,10 +1070,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
             }
 
             loadPlugins();
-
-            if(config.track){ //todo: document this
-                omniture.trackPage();
-            }
+            omniture.trackPage();
             omniture.reset();
         }
 
@@ -1150,7 +1143,7 @@ _analytics.linkClick = (function(config, omniture){
         addCustomClickVariable($el);
         addCustomClickEvents($el);
 
-        if ($el.attr('data-tracking-search')){//todo: merge this concept in with custom vars and events
+        if ($el.attr('data-tracking-search')){
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
             addVariable('searchTerm', context);
@@ -1237,6 +1230,7 @@ if (typeof window.define === "function" && window.define.amd) {
 };
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
+//todo: write omniture.send method
 //todo: write page to test require
 //todo: test val vs attr value and the rest of getText | + all things logged
 //todo: test for live binding
