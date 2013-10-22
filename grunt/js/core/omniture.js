@@ -53,9 +53,8 @@ _analytics.omniture = (function(config, logger){
     }
 
     function setVariableBasedEvents(variable){
-        if (config.variableBasedEvents[variable]){
-            setEvent(config.variableBasedEvents[variable]);
-        }
+        if (!config.variableBasedEvents[variable]){ return; }
+        setEvent(config.variableBasedEvents[variable]);
     }
     function trackLink(el){
         log();

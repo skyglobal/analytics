@@ -37,7 +37,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
 
             for (name in config.loadVariables){
                 setVariable(name, config.loadVariables[name]);
-                omniture.setVariableBasedEvents(name);
+                omniture.setVariableBasedEvents(name);//todo: document and allow on click + omniture.send
             }
             for (name in config.loadEvents){
                 setEvent(config.loadEvents[name]);

@@ -34,6 +34,7 @@ _analytics.plugins.userHistory = (function(omniture, config){
     }
 
     function setLoginVars( ) {
+        var ageGender, optIn;
         omniture.setVariable('loginStatus', (cookies.skySSO) ? loggedIn : notLoggedIn);
         if (cookies.skySSO && cookies.skySSOLast != cookies.skySSO) {
             s.c_w('skySSOLast', cookies.skySSO);
@@ -41,10 +42,13 @@ _analytics.plugins.userHistory = (function(omniture, config){
             var loginType = (fl[1] == 'l') ? 'loginComplete' : 'regComplete';
             omniture.setEvent(loginType);
         }
-        if (cookies.just){ omniture.setVariable('samId',cookies.just); }
-        if (cookies.apd) { omniture.setVariable('ageGender',cookies.apd + '|' + cookies.gpd); }
-        if (cookies.custype){ omniture.setVariable('customerType', cookies.custype); }
-        if (cookies.ust) { omniture.setVariable('optIn', cookies.ust + '|' + cookies.sid_tsaoptin); }
+        ageGender = (cookies.apd) ? cookies.apd + '|' + cookies.gpd : '';
+        optIn = (cookies.ust) ? cookies.ust + '|' + cookies.sid_tsaoptin : '';
+
+        omniture.setVariable('samId',cookies.just);
+        omniture.setVariable('customerType', cookies.custype);
+        omniture.setVariable('ageGender',ageGender);
+        omniture.setVariable('optIn', optIn);
 
         s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
         var c_pastEv = s.clickThruQuality(omniture.getVariable('campaign'),config.eventsMap['firstPageVisited'],config.eventsMap['secondPageVisited'],'s_ctq');
