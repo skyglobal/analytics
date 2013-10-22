@@ -1,3 +1,5 @@
+#todo: dont 'fail' on circle when version already exists
+
 require 'pry'
 require 'aws-sdk'
 require 'rake/testtask'

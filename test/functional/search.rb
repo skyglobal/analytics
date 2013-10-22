@@ -10,7 +10,7 @@ class AnalyticsTest < AcceptanceTest
     fill_in 'weather-search', with: 'Milkshake search'
     find('button[data-tracking-search]').click
     trackedEvents.must_include eventsMap[:linkClick]
-    #trackedEvents.must_include eventsMap[:search]  #todo: add search event into config
+    #trackedEvents.must_include eventsMap[:search]
     trackedVariable('linkDetails', :prop).must_include '|search|'
     trackedVariable('linkDetails', :prop).must_include '|milkshake-search|'
     trackedVariable('searchType', :prop).must_include 'weather'

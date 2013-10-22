@@ -4,7 +4,7 @@ _analytics.omniture = (function(config, logger){
     window.s = {};
     var mappedVars = {};
 
-    function obfuscate(val){ //todo: test channel being first in vars list
+    function obfuscate(val){
         return val.replace('eVar','v').replace('prop','c').replace('channel','ch');
     }
 
@@ -19,7 +19,7 @@ _analytics.omniture = (function(config, logger){
         return mappedVars[prop] || s[prop];
     }
 
-    function setVariable(prop, val){ //todo: unit test 0 as val. test val is typeof string
+    function setVariable(prop, val){
         if(typeof val === "undefined" || prop=='events'){ return; }
         var i= 1,map,
             data = config.variablesMap[prop] || [prop];

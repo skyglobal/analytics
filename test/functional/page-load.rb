@@ -32,7 +32,7 @@ class AnalyticsTest < AcceptanceTest
   end
 
   it "Tracks page view using requireJS" do
-    click_link 'Click here to see a requireJS example'#todo: wait for js to finish loading as is async
+    click_link 'Click here to see a requireJS example'
     #trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/Analytics require demo page'
     #trackedVariable('url').must_equal current_url  # url
     #trackedVariable('section0').must_include 'sky/portal/global/skyglobal'

@@ -9,7 +9,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
         var siteName = setVariable('siteName','sky/portal/' + config.site),
             pageName = setVariable('pageName', siteName + "/" + config.page);
         setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
-        setVariable('pageURL','D=referrer');//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('pageURL','D=referrer');
         setVariable('contentType',config.contentType);
         setVariable('url',config.url);
         setVariable('contentId',config.contentId);
@@ -37,7 +37,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
 
             for (name in config.loadVariables){
                 setVariable(name, config.loadVariables[name]);
-                omniture.setVariableBasedEvents(name);//todo: document and allow on click + omniture.send
+                omniture.setVariableBasedEvents(name);
             }
             for (name in config.loadEvents){
                 setEvent(config.loadEvents[name]);
@@ -51,7 +51,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
             omniture.reset();
         }
 
-    function loadPlugins() {//  todo: double check ordering. which ones are pge view plugins and which are setup?
+    function loadPlugins() {
             if(pluginsLoaded){ return; }
 
             utils.load(); //must go first - user history needs it to set a campaign evar

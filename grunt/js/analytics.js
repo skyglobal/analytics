@@ -1,16 +1,22 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
-//todo: write omniture.send method
-//todo: write page to test require
 //todo: test val vs attr value and the rest of getText | + all things logged
-//todo: test for live binding
+//todo: document config.trackLinks: boolean
+//todo: document setVariableBasedEvents
+//todo: add search event into config
+
+//todo: test plugiuns with andrew and order
+//todo: delete    setVariable('pageURL','D=referrer');
+
+
 //todo: integration test for newOrRepeat
+//todo: write page to test require.. and sleep?
+//todo: test for live binding
 //todo: maybe unit setLoginVars from user hist
-//    todo: check referrer is working
-//    todo: check     Similar CTA's, different actions is working
-//    todo: check     search event is working
-//    todo: test     customVarPageView
-//    todo: test     click link, then click ajax button - shouldn't see previous linkDetails
+//todo: show transparency of test suit, build status maybe exec js tests on demo page
+
+//todo: write omniture.send method
+//todo: allow setVariableBasedEvents on click + omniture.send
 
     var mandatory = ['site', 'section', 'account', 'page'];
 

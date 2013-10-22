@@ -52,6 +52,10 @@
 
         describe('omniture can setVariables and ', function() {
 
+            it('returns a string', function() {
+                var linkDetails = omniture.setVariable('propFirst', 0);
+                expect(linkDetails).to.equal('0');
+            });
             it('map an eVar to a prop', function() {
                 var linkDetails = omniture.setVariable('propFirst', 'my-link-clicked');
                 expect(linkDetails).to.equal('my-link-clicked');
