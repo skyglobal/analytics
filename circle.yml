@@ -1,5 +1,6 @@
 test:
   override:
+    - grunt test
     - rake functional
 
 deployment:
