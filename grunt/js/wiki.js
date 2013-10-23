@@ -149,8 +149,8 @@ _wiki.setup = (function(){
         analytics.trackPage(SITECAT_CONFIG);
     }
 
-    function debugOnLoad(){
-
+    function debugOnLoad(e){
+        e.preventDefault();
         SITECAT_CONFIG = {
             site: 'global',
             section: 'skyglobal/analytics/debug',
