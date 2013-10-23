@@ -83,14 +83,14 @@
     </div>
     <div class="skycom-container clearfix">
         <div class="alpha skycom-12">
-            <h1 class="wiki-header">Omniture Analytics <small>v0.6.0</small></h1>
+            <h1 class="wiki-header">Omniture Analytics <small>v1.0.0</small></h1>
 
 <section class="wiki-section">
     <a name="using-me"></a>
     <h2>Using the Analytics</h2>
     <p class="developer-notes">
         Please use the following:
-        <code class="html">    &lt;script src=http://analytics.global.sky.com/0.6.0/analytics.js>&lt;/script></code>.
+        <code class="html">    &lt;script src=http://analytics.global.sky.com/1.0.0/analytics.js>&lt;/script></code>.
         If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p><p>Then add the following onto your page with the correct account details to initialise the tracking.    </p>
 
@@ -158,7 +158,7 @@
 <h4>Debugging</h4>
 <p>You can either add <code>debug:true</code> or execute the following to enable debugging:
     <code class="">    analytics.debug(<i>[true|false]</i>);</code>
-    <a href="debug-on-load.html">Click here to see debug on load</a> in action.
+    <a href="#!" id=debug-on-load data-tracking=false>Click here to see debug on load</a> in action.
 </p>
 
 <p>Try <code>analytics.debug()</code> now and click around below.</p>
@@ -864,7 +864,7 @@ analytics.trackPage(config);
 
     <div class="skycom-4 alpha has-code-example">
         <span class="toggle-code-example" for=custom-events-load></span>
-        <a class='btn in-page-cta' href='custom-page-load.html' id='btn_page_load'>Custom Page Load</a>
+        <a class='btn in-page-cta' href='#!' data-tracking=false id='btn_page_load'>Custom Page Load</a>
     </div>
     <div class="skycom-8">To track a custom event when the page, add <code>onPageLoad: true</code> in the config.</div>
 

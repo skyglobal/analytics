@@ -1,17 +1,19 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.trackClick = (function(config, omniture){
 
-    function bindEvents(selector, evnt) {
-        if(!config.trackClicks){return;}
-        var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
-        evnt = evnt || 'click';
-        $(document).on(evnt, clickSelector, function(e) {
+    var eventsBound = false;
+
+    function bindEvents() {
+        if(!config.trackClicks || eventsBound ){ return; }
+        var clickSelector =  'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
+        $(document).on('click', clickSelector, function(e) {
             track(e);
         });
         $(document).on('analytics-track','*', function(e) {
             e.stopPropagation();
             track(e);
         });
+        eventsBound = true;
     }
 
     function track(e){

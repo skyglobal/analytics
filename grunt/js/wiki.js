@@ -3,6 +3,8 @@ _wiki.setup = (function(){
 
     function bindEvents(){
         $('.toggle-code-example').on('click', toggleCodeExamples);
+        $('#btn_page_load').on('click', customPageLoad);
+        $('#debug-on-load').on('click', debugOnLoad);
         $('#btn_ajax_event').on('click', ajaxtrackPage);
         $('#btn-page-load-var').on('click', customVartrackPage);
         $('#search-results-trackPage').on('click', searchResultstrackPage);
@@ -127,6 +129,43 @@ _wiki.setup = (function(){
             loadEvents: ['liveChat']
         });
     }
+    function customPageLoad(){
+
+        SITECAT_CONFIG = {
+            site: 'global',
+            section: 'skyglobal/analytics',
+            headline: '',
+            contentType: 'skyglobal',
+            contentId: '',
+            account: 'bskybmyglobaldev',
+            page: 'Analytics demo page',
+            customEvents: [{'magic_happened': {event: 99, onPageLoad: true}}],
+            customVariables: [
+                {'my_custom_prop':     { prop: 40, onPageLoad: true, value: 'my custom prop value'}},
+                {'my_custom_variable': { eVar: 41, prop: 41,  onPageLoad: true, value: 'my custom eVar value'}}
+            ]
+        };
+
+        analytics.trackPage(SITECAT_CONFIG);
+    }
+
+    function debugOnLoad(){
+
+        SITECAT_CONFIG = {
+            site: 'global',
+            section: 'skyglobal/analytics/debug',
+            headline: '',
+            contentType: 'demo',
+            contentId: '',
+            account: 'bskybglobaldev',
+            page: 'Analytics debug demo page',
+            debug: true
+
+        };
+
+        analytics.trackPage(SITECAT_CONFIG);
+    }
+
     bindEvents();
 
 }());
