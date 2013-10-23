@@ -15,7 +15,7 @@
     <dt class="skycom_4 alpha">prop</dt>
     <dd class="skycom_8">[int] Omniture Prop Id.Needed for xxx type reporting</dd>
     <dt class="skycom_4 alpha">onPageLoad</dt>
-    <dd class="skycom_8">[optional][boolean] Set if the variable should be sent on 'pageView'</dd>
+    <dd class="skycom_8">[optional][boolean] Set if the variable should be sent when 'trackPage' is called</dd>
     <dt class="skycom_4 alpha">value</dt>
     <dd class="skycom_8">[optional][string] Should be set if <code>onPageLoad</code> is set</dd>
 </dl>
@@ -65,7 +65,7 @@
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-            <code class="block js">   analytics.pageView({
+            <code class="block js">   analytics.trackPage({
     site: 'global',
     section: 'skyglobal/analytics',
     account: 'bskybdemodev',
@@ -97,7 +97,7 @@
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-            <code class="block js">analytics.pageView({
+            <code class="block js">analytics.trackPage({
     ...
     drink: [
         {'colour': {var: 72 }}
@@ -135,7 +135,7 @@
             </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-            <code class="block js">analytics.pageView({
+            <code class="block js">analytics.trackPage({
     ...
     drink: [
        {'how_about_pina_coladas': {var: 73 }}
@@ -167,7 +167,7 @@
             <code class=" block html">&lt;button  data-tracking-variable="colour">Blue&lt;/button>
 &lt;button data-tracking-variable="colour">Gray&lt;/button></code></div>
         <code class="skycom-2 alpha js">Javascript</code>
-        <div class="skycom-9 js"><code class="block js">analytics.pageView({
+        <div class="skycom-9 js"><code class="block js">analytics.trackPage({
     ...
     customVariables: [
         {'colour': {var: 71 }}
@@ -196,7 +196,7 @@
             {'magic_happened': {var: 101, value:'im on load', onPageLoad: true}}
         ]
     };
-analytics.pageView(config);
+analytics.trackPage(config);
             </code>
         </div>
     </div>

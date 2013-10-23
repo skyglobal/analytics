@@ -116,7 +116,7 @@ _analytics.config = (function(){
         useForcedLinkTracking: true,
         forceLinkTrackingTimeout: 150,
         setObjectIDs: true,
-        trackLinks: true,
+        trackClicks: true,
         loadEvents:[],
         loadVariables:{}
     };
@@ -145,8 +145,8 @@ _analytics.logger = (function(config){
         }
     }
 
-    function logPageView(tracked){
-        log('start','pageView event triggered');
+    function logtrackPage(tracked){
+        log('start','trackPage event triggered');
         log('','omniture', tracked);
         log('end');
     }
@@ -209,7 +209,7 @@ _analytics.logger = (function(config){
 
     return {
         debug: debug,
-        logPageView: logPageView,
+        logtrackPage: logtrackPage,
         logS: logS,
         log: log
     };
@@ -282,7 +282,7 @@ _analytics.omniture = (function(config, logger){
         if (!config.variableBasedEvents[variable]){ return; }
         setEvent(config.variableBasedEvents[variable]);
     }
-    function trackLink(){
+    function trackClick(){
         send('Link Click');
     }
     function trackPage(){
@@ -511,7 +511,7 @@ _analytics.omniture = (function(config, logger){
         setLinkTrackVariable: setLinkTrackVariable,
         setLinkTrackEvent: setLinkTrackEvent,
         trackError: trackError,
-        trackLink: trackLink,
+        trackClick: trackClick,
         trackPage: trackPage,
         addPlugin: addPlugin,
         send: send,
@@ -1045,7 +1045,7 @@ if (typeof window.define === "function" && window.define.amd) {
 
 ;
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils){
+_analytics.trackPage = (function(config,omniture,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils){
 
     var pluginsLoaded = false,
         setVariable = omniture.setVariable,
@@ -1123,7 +1123,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
 ));
 
 if (typeof window.define === "function" && window.define.amd) {//just for require
-    define("core/page-view", [
+    define("core/track-page", [
         'core/config',
         'core/omniture',
         'plugins/media-module',
@@ -1133,14 +1133,14 @@ if (typeof window.define === "function" && window.define.amd) {//just for requir
         'plugins/user-history',
         'plugins/utils'
     ], function(config, omniture, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory, utils) {
-        return _analytics.pageView;
+        return _analytics.trackPage;
     });
 };
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.linkClick = (function(config, omniture){
+_analytics.trackClick = (function(config, omniture){
 
     function bindEvents(selector, evnt) {
-        if(!config.trackLinks){return;}
+        if(!config.trackClicks){return;}
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
         evnt = evnt || 'click';
         $(document).on(evnt, clickSelector, function(e) {
@@ -1170,7 +1170,7 @@ _analytics.linkClick = (function(config, omniture){
             addVariable('searchTerm', context);
             addEvent('search');
         }
-        omniture.trackLink(this);
+        omniture.trackClick(this);
     }
 
 
@@ -1252,12 +1252,13 @@ _analytics.linkClick = (function(config, omniture){
 }(_analytics.config, _analytics.omniture));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("core/link-click", ["core/config","core/page-view"], function() {
-        return _analytics.linkClick;
+    define("core/track-click", ["core/config","core/track-page"], function() {
+        return _analytics.trackClick;
     });
 };
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
+_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, logger){
+//todo: test and document setup()
 //todo: write page to test require.. and sleep?
 //todo: test for live binding
 //todo: integration test for newOrRepeat
@@ -1279,7 +1280,7 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
         checkMandatoryConfig();
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
-        linkClick.bind();
+        trackClick.bind();
 
         return config;
     }
@@ -1367,14 +1368,14 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
     }
 
     window.analytics = {
-        linkClick : linkClick.track,
-        pageView: function(customConfig){
+        trackClick : trackClick.track,
+        trackError: omniture.trackError,
+        trackPage: function(customConfig){
             var page = reset(customConfig);
-            pageView.track( page );
+            trackPage.track( page );
         },
         setup: setup,
-        debug: logger.debug,
-        trackError: omniture.trackError
+        debug: logger.debug
     };
     return analytics;
 
@@ -1382,8 +1383,8 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
 }(  _analytics.polyfill,
     _analytics.config,
     _analytics.omniture,
-    _analytics.linkClick,
-    _analytics.pageView,
+    _analytics.trackClick,
+    _analytics.trackPage,
     _analytics.logger
 ));
 
@@ -1393,10 +1394,10 @@ if (typeof window.define === "function" && window.define.amd) {
         'utils/polyfill',
         'core/config',
         'core/omniture',
-        'core/link-click',
-        'core/page-view',
+        'core/track-click',
+        'core/track-page',
         'utils/logger'
-    ], function(polyfill, config, omniture, linkClick, pageView, logger) {
+    ], function(polyfill, config, omniture, trackClick, trackPage, logger) {
         return _analytics.setup;
     });
 };

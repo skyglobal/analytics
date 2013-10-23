@@ -14,8 +14,8 @@ _analytics.logger = (function(config){
         }
     }
 
-    function logPageView(tracked){
-        log('start','pageView event triggered');
+    function logtrackPage(tracked){
+        log('start','trackPage event triggered');
         log('','omniture', tracked);
         log('end');
     }
@@ -78,7 +78,7 @@ _analytics.logger = (function(config){
 
     return {
         debug: debug,
-        logPageView: logPageView,
+        logtrackPage: logtrackPage,
         logS: logS,
         log: log
     };

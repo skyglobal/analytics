@@ -1,5 +1,5 @@
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils){
+_analytics.trackPage = (function(config,omniture,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils){
 
     var pluginsLoaded = false,
         setVariable = omniture.setVariable,
@@ -77,7 +77,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
 ));
 
 if (typeof window.define === "function" && window.define.amd) {//just for require
-    define("core/page-view", [
+    define("core/track-page", [
         'core/config',
         'core/omniture',
         'plugins/media-module',
@@ -87,6 +87,6 @@ if (typeof window.define === "function" && window.define.amd) {//just for requir
         'plugins/user-history',
         'plugins/utils'
     ], function(config, omniture, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory, utils) {
-        return _analytics.pageView;
+        return _analytics.trackPage;
     });
 }

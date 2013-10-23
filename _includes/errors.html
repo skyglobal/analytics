@@ -1,5 +1,5 @@
-<h2>Error Tracking</h2>
-<p>Tracking an error is as easy 1, 2, 404. You can either send an error on <code>pageView</code> or via JS.
+<h2>Errors</h2>
+<p>Tracking an error is as easy 1, 2, 404. You can either send an error on <code>trackPage</code> or via JS.
 
 <h3 class="wiki-h3">Examples</h3>
 <div class="example clearfix">
@@ -22,14 +22,14 @@
         </div>
     </div>
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=pageView-error></span>
-        <a class='btn in-page-cta' href='#!' id='btn_error_pageView' data-tracking="false">Send Error on pageView</a>
+        <span class="toggle-code-example" for=trackPage-error></span>
+        <a class='btn in-page-cta' href='#!' id='btn_error_trackPage' data-tracking="false">Send Error on page load</a>
     </div>
     <div class="skycom_8">
-        All you need to do is use <code>loadVariables</code>in the pageView config.
+        All you need to do is use <code>loadVariables</code>in the trackPage config.
     </div>
 
-    <div class="code-example" id=pageView-error>
+    <div class="code-example" id=trackPage-error>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
             <code class="html block">none</code>
@@ -46,7 +46,7 @@
     page: 'Analytics debug demo page',
     loadVariables: { errors: '404' }
 };
-analytics.pageView(SITECAT_CONFIG);
+analytics.trackPage(SITECAT_CONFIG);
             </code>
         </div>
     </div>

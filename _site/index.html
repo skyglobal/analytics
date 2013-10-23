@@ -71,13 +71,13 @@
         <div class="skycom_container">
             <ul class="nav-pills alpha skycom_12">
                 <li><a href="/#using-me">Using the Analytics</a></li>
-                <li><a href="/#tracking-clicks">Tracking Clicks</a></li>
-                <li><a href="/#tracking-searches">Tracking Searches</a></li>
-                <li><a href="/#custom-vars">Custom Variables</a></li>
-                <li><a href="/#custom-events">Custom Events</a></li>
+                <li><a href="/#clicks">Clicks</a></li>
+                <li><a href="/#searches">Searches</a></li>
+                <li><a href="/#errors">Errors</a></li>
+                <li><a href="/#variables">Variables</a></li>
+                <li><a href="/#events">Events</a></li>
                 <li><a href="/#manual">Manual Trigger</a></li>
                 <li><a href="/#single-page-apps">Single Page Apps</a></li>
-                <li><a href="/#errors">Errors</a></li>
             </ul>
         </div>
     </div>
@@ -94,7 +94,7 @@
         If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p><p>Then add the following onto your page with the correct account details to initialise the tracking.    </p>
 
-    <code class="block js">   analytics.pageView({
+    <code class="block js">   analytics.trackPage({
         site: 'global',
         section: 'skyglobal/analytics',
         account: 'bskybdemodev',
@@ -149,11 +149,10 @@
     <dd class="skycom_8">[optional] A way to customise tracking for your site. <a href="#custom-vars">details here >></a></dd>
     <dt class="skycom_4 alpha">customEvents</dt>
     <dd class="skycom_8">[optional] A way to customise tracking for your site. <a href="#custom-events">details here >></a></dd>
-    <dt class="skycom_4 alpha">trackLinks</dt>
+    <dt class="skycom_4 alpha">trackClicks</dt>
     <dd class="skycom_8">[optional] [boolean]. Set to false to prevent binding of omniture calls on link clicks. <a href="#manual">click here</a> to see how to manually bind your link clicks</dd>
     <dt class="skycom_4 alpha">debug</dt>
     <dd class="skycom_8">[optional] [boolean]. Set to true to turn on debug on page load to capture the page view event</dd>
-
 </dl>
 
 <h4>Debugging</h4>
@@ -165,7 +164,7 @@
 <p>Try <code>analytics.debug()</code> now and click around below.</p>
 
 <h4>Example config</h4>
-<code class="block js">    analytics.pageView({
+<code class="block js">    analytics.trackPage({
         site: 'global',
         section: 'skyglobal/analytics',
         account: 'bskybdemodev',
@@ -187,9 +186,9 @@
 </section>
 
 
-<a name="tracking-clicks"></a>
+<a name="clicks"></a>
 <section class="wiki-section">
-    <h2>Tracking Clicks</h2>
+    <h2>Clicks</h2>
 <p>
     Pages are commonly split up in the following areas: Modules, Pods and other.
     You may also want to track Editorial-Themes or the Context along with the clicked text<sup>1</sup>.
@@ -414,9 +413,9 @@
 
 </div>
 </section>
-<a name="tracking-searches"></a>
+<a name="searches"></a>
 <section class="wiki-section">
-    <h2>Search Tracking</h2>
+    <h2>Searches</h2>
 <p>
     To track <code>searchType</code> and <code>searchTerms</code>, you need to add the following into your HTML:
 </p>
@@ -427,7 +426,7 @@
     <dd class="skycom_8">Add this to the search button and set it to the id of the element that contains what was searched for.</dd>
 </dl>
 <p>
-    Once the search is complete and results have been returned, the above info should be sent on pageView along with how many results we're returned.
+    Once the search is complete and results have been returned, the above info should be sent with <code>trackPage</code> along with how many results we're returned.
 </p>
 
 <h3 class="wiki-h3 clear">Examples</h3>
@@ -453,10 +452,10 @@
 
     <div class='skycom_4 alpha skycom_clear sky-form has-code-example'>
         <span class="toggle-code-example" for=search-events-onload></span>
-        <button class="btn" type="submit" data-tracking=false id='search-results-pageView'>Show Results page</button>
+        <button class="btn" type="submit" data-tracking=false id='search-results-trackPage'>Show Results page</button>
     </div>
     <div class="skycom_8">
-        Trigger a <code>pageView</code> with loadVariables: searchResults, searchType and searchTerm<sup>1</sup>.
+        Trigger <code>trackPage</code> with loadVariables: searchResults, searchType and searchTerm<sup>1</sup>.
     </div>
     <div class="code-example" id=search-events-onload>
         <code class="skycom-2 alpha html">HTML</code>
@@ -464,7 +463,7 @@
             <code class="block html">none</code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
-        <div class="skycom-9 "><code class="block js">analytics.pageView({
+        <div class="skycom-9 "><code class="block js">analytics.trackPage({
     site: 'global',
     section: 'skyglobal/analytics',
     account: 'bskybglobaldev',
@@ -494,8 +493,64 @@
 <p><sup>1</sup>When <code>searchResults</code> variable is set, the <code>searchResults</code> event will be sent automatically.</p>
 
 </section>
+<a name="errors"></a>
+<section class=wiki-section>
+    <h2>Errors</h2>
+<p>Tracking an error is as easy 1, 2, 404. You can either send an error on <code>trackPage</code> or via JS.
 
-<a name="custom-vars"></a>
+<h3 class="wiki-h3">Examples</h3>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=send-error></span>
+        <a class='btn in-page-cta' href='#!' id='btn_error_event' data-tracking="false">Send Error</a>
+    </div>
+    <div class="skycom_8">
+        Manually call the <code>analytics.trackError</code> function.
+    </div>
+
+    <div class="code-example" id=send-error>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">analytics.trackError('myCustomError i.e. 404 or no-package-found');            </code>
+        </div>
+    </div>
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=trackPage-error></span>
+        <a class='btn in-page-cta' href='#!' id='btn_error_trackPage' data-tracking="false">Send Error on page load</a>
+    </div>
+    <div class="skycom_8">
+        All you need to do is use <code>loadVariables</code>in the trackPage config.
+    </div>
+
+    <div class="code-example" id=trackPage-error>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">SITECAT_CONFIG = {
+    site: 'global',
+    section: 'skyglobal/analytics/debug',
+    headline: '',
+    contentType: 'demo',
+    contentId: '',
+    account: 'bskybglobaldev',
+    page: 'Analytics debug demo page',
+    loadVariables: { errors: '404' }
+};
+analytics.trackPage(SITECAT_CONFIG);
+            </code>
+        </div>
+    </div>
+</div>
+</section>
+
+<a name="variables"></a>
 <section class="wiki-section">
     <h2>Variables</h2>
 <h3>Standard</h3>
@@ -514,7 +569,7 @@
     <dt class="skycom_4 alpha">prop</dt>
     <dd class="skycom_8">[int] Omniture Prop Id.Needed for xxx type reporting</dd>
     <dt class="skycom_4 alpha">onPageLoad</dt>
-    <dd class="skycom_8">[optional][boolean] Set if the variable should be sent on 'pageView'</dd>
+    <dd class="skycom_8">[optional][boolean] Set if the variable should be sent when 'trackPage' is called</dd>
     <dt class="skycom_4 alpha">value</dt>
     <dd class="skycom_8">[optional][string] Should be set if <code>onPageLoad</code> is set</dd>
 </dl>
@@ -564,7 +619,7 @@
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-            <code class="block js">   analytics.pageView({
+            <code class="block js">   analytics.trackPage({
     site: 'global',
     section: 'skyglobal/analytics',
     account: 'bskybdemodev',
@@ -596,7 +651,7 @@
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-            <code class="block js">analytics.pageView({
+            <code class="block js">analytics.trackPage({
     ...
     drink: [
         {'colour': {var: 72 }}
@@ -634,7 +689,7 @@
             </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-            <code class="block js">analytics.pageView({
+            <code class="block js">analytics.trackPage({
     ...
     drink: [
        {'how_about_pina_coladas': {var: 73 }}
@@ -666,7 +721,7 @@
             <code class=" block html">&lt;button  data-tracking-variable="colour">Blue&lt;/button>
 &lt;button data-tracking-variable="colour">Gray&lt;/button></code></div>
         <code class="skycom-2 alpha js">Javascript</code>
-        <div class="skycom-9 js"><code class="block js">analytics.pageView({
+        <div class="skycom-9 js"><code class="block js">analytics.trackPage({
     ...
     customVariables: [
         {'colour': {var: 71 }}
@@ -695,7 +750,7 @@
             {'magic_happened': {var: 101, value:'im on load', onPageLoad: true}}
         ]
     };
-analytics.pageView(config);
+analytics.trackPage(config);
             </code>
         </div>
     </div>
@@ -703,7 +758,7 @@ analytics.pageView(config);
 </div>
 </section>
 
-<a name="custom-events"></a>
+<a name="events"></a>
 <section class=wiki-section>
     <h2>Custom Events</h2>
 <p>
@@ -738,7 +793,7 @@ analytics.pageView(config);
                     {'magic_happened': {event: 101}}
                 ]
             };
-            analytics.pageView(config);
+            analytics.trackPage(config);
             </code>
         </div>
     </div>
@@ -762,7 +817,7 @@ analytics.pageView(config);
                     {'magic_happened': {event: 101, onPageLoad: true}}
                 ]
             };
-            analytics.pageView(config);
+            analytics.trackPage(config);
             </code>
         </div>
     </div>
@@ -779,7 +834,7 @@ analytics.pageView(config);
 
 <h3 class="wiki-h3">Bind tracking manually</h3>
 <p>
-    If you have set <code>trackLinks: false</code> in the config you will need to manually set up the link track binding.
+    If you have set <code>trackClicks: false</code> in the config you will need to manually set up the link track binding.
     This is useful for 'backbone' apps for example.
 </p>
 
@@ -810,7 +865,7 @@ analytics.pageView(config);
         <a class='btn in-page-cta' data-tracking=false href='#!' id='manualBindA'>Anchor manually bound</a>
     </div>
     <div class="skycom_8">
-        You can bind your DOM elements to execute <code>analytics.linkClick</code> manually
+        You can bind your DOM elements to execute <code>analytics.trackClick</code> manually
     </div>
 
     <div class="code-example" id=manual-bind>
@@ -820,7 +875,7 @@ analytics.pageView(config);
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-            <code class="js block">$(document).on('click', '#manualBind, manualBindA', analytics.linkClick);</code>
+            <code class="js block">$(document).on('click', '#manualBind, manualBindA', analytics.trackClick);</code>
         </div>
     </div>
 </div>
@@ -829,7 +884,7 @@ analytics.pageView(config);
 <a name="single-page-apps"></a>
 <section class=wiki-section>
     <h2>Single Page Apps</h2>
-<p>For apps where the page content changes without a page-refresh, you can track the new page being loaded by calling the <code>pageView</code> function again.</p>
+<p>For apps where the page content changes without a page-refresh.</p>
 <h3 class="wiki-h3">Examples</h3>
 <div class="example clearfix">
     <div class="skycom-4 alpha has-code-example">
@@ -837,7 +892,7 @@ analytics.pageView(config);
         <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
     </div>
     <div class="skycom_8">
-        Trigger a page load event on single page apps. Pass in the updated <code>config</code> to the <code>pageView</code> function.
+        Pass in the updated <code>config</code> to, and call the <code>trackPage</code> function.
     </div>
 
     <div class="code-example" id=single-page-app>
@@ -847,72 +902,16 @@ analytics.pageView(config);
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-            <code class="js block">analytics.pageView(config);            </code>
+            <code class="js block">analytics.trackPage(config);            </code>
         </div>
     </div>
 </div>
 </section>
 
-<a name="errors"></a>
-<section class=wiki-section>
-    <h2>Error Tracking</h2>
-<p>Tracking an error is as easy 1, 2, 404. You can either send an error on <code>pageView</code> or via JS.
-
-<h3 class="wiki-h3">Examples</h3>
-<div class="example clearfix">
-    <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=send-error></span>
-        <a class='btn in-page-cta' href='#!' id='btn_error_event' data-tracking="false">Send Error</a>
-    </div>
-    <div class="skycom_8">
-        Manually call the <code>analytics.trackError</code> function.
-    </div>
-
-    <div class="code-example" id=send-error>
-        <code class="skycom-2 alpha html">HTML</code>
-        <div class="skycom-9">
-            <code class="html block">none</code>
-        </div>
-        <code class="skycom-2 alpha js">Javascript</code>
-        <div class="skycom-9">
-            <code class="js block">analytics.trackError('myCustomError i.e. 404 or no-package-found');            </code>
-        </div>
-    </div>
-    <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=pageView-error></span>
-        <a class='btn in-page-cta' href='#!' id='btn_error_pageView' data-tracking="false">Send Error on pageView</a>
-    </div>
-    <div class="skycom_8">
-        All you need to do is use <code>loadVariables</code>in the pageView config.
-    </div>
-
-    <div class="code-example" id=pageView-error>
-        <code class="skycom-2 alpha html">HTML</code>
-        <div class="skycom-9">
-            <code class="html block">none</code>
-        </div>
-        <code class="skycom-2 alpha js">Javascript</code>
-        <div class="skycom-9">
-            <code class="js block">SITECAT_CONFIG = {
-    site: 'global',
-    section: 'skyglobal/analytics/debug',
-    headline: '',
-    contentType: 'demo',
-    contentId: '',
-    account: 'bskybglobaldev',
-    page: 'Analytics debug demo page',
-    loadVariables: { errors: '404' }
-};
-analytics.pageView(SITECAT_CONFIG);
-            </code>
-        </div>
-    </div>
-</div>
-</section>
 
 <script type="text/javascript" charset="utf-8">
 
-    analytics.pageView({
+    analytics.trackPage({
         site: 'global',
         section: 'skyglobal/analytics',
         account: 'bskybglobaldev',

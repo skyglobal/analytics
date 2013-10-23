@@ -4,13 +4,13 @@ _wiki.setup = (function(){
 
     function bindEvents(){
         $('.toggle-code-example').on('click', toggleCodeExamples);
-        $('#btn_ajax_event').on('click', ajaxPageView);
-        $('#btn-page-load-var').on('click', customVarPageView);
-        $('#search-results-pageView').on('click', searchResultsPageView);
-        $('#btn_error_pageView').on('click', triggerErrorPageView);
+        $('#btn_ajax_event').on('click', ajaxtrackPage);
+        $('#btn-page-load-var').on('click', customVartrackPage);
+        $('#search-results-trackPage').on('click', searchResultstrackPage);
+        $('#btn_error_trackPage').on('click', triggerErrortrackPage);
         $('#btn_error_event').on('click', triggerError);
         $('#standard-vars-onLoad-a').on('click', sendStandardVarOnload);
-        $(document).on('click', '#manualBind, #manualBindA', analytics.linkClick);
+        $(document).on('click', '#manualBind, #manualBindA', analytics.trackClick);
         updateCustomVariableValues();
         manualTrigger();
     }
@@ -41,9 +41,9 @@ _wiki.setup = (function(){
             });
     }
 
-    function ajaxPageView(e){
+    function ajaxtrackPage(e){
         e.preventDefault();
-        analytics.pageView({
+        analytics.trackPage({
             site: 'global',
             section: 'skyglobal/analytics',
             account: 'bskybglobaldev',
@@ -59,9 +59,9 @@ _wiki.setup = (function(){
         });
     }
 
-    function searchResultsPageView(e){
+    function searchResultstrackPage(e){
         e.preventDefault();
-        analytics.pageView({
+        analytics.trackPage({
             site: 'global',
             section: 'skyglobal/analytics',
             account: 'bskybglobaldev',
@@ -70,9 +70,9 @@ _wiki.setup = (function(){
         });
     }
 
-    function customVarPageView(e){
+    function customVartrackPage(e){
         e.preventDefault();
-        analytics.pageView({
+        analytics.trackPage({
             site: 'global',
             section: 'skyglobal/analytics',
             account: 'bskybglobaldev',
@@ -96,7 +96,7 @@ _wiki.setup = (function(){
     function triggerError(){
         analytics.trackError('myCustomError i.e. 404 or no-package-found');
     }
-    function triggerErrorPageView(){
+    function triggerErrortrackPage(){
         SITECAT_CONFIG = {
             site: 'global',
             section: 'skyglobal/analytics/debug',
@@ -107,10 +107,10 @@ _wiki.setup = (function(){
             page: 'Analytics debug demo page',
             loadVariables: { errors: '404' }
         };
-        analytics.pageView(SITECAT_CONFIG);
+        analytics.trackPage(SITECAT_CONFIG);
     }
     function sendStandardVarOnload(){
-        analytics.pageView({
+        analytics.trackPage({
             site: 'global',
             section: 'skyglobal/analytics',
             account: 'bskybdemodev',

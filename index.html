@@ -13,7 +13,7 @@ title: Analytics
         If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p><p>Then add the following onto your page with the correct account details to initialise the tracking.    </p>
 
-    <code class="block js">   analytics.pageView({
+    <code class="block js">   analytics.trackPage({
         site: 'global',
         section: 'skyglobal/analytics',
         account: 'bskybdemodev',
@@ -34,23 +34,27 @@ title: Analytics
 </section>
 
 
-<a name="tracking-clicks"></a>
+<a name="clicks"></a>
 <section class="wiki-section">
-    {% include tracking-clicks.html %}
+    {% include clicks.html %}
 </section>
-<a name="tracking-searches"></a>
+<a name="searches"></a>
 <section class="wiki-section">
-    {% include tracking-searches.html %}
+    {% include searches.html %}
 </section>
-
-<a name="custom-vars"></a>
-<section class="wiki-section">
-    {% include custom-vars.html %}
-</section>
-
-<a name="custom-events"></a>
+<a name="errors"></a>
 <section class=wiki-section>
-    {% include custom-events.html %}
+    {% include errors.html %}
+</section>
+
+<a name="variables"></a>
+<section class="wiki-section">
+    {% include variables.html %}
+</section>
+
+<a name="events"></a>
+<section class=wiki-section>
+    {% include events.html %}
 </section>
 
 <a name="manual"></a>
@@ -63,14 +67,10 @@ title: Analytics
     {% include single-page-apps.html %}
 </section>
 
-<a name="errors"></a>
-<section class=wiki-section>
-    {% include tracking-errors.html %}
-</section>
 
 <script type="text/javascript" charset="utf-8">
 
-    analytics.pageView({
+    analytics.trackPage({
         site: 'global',
         section: 'skyglobal/analytics',
         account: 'bskybglobaldev',

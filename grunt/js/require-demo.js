@@ -1,6 +1,6 @@
 define("require-demo", ['analytics'], function(analytics) {
 
-    analytics.pageView({
+    analytics.trackPage({
         site: 'global',
         section: 'skyglobal/analytics/require',
         headline: '',

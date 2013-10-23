@@ -11,8 +11,8 @@ plugins/utils.js
 plugins/channel-manager.js
 plugins/new-or-repeat-visits.js
 plugins/user-history.js
-core/page-view.js
-core/link-click.js
+core/track-page.js
+core/track-click.js
 analytics.js
 
 wiki.js

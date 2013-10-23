@@ -1,8 +1,8 @@
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.linkClick = (function(config, omniture){
+_analytics.trackClick = (function(config, omniture){
 
     function bindEvents(selector, evnt) {
-        if(!config.trackLinks){return;}
+        if(!config.trackClicks){return;}
         var clickSelector = selector || 'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
         evnt = evnt || 'click';
         $(document).on(evnt, clickSelector, function(e) {
@@ -32,7 +32,7 @@ _analytics.linkClick = (function(config, omniture){
             addVariable('searchTerm', context);
             addEvent('search');
         }
-        omniture.trackLink(this);
+        omniture.trackClick(this);
     }
 
 
@@ -114,7 +114,7 @@ _analytics.linkClick = (function(config, omniture){
 }(_analytics.config, _analytics.omniture));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("core/link-click", ["core/config","core/page-view"], function() {
-        return _analytics.linkClick;
+    define("core/track-click", ["core/config","core/track-page"], function() {
+        return _analytics.trackClick;
     });
 }

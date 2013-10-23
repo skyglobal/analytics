@@ -6,7 +6,7 @@
 
 <h3 class="wiki-h3">Bind tracking manually</h3>
 <p>
-    If you have set <code>trackLinks: false</code> in the config you will need to manually set up the link track binding.
+    If you have set <code>trackClicks: false</code> in the config you will need to manually set up the link track binding.
     This is useful for 'backbone' apps for example.
 </p>
 
@@ -37,7 +37,7 @@
         <a class='btn in-page-cta' data-tracking=false href='#!' id='manualBindA'>Anchor manually bound</a>
     </div>
     <div class="skycom_8">
-        You can bind your DOM elements to execute <code>analytics.linkClick</code> manually
+        You can bind your DOM elements to execute <code>analytics.trackClick</code> manually
     </div>
 
     <div class="code-example" id=manual-bind>
@@ -47,7 +47,7 @@
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-            <code class="js block">$(document).on('click', '#manualBind, manualBindA', analytics.linkClick);</code>
+            <code class="js block">$(document).on('click', '#manualBind, manualBindA', analytics.trackClick);</code>
         </div>
     </div>
 </div>

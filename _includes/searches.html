@@ -1,4 +1,4 @@
-<h2>Search Tracking</h2>
+<h2>Searches</h2>
 <p>
     To track <code>searchType</code> and <code>searchTerms</code>, you need to add the following into your HTML:
 </p>
@@ -9,7 +9,7 @@
     <dd class="skycom_8">Add this to the search button and set it to the id of the element that contains what was searched for.</dd>
 </dl>
 <p>
-    Once the search is complete and results have been returned, the above info should be sent on pageView along with how many results we're returned.
+    Once the search is complete and results have been returned, the above info should be sent with <code>trackPage</code> along with how many results we're returned.
 </p>
 
 <h3 class="wiki-h3 clear">Examples</h3>
@@ -35,10 +35,10 @@
 
     <div class='skycom_4 alpha skycom_clear sky-form has-code-example'>
         <span class="toggle-code-example" for=search-events-onload></span>
-        <button class="btn" type="submit" data-tracking=false id='search-results-pageView'>Show Results page</button>
+        <button class="btn" type="submit" data-tracking=false id='search-results-trackPage'>Show Results page</button>
     </div>
     <div class="skycom_8">
-        Trigger a <code>pageView</code> with loadVariables: searchResults, searchType and searchTerm<sup>1</sup>.
+        Trigger <code>trackPage</code> with loadVariables: searchResults, searchType and searchTerm<sup>1</sup>.
     </div>
     <div class="code-example" id=search-events-onload>
         <code class="skycom-2 alpha html">HTML</code>
@@ -46,7 +46,7 @@
             <code class="block html">none</code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
-        <div class="skycom-9 "><code class="block js">analytics.pageView({
+        <div class="skycom-9 "><code class="block js">analytics.trackPage({
     site: 'global',
     section: 'skyglobal/analytics',
     account: 'bskybglobaldev',

@@ -57,7 +57,7 @@ _analytics.omniture = (function(config, logger){
         if (!config.variableBasedEvents[variable]){ return; }
         setEvent(config.variableBasedEvents[variable]);
     }
-    function trackLink(){
+    function trackClick(){
         send('Link Click');
     }
     function trackPage(){
@@ -286,7 +286,7 @@ _analytics.omniture = (function(config, logger){
         setLinkTrackVariable: setLinkTrackVariable,
         setLinkTrackEvent: setLinkTrackEvent,
         trackError: trackError,
-        trackLink: trackLink,
+        trackClick: trackClick,
         trackPage: trackPage,
         addPlugin: addPlugin,
         send: send,

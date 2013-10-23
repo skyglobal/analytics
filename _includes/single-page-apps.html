@@ -1,5 +1,5 @@
 <h2>Single Page Apps</h2>
-<p>For apps where the page content changes without a page-refresh, you can track the new page being loaded by calling the <code>pageView</code> function again.</p>
+<p>For apps where the page content changes without a page-refresh.</p>
 <h3 class="wiki-h3">Examples</h3>
 <div class="example clearfix">
     <div class="skycom-4 alpha has-code-example">
@@ -7,7 +7,7 @@
         <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event</a>
     </div>
     <div class="skycom_8">
-        Trigger a page load event on single page apps. Pass in the updated <code>config</code> to the <code>pageView</code> function.
+        Pass in the updated <code>config</code> to, and call the <code>trackPage</code> function.
     </div>
 
     <div class="code-example" id=single-page-app>
@@ -17,7 +17,7 @@
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
-            <code class="js block">analytics.pageView(config);            </code>
+            <code class="js block">analytics.trackPage(config);            </code>
         </div>
     </div>
 </div>

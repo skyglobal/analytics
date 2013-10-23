@@ -1,5 +1,6 @@
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
+_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, logger){
+//todo: test and document setup()
 //todo: write page to test require.. and sleep?
 //todo: test for live binding
 //todo: integration test for newOrRepeat
@@ -21,7 +22,7 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
         checkMandatoryConfig();
         setupCustomEventsAndVariables('Events');
         setupCustomEventsAndVariables('Variables');
-        linkClick.bind();
+        trackClick.bind();
 
         return config;
     }
@@ -109,14 +110,14 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
     }
 
     window.analytics = {
-        linkClick : linkClick.track,
-        pageView: function(customConfig){
+        trackClick : trackClick.track,
+        trackError: omniture.trackError,
+        trackPage: function(customConfig){
             var page = reset(customConfig);
-            pageView.track( page );
+            trackPage.track( page );
         },
         setup: setup,
-        debug: logger.debug,
-        trackError: omniture.trackError
+        debug: logger.debug
     };
     return analytics;
 
@@ -124,8 +125,8 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
 }(  _analytics.polyfill,
     _analytics.config,
     _analytics.omniture,
-    _analytics.linkClick,
-    _analytics.pageView,
+    _analytics.trackClick,
+    _analytics.trackPage,
     _analytics.logger
 ));
 
@@ -135,10 +136,10 @@ if (typeof window.define === "function" && window.define.amd) {
         'utils/polyfill',
         'core/config',
         'core/omniture',
-        'core/link-click',
-        'core/page-view',
+        'core/track-click',
+        'core/track-page',
         'utils/logger'
-    ], function(polyfill, config, omniture, linkClick, pageView, logger) {
+    ], function(polyfill, config, omniture, trackClick, trackPage, logger) {
         return _analytics.setup;
     });
 }

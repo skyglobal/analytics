@@ -13,7 +13,7 @@ class AnalyticsTest < AcceptanceTest
   end
 
   it "Clicking an anchor without 'data-tracking=false' and manual js tracking is fired" do
-    click_link('Send Error on pageView')
+    click_link('Send Error on page load')
     trackedEvents.must_equal [eventsMap[:pageLoad],eventsMap[:error]]
     trackedVariable('errors', :prop).must_include '404'
   end
