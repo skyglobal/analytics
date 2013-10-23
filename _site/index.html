@@ -555,7 +555,7 @@ analytics.trackPage(SITECAT_CONFIG);
     <h2>Variables</h2>
 <h3>Standard</h3>
 <p>
-    There are a number of variables that are standard within omniture, which means you can use them without mapping them to an <code>eVar</code> or <code>prop</code>.
+    There are a number of variables that are standard within omniture, which means you can use them without mapping them to an <code>eVar</code> or <code>prop</code> id.
 </p>
 <p>
     A list of standard variables can be found <a href="https://github.com/skyglobal/analytics/blob/master/grunt/js/core/config.js">here</a>.
@@ -588,13 +588,13 @@ analytics.trackPage(SITECAT_CONFIG);
         <a id='standard-vars-a' href="#!" data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable</a>
     </div>
     <div class="skycom_8">
-        Send a standard event on click by setting <code>data-tracking-variable</code>.
+        Send a standard variable on click by setting <code>data-tracking-variable</code>.
     </div>
 
     <div class="code-example" id=standard-vars>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
-            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable&lt;/button>
+            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos" >Send Standard Variable&lt;/button>
             </code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
@@ -614,7 +614,7 @@ analytics.trackPage(SITECAT_CONFIG);
     <div class="code-example" id=standard-vars-onLoad>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
-            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable&lt;/button>
+            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos" >Send Standard Variable&lt;/button>
             </code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
@@ -760,7 +760,16 @@ analytics.trackPage(config);
 
 <a name="events"></a>
 <section class=wiki-section>
-    <h2>Custom Events</h2>
+    <h2>Events</h2>
+<h3>Standard</h3>
+<p>
+    There are a number of events that are standard within omniture, which means you can use them without mapping them to an <code>event</code> id.
+</p>
+<p>
+    A list of standard events can be found <a href="https://github.com/skyglobal/analytics/blob/master/grunt/js/core/config.js">here</a>.
+</p>
+
+<h3>Custom</h3>
 <p>
     An array of 'Custom Events' can be added to the analytics <code>config</code> on initialisation..
 </p>
@@ -777,6 +786,60 @@ analytics.trackPage(config);
 
 <h3 class="wiki-h3">Examples</h3>
 <div class="example clearfix">
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=standard-events></span>
+        <a id='standard-events-a' href="#!" data-tracking-event='liveChat' class='btn primary-cta'>Send Standard Event</a>
+    </div>
+    <div class="skycom_8">
+        Send a standard event on click by setting <code>data-tracking-event</code>.
+    </div>
+
+    <div class="code-example" id=standard-events>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;button data-tracking-variable='liveChat' >Send Standard Event&lt;/button>
+            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="block js">none</code>
+        </div>
+    </div>
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=standard-events-onLoad></span>
+        <a id="standard-events-onLoad-a" href="#!" data-tracking=false data-tracking-event='liveChat' class='btn primary-cta'>Send Standard Events on load</a>
+    </div>
+    <div class="skycom_8">
+        Add <code>loadEvents</code> in the config.
+    </div>
+
+    <div class="code-example" id=standard-events-onLoad>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;button data-tracking-variable='liveChat'>Send Standard Event&lt;/button>
+            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="block js">analytics.trackPage({
+    site: 'global',
+    section: 'skyglobal/analytics',
+    account: 'bskybdemodev',
+    page: 'Analytics demo page',
+    loadEvents: ['liveChat']
+});</code>
+        </div>
+    </div>
+
+
+
+
+
+
+
     <div class="skycom-4 alpha has-code-example">
         <span class="toggle-code-example" for=custom-events></span>
         <a class='btn in-page-cta' href='#!' id='btn_custom_event' data-tracking-event='magic_happened'>Custom Event</a>

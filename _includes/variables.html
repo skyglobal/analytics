@@ -1,7 +1,7 @@
 <h2>Variables</h2>
 <h3>Standard</h3>
 <p>
-    There are a number of variables that are standard within omniture, which means you can use them without mapping them to an <code>eVar</code> or <code>prop</code>.
+    There are a number of variables that are standard within omniture, which means you can use them without mapping them to an <code>eVar</code> or <code>prop</code> id.
 </p>
 <p>
     A list of standard variables can be found <a href="https://github.com/skyglobal/analytics/blob/master/grunt/js/core/config.js">here</a>.
@@ -34,13 +34,13 @@
         <a id='standard-vars-a' href="#!" data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable</a>
     </div>
     <div class="skycom_8">
-        Send a standard event on click by setting <code>data-tracking-variable</code>.
+        Send a standard variable on click by setting <code>data-tracking-variable</code>.
     </div>
 
     <div class="code-example" id=standard-vars>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
-            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable&lt;/button>
+            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos" >Send Standard Variable&lt;/button>
             </code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
@@ -60,7 +60,7 @@
     <div class="code-example" id=standard-vars-onLoad>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
-            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable&lt;/button>
+            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos" >Send Standard Variable&lt;/button>
             </code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>

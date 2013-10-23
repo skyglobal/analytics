@@ -21,4 +21,15 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('linkDetails', :prop).must_include 'custom-event'
   end
 
+  it "Tracks a standard event on page load" do
+    click_link "Send Standard Events on load"
+    trackedEvents.must_equal [eventsMap[:pageLoad], eventsMap[:liveChat]]
+  end
+
+  it "Tracks a standard event on button click" do
+    click_link "Send Standard Event"
+    trackedEvents.wont_include eventsMap[:pageLoad]
+    trackedEvents.must_equal [eventsMap[:linkClick], eventsMap[:liveChat]]
+  end
+
 end
