@@ -33,13 +33,14 @@ _analytics.linkClick = (function(config, omniture){
             addEvent('search');
         }
         omniture.trackLink(this);
-        omniture.reset();
     }
 
 
     function getProperties($el){
         var textClicked = getText($el),
-            context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id'))),
+            context = $el.attr('data-tracking-context') ||
+                getText($('#' + $el.attr('data-tracking-context-id'))) ||
+                checkParentForAttribute($el[0],'data-tracking-context'),
             theme =  $el.attr('data-tracking-theme') || checkParentForAttribute($el[0],'data-tracking-theme'),
             other = checkParentForAttribute($el[0],'data-tracking-other'),
             pod =  checkParentForAttribute($el[0],'data-tracking-pod'),

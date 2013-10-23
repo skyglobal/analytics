@@ -6,6 +6,8 @@ _wiki.setup = (function(){
         $('#btn_ajax_event').on('click', ajaxPageView);
         $('#btn-page-load-var').on('click', customVarPageView);
         $('#search-results-pageView').on('click', searchResultsPageView);
+        $('#btn_error_pageView').on('click', triggerErrorPageView);
+        $('#btn_error_event').on('click', triggerError);
         $(document).on('click', '#manualBind, #manualBindA', analytics.linkClick);
         updateCustomVariableValues();
         manualTrigger();
@@ -88,6 +90,23 @@ _wiki.setup = (function(){
         });
     }
 
+
+    function triggerError(){
+        analytics.trackError('myCustomError i.e. 404 or no-package-found');
+    }
+    function triggerErrorPageView(){
+        SITECAT_CONFIG = {
+            site: 'global',
+            section: 'skyglobal/analytics/debug',
+            headline: '',
+            contentType: 'demo',
+            contentId: '',
+            account: 'bskybglobaldev',
+            page: 'Analytics debug demo page',
+            loadVariables: { errors: '404' }
+        };
+        analytics.pageView(SITECAT_CONFIG);
+    }
     bindEvents();
 
 }());

@@ -91,7 +91,7 @@ _analytics.config = (function(){
         QScmpId: 'cmpid,aff',
         QScmpIdInt: 'cmpid_int',
         useForcedLinkTracking: true,
-        forceLinkTrackingTimeout: 500,
+        forceLinkTrackingTimeout: 150,
         setObjectIDs: true,
         trackLinks: true,
         loadEvents:[],

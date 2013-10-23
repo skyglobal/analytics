@@ -77,6 +77,7 @@
                 <li><a href="/#custom-events">Custom Events</a></li>
                 <li><a href="/#manual">Manual Trigger</a></li>
                 <li><a href="/#single-page-apps">Single Page Apps</a></li>
+                <li><a href="/#errors">Errors</a></li>
             </ul>
         </div>
     </div>
@@ -210,7 +211,7 @@
         <br> Used to group items or related links that may be across modules.
         <br /> eg. <code>data-tracking-theme=friends-and-family</code></dd>
     <dt class="skycom_4 alpha">data-tracking-context <br>... or ... data-tracking-context-id</dt>
-    <dd class="skycom_8">Add this to the element being clicked.
+    <dd class="skycom_8">Add this to the element being clicked or a container.
         <br/>Useful when multiple links have the same text, you may need more context around the link i.e. 'remote record' may need the context of what is being recorded
         <br/> eg. <code>data-tracking-context=bond-11</code> or <code>data-tracking-context-id=search-box</code></dd>
     <dt class="skycom_4 alpha">data-tracking-label</dt>
@@ -418,7 +419,9 @@
     <dt class="skycom_4 alpha">data-tracking-context-id</dt>
     <dd class="skycom_8">Add this to the search button and set it to the id of the element that contains what was searched for.</dd>
 </dl>
-<p>Once the search is complete and results have been returned, the above info should be sent on pageView along with how many results we're returned.</p>
+<p>
+    Once the search is complete and results have been returned, the above info should be sent on pageView along with how many results we're returned.
+</p>
 
 <h3 class="wiki-h3 clear">Examples</h3>
 <div class='example clearfix'>
@@ -446,7 +449,7 @@
         <button class="btn" type="submit" data-tracking=false id='search-results-pageView'>Show Results page</button>
     </div>
     <div class="skycom_8">
-        Trigger a <code>pageView</code> with loadVariables: searchResults, searchType and searchTerm.
+        Trigger a <code>pageView</code> with loadVariables: searchResults, searchType and searchTerm<sup>1</sup>.
     </div>
     <div class="code-example" id=search-events-onload>
         <code class="skycom-2 alpha html">HTML</code>
@@ -479,7 +482,10 @@
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9 "><code class="block js"> dunno </code></div>
     </div>
+
 </div>
+<p><sup>1</sup>When <code>searchResults</code> variable is set, the <code>searchResults</code> event will be sent automatically.</p>
+
 </section>
 
 <a name="custom-vars"></a>
@@ -784,6 +790,64 @@ analytics.pageView(config);
     </div>
 </div>
 </section>
+
+<a name="errors"></a>
+<section class=wiki-section>
+    <h2>Error Tracking</h2>
+<p>Tracking an error is as easy 1, 2, 404. You can either send an error on <code>pageView</code> or via JS.
+
+<h3 class="wiki-h3">Examples</h3>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=send-error></span>
+        <a class='btn in-page-cta' href='#!' id='btn_error_event' data-tracking="false">Send Error</a>
+    </div>
+    <div class="skycom_8">
+        Manually call the <code>analytics.trackError</code> function.
+    </div>
+
+    <div class="code-example" id=send-error>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">analytics.trackError('myCustomError i.e. 404 or no-package-found');            </code>
+        </div>
+    </div>
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=pageView-error></span>
+        <a class='btn in-page-cta' href='#!' id='btn_error_pageView' data-tracking="false">Send Error on pageView</a>
+    </div>
+    <div class="skycom_8">
+        All you need to do is use <code>loadVariables</code>in the pageView config.
+    </div>
+
+    <div class="code-example" id=pageView-error>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">SITECAT_CONFIG = {
+    site: 'global',
+    section: 'skyglobal/analytics/debug',
+    headline: '',
+    contentType: 'demo',
+    contentId: '',
+    account: 'bskybglobaldev',
+    page: 'Analytics debug demo page',
+    loadVariables: { errors: '404' }
+};
+analytics.pageView(SITECAT_CONFIG);
+            </code>
+        </div>
+    </div>
+</div>
+</section>
+
 <script type="text/javascript" charset="utf-8">
 
     analytics.pageView({

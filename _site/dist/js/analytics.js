@@ -114,7 +114,7 @@ _analytics.config = (function(){
         QScmpId: 'cmpid,aff',
         QScmpIdInt: 'cmpid_int',
         useForcedLinkTracking: true,
-        forceLinkTrackingTimeout: 500,
+        forceLinkTrackingTimeout: 150,
         setObjectIDs: true,
         trackLinks: true,
         loadEvents:[],
@@ -257,6 +257,7 @@ _analytics.omniture = (function(config, logger){
                 s[data[i]] = map;
             }
         }
+        setVariableBasedEvents(prop);
         return val;
     }
 
@@ -281,14 +282,29 @@ _analytics.omniture = (function(config, logger){
         if (!config.variableBasedEvents[variable]){ return; }
         setEvent(config.variableBasedEvents[variable]);
     }
-    function trackLink(el){
-        log();
-        s.trackLink(el,'o','Link Click');
+    function trackLink(){
+        send('Link Click');
     }
     function trackPage(){
-        log();
-        s.t();
+        send();
     }
+
+    function trackError(type){
+        setVariable('errors', type);
+        send();
+    }
+
+    function send(type){
+        log();
+        if (type){
+            s.trackLink(true,'o',type);
+        } else {
+            s.t();
+        }
+        reset();
+    }
+
+
 
     function log(){
         logger.logS(getVariable('linkDetails'), getVariable('events'), mappedVars);
@@ -494,9 +510,11 @@ _analytics.omniture = (function(config, logger){
         setVariableBasedEvents: setVariableBasedEvents,
         setLinkTrackVariable: setLinkTrackVariable,
         setLinkTrackEvent: setLinkTrackEvent,
+        trackError: trackError,
         trackLink: trackLink,
         trackPage: trackPage,
         addPlugin: addPlugin,
+        send: send,
         init: init,
         reset: reset
     };
@@ -1065,7 +1083,6 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
 
             for (name in config.loadVariables){
                 setVariable(name, config.loadVariables[name]);
-                omniture.setVariableBasedEvents(name);
             }
             for (name in config.loadEvents){
                 setEvent(config.loadEvents[name]);
@@ -1076,7 +1093,6 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
 
             loadPlugins();
             omniture.trackPage();
-            omniture.reset();
         }
 
     function loadPlugins() {
@@ -1155,13 +1171,14 @@ _analytics.linkClick = (function(config, omniture){
             addEvent('search');
         }
         omniture.trackLink(this);
-        omniture.reset();
     }
 
 
     function getProperties($el){
         var textClicked = getText($el),
-            context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id'))),
+            context = $el.attr('data-tracking-context') ||
+                getText($('#' + $el.attr('data-tracking-context-id'))) ||
+                checkParentForAttribute($el[0],'data-tracking-context'),
             theme =  $el.attr('data-tracking-theme') || checkParentForAttribute($el[0],'data-tracking-theme'),
             other = checkParentForAttribute($el[0],'data-tracking-other'),
             pod =  checkParentForAttribute($el[0],'data-tracking-pod'),
@@ -1241,21 +1258,17 @@ if (typeof window.define === "function" && window.define.amd) {
 };
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
-//todo: document config.trackLinks: boolean
-//todo: add search event into config
-
-//todo: test plugiuns with andrew and order
-//todo: delete    setVariable('pageURL','D=referrer');
-//todo: document setVariableBasedEvents
-
-//todo: integration test for newOrRepeat
 //todo: write page to test require.. and sleep?
 //todo: test for live binding
+//todo: integration test for newOrRepeat
 //todo: maybe unit setLoginVars from user hist
-//todo: show transparency of test suit, build status maybe exec js tests on demo page
 
-//todo: write omniture.send method
-//todo: allow setVariableBasedEvents on click + omniture.send
+//todo: add search event into config
+//todo: test plugins with andrew and order
+//todo: delete    setVariable('pageURL','D=referrer');
+
+//todo: show transparency of test suit, build status maybe exec js tests on demo page
+//todo: write analytics.send method within analytics.js
 
     var mandatory = ['site', 'section', 'account', 'page'];
 
@@ -1360,7 +1373,8 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
             pageView.track( page );
         },
         setup: setup,
-        debug: logger.debug
+        debug: logger.debug,
+        trackError: omniture.trackError
     };
     return analytics;
 

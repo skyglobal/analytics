@@ -1,19 +1,16 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
-//todo: add search event into config
-
-//todo: test plugiuns with andrew and order
-//todo: delete    setVariable('pageURL','D=referrer');
-//todo: document setVariableBasedEvents
-
-//todo: integration test for newOrRepeat
 //todo: write page to test require.. and sleep?
 //todo: test for live binding
+//todo: integration test for newOrRepeat
 //todo: maybe unit setLoginVars from user hist
-//todo: show transparency of test suit, build status maybe exec js tests on demo page
 
-//todo: write omniture.send method
-//todo: allow setVariableBasedEvents on click + omniture.send
+//todo: add search event into config
+//todo: test plugins with andrew and order
+//todo: delete    setVariable('pageURL','D=referrer');
+
+//todo: show transparency of test suit, build status maybe exec js tests on demo page
+//todo: write analytics.send method within analytics.js
 
     var mandatory = ['site', 'section', 'account', 'page'];
 
@@ -118,7 +115,8 @@ _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, lo
             pageView.track( page );
         },
         setup: setup,
-        debug: logger.debug
+        debug: logger.debug,
+        trackError: omniture.trackError
     };
     return analytics;
 

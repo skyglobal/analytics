@@ -32,6 +32,7 @@ _analytics.omniture = (function(config, logger){
                 s[data[i]] = map;
             }
         }
+        setVariableBasedEvents(prop);
         return val;
     }
 
@@ -56,14 +57,29 @@ _analytics.omniture = (function(config, logger){
         if (!config.variableBasedEvents[variable]){ return; }
         setEvent(config.variableBasedEvents[variable]);
     }
-    function trackLink(el){
-        log();
-        s.trackLink(el,'o','Link Click');
+    function trackLink(){
+        send('Link Click');
     }
     function trackPage(){
-        log();
-        s.t();
+        send();
     }
+
+    function trackError(type){
+        setVariable('errors', type);
+        send();
+    }
+
+    function send(type){
+        log();
+        if (type){
+            s.trackLink(true,'o',type);
+        } else {
+            s.t();
+        }
+        reset();
+    }
+
+
 
     function log(){
         logger.logS(getVariable('linkDetails'), getVariable('events'), mappedVars);
@@ -269,9 +285,11 @@ _analytics.omniture = (function(config, logger){
         setVariableBasedEvents: setVariableBasedEvents,
         setLinkTrackVariable: setLinkTrackVariable,
         setLinkTrackEvent: setLinkTrackEvent,
+        trackError: trackError,
         trackLink: trackLink,
         trackPage: trackPage,
         addPlugin: addPlugin,
+        send: send,
         init: init,
         reset: reset
     };
