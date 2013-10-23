@@ -1,4 +1,12 @@
-<h2>Custom Variables</h2>
+<h2>Variables</h2>
+<h3>Standard</h3>
+<p>
+    There are a number of variables that are standard within omniture, which means you can use them without mapping them to an <code>eVar</code> or <code>prop</code>.
+</p>
+<p>
+    A list of standard variables can be found <a href="https://github.com/skyglobal/analytics/blob/master/grunt/js/core/config.js">here</a>.
+</p>
+<h3>Custom</h3>
 <p>
     When initialising, you will need to add <code>customVariables</code> array which may contain some options:</p>
 <dl class="clearfix ">
@@ -21,6 +29,53 @@
 
 <h3 class="wiki-h3">Examples</h3>
 <div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=standard-vars></span>
+        <a id='standard-vars-a' href="#!" data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable</a>
+    </div>
+    <div class="skycom_8">
+        Send a standard event on click by setting <code>data-tracking-variable</code>.
+    </div>
+
+    <div class="code-example" id=standard-vars>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable&lt;/button>
+            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="block js">none</code>
+        </div>
+    </div>
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=standard-vars-onLoad></span>
+        <a id="standard-vars-onLoad-a" href="#!" data-tracking=false data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable on load</a>
+    </div>
+    <div class="skycom_8">
+        Add <code>loadVariables</code> in the config.
+    </div>
+
+    <div class="code-example" id=standard-vars-onLoad>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable&lt;/button>
+            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="block js">   analytics.pageView({
+    site: 'global',
+    section: 'skyglobal/analytics',
+    account: 'bskybdemodev',
+    page: 'Analytics demo page',
+    loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'}
+});</code>
+        </div>
+    </div>
+
+
     <div class="skycom-4 alpha has-code-example">
         <span class="toggle-code-example" for=custom-vars></span>
         <form id='text-input' class="sky-form">

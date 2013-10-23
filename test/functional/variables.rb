@@ -44,4 +44,17 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('colour').must_equal 'Blue'
   end
 
+  it "tracks a standard variable sent with a button click" do
+    click_link 'Send Standard Variable'
+    trackedEvents.must_include eventsMap[:linkClick]
+    trackedVariable('videoTitle', :prop).must_equal 'My Videos'
+  end
+
+  it "tracks a stanard variable sent on page load" do
+    click_link 'Send Standard Variable on load'
+    trackedEvents.must_include eventsMap[:pageLoad]
+    trackedVariable('videoTitle', :prop).must_equal 'My Home Video'
+    trackedVariable('externalSearchTerm', :prop).must_equal 'thrill rides'
+  end
+
 end

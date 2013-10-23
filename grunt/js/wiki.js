@@ -8,6 +8,7 @@ _wiki.setup = (function(){
         $('#search-results-pageView').on('click', searchResultsPageView);
         $('#btn_error_pageView').on('click', triggerErrorPageView);
         $('#btn_error_event').on('click', triggerError);
+        $('#standard-vars-onLoad-a').on('click', sendStandardVarOnload);
         $(document).on('click', '#manualBind, #manualBindA', analytics.linkClick);
         updateCustomVariableValues();
         manualTrigger();
@@ -106,6 +107,15 @@ _wiki.setup = (function(){
             loadVariables: { errors: '404' }
         };
         analytics.pageView(SITECAT_CONFIG);
+    }
+    function sendStandardVarOnload(){
+        analytics.pageView({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybdemodev',
+            page: 'Analytics demo page',
+            loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'}
+        });
     }
     bindEvents();
 
