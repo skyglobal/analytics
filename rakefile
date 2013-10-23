@@ -52,8 +52,6 @@ end
 
 desc 'Deploys a new version to the CDN'
 task :deploy_new_version do
-  analytics_file = File.open('_site/dist/js/analytics.js')
-
   if version_already_exists?
     puts "Version #{latest_version_number} already exists. Exiting."
     next
