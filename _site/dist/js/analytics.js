@@ -116,7 +116,7 @@ _analytics.config = (function(){
         useForcedLinkTracking: true,
         forceLinkTrackingTimeout: 500,
         setObjectIDs: true,
-        trackLinks: true, //todo: document
+        trackLinks: true,
         loadEvents:[],
         loadVariables:{}
     };
@@ -229,7 +229,7 @@ _analytics.omniture = (function(config, logger){
     window.s = {};
     var mappedVars = {};
 
-    function obfuscate(val){ //todo: test channel being first in vars list
+    function obfuscate(val){
         return val.replace('eVar','v').replace('prop','c').replace('channel','ch');
     }
 
@@ -244,7 +244,7 @@ _analytics.omniture = (function(config, logger){
         return mappedVars[prop] || s[prop];
     }
 
-    function setVariable(prop, val){ //todo: unit test 0 as val. test val is typeof string
+    function setVariable(prop, val){
         if(typeof val === "undefined" || prop=='events'){ return; }
         var i= 1,map,
             data = config.variablesMap[prop] || [prop];
@@ -278,9 +278,8 @@ _analytics.omniture = (function(config, logger){
     }
 
     function setVariableBasedEvents(variable){
-        if (config.variableBasedEvents[variable]){
-            setEvent(config.variableBasedEvents[variable]);
-        }
+        if (!config.variableBasedEvents[variable]){ return; }
+        setEvent(config.variableBasedEvents[variable]);
     }
     function trackLink(el){
         log();
@@ -720,7 +719,7 @@ if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
 _analytics.plugins.channelManager = (function(omniture, config, utils){
 
-    var persistant, session,
+    var persistant = {}, session = {},
         persistantCookies = utils.getCookie('s_pers'),
         sessionCookies = utils.getCookie('s_sess'),
         setVariable = omniture.setVariable,
@@ -848,6 +847,7 @@ _analytics.plugins.channelManager = (function(omniture, config, utils){
     }
 
     function setupCampaignCookies(){
+        readCookies();
         var campaignID = omniture.getVariable('fullCampaign') || '';
         if(!campaignID || campaignID.indexOf('ilc-') === 0){ return; }
         var hasSessionCookie =  (session.cmp_cookie_session && session.cmp_cookie_session !== "undefined/undefined"),
@@ -868,8 +868,6 @@ _analytics.plugins.channelManager = (function(omniture, config, utils){
 
 
     function load(){
-        readCookies();
-
         s.linkInternalFilters = config.linkInternalFilters;
         s.seList = seList;
         omniture.addPlugin('channelManager', channelManager);
@@ -985,6 +983,7 @@ _analytics.plugins.userHistory = (function(omniture, config){
     }
 
     function setLoginVars( ) {
+        var ageGender, optIn;
         omniture.setVariable('loginStatus', (cookies.skySSO) ? loggedIn : notLoggedIn);
         if (cookies.skySSO && cookies.skySSOLast != cookies.skySSO) {
             s.c_w('skySSOLast', cookies.skySSO);
@@ -992,10 +991,13 @@ _analytics.plugins.userHistory = (function(omniture, config){
             var loginType = (fl[1] == 'l') ? 'loginComplete' : 'regComplete';
             omniture.setEvent(loginType);
         }
-        if (cookies.just){ omniture.setVariable('samId',cookies.just); }
-        if (cookies.apd) { omniture.setVariable('ageGender',cookies.apd + '|' + cookies.gpd); }
-        if (cookies.custype){ omniture.setVariable('customerType', cookies.custype); }
-        if (cookies.ust) { omniture.setVariable('optIn', cookies.ust + '|' + cookies.sid_tsaoptin); }
+        ageGender = (cookies.apd) ? cookies.apd + '|' + cookies.gpd : '';
+        optIn = (cookies.ust) ? cookies.ust + '|' + cookies.sid_tsaoptin : '';
+
+        omniture.setVariable('samId',cookies.just);
+        omniture.setVariable('customerType', cookies.custype);
+        omniture.setVariable('ageGender',ageGender);
+        omniture.setVariable('optIn', optIn);
 
         s.getAndPersistValue(document.location.toString().toLowerCase(),'omni_prev_URL',0);
         var c_pastEv = s.clickThruQuality(omniture.getVariable('campaign'),config.eventsMap['firstPageVisited'],config.eventsMap['secondPageVisited'],'s_ctq');
@@ -1035,7 +1037,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
         var siteName = setVariable('siteName','sky/portal/' + config.site),
             pageName = setVariable('pageName', siteName + "/" + config.page);
         setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
-        setVariable('pageURL','D=referrer');//todo: andrew, delete? i dont see s.referer beingset
+        setVariable('pageURL','D=referrer');
         setVariable('contentType',config.contentType);
         setVariable('url',config.url);
         setVariable('contentId',config.contentId);
@@ -1077,7 +1079,7 @@ _analytics.pageView = (function(config,omniture,mediaModule,testAndTarget,channe
             omniture.reset();
         }
 
-    function loadPlugins() {//  todo: double check ordering. which ones are pge view plugins and which are setup?
+    function loadPlugins() {
             if(pluginsLoaded){ return; }
 
             utils.load(); //must go first - user history needs it to set a campaign evar
@@ -1135,7 +1137,7 @@ _analytics.linkClick = (function(config, omniture){
     }
 
     function track(e){
-        var $el = $(e.currentTarget),
+        var $el = $(e.currentTarget || e),
             context;
 
         addEvent('linkClick');
@@ -1216,12 +1218,18 @@ _analytics.linkClick = (function(config, omniture){
     }
 
     function getText($el){
-        return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
+        return $el.attr('data-tracking-label') ||
+            $el.attr('data-tracking-value') ||
+            $el.attr('alt') ||
+            $el.val() ||
+            $el.attr('name') ||
+            $el.text();
     }
 
     return {
         bind: bindEvents,
-        track: track
+        track: track,
+        getText: getText //for testing
     };
 
 }(_analytics.config, _analytics.omniture));
@@ -1233,15 +1241,21 @@ if (typeof window.define === "function" && window.define.amd) {
 };
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
-//todo: write omniture.send method
-//todo: write page to test require
-//todo: test val vs attr value and the rest of getText | + all things logged
+//todo: document config.trackLinks: boolean
+//todo: add search event into config
+
+//todo: test plugiuns with andrew and order
+//todo: delete    setVariable('pageURL','D=referrer');
+//todo: document setVariableBasedEvents
+
+//todo: integration test for newOrRepeat
+//todo: write page to test require.. and sleep?
 //todo: test for live binding
-//    todo: check referrer is working
-//    todo: check     Similar CTA's, different actions is working
-//    todo: check     search event is working
-//    todo: test     customVarPageView
-//    todo: test     click link, then click ajax button - shouldn't see previous linkDetails
+//todo: maybe unit setLoginVars from user hist
+//todo: show transparency of test suit, build status maybe exec js tests on demo page
+
+//todo: write omniture.send method
+//todo: allow setVariableBasedEvents on click + omniture.send
 
     var mandatory = ['site', 'section', 'account', 'page'];
 

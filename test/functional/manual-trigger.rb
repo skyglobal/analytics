@@ -18,4 +18,16 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('linkDetails', :prop).must_include '|anchor-being-tracked-with-js|'
   end
 
+  it "Clicking a span with manual binding fires the linkclick event" do
+    find('#manualBind').click
+    trackedEvents.must_equal [eventsMap[:linkClick]]
+    trackedVariable('linkDetails', :prop).must_include '|span-manually-bound|'
+  end
+
+  it "Clicking an anchor with a manual binding fires the linkclick event" do
+    click_link 'Anchor manually bound'
+    trackedEvents.must_equal [eventsMap[:linkClick]]
+    trackedVariable('linkDetails', :prop).must_include '|anchor-manually-bound|'
+  end
+
 end

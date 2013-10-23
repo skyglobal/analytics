@@ -145,7 +145,9 @@
     <dt class="skycom_4 alpha">customEvents</dt>
     <dd class="skycom_8">[optional] A way to customise tracking for your site. <a href="#custom-events">details here >></a></dd>
     <dt class="skycom_4 alpha">debug</dt>
-    <dd class="skycom_8">[optional] [boolean]. Turn on debug on page load to capture the page view event</dd>
+    <dd class="skycom_8">[optional] [boolean]. Set to true to turn on debug on page load to capture the page view event</dd>
+    <dt class="skycom_4 alpha">trackLinks</dt>
+    <dd class="skycom_8">[optional] [boolean]. Set to false to prevent binding of omniture calls on link clicks. <a href="#!manual">click here</a> to see how to manually bind your link clicks</dd>
 </dl>
 
 <h4>Debugging</h4>
@@ -171,6 +173,8 @@
         debug: true
     });
 </code>
+
+
     </div>
 </section>
 
@@ -699,9 +703,16 @@ analytics.pageView(config);
 
 <a name="manual"></a>
 <section class=wiki-section>
-    <h2>Manually Trigger Tracking</h2>
+    <h2>Manual Tracking</h2>
+<h3 class="wiki-h3">Trigger via a JS call</h3>
 <p>
     You can trigger tracking using JS, and the event will be sent to Omniture as if the user had clicked the element themselves.
+</p>
+
+<h3 class="wiki-h3">Bind tracking manually</h3>
+<p>
+    If you have set <code>trackLinks: false</code> in the config you will need to manually set up the link track binding.
+    This is useful for 'backbone' apps for example.
 </p>
 
 <h3 class="wiki-h3">Examples</h3>
@@ -723,6 +734,25 @@ analytics.pageView(config);
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
             <code class="js block">$('#trackingOff').trigger('analytics.track');            </code>
+        </div>
+    </div>
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=manual-bind></span>
+        <span class='btn in-page-cta' data-tracking=false href='#!' id='manualBind'>Span manually bound</span><br/>
+        <a class='btn in-page-cta' data-tracking=false href='#!' id='manualBindA'>Anchor manually bound</a>
+    </div>
+    <div class="skycom_8">
+        You can bind your DOM elements to execute <code>analytics.linkClick</code> manually
+    </div>
+
+    <div class="code-example" id=manual-bind>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">&lt;span id='manualBind'>tracked with js&lt;/span>            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">$(document).on('click', '#manualBind, manualBindA', analytics.linkClick);</code>
         </div>
     </div>
 </div>

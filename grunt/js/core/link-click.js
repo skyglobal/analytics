@@ -15,7 +15,7 @@ _analytics.linkClick = (function(config, omniture){
     }
 
     function track(e){
-        var $el = $(e.currentTarget),
+        var $el = $(e.currentTarget || e),
             context;
 
         addEvent('linkClick');
@@ -96,12 +96,18 @@ _analytics.linkClick = (function(config, omniture){
     }
 
     function getText($el){
-        return $el.attr('data-tracking-label') || $el.attr('data-tracking-value') || $el.attr('alt') || $el.val() || $el.attr('value') || $el.attr('name') || $el.text();
+        return $el.attr('data-tracking-label') ||
+            $el.attr('data-tracking-value') ||
+            $el.attr('alt') ||
+            $el.val() ||
+            $el.attr('name') ||
+            $el.text();
     }
 
     return {
         bind: bindEvents,
-        track: track
+        track: track,
+        getText: getText //for testing
     };
 
 }(_analytics.config, _analytics.omniture));

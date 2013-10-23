@@ -7,6 +7,7 @@ _wiki.setup = (function(){
         $('#btn_ajax_event').on('click', ajaxPageView);
         $('#btn-page-load-var').on('click', customVarPageView);
         $('#search-results-pageView').on('click', searchResultsPageView);
+        $(document).on('click', '#manualBind, #manualBindA', analytics.linkClick);
         updateCustomVariableValues();
         manualTrigger();
     }

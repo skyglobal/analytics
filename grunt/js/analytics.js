@@ -1,13 +1,10 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, linkClick, pageView, logger){
-//todo: test val vs attr value and the rest of getText | + all things logged
-//todo: document config.trackLinks: boolean
-//todo: document setVariableBasedEvents
 //todo: add search event into config
 
 //todo: test plugiuns with andrew and order
 //todo: delete    setVariable('pageURL','D=referrer');
-
+//todo: document setVariableBasedEvents
 
 //todo: integration test for newOrRepeat
 //todo: write page to test require.. and sleep?
