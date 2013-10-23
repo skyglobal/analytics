@@ -19,7 +19,9 @@ module.exports = function(grunt) {
             analytics: ['lib/*.*']
         },
         jshint: {
-            analytics: ['grunt/js/analytics.js'],
+            analytics: ['grunt/js/analytics.js',
+                'grunt/js/core/config.js','grunt/js/core/track-click.js','grunt/js/core/track-page.js',
+                'grunt/js/utils/logger.js','grunt/js/utils/polyfill.js'],
             others: ['Gruntfile.js'],
             options: {
                 "globals": {

@@ -9,7 +9,7 @@ _analytics.polyfill = (function(){
 
     return {
         trim: true
-    }
+    };
 
 }());
 
