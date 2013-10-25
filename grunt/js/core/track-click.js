@@ -34,7 +34,7 @@ _analytics.trackClick = (function(config, omniture){
             addVariable('searchTerm', context);
             addEvent('search');
         }
-        omniture.trackClick(this);
+        omniture.trackClick(e);
     }
 
 

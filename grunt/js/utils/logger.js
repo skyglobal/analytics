@@ -78,6 +78,7 @@ _analytics.logger = (function(config){
 
     return {
         debug: debug,
+        debugging: debugging,
         logtrackPage: logtrackPage,
         logS: logS,
         log: log
