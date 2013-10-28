@@ -99,7 +99,7 @@
         <div class="skycom-9">
             <code class="block js">analytics.trackPage({
     ...
-    drink: [
+    customVariables: [
         {'colour': {var: 72 }}
     ]
 });</code>
@@ -137,7 +137,7 @@
         <div class="skycom-9">
             <code class="block js">analytics.trackPage({
     ...
-    drink: [
+    customVariables: [
        {'how_about_pina_coladas': {var: 73 }}
     ]
 });</code>
@@ -180,7 +180,7 @@
 
     <div class="skycom-4 alpha has-code-example">
         <span class="toggle-code-example" for=custom-var-load></span>
-        <a class='btn in-page-cta' href='#!' id='btn-page-load-var'>Custom Var Page Load</a>
+        <a class='btn in-page-cta' href='#!' id='btn-page-load-var' data-tracking=false>Custom Var Page Load</a>
     </div>
     <div class="skycom-8">To track a custom variable when the page, add <code>onPageLoad: true</code> in the config.</div>
 

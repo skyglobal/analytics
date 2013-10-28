@@ -39,7 +39,10 @@ _analytics.config = (function(){
             pageConversion: ['eVar19'],
             fullPageDescription: ['eVar55'],
             testAndTarget: ['eVar18'],
-            sessionCampaign: ['eVar47']
+            sessionCampaign: ['eVar47'],
+            list1: ['list1'],
+            list2: ['list2'],
+            list3: ['list3']
         },
         eventsMap = {
             pageLoad: 'event1',
