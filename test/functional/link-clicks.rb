@@ -11,9 +11,9 @@ class AnalyticsTest < AcceptanceTest
     trackedEvents.must_include eventsMap[:linkClick]
     trackedEvents.wont_include eventsMap[:pageLoad]
     trackedVariable('linkDetails', :prop).must_include 'standard-link'
-    trackedVariable('linkDetails', :prop).must_include 'global/analytics-demo-page'
+    trackedVariable('linkDetails', :prop).must_include 'global/skyglobal/analytics/demo'
     trackedVariable('linkDetails').must_include references('linkDetails', :prop)
-    trackedVariable('pageName', :pagename).must_include 'Analytics demo page'
+    trackedVariable('pageName', :pagename).must_include 'global/skyglobal/analytics/demo'
   end
 
   it "Tracks a button being clicked" do

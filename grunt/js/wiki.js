@@ -53,9 +53,9 @@ _wiki.setup = (function(){
                 {'ajax_happened': {event: 101, onPageLoad: true}}
             ],
             customVariables: [
-                {'colour': {var: 71 }},
-                {'drink': {'var': 72 }},
-                {'how_about_pina_coladas': {'var': 73 }}
+                {'colour': {eVar: 71 }},
+                {'drink': {'eVar': 72 }},
+                {'how_about_pina_coladas': {'eVar': 73 }}
             ]
         });
     }
@@ -77,7 +77,7 @@ _wiki.setup = (function(){
             section: 'skyglobal/analytics',
             account: 'bskybglobaldev',
             customVariables: [
-                {'how_about_pina_coladas': {'var': 73, 'value': 'my val on load', 'onPageLoad': true }}
+                {'how_about_pina_coladas': {'eVar': 73, 'value': 'my val on load', 'onPageLoad': true }}
             ]
         });
     }

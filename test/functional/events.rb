@@ -6,11 +6,13 @@ class AnalyticsTest < AcceptanceTest
     visit '/'
   end
 
-  it "Tracks a custom event on page load" do
+  it "Tracks a custom event + custom load vars on page load" do
     click_link "Custom Page Load"
     trackedEvents.wont_include eventsMap[:linkClick]
     trackedEvents.must_include eventsMap[:pageLoad]
     trackedEvents.must_include eventsMap[:custom_page_load]
+    trackedVariable('my_custom_variable', :prop).must_equal 'my custom eVar value'
+    trackedVariable('my_custom_variable').must_equal references('my_custom_variable', :prop)
   end
 
   it "Tracks a custom event on button click" do

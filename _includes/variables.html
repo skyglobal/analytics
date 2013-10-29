@@ -10,7 +10,7 @@
 <p>
     When initialising, you will need to add <code>customVariables</code> array which may contain some options:</p>
 <dl class="clearfix ">
-    <dt class="skycom_4 alpha">var</dt>
+    <dt class="skycom_4 alpha">eVar</dt>
     <dd class="skycom_8">[int] Omniture Variable Id. Needed for xxx type reporting</dd>
     <dt class="skycom_4 alpha">prop</dt>
     <dd class="skycom_8">[int] Omniture Prop Id.Needed for xxx type reporting</dd>
@@ -99,7 +99,7 @@
             <code class="block js">analytics.trackPage({
     ...
     customVariables: [
-        {'colour': {var: 72 }}
+        {'colour': {eVar: 72 }}
     ]
 });</code>
             <code class="js block">&lt;script>//script to update data-tracking-value attribute
@@ -137,7 +137,7 @@
             <code class="block js">analytics.trackPage({
     ...
     customVariables: [
-       {'how_about_pina_coladas': {var: 73 }}
+       {'how_about_pina_coladas': {eVar: 73 }}
     ]
 });</code>
             <code class="js block">&lt;script>//script to update data-tracking-value attribute
@@ -169,7 +169,7 @@
         <div class="skycom-9 js"><code class="block js">analytics.trackPage({
     ...
     customVariables: [
-        {'colour': {var: 71 }}
+        {'colour': {eVar: 71 }}
     ]
 });</code>        </div>
     </div>
@@ -192,7 +192,7 @@
             <code class="js block">    var config = {
         ...
         customVariables: [
-            {'magic_happened': {var: 101, value:'im on load', onPageLoad: true}}
+            {'magic_happened': {eVar: 101, value:'im on load', onPageLoad: true}}
         ]
     };
 analytics.trackPage(config);

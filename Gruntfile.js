@@ -85,6 +85,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha');
 
     grunt.registerTask('default', ['clean', 'jshint', 'requirejs', 'compass']);
+    grunt.registerTask('spy', ['clean', 'jshint', 'requirejs', 'compass', 'watch']);
     grunt.registerTask('hint', ['jshint']);
     grunt.registerTask('test', ['mocha']);
 };

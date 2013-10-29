@@ -6,19 +6,11 @@ class AnalyticsTest < AcceptanceTest
     visit '/'
   end
 
-  it "Tracks a custom variable on page load with additional prop" do
-    click_link "Custom Page Load"
+  it "Tracks a custom var on page load" do
+    click_link "Custom Var Page Load"
     trackedEvents.wont_include eventsMap[:linkClick]
     trackedEvents.must_include eventsMap[:pageLoad]
-    trackedVariable('my_custom_variable', :prop).must_equal 'my custom eVar value'
-    trackedVariable('my_custom_variable').must_equal references('my_custom_variable', :prop)
-  end
-
-  it "Tracks a custom prop on page load" do
-    click_link "Custom Page Load"
-    trackedEvents.wont_include eventsMap[:linkClick]
-    trackedEvents.must_include eventsMap[:pageLoad]
-    trackedVariable('my_custom_prop', :prop).must_equal 'my custom prop value'
+    trackedVariable('how_about_pina_coladas').must_equal 'my val on load'
   end
 
   it "tracks custom variables assigned after page load in a text field" do
