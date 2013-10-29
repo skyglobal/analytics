@@ -90,15 +90,14 @@
     <h2>Using the Analytics</h2>
     <p class="developer-notes">
         Please use the following:
-        <code class="html">    &lt;script src=http://analytics.global.sky.com/1.0.0/analytics.js>&lt;/script></code>.
+        <code class="html">    &lt;script src=//analytics.global.sky.com/1.0.0/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
         If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p><p>Then add the following onto your page with the correct account details to initialise the tracking.    </p>
 
     <code class="block js">   analytics.trackPage({
         site: 'global',
-        section: 'skyglobal/analytics',
-        account: 'bskybdemodev',
-        page: 'Analytics demo page'
+        section: 'skyglobal/analytics/demo',
+        account: 'bskybdemodev'
     });</code>
     <p>Boom.    Job Done.    </p>
     <p> Now <code>anchors</code>, <code>buttons</code>, <code>submits</code> and any element with <code>[data-tracking]</code> are automatically tracking.</p>
@@ -128,13 +127,11 @@
 
 <dl class="clearfix ">
     <dt class="skycom_4 alpha">site</dt>
-    <dd class="skycom_8">[mandatory] Team Identifier e.g. 'sports', 'mysky' or 'skycom' etc.</dd>
+    <dd class="skycom_8">[mandatory] Team Identifier e.g. 'sports', 'mysky' or 'skycom' etc. <span class="error">Do not include the <code>sky/portal/</code> prefix.</span> </dd>
     <dt class="skycom_4 alpha">section</dt>
     <dd class="skycom_8">[mandatory] General page location, slash deliminated. e.g. 'make-the-most/tv-preference'</dd>
     <dt class="skycom_4 alpha">account</dt>
     <dd class="skycom_8">[mandatory] Omniture account name. e.g. bskybskycomaccountprod</dd>
-    <dt class="skycom_4 alpha">page</dt>
-    <dd class="skycom_8">[mandatory] Unique identifier for your page e.g. "mini connector - registration success"</dd>
     <dt class="skycom_4 alpha">headline</dt>
     <dd class="skycom_8">[optional] Subject title for the page article</dd>
     <dt class="skycom_4 alpha">contentType</dt>
@@ -166,9 +163,8 @@
 <h4>Example config</h4>
 <code class="block js">    analytics.trackPage({
         site: 'global',
-        section: 'skyglobal/analytics',
+        section: 'skyglobal/analytics/demo',
         account: 'bskybdemodev',
-        page: 'Analytics demo page',
         loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'},
         loadEvents: ['activateComplete'],
         customEvents: [
@@ -465,9 +461,8 @@
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9 "><code class="block js">analytics.trackPage({
     site: 'global',
-    section: 'skyglobal/analytics',
+    section: 'skyglobal/analytics/results',
     account: 'bskybglobaldev',
-    page: 'Analytics search results page',
     loadVariables: { 'searchResults': 1, 'searchType':'weather', 'searchTerm': 'london' }
 });
         </code></div>
@@ -540,7 +535,6 @@
     contentType: 'demo',
     contentId: '',
     account: 'bskybglobaldev',
-    page: 'Analytics debug demo page',
     loadVariables: { errors: '404' }
 };
 analytics.trackPage(SITECAT_CONFIG);
@@ -623,7 +617,6 @@ analytics.trackPage(SITECAT_CONFIG);
     site: 'global',
     section: 'skyglobal/analytics',
     account: 'bskybdemodev',
-    page: 'Analytics demo page',
     loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'}
 });</code>
         </div>
@@ -653,7 +646,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <div class="skycom-9">
             <code class="block js">analytics.trackPage({
     ...
-    drink: [
+    customVariables: [
         {'colour': {var: 72 }}
     ]
 });</code>
@@ -691,7 +684,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <div class="skycom-9">
             <code class="block js">analytics.trackPage({
     ...
-    drink: [
+    customVariables: [
        {'how_about_pina_coladas': {var: 73 }}
     ]
 });</code>
@@ -734,7 +727,7 @@ analytics.trackPage(SITECAT_CONFIG);
 
     <div class="skycom-4 alpha has-code-example">
         <span class="toggle-code-example" for=custom-var-load></span>
-        <a class='btn in-page-cta' href='#!' id='btn-page-load-var'>Custom Var Page Load</a>
+        <a class='btn in-page-cta' href='#!' id='btn-page-load-var' data-tracking=false>Custom Var Page Load</a>
     </div>
     <div class="skycom-8">To track a custom variable when the page, add <code>onPageLoad: true</code> in the config.</div>
 
@@ -746,7 +739,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <div class="skycom-9">
             <code class="js block">    var config = {
         ...
-        customEvents: [
+        customVariables: [
             {'magic_happened': {var: 101, value:'im on load', onPageLoad: true}}
         ]
     };
@@ -828,7 +821,6 @@ analytics.trackPage(config);
     site: 'global',
     section: 'skyglobal/analytics',
     account: 'bskybdemodev',
-    page: 'Analytics demo page',
     loadEvents: ['liveChat']
 });</code>
         </div>
@@ -976,9 +968,8 @@ analytics.trackPage(config);
 
     analytics.trackPage({
         site: 'global',
-        section: 'skyglobal/analytics',
+        section: 'skyglobal/analytics/demo',
         account: 'bskybglobaldev',
-        page: 'Analytics demo page',
         customEvents: [
             {'magic_happened': {event: 101}}
         ],

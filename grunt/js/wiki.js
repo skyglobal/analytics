@@ -49,7 +49,6 @@ _wiki.setup = (function(){
             site: 'global',
             section: 'skyglobal/analytics',
             account: 'bskybglobaldev',
-            page: 'Analytics single page apps demo page',
             customEvents: [
                 {'ajax_happened': {event: 101, onPageLoad: true}}
             ],
@@ -67,7 +66,6 @@ _wiki.setup = (function(){
             site: 'global',
             section: 'skyglobal/analytics',
             account: 'bskybglobaldev',
-            page: 'Analytics single page apps demo page',
             loadVariables: { 'searchResults': 0, 'searchType':'weather', 'searchTerm': 'london' }
         });
     }
@@ -78,7 +76,6 @@ _wiki.setup = (function(){
             site: 'global',
             section: 'skyglobal/analytics',
             account: 'bskybglobaldev',
-            page: 'Analytics single page apps demo page',
             customVariables: [
                 {'how_about_pina_coladas': {'var': 73, 'value': 'my val on load', 'onPageLoad': true }}
             ]
@@ -106,7 +103,6 @@ _wiki.setup = (function(){
             contentType: 'demo',
             contentId: '',
             account: 'bskybglobaldev',
-            page: 'Analytics debug demo page',
             loadVariables: { errors: '404' }
         };
         analytics.trackPage(SITECAT_CONFIG);
@@ -116,7 +112,6 @@ _wiki.setup = (function(){
             site: 'global',
             section: 'skyglobal/analytics',
             account: 'bskybdemodev',
-            page: 'Analytics demo page',
             loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'}
         });
     }
@@ -125,7 +120,6 @@ _wiki.setup = (function(){
             site: 'global',
             section: 'skyglobal/analytics',
             account: 'bskybdemodev',
-            page: 'Analytics demo page',
             loadEvents: ['liveChat']
         });
     }
@@ -138,7 +132,6 @@ _wiki.setup = (function(){
             contentType: 'skyglobal',
             contentId: '',
             account: 'bskybmyglobaldev',
-            page: 'Analytics demo page',
             customEvents: [{'magic_happened': {event: 99, onPageLoad: true}}],
             customVariables: [
                 {'my_custom_prop':     { prop: 40, onPageLoad: true, value: 'my custom prop value'}},
@@ -158,7 +151,6 @@ _wiki.setup = (function(){
             contentType: 'demo',
             contentId: '',
             account: 'bskybglobaldev',
-            page: 'Analytics debug demo page',
             debug: true
 
         };

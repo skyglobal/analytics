@@ -15,9 +15,8 @@ title: Analytics
 
     <code class="block js">   analytics.trackPage({
         site: 'global',
-        section: 'skyglobal/analytics',
-        account: 'bskybdemodev',
-        page: 'Analytics demo page'
+        section: 'skyglobal/analytics/demo',
+        account: 'bskybdemodev'
     });</code>
     <p>Boom.    Job Done.    </p>
     <p> Now <code>anchors</code>, <code>buttons</code>, <code>submits</code> and any element with <code>[data-tracking]</code> are automatically tracking.</p>
@@ -72,9 +71,8 @@ title: Analytics
 
     analytics.trackPage({
         site: 'global',
-        section: 'skyglobal/analytics',
+        section: 'skyglobal/analytics/demo',
         account: 'bskybglobaldev',
-        page: 'Analytics demo page',
         customEvents: [
             {'magic_happened': {event: 101}}
         ],

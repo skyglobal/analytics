@@ -1,5 +1,7 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, logger){
+//todo: document vars that come for free
+
 //todo: test and document setup()
 //todo: write page to test require.. and sleep?
 //todo: test for live binding
@@ -13,7 +15,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
 //todo: show transparency of test suit, build status maybe exec js tests on demo page
 //todo: write analytics.send method within analytics.js
 
-    var mandatory = ['site', 'section', 'account', 'page'];
+    var mandatory = ['site', 'section', 'account'];
 
     function setup(customConfig){
         $.extend(config, customConfig);
