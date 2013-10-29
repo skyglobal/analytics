@@ -3,26 +3,37 @@ Analytics
 BSkyB wrapper for Adobe Sitecat analytics JS.
 
 ## Using Analytics
-### JS
-"//analytics.global.sky.com/version-number/analytics.js"
+Please read through 'Getting Started' here http://skyglobal.github.io/analytics
 
 ## Building Analytics Locally
 
 ### Code structure
-- lib/analytics.js
-  minified js containing the /source js files
+- grunt/js/
+  The source code, unminified and ready to work on.  
 
-- lib/analytics.js.map
-  source map useful for debugging
+- grunt/js/analytics.js
+  The public API is created here (returned at the bottom). This file brings together files from /core, /plugins and /utils.
 
-- views/
-  Documentation for using the API
+- grunt/js/wiki.js
+  JS to make the demo page work.  This JS is also used as part of the unit testing.
+
+- grunt/sass/
+  The look and feel for the wiki pages.  
+
+- dist/
+  Compiled (via grunt) code
+
+- _includes/
+  Source documentation for using the API.
+
+- _site/
+  Compiled (via jekyll) documentation for using the API.
 
 - app.rb
-  A basic Sinatra server for displaying the documentation, and running the tests
+  A basic Sinatra server for running the functional tests
 
 - test/
-  the functional tests for the API
+  the functional + unit tests for the API
 
 - circle.yml
   Configuration for the CI server
@@ -63,16 +74,12 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
 3. You should be able to see the documentation site in your browser on http://localhost:4000
 
 ### Testing
-Tests are found in the test directory. At present only functional
-tests are run. These tests use minitest and capybara.
+Tests are in the test directory and use minitest and capybara for functional and mocha for unit. 
+These tests are automatically run on the CircleCI server upon pushing to Github
 
-To run the test suite, simply type `rake functional` in your terminal
+To run the functional test suite, simply type `rake functional` in your terminal.
+To run the unit test suite, type `grunt test` in your terminal.
 
-You can add additional files within the functional directory and these will be
-picked up by the rake task.
-
-The tests within the functional directory will be run on the CI server
-automatically upon pushing to Github
 
 ### Deployment
 In order to release a new version of the library, the version number in _config.yml must be
