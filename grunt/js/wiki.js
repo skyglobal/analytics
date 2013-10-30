@@ -2,6 +2,8 @@ if (typeof _wiki==='undefined') _wiki={};
 _wiki.setup = (function(){
 
     function bindEvents(){
+        $('#basic-config').on('click', basicConfigLoad);
+        $('#custom-config').on('click', customConfigLoad);
         $('.toggle-code-example').on('click', toggleCodeExamples);
         $('#btn_page_load').on('click', customPageLoad);
         $('#debug-on-load').on('click', debugOnLoad);
@@ -156,6 +158,34 @@ _wiki.setup = (function(){
         };
 
         analytics.trackPage(SITECAT_CONFIG);
+    }
+
+    function basicConfigLoad(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics/demo',
+            account: 'bskybdemodev'
+        });
+    }
+
+    function customConfigLoad(e){
+        e.preventDefault();
+        analytics.trackPage({
+            page: document.title,
+            site: 'global',
+            section: 'skyglobal/analytics/demo',
+            account: 'bskybdemodev',
+            loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'},
+            loadEvents: ['activateComplete'],
+            customEvents: [
+                {'magic_happened': {event: 101, onPageLoad:true}}
+            ],
+            customVariables: [
+                {'drink': {'eVar': 72}},
+            ],
+            debug: true
+        });
     }
 
     bindEvents();

@@ -11,6 +11,16 @@ class AnalyticsTest < AcceptanceTest
     trackedEvents.wont_include eventsMap[:linkClick]
   end
 
+  it "tracks 'section' as page name id 'page' is omitted" do
+    click_link 'Click here to see this basic config in action'
+    trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/skyglobal/analytics/demo'
+  end
+
+  it "tracks 'page' as page name over section if provided" do
+    click_link 'Click here to see this custom config in action'
+    trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/Sky Analytics API Demo Page'
+  end
+
   it "Tracks the correct page name, without debug info" do
     trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/skyglobal/analytics/demo'
     trackedVariable('url', :prop).must_equal current_url  # url

@@ -8,6 +8,8 @@
     <dd class="skycom_8">[mandatory] General page location, slash deliminated. e.g. 'make-the-most/tv-preference'</dd>
     <dt class="skycom_4 alpha">account</dt>
     <dd class="skycom_8">[mandatory] Omniture account name. e.g. bskybskycomaccountprod</dd>
+    <dt class="skycom_4 alpha">page</dt>
+    <dd class="skycom_8">[optional] Unique identifier for your page e.g. "mini connector - registration success"</dd>
     <dt class="skycom_4 alpha">headline</dt>
     <dd class="skycom_8">[optional] Subject title for the page article</dd>
     <dt class="skycom_4 alpha">contentType</dt>
@@ -38,6 +40,7 @@
 
 <h4>Example config</h4>
 <code class="block js">    analytics.trackPage({
+        page: document.title,
         site: 'global',
         section: 'skyglobal/analytics/demo',
         account: 'bskybdemodev',
@@ -52,4 +55,4 @@
         debug: true
     });
 </code>
-
+<a href="#!" id="custom-config" data-tracking=false>Click here to see this custom config in action</a>.

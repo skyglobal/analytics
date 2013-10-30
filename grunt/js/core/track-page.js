@@ -7,7 +7,7 @@ _analytics.trackPage = (function(config,omniture,mediaModule,testAndTarget,chann
 
     function setPageDescriptions(){
         var siteName = setVariable('siteName','sky/portal/' + config.site),
-            pageName = setVariable('pageName', siteName + "/" + config.section);
+            pageName = setVariable('pageName', siteName + "/" + (config.page || config.section));
         setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
         setVariable('pageURL','D=referrer');
         setVariable('contentType',config.contentType);
@@ -17,7 +17,7 @@ _analytics.trackPage = (function(config,omniture,mediaModule,testAndTarget,chann
         setVariable('section0', siteName + '/' +  config.section.split('/').slice(0,1).join('/'));
         setVariable('section1', siteName + '/' +  config.section.split('/').slice(0,2).join('/'));
         setVariable('section2', siteName + '/' +  config.section.split('/').slice(0,3).join('/'));
-        setVariable('pageConversion', pageName);
+        setVariable('pageConversion', pageName.replace('sky/portal/',''));
         setVariable('headline', config.headline);
 
         if (config.headline) {
