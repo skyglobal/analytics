@@ -4,6 +4,7 @@ _wiki.setup = (function(){
     function bindEvents(){
         $('#basic-config').on('click', basicConfigLoad);
         $('#custom-config').on('click', customConfigLoad);
+        $('#custom-config-with-content-type').on('click', anotherCustomConfigLoad);
         $('.toggle-code-example').on('click', toggleCodeExamples);
         $('#btn_page_load').on('click', customPageLoad);
         $('#debug-on-load').on('click', debugOnLoad);
@@ -201,6 +202,25 @@ _wiki.setup = (function(){
             site: 'global',
             section: 'skyglobal/analytics/demo',
             account: 'bskybdemodev',
+            loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'},
+            loadEvents: ['activateComplete'],
+            customEvents: [
+                {'magic_happened': {event: 101, onPageLoad:true}}
+            ],
+            customVariables: [
+                {'drink': {'eVar': 72}},
+            ],
+            debug: true
+        });
+    }
+
+    function anotherCustomConfigLoad(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics/demo',
+            account: 'bskybdemodev',
+            contentType: 'analytics',
             loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'},
             loadEvents: ['activateComplete'],
             customEvents: [
