@@ -27,6 +27,7 @@ _analytics.config = (function(){
             ageGender: ['eVar12'],
             skyPackage: ['eVar16'],
             optIn: ['eVar38'],
+            masthead: ['prop63'],
             linkDetails: ['prop15','eVar7'],
             newRepeat: ["prop70", "eVar70"],
             visitNum: ["prop69", "eVar69"],

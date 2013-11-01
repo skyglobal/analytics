@@ -18,7 +18,8 @@ _analytics.trackClick = (function(config, omniture){
 
     function track(e){
         var $el = $(e.currentTarget || e),
-            context;
+            context,
+            linkDetails = getProperties($el);
 
         addEvent('linkClick');
         addVariable('events');
@@ -27,6 +28,10 @@ _analytics.trackClick = (function(config, omniture){
         addVariable('url', window.location.href.split('?')[0]);
         addCustomClickVariable($el);
         addCustomClickEvents($el);
+
+        if (linkDetails[0] === 'masthead'){
+            addVariable('masthead',[linkDetails[5],omniture.getVariable('site')]);
+        }
 
         if ($el.attr('data-tracking-search')){
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));

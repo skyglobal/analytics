@@ -50,6 +50,7 @@ _analytics.config = (function(){
             ageGender: ['eVar12'],
             skyPackage: ['eVar16'],
             optIn: ['eVar38'],
+            masthead: ['prop63'],
             linkDetails: ['prop15','eVar7'],
             newRepeat: ["prop70", "eVar70"],
             visitNum: ["prop69", "eVar69"],
@@ -287,7 +288,6 @@ _analytics.omniture = (function(config, logger){
     }
 
     function setLinkTrackEvent(event){
-        console.log(event);
         if (!s.linkTrackEvents) s.linkTrackEvents = '';
         if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
         s.linkTrackEvents += config.eventsMap[event].split(":")[0];
@@ -1182,7 +1182,8 @@ _analytics.trackClick = (function(config, omniture){
 
     function track(e){
         var $el = $(e.currentTarget || e),
-            context;
+            context,
+            linkDetails = getProperties($el);
 
         addEvent('linkClick');
         addVariable('events');
@@ -1191,6 +1192,10 @@ _analytics.trackClick = (function(config, omniture){
         addVariable('url', window.location.href.split('?')[0]);
         addCustomClickVariable($el);
         addCustomClickEvents($el);
+
+        if (linkDetails[0] === 'masthead'){
+            addVariable('masthead',[linkDetails[5],omniture.getVariable('site')]);
+        }
 
         if ($el.attr('data-tracking-search')){
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
