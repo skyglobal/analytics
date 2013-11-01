@@ -87,26 +87,8 @@
 
 <section class="wiki-section">
     <a name="using-me"></a>
-    <h2>Using the Analytics</h2>
-    <p class="developer-notes">
-        Please use the following:
-        <code class="html">    &lt;script src=//analytics.global.sky.com/1.1.0/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
-        If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
-</p><p>Then add the following onto your page with the correct account details to initialise the tracking.    </p>
-
-    <code class="block js">   analytics.trackPage({
-        site: 'global',
-        section: 'skyglobal/analytics/demo',
-        account: 'bskybdemodev'
-    });</code>
-    <p>Boom.    Job Done.    </p>
-    <p> Now <code>anchors</code>, <code>buttons</code>, <code>submits</code> and any element with <code>[data-tracking]</code> are automatically tracking.</p>
-
-    <a href="#!" id="basic-config" data-tracking=false>Click here to see this basic config in action</a>.
-
-    <a name="contributing"></a>
     <div class="sub-section">
-        <h3 class="wiki-h3">Contributing</h3>
+        <h2 class="wiki-h2">Contributing</h2>
 <p >
     The source code is available in a private repository on Github, along with instructions for building/running the project locally.  Please fork it from here:
     <a href="https://github.com/skyglobal/analytics/">https://github.com/skyglobal/analytics/</a>
@@ -121,7 +103,97 @@
         Issue and flag it as a '<code>bug</code>'</dd>
 </dl>
     </div>
-    <a name="getting-started"></a>
+</section>
+<section class="wiki-section">
+
+    <div class="sub-section">
+        <h2 >Using the Analytics</h2>
+<p class="developer-notes">
+    Please use the following:
+    <code class="html">    &lt;script src=//analytics.global.sky.com/1.1.0/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
+    If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
+</p><p>Then add the following onto your page with the correct account details to initialise the tracking.    </p>
+
+<code class="block js">analytics.trackPage({
+    site: 'global',
+    section: 'skyglobal/analytics/demo',
+    account: 'bskybdemodev'
+});</code>
+<p>Boom.    Job Done.    </p>
+<p> Now <code>anchors</code>, <code>buttons</code>, <code>submits</code> and any element with <code>[data-tracking]</code> are automatically tracking.</p>
+
+<a href="#!" id="basic-config" data-tracking=false>Click here to see this basic config in action</a>.
+
+    </div>
+
+    <div class="sub-section">
+        <h3 class="wiki-h3">Default Config</h3>
+<p class="developer-notes">
+    There are a few things you get for free.  These are:
+</p>
+
+<h4>On Page View</h4>
+<dl class="clearfix ">
+    <dt class="skycom_4 alpha">pageLoad</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">refDomain</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">pageURL</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">url</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">pageConversion</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">sessionCamID</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">fullPageDescription</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">samId</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">customerType</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">ageGender</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">optIn</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">testAndTarget</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">tnt</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">repeatVisit</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">visitNum</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">fullCampaign</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">searchEngine</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">externalSearchTerm</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">campaign</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">sessionCampaign</dt>
+    <dd class="skycom_8"></dd>
+ </dl>
+
+<h4>On Click</h4>
+<dl class="clearfix ">
+    <dt class="skycom_4 alpha">linkClick Event</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">linkDetails</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">refDomain</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">url</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">masthead</dt>
+    <dd class="skycom_8"></dd>
+    <dt class="skycom_4 alpha">sessionCamID</dt>
+    <dd class="skycom_8"></dd>
+ </dl>
+
+    </div>
+
     <div class="sub-section">
         <h3 class="wiki-h3">Config in Detail</h3>
 <p>To get you config correct, please get the details for your project from <code>implementation@bskyb.com</code>.  The following shows the options:</p>

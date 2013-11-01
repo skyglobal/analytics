@@ -11,7 +11,7 @@ _analytics.trackPage = (function(config,omniture,mediaModule,testAndTarget,chann
             pageName = setVariable('pageName', siteName + "/" + (config.page || config.section) + (!config.page && contentType ? "/" + contentType : ''));
 
         setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
-        setVariable('pageURL','D=referrer');
+        setVariable('pageURL','D=referrer');//todo: andrew, really?
         setVariable('url', config.url);
         setVariable('contentId', config.contentId);
         setVariable('section','sky/portal/' + config.section);
