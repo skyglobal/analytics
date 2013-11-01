@@ -1,6 +1,8 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, logger){
-//todo: document vars that come for free
+//todo: document vars that come for free + what props sent etc
+//todo: document masthead prop + test
+//todo: document sessionCamID + test
 
 //todo: test and document setup()
 //todo: write page to test require.. and sleep?

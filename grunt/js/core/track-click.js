@@ -33,6 +33,10 @@ _analytics.trackClick = (function(config, omniture){
             addVariable('masthead',[linkDetails[5],omniture.getVariable('site')]);
         }
 
+        if (window.sessionCamRecorder && window.sessionCamRecorder.sessionId){
+            addVariable('sessionCamID', window.sessionCamRecorder.sessionId().split(',')[0]);
+        }
+
         if ($el.attr('data-tracking-search')){
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));

@@ -21,6 +21,10 @@ _analytics.trackPage = (function(config,omniture,mediaModule,testAndTarget,chann
         setVariable('pageConversion', pageName.replace('sky/portal/',''));
         setVariable('headline', config.headline);
 
+        if (window.sessionCamRecorder && window.sessionCamRecorder.sessionId){
+            setVariable('sessionCamID', window.sessionCamRecorder.sessionId().split(',')[0]);
+        }
+
         if (config.headline) {
             setVariable('fullPageDescription', (config.site + '/' + config.section+ '/' + config.headline).substring(0,255));
         } else{

@@ -28,8 +28,8 @@ _analytics.config = (function(){
             'module','pod','other','context','theme','textClicked','pageName'
         ],
         variablesMap = {
-            searchType: ['prop12','eVar31'],
             searchTerm: ['prop1','eVar1'],
+            searchType: ['prop12','eVar31'],
             searchResults: ['prop34'],
             headline: ['prop3','eVar13'],
             errors: ['prop2','eVar2'],
@@ -50,6 +50,7 @@ _analytics.config = (function(){
             ageGender: ['eVar12'],
             skyPackage: ['eVar16'],
             optIn: ['eVar38'],
+            sessionCamID: ['prop62'],
             masthead: ['prop63'],
             linkDetails: ['prop15','eVar7'],
             newRepeat: ["prop70", "eVar70"],
@@ -1092,6 +1093,10 @@ _analytics.trackPage = (function(config,omniture,mediaModule,testAndTarget,chann
         setVariable('pageConversion', pageName.replace('sky/portal/',''));
         setVariable('headline', config.headline);
 
+        if (window.sessionCamRecorder && window.sessionCamRecorder.sessionId){
+            setVariable('sessionCamID', window.sessionCamRecorder.sessionId().split(',')[0]);
+        }
+
         if (config.headline) {
             setVariable('fullPageDescription', (config.site + '/' + config.section+ '/' + config.headline).substring(0,255));
         } else{
@@ -1197,6 +1202,10 @@ _analytics.trackClick = (function(config, omniture){
             addVariable('masthead',[linkDetails[5],omniture.getVariable('site')]);
         }
 
+        if (window.sessionCamRecorder && window.sessionCamRecorder.sessionId){
+            addVariable('sessionCamID', window.sessionCamRecorder.sessionId().split(',')[0]);
+        }
+
         if ($el.attr('data-tracking-search')){
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
@@ -1290,7 +1299,9 @@ if (typeof window.define === "function" && window.define.amd) {
 };
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, logger){
-//todo: document vars that come for free
+//todo: document vars that come for free + what props sent etc
+//todo: document masthead prop + test
+//todo: document sessionCamID + test
 
 //todo: test and document setup()
 //todo: write page to test require.. and sleep?

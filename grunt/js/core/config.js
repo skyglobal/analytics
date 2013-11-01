@@ -5,8 +5,8 @@ _analytics.config = (function(){
             'module','pod','other','context','theme','textClicked','pageName'
         ],
         variablesMap = {
-            searchType: ['prop12','eVar31'],
             searchTerm: ['prop1','eVar1'],
+            searchType: ['prop12','eVar31'],
             searchResults: ['prop34'],
             headline: ['prop3','eVar13'],
             errors: ['prop2','eVar2'],
@@ -27,6 +27,7 @@ _analytics.config = (function(){
             ageGender: ['eVar12'],
             skyPackage: ['eVar16'],
             optIn: ['eVar38'],
+            sessionCamID: ['prop62'],
             masthead: ['prop63'],
             linkDetails: ['prop15','eVar7'],
             newRepeat: ["prop70", "eVar70"],
