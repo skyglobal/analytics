@@ -285,10 +285,12 @@ _analytics.omniture = (function(config, logger){
         if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
         s.linkTrackVars += config.variablesMap[variable];
     }
+
     function setLinkTrackEvent(event){
+        console.log(event);
         if (!s.linkTrackEvents) s.linkTrackEvents = '';
         if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
-        s.linkTrackEvents += config.eventsMap[event];
+        s.linkTrackEvents += config.eventsMap[event].split(":")[0];
     }
 
     function setEvent(event){
@@ -1194,7 +1196,6 @@ _analytics.trackClick = (function(config, omniture){
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
             addVariable('searchTerm', context);
-            addEvent('search');
         }
         omniture.trackClick(e);
     }
@@ -1292,7 +1293,6 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
 //todo: integration test for newOrRepeat
 //todo: maybe unit setLoginVars from user hist
 
-//todo: add search event into config
 //todo: test plugins with andrew and order
 //todo: delete    setVariable('pageURL','D=referrer');
 
@@ -1359,8 +1359,9 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
         config.variablesMap[varName] = arrValues;
     }
 
-    function addToEventMap(eventName, eventID){
-        config.eventsMap[eventName] = 'event' + eventID;
+    function addToEventMap(item){
+        var prefix = 'event' + item.event;
+        config.eventsMap[item.name] = (item.serial) ? prefix + ':' + item.serial : prefix;
     }
 
     function setupCustomVariable(item) {
@@ -1371,7 +1372,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     }
 
     function setupCustomEvents(item) {
-        addToEventMap(item.name, item.event);
+        addToEventMap(item);
         if (item.onPageLoad) {
             config.loadEvents.push(item.name);
         }

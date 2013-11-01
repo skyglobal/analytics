@@ -34,4 +34,10 @@ class AnalyticsTest < AcceptanceTest
     trackedEvents.must_equal [eventsMap[:linkClick], eventsMap[:liveChat]]
   end
 
+  it "Tracks an event with a serial on button click" do
+    click_link "Send serialised Event"
+    trackedEvents.wont_include eventsMap[:pageLoad]
+    trackedEvents.must_equal [eventsMap[:linkClick], eventsMap[:serialEvent]]
+  end
+
 end

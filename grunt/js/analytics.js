@@ -8,7 +8,6 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
 //todo: integration test for newOrRepeat
 //todo: maybe unit setLoginVars from user hist
 
-//todo: add search event into config
 //todo: test plugins with andrew and order
 //todo: delete    setVariable('pageURL','D=referrer');
 
@@ -75,8 +74,9 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
         config.variablesMap[varName] = arrValues;
     }
 
-    function addToEventMap(eventName, eventID){
-        config.eventsMap[eventName] = 'event' + eventID;
+    function addToEventMap(item){
+        var prefix = 'event' + item.event;
+        config.eventsMap[item.name] = (item.serial) ? prefix + ':' + item.serial : prefix;
     }
 
     function setupCustomVariable(item) {
@@ -87,7 +87,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     }
 
     function setupCustomEvents(item) {
-        addToEventMap(item.name, item.event);
+        addToEventMap(item);
         if (item.onPageLoad) {
             config.loadEvents.push(item.name);
         }

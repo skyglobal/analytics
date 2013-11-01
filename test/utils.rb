@@ -103,5 +103,6 @@ def eventsMap
       custom_page_load:'event99',
       ajax_happened: 'event101',
       magic_happened: 'event101',
+      serialEvent: 'event666:devil12345',
   }
 end

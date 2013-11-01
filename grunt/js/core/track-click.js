@@ -32,7 +32,6 @@ _analytics.trackClick = (function(config, omniture){
             context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
             addVariable('searchType', $el.attr('data-tracking-search'));
             addVariable('searchTerm', context);
-            addEvent('search');
         }
         omniture.trackClick(e);
     }

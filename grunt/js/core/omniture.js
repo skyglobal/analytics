@@ -45,10 +45,11 @@ _analytics.omniture = (function(config, logger){
         if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
         s.linkTrackVars += config.variablesMap[variable];
     }
+
     function setLinkTrackEvent(event){
         if (!s.linkTrackEvents) s.linkTrackEvents = '';
         if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
-        s.linkTrackEvents += config.eventsMap[event];
+        s.linkTrackEvents += config.eventsMap[event].split(":")[0];
     }
 
     function setEvent(event){
