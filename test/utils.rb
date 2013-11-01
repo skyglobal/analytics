@@ -70,7 +70,9 @@ def variablesMap
       how_about_pina_coladas: {eVar: 'v73'},
       colour: {eVar: 'v71'},
       myListOfStuff: {list:'l1'},
+      customerOffers: {list:'l2'},
       myHierarchyOfStuff: {hier:'h1'},
+      myHeirarchy: {hier:'h2'},
   }
 end
 

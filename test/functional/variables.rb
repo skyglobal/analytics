@@ -20,11 +20,25 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('myListOfStuff',:list).must_equal 'val1|my second|final value'
   end
 
+  it "Tracks a custom list on click" do
+    click_link "List Variable on click"
+    trackedEvents.must_include eventsMap[:linkClick]
+    trackedEvents.wont_include eventsMap[:pageLoad]
+    trackedVariable('customerOffers',:list).must_equal 'offer1|offer2'
+  end
+
   it "Tracks a custom hierarchy on page load" do
     click_link "Hierarchy Variable on page load"
     trackedEvents.wont_include eventsMap[:linkClick]
     trackedEvents.must_include eventsMap[:pageLoad]
     trackedVariable('myHierarchyOfStuff',:hier).must_equal 'h1|second h|final hier'
+  end
+
+  it "Tracks a custom hierarchy on click" do
+    click_link "Hierarchy Variable on click"
+    trackedEvents.must_include eventsMap[:linkClick]
+    trackedEvents.wont_include eventsMap[:pageLoad]
+    trackedVariable('myHeirarchy',:hier).must_equal 'click val 1|2nd click val'
   end
 
   it "tracks custom variables assigned after page load in a text field" do

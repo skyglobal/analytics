@@ -563,13 +563,13 @@ analytics.trackPage(SITECAT_CONFIG);
     When initialising, you will need to add <code>customVariables</code> array which may contain some options:</p>
 <dl class="clearfix ">
     <dt class="skycom_4 alpha">eVar</dt>
-    <dd class="skycom_8">[int] Omniture Variable Id. Needed for xxx type reporting</dd>
+    <dd class="skycom_8">[int] Omniture Variable Id. Needed for conversion reporting</dd>
     <dt class="skycom_4 alpha">prop</dt>
-    <dd class="skycom_8">[int] Omniture Prop Id.Needed for xxx type reporting</dd> <!-- andre explain these -->
+    <dd class="skycom_8">[int] Omniture Prop Id. Needed for count based reporting.</dd> <!-- andre explain these -->
     <dt class="skycom_4 alpha">list</dt>
-    <dd class="skycom_8">[int] Omniture List Id.Needed for xxx type reporting.  The value of this type must be an <code>Array</code>.</dd>
+    <dd class="skycom_8">[int] Omniture List Id. The value of this type must be an <code>Array</code>.</dd>
     <dt class="skycom_4 alpha">hier</dt>
-    <dd class="skycom_8">[int] Omniture Hierarchy Id. Needed for xxx type reporting.  The value of this type must be an <code>Array</code></dd>
+    <dd class="skycom_8">[int] Omniture Hierarchy Id. The value of this type must be an <code>Array</code></dd>
     <dt class="skycom_4 alpha">onPageLoad</dt>
     <dd class="skycom_8">[optional][boolean] Set if the variable should be sent when 'trackPage' is called</dd>
     <dt class="skycom_4 alpha">value</dt>
@@ -783,6 +783,33 @@ analytics.trackPage(SITECAT_CONFIG);
     </div>
 
 
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-list-click></span>
+        <a class='btn in-page-cta' href='#!' id='btn-click-list'
+           data-tracking-variable=customer-offers data-tracking-value='offer1|offer2'>List Variable on click</a>
+    </div>
+    <div class="skycom-8">To track a list variable on click use <code>list</code> and update the HTML.
+        If you set the value within the HTML, the list must be <code>piped</code> deliminated</div>
+
+    <div class="code-example" id=custom-list-click>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">
+            &lt;button  data-tracking-variable="customer-offers">List Variable on click&lt;/button>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+        ...
+        customVariables: [
+            {'customer-offers': {list: 2}}
+        ]
+    };
+    analytics.trackPage(config);
+            </code>
+        </div>
+    </div>
+
+
 
     <div class="skycom-4 alpha has-code-example">
         <span class="toggle-code-example" for=custom-hier-load></span>
@@ -800,6 +827,32 @@ analytics.trackPage(SITECAT_CONFIG);
         ...
         customVariables: [
             {'myHierarchyOfStuff': {hier: 1, value:['h1','second h','final hier'], onPageLoad: true}}
+        ]
+    };
+    analytics.trackPage(config);
+            </code>
+        </div>
+    </div>
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-hier-click></span>
+        <a class='btn in-page-cta' href='#!' id='btn-page-click-hier'
+           data-tracking-variable=my-heirarchy data-tracking-value='click val 1|2nd click val'>Hierarchy Variable on click</a>
+    </div>
+    <div class="skycom-8">To track a hierarchy variable use on click <code>hier</code> and update the HTML.
+        If you set the value within the HTML, the list must be <code>piped</code> deliminated.</div>
+
+    <div class="code-example" id=custom-hier-click>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">
+            &lt;button  data-tracking-variable="my-heirarchy">Hierarchy Variable on click&lt;/button>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+        ...
+        customVariables: [
+            {'my-heirarchy': {hier: 1}}
         ]
     };
     analytics.trackPage(config);
@@ -1036,6 +1089,8 @@ analytics.trackPage(SITECAT_CONFIG);
             {'colour': {'eVar': 71}},
             {'drink': {'eVar': 72}},
             {'how_about_pina_coladas': {'eVar': 73}},
+            {'customer-offers': {list: 2}},
+            {'my-heirarchy': {hier: 2}}
         ]
     });
 </script>
