@@ -3,6 +3,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
 //todo: document vars that come for free + what props sent etc
 //todo: document masthead prop + test
 //todo: document sessionCamID + test
+//todo: ask andrew what vars events should be deleted when?
 
 //todo: test and document setup()
 //todo: write page to test require.. and sleep?
