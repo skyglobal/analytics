@@ -8,7 +8,7 @@ _analytics.trackPage = (function(config,omniture,mediaModule,testAndTarget,chann
     function setPageDescriptions(){
         var siteName = setVariable('siteName','sky/portal/' + config.site),
             contentType = setVariable('contentType', config.contentType),
-            pageName = setVariable('pageName', siteName + "/" + (config.page || config.section) + (contentType ? "/" + contentType : ''));
+            pageName = setVariable('pageName', siteName + "/" + (config.page || config.section) + (!config.page && contentType ? "/" + contentType : ''));
 
         setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
         setVariable('pageURL','D=referrer');
