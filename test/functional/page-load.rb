@@ -16,6 +16,11 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/skyglobal/analytics/demo'
   end
 
+  it "tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" do
+    click_link 'Click here to see another custom config in action'
+    trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/skyglobal/analytics/demo/analytics'
+  end
+
   it "tracks 'page' as page name over section if provided" do
     click_link 'Click here to see this custom config in action'
     trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/Sky Analytics API Demo Page'
@@ -32,13 +37,13 @@ class AnalyticsTest < AcceptanceTest
 
   it "Debug can be turned on on page load" do
     click_link 'Click here to see debug on load'
-    trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/skyglobal/analytics/debug'
+    trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/skyglobal/analytics/debug/demo'
     trackedVariable('url', :prop).must_equal current_url  # url
     trackedVariable('section0', :prop).must_include 'sky/portal/global/skyglobal'
     trackedVariable('section1', :prop).must_include 'analytics'
     trackedVariable('section2', :prop).must_include 'debug'
     find('#analytics-debug .pageLoad').text.must_equal 'pageLoad: event1'
-    find('#analytics-debug .pageName').text.must_equal 'pageName: sky/portal/global/skyglobal/analytics/debug'
+    find('#analytics-debug .pageName').text.must_equal 'pageName: sky/portal/global/skyglobal/analytics/debug/demo'
   end
 
   it "Tracks page view using requireJS" do
