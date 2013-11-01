@@ -9,6 +9,8 @@ _wiki.setup = (function(){
         $('#debug-on-load').on('click', debugOnLoad);
         $('#btn_ajax_event').on('click', ajaxtrackPage);
         $('#btn-page-load-var').on('click', customVartrackPage);
+        $('#btn-page-load-list').on('click', customListtrackPage);
+        $('#btn-page-load-hier').on('click', customHiertrackPage);
         $('#search-results-trackPage').on('click', searchResultstrackPage);
         $('#btn_error_trackPage').on('click', triggerErrortrackPage);
         $('#btn_error_event').on('click', triggerError);
@@ -80,6 +82,29 @@ _wiki.setup = (function(){
             account: 'bskybglobaldev',
             customVariables: [
                 {'how_about_pina_coladas': {'eVar': 73, 'value': 'my val on load', 'onPageLoad': true }}
+            ]
+        });
+    }
+
+    function customListtrackPage(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybglobaldev',
+            customVariables: [
+                {'myListOfStuff': {'list': 1, 'value': ['val1','my second','final value'], 'onPageLoad': true }}
+            ]
+        });
+    }
+    function customHiertrackPage(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybglobaldev',
+            customVariables: [
+                {'myHierarchyOfStuff': {'hier': 1, 'value': ['h1','second h','final hier'], 'onPageLoad': true }}
             ]
         });
     }

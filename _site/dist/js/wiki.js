@@ -1,1 +1,227 @@
-"undefined"==typeof _wiki&&(_wiki={}),_wiki.setup=function(){function a(){$("#basic-config").on("click",k),$("#custom-config").on("click",g),$(".toggle-code-example").on("click",e),$("#btn_page_load").on("click",u),$("#debug-on-load").on("click",b),$("#btn_ajax_event").on("click",t),$("#btn-page-load-var").on("click",c),$("#search-results-trackPage").on("click",o),$("#btn_error_trackPage").on("click",s),$("#btn_error_event").on("click",i),$("#standard-vars-onLoad-a").on("click",r),$("#standard-events-onLoad-a").on("click",d),$(document).on("click","#manualBind, #manualBindA",analytics.trackClick),n(),l()}function e(){var a=$(this),e=$("#"+a.attr("for"));e.hasClass("open")?(a.removeClass("open"),e.removeClass("open")):(a.addClass("open"),e.addClass("open"))}function n(){$("[data-tracking-variable=how_about_pina_coladas]").attr("data-tracking-value",$("input[name=radio_field]:checked").val()),$("[data-tracking-variable=drink]").attr("data-tracking-value",$("#input_field").val()),$("#input_field").on("blur",function(){$("[data-tracking-variable=drink]").attr("data-tracking-value",$(this).val())}),$("#radio-input input").on("click",function(){$("[data-tracking-variable=how_about_pina_coladas]").attr("data-tracking-value",$(this).val())}),$("#text-input button, #radio-input button").on("click",function(a){a.preventDefault()})}function t(a){a.preventDefault(),analytics.trackPage({site:"global",section:"skyglobal/analytics",account:"bskybglobaldev",customEvents:[{ajax_happened:{event:101,onPageLoad:!0}}],customVariables:[{colour:{eVar:71}},{drink:{eVar:72}},{how_about_pina_coladas:{eVar:73}}]})}function o(a){a.preventDefault(),analytics.trackPage({site:"global",section:"skyglobal/analytics",account:"bskybglobaldev",loadVariables:{searchResults:0,searchType:"weather",searchTerm:"london"}})}function c(a){a.preventDefault(),analytics.trackPage({site:"global",section:"skyglobal/analytics",account:"bskybglobaldev",customVariables:[{how_about_pina_coladas:{eVar:73,value:"my val on load",onPageLoad:!0}}]})}function l(){$("#manualTrackingOff").on("click",function(){$("#manualTrackingOff").trigger("analytics-track")}),$("#manualTrack").on("click",function(){$("#manualTrack").trigger("analytics-track")})}function i(){analytics.trackError("myCustomError i.e. 404 or no-package-found")}function s(){SITECAT_CONFIG={site:"global",section:"skyglobal/analytics/debug",headline:"",contentType:"demo",contentId:"",account:"bskybglobaldev",loadVariables:{errors:"404"}},analytics.trackPage(SITECAT_CONFIG)}function r(){analytics.trackPage({site:"global",section:"skyglobal/analytics",account:"bskybdemodev",loadVariables:{videoTitle:"My Home Video",externalSearchTerm:"thrill rides"}})}function d(){analytics.trackPage({site:"global",section:"skyglobal/analytics",account:"bskybdemodev",loadEvents:["liveChat"]})}function u(){SITECAT_CONFIG={site:"global",section:"skyglobal/analytics",headline:"",contentType:"skyglobal",contentId:"",account:"bskybmyglobaldev",customEvents:[{magic_happened:{event:99,onPageLoad:!0}}],customVariables:[{my_custom_prop:{prop:40,onPageLoad:!0,value:"my custom prop value"}},{my_custom_variable:{eVar:41,prop:41,onPageLoad:!0,value:"my custom eVar value"}}]},analytics.trackPage(SITECAT_CONFIG)}function b(a){a.preventDefault(),SITECAT_CONFIG={site:"global",section:"skyglobal/analytics/debug",headline:"",contentType:"demo",contentId:"",account:"bskybglobaldev",debug:!0},analytics.trackPage(SITECAT_CONFIG)}function k(a){a.preventDefault(),analytics.trackPage({site:"global",section:"skyglobal/analytics/demo",account:"bskybdemodev"})}function g(a){a.preventDefault(),analytics.trackPage({page:document.title,site:"global",section:"skyglobal/analytics/demo",account:"bskybdemodev",loadVariables:{videoTitle:"My Home Video",externalSearchTerm:"thrill rides"},loadEvents:["activateComplete"],customEvents:[{magic_happened:{event:101,onPageLoad:!0}}],customVariables:[{drink:{eVar:72}}],debug:!0})}a()}(),"function"==typeof window.define&&window.define.amd&&define("wiki",[],function(){return _wiki});
+
+if (typeof _wiki==='undefined') _wiki={};
+_wiki.setup = (function(){
+
+    function bindEvents(){
+        $('#basic-config').on('click', basicConfigLoad);
+        $('#custom-config').on('click', customConfigLoad);
+        $('.toggle-code-example').on('click', toggleCodeExamples);
+        $('#btn_page_load').on('click', customPageLoad);
+        $('#debug-on-load').on('click', debugOnLoad);
+        $('#btn_ajax_event').on('click', ajaxtrackPage);
+        $('#btn-page-load-var').on('click', customVartrackPage);
+        $('#btn-page-load-list').on('click', customListtrackPage);
+        $('#btn-page-load-hier').on('click', customHiertrackPage);
+        $('#search-results-trackPage').on('click', searchResultstrackPage);
+        $('#btn_error_trackPage').on('click', triggerErrortrackPage);
+        $('#btn_error_event').on('click', triggerError);
+        $('#standard-vars-onLoad-a').on('click', sendStandardVarOnload);
+        $('#standard-events-onLoad-a').on('click', sendStandardEventsOnload);
+        $(document).on('click', '#manualBind, #manualBindA', analytics.trackClick);
+        updateCustomVariableValues();
+        manualTrigger();
+    }
+
+    function toggleCodeExamples(){
+        var $toggler = $(this);
+        var $example = $('#' + $toggler.attr('for'));
+        if ($example.hasClass('open')){
+            $toggler.removeClass('open');
+            $example.removeClass('open');
+        } else {
+            $toggler.addClass('open');
+            $example.addClass('open');
+        }
+    }
+
+    function updateCustomVariableValues(){
+            $('[data-tracking-variable=how_about_pina_coladas]').attr('data-tracking-value',$('input[name=radio_field]:checked').val());
+            $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
+            $('#input_field').on('blur', function(e){
+                $('[data-tracking-variable=drink]').attr('data-tracking-value',$(this).val());
+            });
+            $('#radio-input input').on('click', function(e){
+                $('[data-tracking-variable=how_about_pina_coladas]').attr('data-tracking-value',$(this).val());
+            });
+            $('#text-input button, #radio-input button').on('click', function(e){
+                e.preventDefault();
+            });
+    }
+
+    function ajaxtrackPage(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybglobaldev',
+            customEvents: [
+                {'ajax_happened': {event: 101, onPageLoad: true}}
+            ],
+            customVariables: [
+                {'colour': {eVar: 71 }},
+                {'drink': {'eVar': 72 }},
+                {'how_about_pina_coladas': {'eVar': 73 }}
+            ]
+        });
+    }
+
+    function searchResultstrackPage(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybglobaldev',
+            loadVariables: { 'searchResults': 0, 'searchType':'weather', 'searchTerm': 'london' }
+        });
+    }
+
+    function customVartrackPage(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybglobaldev',
+            customVariables: [
+                {'how_about_pina_coladas': {'eVar': 73, 'value': 'my val on load', 'onPageLoad': true }}
+            ]
+        });
+    }
+
+    function customListtrackPage(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybglobaldev',
+            customVariables: [
+                {'myListOfStuff': {'list': 1, 'value': ['val1','my second','final value'], 'onPageLoad': true }}
+            ]
+        });
+    }
+    function customHiertrackPage(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybglobaldev',
+            customVariables: [
+                {'myHierarchyOfStuff': {'hier': 1, 'value': ['h1','second h','final hier'], 'onPageLoad': true }}
+            ]
+        });
+    }
+
+    function manualTrigger(){
+        $('#manualTrackingOff').on('click', function(){
+            $('#manualTrackingOff').trigger('analytics-track');
+        });
+        $('#manualTrack').on('click', function(e){
+            $('#manualTrack').trigger('analytics-track');
+        });
+    }
+
+
+    function triggerError(){
+        analytics.trackError('myCustomError i.e. 404 or no-package-found');
+    }
+    function triggerErrortrackPage(){
+        SITECAT_CONFIG = {
+            site: 'global',
+            section: 'skyglobal/analytics/debug',
+            headline: '',
+            contentType: 'demo',
+            contentId: '',
+            account: 'bskybglobaldev',
+            loadVariables: { errors: '404' }
+        };
+        analytics.trackPage(SITECAT_CONFIG);
+    }
+    function sendStandardVarOnload(){
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybdemodev',
+            loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'}
+        });
+    }
+    function sendStandardEventsOnload(){
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybdemodev',
+            loadEvents: ['liveChat']
+        });
+    }
+    function customPageLoad(){
+
+        SITECAT_CONFIG = {
+            site: 'global',
+            section: 'skyglobal/analytics',
+            headline: '',
+            contentType: 'skyglobal',
+            contentId: '',
+            account: 'bskybmyglobaldev',
+            customEvents: [{'magic_happened': {event: 99, onPageLoad: true}}],
+            customVariables: [
+                {'my_custom_prop':     { prop: 40, onPageLoad: true, value: 'my custom prop value'}},
+                {'my_custom_variable': { eVar: 41, prop: 41,  onPageLoad: true, value: 'my custom eVar value'}}
+            ]
+        };
+
+        analytics.trackPage(SITECAT_CONFIG);
+    }
+
+    function debugOnLoad(e){
+        e.preventDefault();
+        SITECAT_CONFIG = {
+            site: 'global',
+            section: 'skyglobal/analytics/debug',
+            headline: '',
+            contentType: 'demo',
+            contentId: '',
+            account: 'bskybglobaldev',
+            debug: true
+
+        };
+
+        analytics.trackPage(SITECAT_CONFIG);
+    }
+
+    function basicConfigLoad(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics/demo',
+            account: 'bskybdemodev'
+        });
+    }
+
+    function customConfigLoad(e){
+        e.preventDefault();
+        analytics.trackPage({
+            page: document.title,
+            site: 'global',
+            section: 'skyglobal/analytics/demo',
+            account: 'bskybdemodev',
+            loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'},
+            loadEvents: ['activateComplete'],
+            customEvents: [
+                {'magic_happened': {event: 101, onPageLoad:true}}
+            ],
+            customVariables: [
+                {'drink': {'eVar': 72}},
+            ],
+            debug: true
+        });
+    }
+
+    bindEvents();
+
+}());
+
+
+//just for require
+if (typeof window.define === "function" && window.define.amd) {
+    define("wiki", [],function() {
+        return _wiki;
+    });
+};

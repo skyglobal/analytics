@@ -69,6 +69,8 @@ def variablesMap
       drink: {eVar: 'v72'},
       how_about_pina_coladas: {eVar: 'v73'},
       colour: {eVar: 'v71'},
+      myListOfStuff: {list:'l1'},
+      myHierarchyOfStuff: {hier:'h1'},
   }
 end
 

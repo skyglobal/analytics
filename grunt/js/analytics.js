@@ -62,16 +62,15 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
         }
     }
 
-    function addToVariableMap(varName, propValue, eVarValue){
-        var arrValues = [],
-            prop;
-        if (propValue){
-            prop = 'prop' + propValue;
-            arrValues.push(prop);
-        }
-        if (eVarValue){
-            prop = 'eVar' + eVarValue;
-            arrValues.push(prop);
+    function addToVariableMap(item){
+        var arrValues = [], i, type,
+            varName = item.name,
+            types = ['prop','eVar','list','hier'];
+        for (i in types){
+            type = types[i];
+            if (item[type]){
+                arrValues.push(type + item[type]);
+            }
         }
         config.variablesMap[varName] = arrValues;
     }
@@ -81,7 +80,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     }
 
     function setupCustomVariable(item) {
-        addToVariableMap(item.name, item.prop, item.eVar);
+        addToVariableMap(item);
         if (item.onPageLoad) {
             config.loadVariables[item.name] = item.value;
         }
@@ -101,14 +100,8 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
                 properties = item[name];
             }
         }
-        return {
-            value: properties.value,
-            onPageLoad: properties.onPageLoad,
-            event: properties.event,
-            eVar: properties.eVar,
-            prop: properties.prop,
-            name: name
-        };
+        properties.name = name;
+        return properties;
     }
 
     window.analytics = {

@@ -13,6 +13,20 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('how_about_pina_coladas').must_equal 'my val on load'
   end
 
+  it "Tracks a custom list on page load" do
+    click_link "List Variable on page load"
+    trackedEvents.wont_include eventsMap[:linkClick]
+    trackedEvents.must_include eventsMap[:pageLoad]
+    trackedVariable('myListOfStuff',:list).must_equal 'val1|my second|final value'
+  end
+
+  it "Tracks a custom hierarchy on page load" do
+    click_link "Hierarchy Variable on page load"
+    trackedEvents.wont_include eventsMap[:linkClick]
+    trackedEvents.must_include eventsMap[:pageLoad]
+    trackedVariable('myHierarchyOfStuff',:hier).must_equal 'h1|second h|final hier'
+  end
+
   it "tracks custom variables assigned after page load in a text field" do
     fill_in 'What is your favourite drink?', with: 'Milkshake'
     within('#text-input') do

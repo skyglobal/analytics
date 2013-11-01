@@ -42,8 +42,11 @@ _analytics.config = (function(){
             sessionCampaign: ['eVar47'],
             list1: ['list1'],
             list2: ['list2'],
-            list3: ['list3']
+            list3: ['list3'],
+            list4: ['list4'],
+            list5: ['list5']
         },
+
         eventsMap = {
             pageLoad: 'event1',
             error: 'event3',

@@ -23,7 +23,11 @@ _analytics.omniture = (function(config, logger){
         if(typeof val === "undefined" || prop=='events'){ return; }
         var i= 1,map,
             data = config.variablesMap[prop] || [prop];
-        val = val.toString();
+        if (val instanceof Array){
+            val = val.join('|');
+        } else {
+            val = val.toString();
+        }
         mappedVars[prop] = val;
         s[data[0]] = val;
         if (data.length>1){
@@ -89,6 +93,7 @@ _analytics.omniture = (function(config, logger){
     }
 
     function reset(){
+//        todo: andrew - what stuff should get reset and when? page load vs clicks?
         setVariable('linkDetails','');
         s.linkTrackVars = '';
         s.linkTrackEvents = '';

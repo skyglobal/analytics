@@ -83,14 +83,14 @@
     </div>
     <div class="skycom-container clearfix">
         <div class="alpha skycom-12">
-            <h1 class="wiki-header">Omniture Analytics <small>v1.0.0</small></h1>
+            <h1 class="wiki-header">Omniture Analytics <small>v1.0.1</small></h1>
 
 <section class="wiki-section">
     <a name="using-me"></a>
     <h2>Using the Analytics</h2>
     <p class="developer-notes">
         Please use the following:
-        <code class="html">    &lt;script src=//analytics.global.sky.com/1.0.0/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
+        <code class="html">    &lt;script src=//analytics.global.sky.com/1.0.1/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
         If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p><p>Then add the following onto your page with the correct account details to initialise the tracking.    </p>
 
@@ -565,11 +565,15 @@ analytics.trackPage(SITECAT_CONFIG);
     <dt class="skycom_4 alpha">eVar</dt>
     <dd class="skycom_8">[int] Omniture Variable Id. Needed for xxx type reporting</dd>
     <dt class="skycom_4 alpha">prop</dt>
-    <dd class="skycom_8">[int] Omniture Prop Id.Needed for xxx type reporting</dd>
+    <dd class="skycom_8">[int] Omniture Prop Id.Needed for xxx type reporting</dd> <!-- andre explain these -->
+    <dt class="skycom_4 alpha">list</dt>
+    <dd class="skycom_8">[int] Omniture List Id.Needed for xxx type reporting.  The value of this type must be an <code>Array</code>.</dd>
+    <dt class="skycom_4 alpha">hier</dt>
+    <dd class="skycom_8">[int] Omniture Hierarchy Id. Needed for xxx type reporting.  The value of this type must be an <code>Array</code></dd>
     <dt class="skycom_4 alpha">onPageLoad</dt>
     <dd class="skycom_8">[optional][boolean] Set if the variable should be sent when 'trackPage' is called</dd>
     <dt class="skycom_4 alpha">value</dt>
-    <dd class="skycom_8">[optional][string] Should be set if <code>onPageLoad</code> is set</dd>
+    <dd class="skycom_8">[optional][string or Array] Should be set if <code>onPageLoad</code> is set</dd>
 </dl>
 
 <p>
@@ -733,7 +737,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <span class="toggle-code-example" for=custom-var-load></span>
         <a class='btn in-page-cta' href='#!' id='btn-page-load-var' data-tracking=false>Custom Var Page Load</a>
     </div>
-    <div class="skycom-8">To track a custom variable when the page, add <code>onPageLoad: true</code> in the config.</div>
+    <div class="skycom-8">To track a custom variable when the page loads, add <code>onPageLoad: true</code> in the config.</div>
 
     <div class="code-example" id=custom-var-load>
         <code class="skycom-2 alpha html">HTML</code>
@@ -744,10 +748,61 @@ analytics.trackPage(SITECAT_CONFIG);
             <code class="js block">    var config = {
         ...
         customVariables: [
-            {'magic_happened': {eVar: 101, value:'im on load', onPageLoad: true}}
+            {'how_about_pina_coladas': {eVar: 73, value:'my val on load', onPageLoad: true}}
         ]
     };
-analytics.trackPage(config);
+    analytics.trackPage(config);
+            </code>
+        </div>
+    </div>
+
+
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-list-load></span>
+        <a class='btn in-page-cta' href='#!' id='btn-page-load-list' data-tracking=false>List Variable on page load</a>
+    </div>
+    <div class="skycom-8">To track a list variable use <code>list</code> and set the value to an <code>Array</code>.</div>
+
+    <div class="code-example" id=custom-list-load>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    <i>none</i>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+        ...
+        customVariables: [
+            {'myListOfStuff': {list: 1, value:['val1','my second','final value'], onPageLoad: true}}
+        ]
+    };
+    analytics.trackPage(config);
+            </code>
+        </div>
+    </div>
+
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-hier-load></span>
+        <a class='btn in-page-cta' href='#!' id='btn-page-load-hier' data-tracking=false>Hierarchy Variable on page load</a>
+    </div>
+    <div class="skycom-8">To track a hierarchy variable use <code>hier</code> and set the value to an <code>Array</code>.</div>
+
+    <div class="code-example" id=custom-hier-load>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    <i>none</i>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+        ...
+        customVariables: [
+            {'myHierarchyOfStuff': {hier: 1, value:['h1','second h','final hier'], onPageLoad: true}}
+        ]
+    };
+    analytics.trackPage(config);
             </code>
         </div>
     </div>

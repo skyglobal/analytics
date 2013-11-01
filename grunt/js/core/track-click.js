@@ -58,7 +58,7 @@ _analytics.trackClick = (function(config, omniture){
             safeString(omniture.getVariable('pageName').replace(/sky\/portal\//g, ''))
         ];
 
-        return linkDetails.join('|');
+        return linkDetails;
     }
 
 
