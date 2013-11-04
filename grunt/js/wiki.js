@@ -8,6 +8,7 @@ _wiki.setup = (function(){
         $('.toggle-code-example').on('click', toggleCodeExamples);
         $('#btn_page_load').on('click', customPageLoad);
         $('#debug-on-load').on('click', debugOnLoad);
+        $('#debug-in-realtime').on('click', debugInRealtime);
         $('#btn_ajax_event').on('click', ajaxtrackPage);
         $('#btn-page-load-var').on('click', customVartrackPage);
         $('#btn-page-load-list').on('click', customListtrackPage);
@@ -168,6 +169,15 @@ _wiki.setup = (function(){
         };
 
         analytics.trackPage(SITECAT_CONFIG);
+    }
+
+    function debugInRealtime(e) {
+        if ($(e.target).attr('data-debug')=='true'){
+            analytics.debug();
+            $(e.target).attr('data-debug','false');
+        } else {
+            analytics.debug(false);
+        }
     }
 
     function debugOnLoad(e){
