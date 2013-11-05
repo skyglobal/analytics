@@ -33,7 +33,9 @@ title: Analytics
     </div>
 </section>
 <script>
-    if (document.location.host === "analytics.global.sky.com" || document.location.host.indexOf('localhost')>=0){
+    if (document.location.host === "analytics.global.sky.com"
+            || document.location.host.indexOf('localhost')>=0
+            || document.location.host.indexOf('local.sky.com')>=0){
         $('.sky-form').removeClass('hidden');
     } else {
         $('.warning').removeClass('hidden');
