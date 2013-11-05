@@ -12,8 +12,8 @@ _demo.setup = (function(){
             newVersion = $('.wiki-header small').text().replace('v',''),
             route = 'http://analytics.global.sky.com';
         if (oldVersion.split('.').length<3 || (oldVersion.split('.')[0]<1)){
-            $('.sky-form .error').text("The version number is required, and must be '1.0.1' or higher");
-            oldVersion = '1.0.1';//get lowest version available
+            $('.sky-form .error').text("The version number is required, and must be '1.1.0' or higher");
+            oldVersion = '1.1.0';//get lowest version available
         }
         toolkit.diff({
             oldRoute: route + '/' + oldVersion + '/_site/_includes',
