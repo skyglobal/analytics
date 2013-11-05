@@ -1,0 +1,141 @@
+<!doctype html>
+<!--[if IE 7]>         <html class="lt-ie10 lt-ie9 lt-ie8" > <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie10 lt-ie9" > <![endif]-->
+<!--[if IE 9]>         <html class="lt-ie10" > <![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/html"> <!--<![endif]-->
+<head>
+    <title>Sky Analytics API Demo Page</title>
+
+    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/0.5.1/stylesheets/toolkit.css">
+    <link rel="stylesheet" href="./dist/css/wiki.css">
+    <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+    <!--[if LT IE 9]>
+<link rel='stylesheet' href='//assets.sky.com/css/desktop-12grid.css' media='screen' />
+<![endif]-->
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<link rel='stylesheet' href='//assets.sky.com/css/responsive-12grid.css' class='skycom-responsive-css' media='screen and (min-width: 768px)' />
+<!--[mobilestart]-->
+<link rel='stylesheet' href='//assets.sky.com/css/mobile-12grid.css' class='skycom-mobile-css' media='screen and (max-width: 767px)' />
+<!--[mobileend]-->
+
+<link href='//assets.sky.com/images/favicon.png' rel='icon' type='image/png'>
+<link href='//assets.sky.com/fonts/sky_regular.ttf' rel='prefetch'>
+<link href='//assets.sky.com/fonts/sky_regular.svg' rel='prefetch'>
+<link href='//assets.sky.com/fonts/sky_medium.ttf' rel='prefetch'>
+<link href='//assets.sky.com/fonts/sky_medium.svg' rel='prefetch'>
+<link rel='stylesheet' href='//assets.sky.com/css/css-print.css' media='print' />
+<link rel='stylesheet' href='//assets.sky.com/css/app-fonts.css' />
+<!--[if IE 6]>
+<link rel='stylesheet' href='//assets.sky.com/css/app-ie6.css' />
+<![endif]-->
+<!--[if IE 7]>
+<link rel='stylesheet' href='//assets.sky.com/css/app-ie7.css' />
+<![endif]-->
+<!--[if LT IE 9]>
+<link rel='stylesheet' href='//assets.sky.com/css/app-ielt9.css' />
+<![endif]-->
+<!--[if IE 9]>
+<link rel='stylesheet' href='//assets.sky.com/css/app-ie9.css' />
+<![endif]-->
+<!--[if LT IE 10]>
+<link rel='stylesheet' href='//assets.sky.com/css/app-ielt10.css' />
+<![endif]-->
+<script id='skycom-view-type'></script>
+<script id='skycom-orientation'></script>
+<script>
+  var globalskycom = globalskycom || {};
+  globalskycom.serverHost = 'assets.sky.com';
+</script>
+<script src='//assets.sky.com/js/app.js'></script>
+<script>
+  $(function() {
+    var i, len,
+      messages = globalskycom.emergencyMessages;
+    if(messages) {
+      for(i = 0, len = messages.length; i < len; i++) {
+        new globalskycom.message(messages[i]);
+      }
+    }
+  });
+</script>
+
+    <!-- Tracking - aka: What you came here for -->
+    <script type='text/javascript' src="./dist/js/analytics.js"></script>
+</head>
+<body>
+
+<div class='grid-1140'>
+
+    <div class="quick-links">
+        <div class="skycom_container">
+            <ul class="nav-pills alpha skycom_12">
+                <li><a href="index.html#using-me">Using the Analytics</a>
+                    <ul class=secondary-menu>
+                        <li><a href="index.html#contributing" data-diff="using-the-analytics/contributing">Contributing</a></li>
+                        <li><a href="index.html#getting-started" data-diff="using-the-analytics/getting-started">Getting Started</a></li>
+                        <li><a href="index.html#default-config" data-diff="using-the-analytics/default-config">Default config</a></li>
+                        <li><a href="index.html#config-in-detail" data-diff="using-the-analytics/config-in-detail">Config in detail</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#clicks" data-diff="clicks">Clicks</a></li>
+                <li><a href="index.html#variables" data-diff="variables">Variables</a></li>
+                <li><a href="index.html#events" data-diff="events">Events</a></li>
+                <li><a href="index.html#page-types">Page-Types</a>
+                    <ul class=secondary-menu>
+                        <li><a href="index.html#search" data-diff="page-types/search">Searches</a></li>
+                        <li><a href="index.html#error" data-diff="page-types/error">Errors</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#manual-trigger" data-diff="manual-trigger">Manual Trigger</a></li>
+                <li><a href="changes.html">Changes</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="skycom-container clearfix">
+        <div class="alpha skycom-12">
+            <h1 class="wiki-header">Omniture Analytics <small>v1.1.0</small></h1>
+<div class="secondary">Last Updated: 05-11-2013</div>
+
+<a name="using-me"></a>
+<section class="wiki-section" id=changes-page>
+    <h2>Calculate HTML changes</h2>
+    <div class="developer-notes">
+        The earliest version this tool will work from is 1.1.0
+    </div>
+    <div class="sub-section ">
+        <form class="sky-form sky-well hidden" data-diff-container>
+            <div class="row">
+                <label for="version">Which version are you using?</label>
+                <input id="version" type="text" placeholder="eg. 1.1.0" required="required"/>
+            </div>
+            <div class="error row">
+
+            </div>
+            <div class="row">
+                <label >&nbsp;</label>
+                <button id="check" class="btn primary" >Check</button>
+                <a id="return" class="btn secondary" href='http://skyglobal.github.io/analytics'>return to skyglobal.github.io</a>
+            </div>
+        </form>
+        <div class="warning error sky-well hidden" >
+            To workout changes we must go to
+            <a href="http://analytics.global.sky.com/1.1.0/_site/changes.html" target="_changes">here</a>.
+        </div>
+    </div>
+</section>
+<script>
+    if (document.location.host === "analytics.global.sky.com" || document.location.host.indexOf('localhost')>=0){
+        $('.sky-form').removeClass('hidden');
+    } else {
+        $('.warning').removeClass('hidden');
+    }
+</script>
+        </div>
+    </div>
+    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/1.0.0/scripts/toolkit.js">
+    <script src="./dist/js/demo.js"></script>
+</div>
+</body>
+</html>
