@@ -8,15 +8,16 @@ _demo.setup = (function(){
 
     function checkDiff(e){
         e.preventDefault();
-        var version = $('#version').val();
-        if (version.split('.').length<3 || (version.split('.')[0]<1 && version.split('.')[1]<1)){
+        var oldVersion = $('#version').val(),
+            newVersion = $('.wiki-header small').text().replace('v'),
+            route = 'http://analytics.global.sky.com';
+        if (oldVersion.split('.').length<3 || (oldVersion.split('.')[0]<1 && oldVersion.split('.')[1]<1)){
             $('.sky-form .error').text("The version number is required, and must be '1.1.0' or higher");
-            version = '1.1.0';//get lowest version available
+            oldVersion = '1.1.0';//get lowest version available
         }
         toolkit.diff({
-            route:'analytics.global.sky.com',
-            oldVersion:version,
-            newVersion:$('.wiki-header small').replace('v')
+            oldRoute: route + '/' + oldVersion + '/_site/_includes/',
+            newRoute: route + '/' + newVersion + '/_site/_includes/'
         });
     }
 
