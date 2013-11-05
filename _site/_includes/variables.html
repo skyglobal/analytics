@@ -1,0 +1,311 @@
+<h2>Variables</h2>
+<h3 class="wiki-h3">Standard</h3>
+<p>
+    There are a number of variables that are standard within omniture, which means you can use them without mapping them to an <code>eVar</code> or <code>prop</code> id.
+</p>
+<p>
+    A list of standard variables can be found <a href="https://github.com/skyglobal/analytics/blob/master/grunt/js/core/config.js">here</a>.
+</p>
+<h3 class="wiki-h3">Custom</h3>
+<p>
+    When initialising, you will need to add <code>customVariables</code> array which may contain some options:</p>
+<dl class="clearfix ">
+    <dt class="skycom_4 alpha">eVar</dt>
+    <dd class="skycom_8">[int] Omniture Variable Id. Needed for conversion reporting</dd>
+    <dt class="skycom_4 alpha">prop</dt>
+    <dd class="skycom_8">[int] Omniture Prop Id. Needed for count based reporting.</dd> <!-- andre explain these -->
+    <dt class="skycom_4 alpha">list</dt>
+    <dd class="skycom_8">[int] Omniture List Id. The value of this type must be an <code>Array</code>.</dd>
+    <dt class="skycom_4 alpha">hier</dt>
+    <dd class="skycom_8">[int] Omniture Hierarchy Id. The value of this type must be an <code>Array</code></dd>
+    <dt class="skycom_4 alpha">onPageLoad</dt>
+    <dd class="skycom_8">[optional][boolean] Set if the variable should be sent when 'trackPage' is called</dd>
+    <dt class="skycom_4 alpha">value</dt>
+    <dd class="skycom_8">[optional][string or Array] Should be set if <code>onPageLoad</code> is set</dd>
+</dl>
+
+<p>
+    The name of this object needs to match an HTML element using the attribute
+    <code>data-tracking-variable</code>.
+    Optionally, <code>data-tracking-value</code> can also be used to send an alternate value to Omniture,
+    otherwise the text clicked will be tracked.
+</p>
+
+<h3 class="wiki-h3">Examples</h3>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=standard-vars></span>
+        <a id='standard-vars-a' href="#!" data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable</a>
+    </div>
+    <div class="skycom_8">
+        Send a standard variable on click by setting <code>data-tracking-variable</code>.
+    </div>
+
+    <div class="code-example" id=standard-vars>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos" >Send Standard Variable&lt;/button>
+            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="block js">none</code>
+        </div>
+    </div>
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=standard-vars-onLoad></span>
+        <a id="standard-vars-onLoad-a" href="#!" data-tracking=false data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable on load</a>
+    </div>
+    <div class="skycom_8">
+        Add <code>loadVariables</code> in the config.
+    </div>
+
+    <div class="code-example" id=standard-vars-onLoad>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;button data-tracking-variable='videoTitle' data-tracking-value="My Videos" >Send Standard Variable&lt;/button>
+            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="block js">   analytics.trackPage({
+    site: 'global',
+    section: 'skyglobal/analytics',
+    account: 'bskybdemodev',
+    loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'}
+});</code>
+        </div>
+    </div>
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-vars></span>
+        <form id='text-input' class="sky-form">
+            <label for='input_field'>What is your favourite drink?</label> <br>
+            <input id='input_field' name='input_field' type='text' /><br>
+            <button data-tracking-variable='drink' data-tracking-value=""  class='btn primary-cta'>Submit</button>
+        </form>
+    </div>
+    <div class="skycom_8">
+        Tracking <code>drink</code> and setting the value to the content of a text box.
+    </div>
+
+    <div class="code-example" id=custom-vars>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;label for='input_field'>What is your favourite drink?&lt;/label>
+    &lt;input id='input_field' name='input_field' type='text' />
+    &lt;button data-tracking-variable='drink' data-tracking-value="" class='btn primary-cta'>Submit&lt;/button></code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="block js">analytics.trackPage({
+    ...
+    customVariables: [
+        {'colour': {eVar: 72 }}
+    ]
+});</code>
+            <code class="js block">&lt;script>//script to update data-tracking-value attribute
+    $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
+&lt;/script></code>
+        </div>
+    </div>
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-vars-radio></span>
+        <form id='radio-input' class="sky-form">
+            <label>Do you like Pina Coldas?</label> <br>
+            <input id='radio_yes' checked name='radio_field' type='radio' value='yes_to_pinas'/><label for='radio_yes'>Yes</label>
+            <input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/><label for='radio_no'>No</label>
+            <br>
+            <button data-tracking-variable='how_about_pina_coladas' data-tracking-value="" class='btn primary-cta'>Submit</button>
+        </form>
+    </div>
+    <div class="skycom_8">
+        Tracking <code>how_about_pina_coladas</code> and setting it to the selected radio button
+    </div>
+
+    <div class="code-example" id=custom-vars-radio>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="block html">&lt;label>Do you like Pina Coldas?&lt;/label>
+&lt;input id='radio_yes' name='radio_field' type='radio' value='yes_to_pinas'/>
+&lt;label for='radio_yes'>Yes&lt;/label>
+&lt;input id='radio_no' name='radio_field' type='radio' value='no_to_pinas'/>
+&lt;label for='radio_no'>No&lt;/label>
+&lt;button data-tracking-variable='how_about_pina_coladas' class='btn primary-cta'>Submit&lt;/button></code>
+            </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="block js">analytics.trackPage({
+    ...
+    customVariables: [
+       {'how_about_pina_coladas': {eVar: 73 }}
+    ]
+});</code>
+            <code class="js block">&lt;script>//script to update data-tracking-value attribute
+    $('[data-tracking-variable=how_about_pina_coladas]').attr(
+      'data-tracking-value',
+        $('input[name=radio_field]:checked').val()
+    );
+&lt;/script></code>
+        </div>
+    </div>
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-vars-value></span>
+        <button id='colour-button-blue' data-tracking-variable="colour" class="btn">Blue</button>
+        <button id='colour-button-secondary' data-tracking-variable="colour" class="btn secondary">Gray</button>
+    </div>
+    <div class="skycom_8">
+        Tracking <code>colour</code> and setting it to the value of the button clicked
+    </div>
+
+
+    <div class="code-example" id=custom-vars-value>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;button  data-tracking-variable="colour">Blue&lt;/button>
+&lt;button data-tracking-variable="colour">Gray&lt;/button></code></div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9 js"><code class="block js">analytics.trackPage({
+    ...
+    customVariables: [
+        {'colour': {eVar: 71 }}
+    ]
+});</code>        </div>
+    </div>
+
+
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-var-load></span>
+        <a class='btn in-page-cta' href='#!' id='btn-page-load-var' data-tracking=false>Custom Var Page Load</a>
+    </div>
+    <div class="skycom-8">To track a custom variable when the page loads, add <code>onPageLoad: true</code> in the config.</div>
+
+    <div class="code-example" id=custom-var-load>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    <i>none</i>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+        ...
+        customVariables: [
+            {'how_about_pina_coladas': {eVar: 73, value:'my val on load', onPageLoad: true}}
+        ]
+    };
+    analytics.trackPage(config);
+            </code>
+        </div>
+    </div>
+
+
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-list-load></span>
+        <a class='btn in-page-cta' href='#!' id='btn-page-load-list' data-tracking=false>List Variable on page load</a>
+    </div>
+    <div class="skycom-8">To track a list variable use <code>list</code> and set the value to an <code>Array</code>.</div>
+
+    <div class="code-example" id=custom-list-load>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    <i>none</i>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+        ...
+        customVariables: [
+            {'myListOfStuff': {list: 1, value:['val1','my second','final value'], onPageLoad: true}}
+        ]
+    };
+    analytics.trackPage(config);
+            </code>
+        </div>
+    </div>
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-list-click></span>
+        <a class='btn in-page-cta' href='#!' id='btn-click-list'
+           data-tracking-variable=customer-offers data-tracking-value='offer1|offer2'>List Variable on click</a>
+    </div>
+    <div class="skycom-8">To track a list variable on click use <code>list</code> and update the HTML.
+        If you set the value within the HTML, the list must be <code>piped</code> deliminated</div>
+
+    <div class="code-example" id=custom-list-click>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">
+            &lt;button  data-tracking-variable="customer-offers">List Variable on click&lt;/button>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+        ...
+        customVariables: [
+            {'customer-offers': {list: 2}}
+        ]
+    };
+    analytics.trackPage(config);
+            </code>
+        </div>
+    </div>
+
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-hier-load></span>
+        <a class='btn in-page-cta' href='#!' id='btn-page-load-hier' data-tracking=false>Hierarchy Variable on page load</a>
+    </div>
+    <div class="skycom-8">To track a hierarchy variable use <code>hier</code> and set the value to an <code>Array</code>.</div>
+
+    <div class="code-example" id=custom-hier-load>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    <i>none</i>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+        ...
+        customVariables: [
+            {'myHierarchyOfStuff': {hier: 1, value:['h1','second h','final hier'], onPageLoad: true}}
+        ]
+    };
+    analytics.trackPage(config);
+            </code>
+        </div>
+    </div>
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=custom-hier-click></span>
+        <a class='btn in-page-cta' href='#!' id='btn-page-click-hier'
+           data-tracking-variable=my-heirarchy data-tracking-value='click val 1|2nd click val'>Hierarchy Variable on click</a>
+    </div>
+    <div class="skycom-8">To track a hierarchy variable use on click <code>hier</code> and update the HTML.
+        If you set the value within the HTML, the list must be <code>piped</code> deliminated.</div>
+
+    <div class="code-example" id=custom-hier-click>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">
+            &lt;button  data-tracking-variable="my-heirarchy">Hierarchy Variable on click&lt;/button>
+        </code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">    var config = {
+        ...
+        customVariables: [
+            {'my-heirarchy': {hier: 1}}
+        ]
+    };
+    analytics.trackPage(config);
+            </code>
+        </div>
+    </div>
+
+</div>

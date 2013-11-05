@@ -1,0 +1,59 @@
+<h3 class="wiki-h3">Config in Detail</h3>
+<p>To get you config correct, please get the details for your project from <code>implementation@bskyb.com</code>.  The following shows the options:</p>
+
+<dl class="clearfix ">
+    <dt class="skycom_4 alpha">site</dt>
+    <dd class="skycom_8">[mandatory] Team Identifier e.g. 'sports', 'mysky' or 'skycom' etc. <span class="error">Do not include the <code>sky/portal/</code> prefix.</span> </dd>
+    <dt class="skycom_4 alpha">section</dt>
+    <dd class="skycom_8">[mandatory] General page location, slash deliminated. e.g. 'make-the-most/tv-preference'</dd>
+    <dt class="skycom_4 alpha">account</dt>
+    <dd class="skycom_8">[mandatory] Omniture account name. e.g. bskybskycomaccountprod</dd>
+    <dt class="skycom_4 alpha">page</dt>
+    <dd class="skycom_8">[optional] Unique identifier for your page e.g. "mini connector - registration success"</dd>
+    <dt class="skycom_4 alpha">headline</dt>
+    <dd class="skycom_8">[optional] Subject title for the page article</dd>
+    <dt class="skycom_4 alpha">contentType</dt>
+    <dd class="skycom_8">[optional] Type of page descriptor</dd>
+    <dt class="skycom_4 alpha">contentId</dt>
+    <dd class="skycom_8">[optional] UID for articles over time (i.e. if headline text is duplicated)</dd>
+    <dt class="skycom_4 alpha">loadVariables</dt>
+    <dd class="skycom_8">[optional] A way to a standard tracking variable to your site on page load. <a href="#load-vars">details here >></a></dd>
+    <dt class="skycom_4 alpha">loadEvents</dt>
+    <dd class="skycom_8">[optional] A way to a standard tracking events to your site on page load. <a href="#load-events">details here >></a></dd>
+    <dt class="skycom_4 alpha">customVariables</dt>
+    <dd class="skycom_8">[optional] A way to customise tracking for your site. <a href="#custom-vars">details here >></a></dd>
+    <dt class="skycom_4 alpha">customEvents</dt>
+    <dd class="skycom_8">[optional] A way to customise tracking for your site. <a href="#custom-events">details here >></a></dd>
+    <dt class="skycom_4 alpha">trackClicks</dt>
+    <dd class="skycom_8">[optional] [boolean]. Set to false to prevent binding of omniture calls on link clicks. <a href="#manual">click here</a> to see how to manually bind your link clicks</dd>
+    <dt class="skycom_4 alpha">debug</dt>
+    <dd class="skycom_8">[optional] [boolean]. Set to true to turn on debug on page load to capture the page view event</dd>
+</dl>
+
+<h4>Debugging</h4>
+<p>You can either add <code>debug:true</code> or execute the following to enable debugging:
+    <code class="">    analytics.debug(<i>[true|false]</i>);</code>
+    <a href="#!" id=debug-on-load data-tracking=false>Click here to see debug on load</a> in action.
+</p>
+
+<p>Try <code>analytics.debug()</code> now and click around below.</p>
+
+<h4>Example config</h4>
+<code class="block js">    analytics.trackPage({
+        page: document.title,
+        site: 'global',
+        section: 'skyglobal/analytics/demo',
+        account: 'bskybdemodev',
+        loadVariables: {'videoTitle':'My Home Video', 'externalSearchTerm':'thrill rides'},
+        loadEvents: ['activateComplete'],
+        customEvents: [
+            {'magic_happened': {event: 101, onPageLoad:true}}
+        ],
+        customVariables: [
+            {'drink': {'eVar': 72}},
+        ],
+        debug: true
+    });
+</code>
+<a href="#!" id="custom-config" data-tracking=false>Click here to see this custom config in action</a>.
+<p><a href="#!" id="custom-config-with-content-type" data-tracking=false>Click here to see another custom config in action</a>.</p>

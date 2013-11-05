@@ -1,0 +1,19 @@
+<h2 >Getting Started</h2>
+<p class="developer-notes">
+    Please use the following:
+    <code class="html">    &lt;script src=//analytics.global.sky.com/{{ site.version }}/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
+    If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
+</p>
+<p>
+    Then add the following onto your page with the correct account details to initialise the tracking.
+</p>
+
+<code class="block js">analytics.trackPage({
+    site: 'global',
+    section: 'skyglobal/analytics/demo',
+    account: 'bskybdemodev'
+});</code>
+<p>Boom.    Job Done.    </p>
+<p> Now <code>anchors</code>, <code>buttons</code>, <code>submits</code> and any element with <code>[data-tracking]</code> are automatically tracking.</p>
+
+<a href="#!" id="basic-config" data-tracking=false>Click here to see this basic config in action</a>.
