@@ -252,8 +252,8 @@ _demo.setup = (function(){
             oldVersion = '1.0.1';//get lowest version available
         }
         toolkit.diff({
-            oldRoute: route + '/' + oldVersion + '/_site/_includes/',
-            newRoute: route + '/' + newVersion + '/_site/_includes/'
+            oldRoute: route + '/' + oldVersion + '/_site/_includes',
+            newRoute: route + '/' + newVersion + '/_site/_includes'
         });
     }
 
