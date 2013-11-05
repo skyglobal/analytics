@@ -225,7 +225,7 @@ _analytics.logger = (function(config){
 
     return {
         debug: debug,
-        debugging: debugging,
+        debugging: function(){ return debugging; },
         logtrackPage: logtrackPage,
         logS: logS,
         log: log
@@ -305,7 +305,7 @@ _analytics.omniture = (function(config, logger){
         setEvent(config.variableBasedEvents[variable]);
     }
     function trackClick(e){
-        if (logger.debugging){
+        if (logger.debugging()){
             e.preventDefault();
         }
         send('Link Click');
@@ -1168,7 +1168,7 @@ if (typeof window.define === "function" && window.define.amd) {//just for requir
     });
 };
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.trackClick = (function(config, omniture){
+_analytics.trackClick = (function(config, omniture, logger){
 
     var eventsBound = false;
 
@@ -1176,6 +1176,10 @@ _analytics.trackClick = (function(config, omniture){
         if(!config.trackClicks || eventsBound ){ return; }
         var clickSelector =  'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
         $(document).on('click', clickSelector, function(e) {
+            if (logger.debugging()) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             track(e);
         });
         $(document).on('analytics-track','*', function(e) {
@@ -1290,10 +1294,12 @@ _analytics.trackClick = (function(config, omniture){
         getText: getText //for testing
     };
 
-}(_analytics.config, _analytics.omniture));
+}(_analytics.config, _analytics.omniture, _analytics.logger));
+
+
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("core/track-click", ["core/config","core/track-page"], function() {
+    define("core/track-click", ["core/config","core/track-page", "utils/logger"], function() {
         return _analytics.trackClick;
     });
 };
