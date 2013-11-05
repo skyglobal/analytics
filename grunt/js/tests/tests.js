@@ -1,11 +1,11 @@
-if (typeof _wiki==='undefined') _wiki={};
-_wiki.setup = (function(){
+if (typeof _demo==='undefined') _demo={};
+_demo.tests = (function(){
 
     function bindEvents(){
+
         $('#basic-config').on('click', basicConfigLoad);
         $('#custom-config').on('click', customConfigLoad);
         $('#custom-config-with-content-type').on('click', anotherCustomConfigLoad);
-        $('.toggle-code-example').on('click', toggleCodeExamples);
         $('#btn_page_load').on('click', customPageLoad);
         $('#debug-on-load').on('click', debugOnLoad);
         $('#btn_ajax_event').on('click', ajaxtrackPage);
@@ -20,32 +20,21 @@ _wiki.setup = (function(){
         $(document).on('click', '#manualBind, #manualBindA', analytics.trackClick);
         updateCustomVariableValues();
         manualTrigger();
-    }
 
-    function toggleCodeExamples(){
-        var $toggler = $(this);
-        var $example = $('#' + $toggler.attr('for'));
-        if ($example.hasClass('open')){
-            $toggler.removeClass('open');
-            $example.removeClass('open');
-        } else {
-            $toggler.addClass('open');
-            $example.addClass('open');
-        }
     }
 
     function updateCustomVariableValues(){
-            $('[data-tracking-variable=how_about_pina_coladas]').attr('data-tracking-value',$('input[name=radio_field]:checked').val());
-            $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
-            $('#input_field').on('blur', function(e){
-                $('[data-tracking-variable=drink]').attr('data-tracking-value',$(this).val());
-            });
-            $('#radio-input input').on('click', function(e){
-                $('[data-tracking-variable=how_about_pina_coladas]').attr('data-tracking-value',$(this).val());
-            });
-            $('#text-input button, #radio-input button').on('click', function(e){
-                e.preventDefault();
-            });
+        $('[data-tracking-variable=how_about_pina_coladas]').attr('data-tracking-value',$('input[name=radio_field]:checked').val());
+        $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
+        $('#input_field').on('blur', function(e){
+            $('[data-tracking-variable=drink]').attr('data-tracking-value',$(this).val());
+        });
+        $('#radio-input input').on('click', function(e){
+            $('[data-tracking-variable=how_about_pina_coladas]').attr('data-tracking-value',$(this).val());
+        });
+        $('#text-input button, #radio-input button').on('click', function(e){
+            e.preventDefault();
+        });
     }
 
     function ajaxtrackPage(e){
@@ -240,7 +229,7 @@ _wiki.setup = (function(){
 
 //just for require
 if (typeof window.define === "function" && window.define.amd) {
-    define("wiki", function() {
-        return _wiki;
+    define("tests/tests", function() {
+        return _demo.tests;
     });
 }

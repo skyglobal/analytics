@@ -7,11 +7,31 @@
 <h3 class="wiki-h3">Bind tracking manually</h3>
 <p>
     If you have set <code>trackClicks: false</code> in the config you will need to manually set up the link track binding.
+    You will also have to manually trigger <code>analytics.trackPage</code> for 'single-page apps'.
     This is useful for 'backbone' apps for example.
 </p>
 
 <h3 class="wiki-h3">Examples</h3>
 <div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggle-code-example" for=single-page-app></span>
+        <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event / Single page app</a>
+    </div>
+    <div class="skycom_8">
+        Pass in the updated <code>config</code> to, and call the <code>trackPage</code> function.
+    </div>
+
+    <div class="code-example" id=single-page-app>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">analytics.trackPage(config);            </code>
+        </div>
+    </div>
+
     <div class="skycom-4 alpha has-code-example">
         <span class="toggle-code-example" for=manual></span>
         <span class='btn in-page-cta' href='#!' id='manualTrack'>Span manually tracked by JS</span><br/>

@@ -30,4 +30,16 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('linkDetails', :prop).must_include '|anchor-manually-bound|'
   end
 
+  it "Tracks an ajax page load" do
+    click_link "Ajax Event / Single page app"
+    trackedEvents.must_include eventsMap[:pageLoad]
+    trackedEvents.must_include eventsMap[:ajax_happened]
+  end
+
+  it "Tracks an ajax event only once per click" do
+    click_link "Ajax Event / Single page app"
+    click_link "Ajax Event / Single page app"
+    trackedEvents.must_equal [eventsMap[:pageLoad],eventsMap[:ajax_happened]]
+  end
+
 end

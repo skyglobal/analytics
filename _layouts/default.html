@@ -2,7 +2,8 @@
 <!--[if IE 7]>         <html class="lt-ie10 lt-ie9 lt-ie8" > <![endif]-->
 <!--[if IE 8]>         <html class="lt-ie10 lt-ie9" > <![endif]-->
 <!--[if IE 9]>         <html class="lt-ie10" > <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="en" > <!--<![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/html"> <!--<![endif]-->
 <head>
     <title>Sky Analytics API Demo Page</title>
 
@@ -22,14 +23,25 @@
     <div class="quick-links">
         <div class="skycom_container">
             <ul class="nav-pills alpha skycom_12">
-                <li><a href="#using-me">Using the Analytics</a></li>
-                <li><a href="#clicks">Clicks</a></li>
-                <li><a href="#searches">Searches</a></li>
-                <li><a href="#errors">Errors</a></li>
-                <li><a href="#variables">Variables</a></li>
-                <li><a href="#events">Events</a></li>
-                <li><a href="#manual">Manual Trigger</a></li>
-                <li><a href="#single-page-apps">Single Page Apps</a></li>
+                <li><a href="index.html#using-me">Using the Analytics</a>
+                    <ul class=secondary-menu>
+                        <li><a href="index.html#contributing" data-diff="using-the-analytics/contributing">Contributing</a></li>
+                        <li><a href="index.html#getting-started" data-diff="using-the-analytics/getting-started">Getting Started</a></li>
+                        <li><a href="index.html#default-config" data-diff="using-the-analytics/default-config">Default config</a></li>
+                        <li><a href="index.html#config-in-detail" data-diff="using-the-analytics/config-in-detail">Config in detail</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#clicks" data-diff="clicks">Clicks</a></li>
+                <li><a href="index.html#variables" data-diff="variables">Variables</a></li>
+                <li><a href="index.html#events" data-diff="events">Events</a></li>
+                <li><a href="index.html#page-types">Page-Types</a>
+                    <ul class=secondary-menu>
+                        <li><a href="index.html#search" data-diff="page-types/search">Searches</a></li>
+                        <li><a href="index.html#error" data-diff="page-types/error">Errors</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#manual-trigger" data-diff="manual-trigger">Manual Trigger</a></li>
+                <li><a href="changes.html">Changes</a></li>
             </ul>
         </div>
     </div>
@@ -38,7 +50,8 @@
             {{ content }}
         </div>
     </div>
-    <script src="./dist/js/wiki.js"></script>
+    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/1.0.0/scripts/toolkit.js">
+    <script src="./dist/js/demo.js"></script>
 </div>
 </body>
 </html>

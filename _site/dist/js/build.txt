@@ -15,6 +15,7 @@ core/track-page.js
 core/track-click.js
 analytics.js
 
-wiki.js
+demo.js
 ----------------
-wiki.js
+tests/tests.js
+demo.js

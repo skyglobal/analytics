@@ -58,7 +58,7 @@ module.exports = function(grunt) {
                     modules:[{
                         name: 'analytics'
                     },{
-                        name: 'wiki'
+                        name: 'demo'
                     }]
                 }
             }
