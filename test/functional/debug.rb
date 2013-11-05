@@ -20,13 +20,13 @@ class AnalyticsTest < AcceptanceTest
 
   it "Debug can be turned on for hash based urls and click event is blocked" do
     click_link 'debug by clicking here'
-    click_link 'Searches'
+    click_link 'Using the Analytics'
 
-    current_url.wont_include '#searches'
+    current_url.wont_include '#using-me'
 
     click_link 'debug by clicking here'
-    click_link 'Searches'
+    click_link 'Using the Analytics'
 
-    current_url.must_include '#searches'
+    current_url.must_include '#using-me'
   end
 end
