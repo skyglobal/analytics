@@ -245,7 +245,7 @@ _demo.setup = (function(){
     function checkDiff(e){
         e.preventDefault();
         var oldVersion = $('#version').val(),
-            newVersion = $('.wiki-header small').text().replace('v'),
+            newVersion = $('.wiki-header small').text().replace('v',''),
             route = 'http://analytics.global.sky.com';
         if (oldVersion.split('.').length<3 || (oldVersion.split('.')[0]<1)){
             $('.sky-form .error').text("The version number is required, and must be '1.0.1' or higher");
