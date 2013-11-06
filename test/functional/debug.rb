@@ -8,12 +8,12 @@ class AnalyticsTest < AcceptanceTest
 
   it "Debug can be turned on for external links and loading external link is blocked" do
     click_link 'debug on'
-    click_link 'Sky.com'
+    click_link 'Changes'
 
     page.title.must_equal 'Sky Analytics API Demo Page'
 
     click_link 'debug off'
-    click_link 'Sky.com'
+    click_link 'Changes'
 
     page.title.wont_equal 'Sky Analytics API Demo Page'
   end
