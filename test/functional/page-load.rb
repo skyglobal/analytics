@@ -6,9 +6,11 @@ class AnalyticsTest < AcceptanceTest
     visit '/'
   end
 
-  it "Tracks page view" do
+  it "Tracks page view with correct site details" do
     trackedEvents.must_include eventsMap[:pageLoad]
     trackedEvents.wont_include eventsMap[:linkClick]
+    trackedVariable('siteName',:prop).must_equal 'sky/portal/global'
+    trackedVariable('fullCampaign',:prop).must_equal nil #in theory, could be 'direct load' if this test is the very first
   end
 
   it "tracks 'section' as page name id 'page' is omitted" do

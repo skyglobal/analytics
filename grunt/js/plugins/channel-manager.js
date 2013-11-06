@@ -92,7 +92,7 @@ _analytics.plugins.channelManager = (function(omniture, config, utils){
 
 
     function setCheetah(){ //todo: check with andrew to delete after 1-1-14.
-        if (s.getQueryParam('om_mid').length < 0) { return; }
+        if (!s.getQueryParam('om_mid')) { return; }
 
         var campaignID = "cht-" + s.getQueryParam('om_mid');
         if(getVariable('fullCampaign')){
