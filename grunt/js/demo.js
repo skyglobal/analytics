@@ -2,7 +2,7 @@ if (typeof _demo==='undefined') _demo={};
 _demo.setup = (function(){
 
     function bindEvents(){
-        $('.toggle-code-example').on('click', toggleCodeExamples);
+        $(document).on('click','.toggler', toggle);
         $('#check').on('click', checkDiff);
     }
 
@@ -21,7 +21,7 @@ _demo.setup = (function(){
         });
     }
 
-    function toggleCodeExamples(){
+    function toggle(){
         var $toggler = $(this);
         var $example = $('#' + $toggler.attr('for'));
         if ($example.hasClass('open')){
