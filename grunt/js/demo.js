@@ -24,6 +24,9 @@ _demo.setup = (function(){
     function toggle(){
         var $toggler = $(this);
         var $example = $('div[data-toggle=' + $toggler.attr('for') + ']');
+        if ($example.length===0)  {
+            $example = $('#' + $toggler.attr('for'));
+        }
         if ($example.hasClass('open')){
             $toggler.removeClass('open');
             $example.removeClass('open');

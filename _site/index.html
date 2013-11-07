@@ -332,13 +332,13 @@
 <div class='example clearfix'>
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=standard-link></span>
+        <span class="toggler" for=standard-link></span>
         <a href="#!">Standard link</a>
     </div>
     <div class="skycom_8">
         '<code>a</code>' tags will be tracked automatically
     </div>
-    <div class="code-example" id=standard-link>
+    <div class="code-example" data-toggle==standard-link>
         <code class="skycom-2 alpha html">HTML</code>
         <code class="skycom-9 html">    &lt;a href='#' >link&lt;/a>    </code>
         <code class="skycom-2 alpha js">Javascript</code>
@@ -346,7 +346,7 @@
     </div>
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=standard-button></span>
+        <span class="toggler" for=standard-button></span>
         <button class="btn sign-post">Normal Button</button>
     </div>
     <div class="skycom_8">
@@ -360,7 +360,7 @@
     </div>
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=input-button></span>
+        <span class="toggler" for=input-button></span>
         <input type="submit" value="Submit Button"/>
     </div>
     <div class="skycom_8">
@@ -374,7 +374,7 @@
     </div>
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=everything-else></span>
+        <span class="toggler" for=everything-else></span>
         <span data-tracking id='a-non-anchor'>Tracking everything else</span>
     </div>
     <div class="skycom_8">
@@ -389,7 +389,7 @@
 
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=tracking-label></span>
+        <span class="toggler" for=tracking-label></span>
         <a class='btn primary-cta' data-tracking-label='label-text' href="#!">Link tracked with different text</a>
     </div>
     <div class="skycom_8">
@@ -404,7 +404,7 @@
 
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=tracking-context></span>
+        <span class="toggler" for=tracking-context></span>
         <div >
             <a href="#!"  data-tracking-context='context'>Similar CTA's, different actions</a>
         </div>
@@ -427,7 +427,7 @@
 
 
     <div class="skycom_4 alpha has-code-example" data-tracking-module=testing>
-        <span class="toggle-code-example" for=tracking-module></span>
+        <span class="toggler" for=tracking-module></span>
         <div data-tracking-pod=pod-1>
             <a href="#!">Same module, pod 1</a>
         </div>
@@ -454,7 +454,7 @@
 
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=tracking-other></span>
+        <span class="toggler" for=tracking-other></span>
         <div data-tracking-other=js-off-link>
             <a href="#!">Tracking further info</a>
         </div>
@@ -482,7 +482,7 @@
 
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=not-tracking></span>
+        <span class="toggler" for=not-tracking></span>
         <a data-tracking="false" href="#!" id="anchor-not-tracked">Standard link, not tracked</a>
         <button class="btn" data-tracking="false" id="button-not-tracked" >Normal button, not tracked</button>
         <input type=submit data-tracking="false" value="Submit button, not tracked" id="submit-not-tracked" />
@@ -542,7 +542,7 @@
 <h3 class="wiki-h3">Examples</h3>
 <div class="example clearfix">
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=standard-vars></span>
+        <span class="toggler" for=standard-vars></span>
         <a id='standard-vars-a' href="#!" data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable</a>
     </div>
     <div class="skycom_8">
@@ -562,7 +562,7 @@
     </div>
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=standard-vars-onLoad></span>
+        <span class="toggler" for=standard-vars-onLoad></span>
         <a id="standard-vars-onLoad-a" href="#!" data-tracking=false data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable on load</a>
     </div>
     <div class="skycom_8">
@@ -588,7 +588,7 @@
 
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=custom-vars></span>
+        <span class="toggler" for=custom-vars></span>
         <form id='text-input' class="sky-form">
             <label for='input_field'>What is your favourite drink?</label> <br>
             <input id='input_field' name='input_field' type='text' /><br>
@@ -621,7 +621,7 @@
     </div>
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=custom-vars-radio></span>
+        <span class="toggler" for=custom-vars-radio></span>
         <form id='radio-input' class="sky-form">
             <label>Do you like Pina Coldas?</label> <br>
             <input id='radio_yes' checked name='radio_field' type='radio' value='yes_to_pinas'/><label for='radio_yes'>Yes</label>
@@ -663,7 +663,7 @@
 
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=custom-vars-value></span>
+        <span class="toggler" for=custom-vars-value></span>
         <button id='colour-button-blue' data-tracking-variable="colour" class="btn">Blue</button>
         <button id='colour-button-secondary' data-tracking-variable="colour" class="btn secondary">Gray</button>
     </div>
@@ -690,7 +690,7 @@
 
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=custom-var-load></span>
+        <span class="toggler" for=custom-var-load></span>
         <a class='btn in-page-cta' href='#!' id='btn-page-load-var' data-tracking=false>Custom Var Page Load</a>
     </div>
     <div class="skycom-8">To track a custom variable when the page loads, add <code>onPageLoad: true</code> in the config.</div>
@@ -716,7 +716,7 @@
 
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=custom-list-load></span>
+        <span class="toggler" for=custom-list-load></span>
         <a class='btn in-page-cta' href='#!' id='btn-page-load-list' data-tracking=false>List Variable on page load</a>
     </div>
     <div class="skycom-8">To track a list variable use <code>list</code> and set the value to an <code>Array</code>.</div>
@@ -740,7 +740,7 @@
 
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=custom-list-click></span>
+        <span class="toggler" for=custom-list-click></span>
         <a class='btn in-page-cta' href='#!' id='btn-click-list'
            data-tracking-variable=customer-offers data-tracking-value='offer1|offer2'>List Variable on click</a>
     </div>
@@ -768,7 +768,7 @@
 
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=custom-hier-load></span>
+        <span class="toggler" for=custom-hier-load></span>
         <a class='btn in-page-cta' href='#!' id='btn-page-load-hier' data-tracking=false>Hierarchy Variable on page load</a>
     </div>
     <div class="skycom-8">To track a hierarchy variable use <code>hier</code> and set the value to an <code>Array</code>.</div>
@@ -791,7 +791,7 @@
     </div>
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=custom-hier-click></span>
+        <span class="toggler" for=custom-hier-click></span>
         <a class='btn in-page-cta' href='#!' id='btn-page-click-hier'
            data-tracking-variable=my-heirarchy data-tracking-value='click val 1|2nd click val'>Hierarchy Variable on click</a>
     </div>
@@ -852,7 +852,7 @@
 
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=standard-events></span>
+        <span class="toggler" for=standard-events></span>
         <a id='standard-events-a' href="#!" data-tracking-event='liveChat' class='btn primary-cta'>Send Standard Event</a>
     </div>
     <div class="skycom_8">
@@ -872,7 +872,7 @@
     </div>
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=standard-events-onLoad></span>
+        <span class="toggler" for=standard-events-onLoad></span>
         <a id="standard-events-onLoad-a" href="#!" data-tracking=false data-tracking-event='liveChat' class='btn primary-cta'>Send Standard Events on load</a>
     </div>
     <div class="skycom_8">
@@ -903,7 +903,7 @@
 
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=custom-events></span>
+        <span class="toggler" for=custom-events></span>
         <a class='btn in-page-cta' href='#!' id='btn_custom_event' data-tracking-event='magic_happened'>Custom Event</a>
     </div>
     <div class="skycom-8">To track a custom event when an element is clicked, add <code>data-tracking-event=<i>eventName</i></code> to the relevant element.</div>
@@ -925,7 +925,7 @@
 
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=custom-events-load></span>
+        <span class="toggler" for=custom-events-load></span>
         <a class='btn in-page-cta' href='#!' data-tracking=false id='btn_page_load'>Custom Page Load</a>
     </div>
     <div class="skycom-8">To track a custom event when the page, add <code>onPageLoad: true</code> in the config.</div>
@@ -949,7 +949,7 @@
 
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=serial-events></span>
+        <span class="toggler" for=serial-events></span>
         <a class='btn in-page-cta' href='#!' id='btn-serial-events'
                 data-tracking-event=serial-event>Send serialised Event</a>
     </div>
@@ -997,7 +997,7 @@
 <div class='example clearfix'>
 
     <div class='skycom_4 alpha skycom_clear sky-form has-code-example'>
-        <span class="toggle-code-example" for=search-events></span>
+        <span class="toggler" for=search-events></span>
         <input id="weather-search" type="text" placeholder="Postcode or town">
         <button class="btn" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-search">Search</button>
     </div>
@@ -1015,7 +1015,7 @@
     </div>
 
     <div class='skycom_4 alpha skycom_clear sky-form has-code-example'>
-        <span class="toggle-code-example" for=search-events-onload></span>
+        <span class="toggler" for=search-events-onload></span>
         <button class="btn" type="submit" data-tracking=false id='search-results-trackPage'>Show Results page</button>
     </div>
     <div class="skycom_8">
@@ -1048,7 +1048,7 @@
 <h3 class="wiki-h3">Examples</h3>
 <div class="example clearfix">
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=send-error></span>
+        <span class="toggler" for=send-error></span>
         <a class='btn in-page-cta' href='#!' id='btn_error_event' data-tracking="false">Send Error</a>
     </div>
     <div class="skycom_8">
@@ -1066,7 +1066,7 @@
         </div>
     </div>
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=trackPage-error></span>
+        <span class="toggler" for=trackPage-error></span>
         <a class='btn in-page-cta' href='#!' id='btn_error_trackPage' data-tracking="false">Send Error on page load</a>
     </div>
     <div class="skycom_8">
@@ -1115,7 +1115,7 @@ analytics.trackPage(SITECAT_CONFIG);
 <h3 class="wiki-h3">Examples</h3>
 <div class="example clearfix">
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=single-page-app></span>
+        <span class="toggler" for=single-page-app></span>
         <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event / Single page app</a>
     </div>
     <div class="skycom_8">
@@ -1134,7 +1134,7 @@ analytics.trackPage(SITECAT_CONFIG);
     </div>
 
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=manual></span>
+        <span class="toggler" for=manual></span>
         <span class='btn in-page-cta' href='#!' id='manualTrack'>Span manually tracked by JS</span><br/>
         <a class='btn in-page-cta' data-tracking=false href='#!' id='manualTrackingOff'>Anchor being tracked with JS</a>
     </div>
@@ -1153,7 +1153,7 @@ analytics.trackPage(SITECAT_CONFIG);
         </div>
     </div>
     <div class="skycom-4 alpha has-code-example">
-        <span class="toggle-code-example" for=manual-bind></span>
+        <span class="toggler" for=manual-bind></span>
         <span class='btn in-page-cta' data-tracking=false href='#!' id='manualBind'>Span manually bound</span><br/>
         <a class='btn in-page-cta' data-tracking=false href='#!' id='manualBindA'>Anchor manually bound</a>
     </div>

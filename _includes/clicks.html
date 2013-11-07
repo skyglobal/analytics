@@ -52,13 +52,13 @@
 <div class='example clearfix'>
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=standard-link></span>
+        <span class="toggler" for=standard-link></span>
         <a href="#!">Standard link</a>
     </div>
     <div class="skycom_8">
         '<code>a</code>' tags will be tracked automatically
     </div>
-    <div class="code-example" id=standard-link>
+    <div class="code-example" data-toggle==standard-link>
         <code class="skycom-2 alpha html">HTML</code>
         <code class="skycom-9 html">    &lt;a href='#' >link&lt;/a>    </code>
         <code class="skycom-2 alpha js">Javascript</code>
@@ -66,7 +66,7 @@
     </div>
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=standard-button></span>
+        <span class="toggler" for=standard-button></span>
         <button class="btn sign-post">Normal Button</button>
     </div>
     <div class="skycom_8">
@@ -80,7 +80,7 @@
     </div>
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=input-button></span>
+        <span class="toggler" for=input-button></span>
         <input type="submit" value="Submit Button"/>
     </div>
     <div class="skycom_8">
@@ -94,7 +94,7 @@
     </div>
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=everything-else></span>
+        <span class="toggler" for=everything-else></span>
         <span data-tracking id='a-non-anchor'>Tracking everything else</span>
     </div>
     <div class="skycom_8">
@@ -109,7 +109,7 @@
 
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=tracking-label></span>
+        <span class="toggler" for=tracking-label></span>
         <a class='btn primary-cta' data-tracking-label='label-text' href="#!">Link tracked with different text</a>
     </div>
     <div class="skycom_8">
@@ -124,7 +124,7 @@
 
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=tracking-context></span>
+        <span class="toggler" for=tracking-context></span>
         <div >
             <a href="#!"  data-tracking-context='context'>Similar CTA's, different actions</a>
         </div>
@@ -147,7 +147,7 @@
 
 
     <div class="skycom_4 alpha has-code-example" data-tracking-module=testing>
-        <span class="toggle-code-example" for=tracking-module></span>
+        <span class="toggler" for=tracking-module></span>
         <div data-tracking-pod=pod-1>
             <a href="#!">Same module, pod 1</a>
         </div>
@@ -174,7 +174,7 @@
 
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=tracking-other></span>
+        <span class="toggler" for=tracking-other></span>
         <div data-tracking-other=js-off-link>
             <a href="#!">Tracking further info</a>
         </div>
@@ -202,7 +202,7 @@
 
 
     <div class="skycom_4 alpha has-code-example" >
-        <span class="toggle-code-example" for=not-tracking></span>
+        <span class="toggler" for=not-tracking></span>
         <a data-tracking="false" href="#!" id="anchor-not-tracked">Standard link, not tracked</a>
         <button class="btn" data-tracking="false" id="button-not-tracked" >Normal button, not tracked</button>
         <input type=submit data-tracking="false" value="Submit button, not tracked" id="submit-not-tracked" />
