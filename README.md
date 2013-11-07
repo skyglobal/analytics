@@ -72,7 +72,7 @@ Please read through 'Getting Started' here http://skyglobal.github.io/analytics
 2. In another terminal run:
   - grunt watch (add ' --beautify' to help debugging)
 3. browse to
-  - http://localhost:4000
+  - http://localhost:4001
 
 ### Testing
 These tests are automatically run on the CircleCI server upon pushing to Github
