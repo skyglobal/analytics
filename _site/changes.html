@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="http://web-toolkit.global.sky.com/1.0.0/stylesheets/toolkit.css">
     <link rel="stylesheet" href="./dist/css/wiki.css">
     <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="./dist/js/lib/jquery.scrollspy.js" type="text/javascript"></script>
 
     <!--[if LT IE 9]>
 <link rel='stylesheet' href='//assets.sky.com/css/desktop-12grid.css' media='screen' />
@@ -64,15 +65,14 @@
     <!-- Tracking - aka: What you came here for -->
     <script type='text/javascript' src="./dist/js/analytics.js"></script>
 </head>
-<body>
+<body class='grid-1140' data-spy=scroll data-target=".nav-container">
 
-<div class='grid-1140'>
 
-    <div class="quick-links">
-        <div class="skycom_container">
-            <ul class="nav-pills alpha skycom_12">
-                <li><a href="index.html#using-me">Using the Analytics</a>
-                    <ul class=secondary-menu>
+    <div class="nav-container">
+        <div class="skycom_container nav">
+            <ul class="alpha skycom_12 primary-menu">
+                <li class="dropdown"><a href="index.html#using-me">Using the Analytics</a>
+                    <ul class=dropdown-menu>
                         <li><a href="index.html#contributing" data-diff="using-the-analytics/contributing">Contributing</a></li>
                         <li><a href="index.html#getting-started" data-diff="using-the-analytics/getting-started">Getting Started</a></li>
                         <li><a href="index.html#default-config" data-diff="using-the-analytics/default-config">Default config</a></li>
@@ -82,8 +82,8 @@
                 <li><a href="index.html#clicks" data-diff="clicks">Clicks</a></li>
                 <li><a href="index.html#variables" data-diff="variables">Variables</a></li>
                 <li><a href="index.html#events" data-diff="events">Events</a></li>
-                <li><a href="index.html#page-types">Page-Types</a>
-                    <ul class=secondary-menu>
+                <li class="dropdown"><a href="index.html#page-types">Page-Types</a>
+                    <ul class=dropdown-menu>
                         <li><a href="index.html#search" data-diff="page-types/search">Searches</a></li>
                         <li><a href="index.html#error" data-diff="page-types/error">Errors</a></li>
                     </ul>
@@ -97,7 +97,7 @@
         <div class="alpha skycom-12">
             <script>document.title='Sky Analytics API Changes Page';</script>
 <h1 class="wiki-header">Omniture Analytics <small>v1.1.2</small></h1>
-<div class="secondary">Last Updated: 07-11-2013</div>
+<div class="secondary">Last Updated: 12-11-2013</div>
 
 <a name="using-me"></a>
 <section class="wiki-section" id=changes-page>
@@ -139,6 +139,5 @@
     </div>
     <script src="http://web-toolkit.global.sky.com/1.0.1/scripts/toolkit.js"></script>
     <script src="./dist/js/demo.js"></script>
-</div>
 </body>
 </html>
