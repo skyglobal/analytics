@@ -45,7 +45,7 @@ def variablesMap
       section1:{prop: 'c27',eVar: 'v29'},
       section2:{prop: 'c31',eVar: 'v30'},
       videoTitle:{prop: 'c26',eVar: 'v28'},
-      channel: {eVar: 'v24',channel:'channel',hier: 'hier1'},
+      channel: {eVar: 'v24',channel:'ch',hier: 'h1'},
       samId:{prop: 'c39',eVar: 'v39'},
       loginStatus: {eVar: 'v11'},
       ageGender: {eVar: 'v12'},
