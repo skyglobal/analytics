@@ -62,7 +62,7 @@ _analytics.omniture = (function(config, logger){
         if (!s.linkTrackEvents) s.linkTrackEvents = '';
         if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
         s.linkTrackEvents += config.eventsMap[event].split(":")[0];
-        mappedVars['linkTrackVars'] = { val: s.linkTrackEvents, restrictedTo: 'click' };
+        mappedVars['linkTrackEvents'] = { val: s.linkTrackEvents, restrictedTo: 'click' };
     }
 
     function setVariableBasedEvents(variable){

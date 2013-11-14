@@ -187,13 +187,13 @@
         describe('omniture can reset the important vars ', function() {
 
             it('correctly', function() {
-                var linkDetails = omniture.setVariable('linkDetails', 'my-link-clicked');
-                var linkDetails = omniture.setVariable('pagename', 'my-link-clicked');
-                omniture.setLinkTrackVariable('pagename');
+                omniture.setEvent('pageLoad','load');
+                omniture.setEvent('error','click');
+                omniture.setVariable('linkDetails', 'my-link-clicked', 'click');
+                omniture.setVariable('pagename', 'my-link-clicked-test');
                 omniture.setVariableBasedEvents('propFirst');
-                omniture.setEvent('pageLoad');
                 omniture.reset();
-                expect(s['pagename']).to.equal('my-link-clicked');
+                expect(s['pagename']).to.equal('my-link-clicked-test');
                 expect(s['events']).to.equal('');
                 expect(s['linkTrackVars']).to.equal('');
                 expect(s['linkTrackEvents']).to.equal('');
