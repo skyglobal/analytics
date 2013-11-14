@@ -5,14 +5,14 @@ utils/polyfill.js
 core/config.js
 utils/logger.js
 core/omniture.js
+core/track-page.js
+core/track-click.js
 plugins/media-module.js
 plugins/test-and-target.js
 plugins/utils.js
 plugins/channel-manager.js
 plugins/new-or-repeat-visits.js
 plugins/user-history.js
-core/track-page.js
-core/track-click.js
 analytics.js
 
 demo.js

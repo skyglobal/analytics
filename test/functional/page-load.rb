@@ -60,4 +60,19 @@ class AnalyticsTest < AcceptanceTest
     #trackedVariable('section2').must_include 'require'
   end
 
+
+  it "resets load vars on new AJAX page load" do
+    #custom var 'colour' is set on first page load
+    click_link 'Custom Var Page Load' #new page load doesnt declare 'colour' as a custom var
+    trackedVariable('how_about_pina_coladas').must_equal 'my val on load'
+    click_button 'Blue'
+    trackedVariable('colour').must_equal 'Blue'  #blue as a 'colour' should still exist
+    click_link 'List Variable on page load'
+    trackedVariable('myListOfStuff',:list).must_equal 'val1|my second|final value'
+    trackedVariable('how_about_pina_coladas').must_equal nil
+    trackedVariable('colour').must_equal nil
+    click_button 'Blue'
+    trackedVariable('colour').must_equal 'Blue'
+  end
+
 end

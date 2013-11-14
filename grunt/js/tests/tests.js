@@ -96,7 +96,7 @@ _demo.tests = (function(){
             section: 'skyglobal/analytics',
             account: 'bskybglobaldev',
             customVariables: [
-                {'myHierarchyOfStuff': {'hier': 1, 'value': ['h1','second h','final hier'], 'onPageLoad': true }}
+                {'myHierarchyOfStuff': {'hier': 2, 'value': ['h1','second h','final hier'], 'onPageLoad': true }}
             ]
         });
     }

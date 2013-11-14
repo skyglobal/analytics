@@ -16,20 +16,18 @@ _analytics.omniture = (function(config, logger){
     }
 
     function getVariable(prop){
-        return mappedVars[prop] || s[prop];
+        return (mappedVars[prop]) ? mappedVars[prop].val : s[prop];
     }
 
-    function setVariable(prop, val){
-        if(typeof val === "undefined" || prop=='events'){ return; }
+    function setVariable(prop, val, type){
+        if(typeof val === "undefined"){ return; }
         var i= 1,map,
             data = config.variablesMap[prop] || [prop];
-        if (val instanceof Array){
-            val = val.join('|');
-        } else {
-            val = val.toString();
-        }
-        mappedVars[prop] = val;
+        val = (val instanceof Array) ? val.join('|') : val.toString();
+
+        mappedVars[prop] = { val: val, restrictedTo: type };
         s[data[0]] = val;
+
         if (data.length>1){
             map = 'D=' + obfuscate(data[0]);
             for (i; i<data.length; i++){
@@ -37,31 +35,41 @@ _analytics.omniture = (function(config, logger){
             }
         }
         setVariableBasedEvents(prop);
+        if (type=='click'){
+            setClickTrackVariable(prop);
+        }
         return val;
     }
 
-    function setLinkTrackVariable(variable){
-        if (!s.linkTrackVars) s.linkTrackVars = '';
-        if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
-        s.linkTrackVars += config.variablesMap[variable];
-    }
-
-    function setLinkTrackEvent(event){
-        if (!s.linkTrackEvents) s.linkTrackEvents = '';
-        if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
-        s.linkTrackEvents += config.eventsMap[event].split(":")[0];
-    }
-
-    function setEvent(event){
+    function setEvent(event, type){
         if (!s.events) s.events = '';
         if (s.events.length>0) s.events += ',';
         s.events += config.eventsMap[event];
+        mappedVars['events'] = { val: s.events, restrictedTo: 'click' };
+        if (type=='click'){
+            setClickTrackEvent(event);
+        }
+    }
+
+    function setClickTrackVariable(variable){
+        if (!s.linkTrackVars) s.linkTrackVars = '';
+        if (s.linkTrackVars.length>0) s.linkTrackVars += ',';
+        s.linkTrackVars += config.variablesMap[variable];
+        mappedVars['linkTrackVars'] = { val: s.linkTrackVars, restrictedTo: 'click' };
+    }
+
+    function setClickTrackEvent(event){
+        if (!s.linkTrackEvents) s.linkTrackEvents = '';
+        if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
+        s.linkTrackEvents += config.eventsMap[event].split(":")[0];
+        mappedVars['linkTrackVars'] = { val: s.linkTrackEvents, restrictedTo: 'click' };
     }
 
     function setVariableBasedEvents(variable){
         if (!config.variableBasedEvents[variable]){ return; }
         setEvent(config.variableBasedEvents[variable]);
     }
+
     function trackClick(e){
         if (logger.debugging()){
             e.preventDefault();
@@ -87,18 +95,30 @@ _analytics.omniture = (function(config, logger){
         reset();
     }
 
-
+    function normaliseItem(item){
+        var properties, name;
+        for (name in item) {
+            if(item.hasOwnProperty(name)) {
+                properties = item[name];
+            }
+        }
+        properties.name = name;
+        return properties;
+    }
 
     function log(){
         logger.logS(getVariable('linkDetails'), getVariable('events'), mappedVars);
     }
 
     function reset(){
-//        todo: andrew - what stuff should get reset and when? page load vs clicks?
-        setVariable('linkDetails','');
-        s.linkTrackVars = '';
-        s.linkTrackEvents = '';
-        s.events = '';
+        var name;
+        for (name in mappedVars) {
+            if (mappedVars[name].restrictedTo){
+                setVariable(name,'');
+            }
+        }
+        config.loadVariables = {};
+        config.loadEvents = [];
     }
 
     function addPlugin(name, fn){
@@ -292,14 +312,15 @@ _analytics.omniture = (function(config, logger){
         setVariable: setVariable,
         setEvent: setEvent,
         setVariableBasedEvents: setVariableBasedEvents,
-        setLinkTrackVariable: setLinkTrackVariable,
-        setLinkTrackEvent: setLinkTrackEvent,
+        setLinkTrackVariable: setClickTrackVariable,
+        setLinkTrackEvent: setClickTrackEvent,
         trackError: trackError,
         trackClick: trackClick,
         trackPage: trackPage,
         addPlugin: addPlugin,
         send: send,
         init: init,
+        normaliseItem : normaliseItem,
         reset: reset
     };
 

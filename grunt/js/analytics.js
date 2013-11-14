@@ -1,9 +1,8 @@
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, logger){
+_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, logger,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils ){
 //todo: document vars that come for free + what props sent etc
 //todo: document masthead prop + test
 //todo: document sessionCamID + test
-//todo: ask andrew what vars events should be deleted when?
 
 //todo: test and document setup()
 //todo: write page to test require.. and sleep?
@@ -18,9 +17,12 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
 //todo: write analytics.send method within analytics.js
 
     var mandatory = ['site', 'section', 'account'];
+    var setVariable = omniture.setVariable;
+    var pluginsLoaded = false;
 
     function setup(customConfig){
         $.extend(config, customConfig);
+
         omniture.init(customConfig.account);
 
         checkMandatoryConfig();
@@ -28,12 +30,59 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
         setupCustomEventsAndVariables('Variables');
         trackClick.bind();
 
+        loadPlugins();
+        setPageDescriptions();
+
         return config;
     }
 
+
+    function setPageDescriptions(){
+        var name,
+            siteName = setVariable('siteName','sky/portal/' + config.site),
+            contentType = setVariable('contentType', config.contentType),
+            pageName = setVariable('pageName', siteName + "/" + (config.page || config.section) + (!config.page && contentType ? "/" + contentType : ''));
+
+        setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
+        setVariable('pageURL','D=referrer');//todo: andrew, really?
+        setVariable('url', config.url);
+        setVariable('contentId', config.contentId);
+        setVariable('channel', siteName + '/' + config.section);
+        setVariable('section0', siteName + '/' +  config.section.split('/').slice(0,1).join('/'));
+        setVariable('section1', siteName + '/' +  config.section.split('/').slice(0,2).join('/'));
+        setVariable('section2', siteName + '/' +  config.section.split('/').slice(0,3).join('/'));
+        setVariable('pageConversion', pageName.replace('sky/portal/',''));
+        setVariable('headline', config.headline);
+
+        if (window.sessionCamRecorder && window.sessionCamRecorder.sessionId){
+            setVariable('sessionCamID', window.sessionCamRecorder.sessionId().split(',')[0]);
+        }
+
+        if (config.headline) {
+            setVariable('fullPageDescription', (config.site + '/' + config.section+ '/' + config.headline).substring(0,255));
+        } else{
+            setVariable('fullPageDescription', pageName.substring(0,255));
+        }
+        for (name in config) {
+            setVariable(name, config[name]);
+        }
+    }
+
+    function loadPlugins() {
+        if(pluginsLoaded){ return; }
+
+        utils.load(); //must go first - user history needs it to set a campaign evar
+        channelManager.load(); //must go second - user history needs it to set a campaign evar
+        userHistory.load();
+        testAndTarget.load();
+        mediaModule.load();
+        newOrRepeatVisits.load();
+
+        pluginsLoaded = true;
+    }
+
     function reset(customConfig){
-        config.loadVariables={};
-        config.loadEvents=[];
+        omniture.reset();
         if (customConfig){
             setup(customConfig);
         }
@@ -55,7 +104,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
         if (!arr) { return; }
         len = arr.length;
         for(i;i<len;i++){
-            item = normaliseItem(arr[i]);
+            item = omniture.normaliseItem(arr[i]);
             if (type=='Variables') {
                 setupCustomVariable(item);
             } else if (type=='Events') {
@@ -96,23 +145,15 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
         }
     }
 
-    function normaliseItem(item){
-        var properties, name;
-        for (name in item) {
-            if(item.hasOwnProperty(name)) {
-                properties = item[name];
-            }
-        }
-        properties.name = name;
-        return properties;
-    }
-
     window.analytics = {
-        trackClick : trackClick.track,
+        trackClick: function(e){
+            var pageConfig = reset(config);
+            trackClick.track( e );
+        },
         trackError: omniture.trackError,
         trackPage: function(customConfig){
-            var page = reset(customConfig);
-            trackPage.track( page );
+            var pageConfig = reset(customConfig);
+            trackPage.track( pageConfig );
         },
         setup: setup,
         debug: logger.debug
@@ -125,7 +166,13 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     _analytics.omniture,
     _analytics.trackClick,
     _analytics.trackPage,
-    _analytics.logger
+    _analytics.logger,
+    _analytics.plugins.mediaModule,
+    _analytics.plugins.testAndTarget,
+    _analytics.plugins.channelManager,
+    _analytics.plugins.newOrRepeatVisits,
+    _analytics.plugins.userHistory,
+    _analytics.plugins.utils
 ));
 
 //just for require
@@ -136,8 +183,14 @@ if (typeof window.define === "function" && window.define.amd) {
         'core/omniture',
         'core/track-click',
         'core/track-page',
-        'utils/logger'
-    ], function(polyfill, config, omniture, trackClick, trackPage, logger) {
+        'utils/logger',
+        'plugins/media-module',
+        'plugins/test-and-target',
+        'plugins/channel-manager',
+        'plugins/new-or-repeat-visits',
+        'plugins/user-history',
+        'plugins/utils'
+    ], function(polyfill, config, omniture, trackClick, trackPage, logger, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory, utils) {
         return _analytics.setup;
     });
 }

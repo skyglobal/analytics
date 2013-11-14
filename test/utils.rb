@@ -71,8 +71,8 @@ def variablesMap
       colour: {eVar: 'v71'},
       myListOfStuff: {list:'l1'},
       customerOffers: {list:'l2'},
-      myHierarchyOfStuff: {hier:'h1'},
-      myHeirarchy: {hier:'h2'},
+      myHierarchyOfStuff: {hier:'h2'},
+      myHeirarchy: {hier:'h3'},
   }
 end
 
