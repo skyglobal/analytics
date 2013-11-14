@@ -9,10 +9,10 @@ class AnalyticsTest < AcceptanceTest
   it "Tracks page view with correct site details" do
     trackedEvents.must_include eventsMap[:pageLoad]
     trackedEvents.wont_include eventsMap[:linkClick]
-    trackedVariable('channel').must_equal 'sky/portal/skyglobal/analytics/demo'
+    trackedVariable('siteName',:prop).must_equal 'sky/portal/global'
+    trackedVariable('channel').must_equal 'sky/portal/global/skyglobal/analytics/demo'
     trackedVariable('channel',:hier).must_equal references('channel',:eVar)
     trackedVariable('channel',:channel).must_equal references('channel',:eVar)
-    trackedVariable('siteName',:prop).must_equal 'sky/portal/global'
     trackedVariable('fullCampaign',:prop).must_equal nil #in theory, could be 'direct load' if this test is the very first
   end
 
