@@ -86,8 +86,17 @@
     <input id="input-text" type="text"
     />
 
+    <form class="skycom_4 alpha skycom_clear sky-form has-code-example" action="#!" method="get">
+        <span class="toggler" for="search-events"></span>
+        <input id="weather-search" type="text" placeholder="Postcode or town">
+        <button class="btn" id="weather-search-button" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-search">Search</button>
+    </form>
 
-
+    <form class="skycom_4 alpha skycom_clear sky-form has-code-example" action="#!" method="get" data-tracking-other="this-wont-get-changed">
+        <span class="toggler" for="other-search-events"></span>
+        <input id="other-search" type="text" placeholder="Other">
+        <button class="btn" type="submit" id="other-search-button" data-tracking-search="other" data-tracking-context-id="other-search">Search</button>
+    </form>
 
 </div>
 

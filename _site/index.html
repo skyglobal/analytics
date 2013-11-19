@@ -95,8 +95,8 @@
     </div>
     <div class="skycom-container clearfix">
         <div class="alpha skycom-12">
-            <h1 class="wiki-header">Omniture Analytics <small>v1.1.5</small></h1>
-<div class="secondary">Last Updated: 14-11-2013</div>
+            <h1 class="wiki-header">Omniture Analytics <small>v1.2.0</small></h1>
+<div class="secondary">Last Updated: 19-11-2013</div>
 
 <section class="wiki-section">
     <a name="contributing"></a>
@@ -123,7 +123,7 @@
         <h2 >Getting Started</h2>
 <p class="developer-notes">
     Please use the following:
-    <code class="html">    &lt;script src=//analytics.global.sky.com/1.1.5/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
+    <code class="html">    &lt;script src=//analytics.global.sky.com/1.2.0/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
     If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p>
 <p>
@@ -979,7 +979,7 @@
     <h2>Page Types</h2>
     <a name="search"></a>
     <div class="sub-section">
-        <h3 class="wiki-h3">Searches</h3>
+        <h3 class="wiki-h3" xmlns="http://www.w3.org/1999/html">Searches</h3>
 <p>
     To track <code>searchType</code> and <code>searchTerms</code>, you need to add the following into your HTML:
 </p>
@@ -996,19 +996,38 @@
 <h3 class="wiki-h3 clear">Examples</h3>
 <div class='example clearfix'>
 
-    <div class='skycom_4 alpha skycom_clear sky-form has-code-example'>
+    <form class='skycom_4 alpha skycom_clear sky-form has-code-example' action="#!" method="get">
         <span class="toggler" for=search-events></span>
         <input id="weather-search" type="text" placeholder="Postcode or town">
-        <button class="btn" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-search">Search</button>
-    </div>
+        <button class="btn" id="weather-search-button" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-search">Search</button>
+    </form>
     <div class="skycom_8">
-        Using '<code>data-tracking-search</code>' with '<code>data-tracking-context-id</code>' will activate the Omniture Search Variables.
+        <p>Using '<code>data-tracking-search</code>' with '<code>data-tracking-context-id</code>' will activate the Omniture Search Variables.</p>
+        <p>If you do not have a <code>data-tracking-other</code> set, then either '<code>click</code>' or '<code>keydown</code>' will also be tracked.</p>
     </div>
     <div class="code-example" id=search-events>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
             <code class="block html">&lt;input id="search" type="text" placeholder="Postcode or town">
 &lt;button data-tracking-search="weather" data-tracking-context-id="search">Search&lt;/button></code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9 js"><i>none</i></div>
+    </div>
+
+    <form class='skycom_4 alpha skycom_clear sky-form has-code-example' action="#!" method="get" data-tracking-other="this-wont-get-changed">
+        <span class="toggler" for=other-search-events></span>
+        <input id="other-search" type="text" placeholder="Other">
+        <button class="btn" type="submit" id="other-search-button" data-tracking-search="other" data-tracking-context-id="other-search">Search</button>
+    </form>
+    <div class="skycom_8">
+        If there is a <code>data-tracking-other</code> already defined, it will not get over-written.
+    </div>
+    <div class="code-example" id=other-search-events>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="block html">&lt;input id="search" type="text" placeholder="Postcode or town">
+                &lt;button data-tracking-search="weather" data-tracking-context-id="search">Search&lt;/button></code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9 js"><i>none</i></div>

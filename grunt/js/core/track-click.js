@@ -6,12 +6,19 @@ _analytics.trackClick = (function(config, omniture, logger){
     function bindEvents() {
         if(!config.trackClicks || eventsBound ){ return; }
         var clickSelector =  'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
+        $(document).on('keydown', 'input, button', function(e){
+            if (e.keyCode === 13){
+                setOther(e);
+            }
+        });
         $(document).on('click', clickSelector, function(e) {
+            setOther(e);
             if (logger.debugging()) {
                 e.preventDefault();
                 e.stopPropagation();
             }
             track(e);
+            unsetOther(e);
         });
         $(document).on('analytics-track','*', function(e) {
             e.stopPropagation();
@@ -20,30 +27,46 @@ _analytics.trackClick = (function(config, omniture, logger){
         eventsBound = true;
     }
 
+    function unsetOther(e){
+        if ($('body').attr('data-setOther') && $('body').attr('data-tracking-other')){
+            $('body').removeAttr('data-setOther');
+            $('body').removeAttr('data-tracking-other');
+        }
+    }
+
+    function setOther(e){
+        if (!$('body').attr('data-tracking-other')){
+            $('body').attr('data-setOther',true);
+            $('body').attr('data-tracking-other', e.type);
+        }
+    }
+
     function track(e){
+
         var $el = $(e.currentTarget || e),
-            context,
-            linkDetails = getProperties($el);
+            context, linkDetails;
+
+        if ($el.attr('data-tracking-search')){
+            context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
+            setVariable('searchType', $el.attr('data-tracking-search'));
+            setVariable('searchTerm', context);
+        }
+
+        linkDetails = getProperties($el);
 
         setEvent('linkClick');
-        setVariable('linkDetails', getProperties($el));
+        setVariable('linkDetails', linkDetails);
         setVariable('refDomain', (document.referrer) ? document.referrer.split('/')[2] : '');
         setVariable('url', window.location.href.split('?')[0]);
         addCustomClickVariable($el);
-        addCustomClickEvents($el);
 
+        addCustomClickEvents($el);
         if (linkDetails[0] === 'masthead'){
             setVariable('masthead',[linkDetails[5],omniture.getVariable('site')]);
         }
 
         if (window.sessionCamRecorder && window.sessionCamRecorder.sessionId){
             setVariable('sessionCamID', window.sessionCamRecorder.sessionId().split(',')[0]);
-        }
-
-        if ($el.attr('data-tracking-search')){
-            context = $el.attr('data-tracking-context') || getText($('#' + $el.attr('data-tracking-context-id')));
-            setVariable('searchType', $el.attr('data-tracking-search'));
-            setVariable('searchTerm', context);
         }
         omniture.trackClick(e);
     }
@@ -105,6 +128,14 @@ _analytics.trackClick = (function(config, omniture, logger){
             return el.getAttribute(attr);
         }
         return checkParentForAttribute(el.parentNode, attr);
+    }
+
+    function checkForParent(el, tag){//    not using jQuery.parents([data-tracking-whatever]) as is slow in ie and ff
+        if (!el || !el.tagName) { return ''; }
+        if (el.tagName === tag.toUpperCase()){
+            return el;
+        }
+        return checkForParent(el.parentNode, tag);
     }
 
     function getText($el){
