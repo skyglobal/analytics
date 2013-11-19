@@ -996,10 +996,10 @@
 <h3 class="wiki-h3 clear">Examples</h3>
 <div class='example clearfix'>
 
-    <form class='skycom_4 alpha skycom_clear sky-form has-code-example' action="#!" method="get">
+    <form class='skycom_4 alpha skycom_clear sky-form has-code-example' onsubmit="return false;" >
         <span class="toggler" for=search-events></span>
         <input id="weather-search" type="text" placeholder="Postcode or town">
-        <button class="btn" id="weather-search-button" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-search">Search</button>
+        <button class="btn" id="weather-search-button" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-search">Search with event type</button>
     </form>
     <div class="skycom_8">
         <p>Using '<code>data-tracking-search</code>' with '<code>data-tracking-context-id</code>' will activate the Omniture Search Variables.</p>
@@ -1015,7 +1015,7 @@
         <div class="skycom-9 js"><i>none</i></div>
     </div>
 
-    <form class='skycom_4 alpha skycom_clear sky-form has-code-example' action="#!" method="get" data-tracking-other="this-wont-get-changed">
+    <form class='skycom_4 alpha skycom_clear sky-form has-code-example'  onsubmit="return false;" data-tracking-other="this-wont-get-changed">
         <span class="toggler" for=other-search-events></span>
         <input id="other-search" type="text" placeholder="Other">
         <button class="btn" type="submit" id="other-search-button" data-tracking-search="other" data-tracking-context-id="other-search">Search</button>
