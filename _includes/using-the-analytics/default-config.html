@@ -37,7 +37,9 @@
         <script>
             $('#session-cam-id-page-view-link').on('click', function(e){
                 e.preventDefault();
-                window.sessionCamRecorder.sessionId =  function(){ return '987,654';}
+                window.sessionCamRecorder = {
+                    sessionId :  function(){ return '987,654';}
+                };
                 <!--demo-->
 analytics.trackPage({
     site: 'global',
