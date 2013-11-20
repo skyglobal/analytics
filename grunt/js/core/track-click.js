@@ -6,7 +6,7 @@ _analytics.trackClick = (function(config, omniture, logger){
     function bindEvents() {
         if(!config.trackClicks || eventsBound ){ return; }
         var clickSelector =  'input[type=submit]:not([data-tracking=false]), button:not([data-tracking=false]), a:not([data-tracking=false]), [data-tracking]:not([data-tracking=false])';
-        $(document).on('keydown', 'input, button', function(e){
+        $(document).on('keydown', 'input, ' + clickSelector, function(e){
             if (e.keyCode === 13){
                 setOther(e);
             }
