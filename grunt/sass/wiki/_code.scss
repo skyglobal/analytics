@@ -1,17 +1,20 @@
 
-code{
+code,
+.html,.js{
   font-family: 'Monaco', courier, monospace;
-  background: #FDF6E3;
   word-wrap: break-word;
-  margin: 0px;
   padding: 2px;
   color: #657B83;
   font-size: 14px;
   margin-bottom: 5px;
-  &.js{
-    background: #E0F1D4;
+  background-color: #FDF6E3;
 
-  }
+}
+.html{
+  background: #ECFAFF;
+}
+.js{
+  background: #E0F1D4;
 }
 code.block {
   display: block;

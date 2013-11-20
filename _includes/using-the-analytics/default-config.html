@@ -1,9 +1,10 @@
 <h3 class="wiki-h3">Default Config</h3>
 <p class="developer-notes">
-    There are a few things you get for free.  These are: TBC
+    There are a few things you get for free.  These are:
 </p>
 
-<!--<h4>On Page View</h4>-->
+<h4>On Page View</h4>
+<div class="example clearfix ">
 <!--<dl class="clearfix ">-->
     <!--<dt class="skycom_4 alpha">pageLoad</dt>-->
     <!--<dd class="skycom_8"></dd>-->
@@ -14,8 +15,39 @@
     <!--<dt class="skycom_4 alpha">url</dt>-->
     <!--<dd class="skycom_8"></dd>-->
     <!--<dt class="skycom_4 alpha">pageConversion</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">sessionCamID</dt>-->
+
+
+    <div class="skycom_4 alpha has-code-example">
+        <span class="toggler" for=session-cam-id-page-view></span>
+        <a href="#!" id="session-cam-id-page-view-link"
+           data-tracking=false>sessionCamID</a>
+    </div>
+    <script type="text/javascript">
+    </script>
+    <div class="skycom_8">
+        The <code>sessionCamID</code> variable gets set if the page has SessionCam.
+    </div>
+    <div class="code-example" id="session-cam-id-page-view">
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html"><i>none</i></code>
+        <div class="skycom-2 alpha js">Javascript</div>
+        <div class="skycom-9 js">
+            <code class="block js"></code>
+        </div>
+        <script>
+            $('#session-cam-id-page-view-link').on('click', function(e){
+                e.preventDefault();
+                window.sessionCamRecorder.sessionId =  function(){ return '987,654';}
+                <!--demo-->
+analytics.trackPage({
+    site: 'global',
+    section: 'skyglobal/analytics/demo',
+    account: 'bskybdemodev'
+});
+                <!--demo-->
+            });
+        </script>
+    </div>
     <!--<dd class="skycom_8"></dd>-->
     <!--<dt class="skycom_4 alpha">fullPageDescription</dt>-->
     <!--<dd class="skycom_8"></dd>-->
@@ -45,10 +77,55 @@
     <!--<dd class="skycom_8"></dd>-->
     <!--<dt class="skycom_4 alpha">sessionCampaign</dt>-->
     <!--<dd class="skycom_8"></dd>-->
- <!--</dl>-->
+</div>
 
-<!--<h4>On Click</h4>-->
-<!--<dl class="clearfix ">-->
+<h4>On Click</h4>
+<div class="example clearfix ">
+    <div class="skycom_4 alpha has-code-example" data-tracking-module="masthead">
+        <span class="toggler" for=masthead-link-click></span>
+        <a href="#!" >masthead</a>
+    </div>
+    <div class="skycom_8">
+        The <code>masthead</code> variable gets tracked automatically when a link is clicked within the masthead.
+    </div>
+    <div class="code-example" id="masthead-link-click">
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;div data-tracking-module="masthead">
+            ...
+            &lt;a href="#!"  >link &lt;/a>
+            ...
+            &lt;/div>
+        </code>
+        <div class="skycom-2 alpha js">Javascript</div>
+        <div class="skycom-9">
+            <code class="block js"><i>none</i></code>
+        </div>
+    </div>
+
+
+    <div class="skycom_4 alpha has-code-example">
+        <span class="toggler" for=session-cam-id-link-click></span>
+        <a href="#!" id="session-cam-id-link-click-link">sessionCamID</a>
+    </div>
+    <div class="skycom_8">
+        The <code>sessionCamID</code> variable gets set if the page has SessionCam.
+    </div>
+    <div class="code-example" id="session-cam-id-link-click">
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html"><i>none</i></code>
+        <div class="skycom-2 alpha js">Javascript</div>
+        <div class="skycom-9">
+            <code class="block js"></code>
+        </div>
+        <script>
+            $('#session-cam-id-link-click-link').on('click', function(e){
+                e.preventDefault();
+                window.sessionCamRecorder.sessionId =  function(){ return '123,343';}
+            });
+        </script>
+    </div>
+
+
     <!--<dt class="skycom_4 alpha">linkClick Event</dt>-->
     <!--<dd class="skycom_8"></dd>-->
     <!--<dt class="skycom_4 alpha">linkDetails</dt>-->
@@ -57,8 +134,7 @@
     <!--<dd class="skycom_8"></dd>-->
     <!--<dt class="skycom_4 alpha">url</dt>-->
     <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">masthead</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
+
     <!--<dt class="skycom_4 alpha">sessionCamID</dt>-->
     <!--<dd class="skycom_8"></dd>-->
- <!--</dl>-->
+ </div>

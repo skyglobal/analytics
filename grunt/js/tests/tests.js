@@ -22,7 +22,18 @@ _demo.tests = (function(){
         $(document).on('click', '#manualBind, #manualBindA', analytics.trackClick);
         updateCustomVariableValues();
         manualTrigger();
+        showDemoCode();
 
+    }
+
+    function showDemoCode(){
+        $('.code-example script').each(function(){
+           var code = this.innerHTML.split('<!--demo-->');
+            if (code.length<=1 || (code[1] && !code[1].trim())){
+                code[1] = '<i>none</i>';
+            }
+            $(this).parent().find('code.js').append(code[1].trim());
+        });
     }
 
     function updateCustomVariableValues(){
