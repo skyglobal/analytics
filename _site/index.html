@@ -95,8 +95,8 @@
     </div>
     <div class="skycom-container clearfix">
         <div class="alpha skycom-12">
-            <h1 class="wiki-header">Omniture Analytics <small>v1.2.0</small></h1>
-<div class="secondary">Last Updated: 20-11-2013</div>
+            <h1 class="wiki-header">Omniture Analytics <small>v1.2.1</small></h1>
+<div class="secondary">Last Updated: 26-11-2013</div>
 
 <section class="wiki-section">
     <a name="contributing"></a>
@@ -123,7 +123,7 @@
         <h2 >Getting Started</h2>
 <p class="developer-notes">
     Please use the following:
-    <code class="html">    &lt;script src=//analytics.global.sky.com/1.2.0/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
+    <code class="html">    &lt;script src=//analytics.global.sky.com/1.2.1/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
     If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p>
 <p>
@@ -267,7 +267,9 @@ analytics.trackPage({
         <script>
             $('#session-cam-id-link-click-link').on('click', function(e){
                 e.preventDefault();
-                window.sessionCamRecorder.sessionId =  function(){ return '123,343';}
+                window.sessionCamRecorder = {
+                    sessionId :  function(){ return '123,343';}
+                };
             });
         </script>
     </div>
