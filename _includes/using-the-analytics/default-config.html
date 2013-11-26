@@ -122,7 +122,9 @@ analytics.trackPage({
         <script>
             $('#session-cam-id-link-click-link').on('click', function(e){
                 e.preventDefault();
-                window.sessionCamRecorder.sessionId =  function(){ return '123,343';}
+                window.sessionCamRecorder = {
+                    sessionId :  function(){ return '123,343';}
+                };
             });
         </script>
     </div>
