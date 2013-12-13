@@ -13,6 +13,13 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('how_about_pina_coladas').must_equal 'my val on load'
   end
 
+  it "Tracks a custom var with only a prop on page load" do
+    click_button "Send Custom Prop"
+    trackedEvents.wont_include eventsMap[:linkClick]
+    trackedEvents.must_include eventsMap[:pageLoad]
+    trackedVariable('briansCat', :prop).must_equal 'is great'
+  end
+
   it "Tracks a custom list on page load" do
     click_link "List Variable on page load"
     trackedEvents.wont_include eventsMap[:linkClick]

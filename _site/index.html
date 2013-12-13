@@ -96,7 +96,7 @@
     <div class="skycom-container clearfix">
         <div class="alpha skycom-12">
             <h1 class="wiki-header">Omniture Analytics <small>v1.2.1</small></h1>
-<div class="secondary">Last Updated: 26-11-2013</div>
+<div class="secondary">Last Updated: 13-12-2013</div>
 
 <section class="wiki-section">
     <a name="contributing"></a>
@@ -599,9 +599,9 @@ analytics.trackPage({
     When initialising, you will need to add <code>customVariables</code> array which may contain some options:</p>
 <dl class="clearfix ">
     <dt class="skycom_4 alpha">eVar</dt>
-    <dd class="skycom_8">[int] Omniture Variable Id. Needed for conversion reporting</dd>
+    <dd class="skycom_8">[int] Omniture Variable Id. Needed for conversion reporting. (Max 75)</dd>
     <dt class="skycom_4 alpha">prop</dt>
-    <dd class="skycom_8">[int] Omniture Prop Id. Needed for count based reporting.</dd> <!-- andre explain these -->
+    <dd class="skycom_8">[int] Omniture Prop Id. Needed for count based reporting. (Max 75)</dd>
     <dt class="skycom_4 alpha">list</dt>
     <dd class="skycom_8">[int] Omniture List Id. The value of this type must be an <code>Array</code>.</dd>
     <dt class="skycom_4 alpha">hier</dt>
@@ -697,6 +697,33 @@ analytics.trackPage({
             <code class="js block">&lt;script>//script to update data-tracking-value attribute
     $('[data-tracking-variable=drink]').attr('data-tracking-value',$('#input_field').val());
 &lt;/script></code>
+        </div>
+    </div>
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggler" for=custom-prop-example></span>
+        <form id='text-input-prop' class="sky-form">
+            <label >Who's is your favourite cat? Brians!</label> <br>
+            <button data-tracking-variable='briansCat' data-tracking="false" class='btn primary-cta' id="custom-prop">Send Custom Prop</button>
+        </form>
+    </div>
+    <div class="skycom_8">
+        Tracking custom variable <code>briansCat</code> on page load as a <code>prop</code>.
+    </div>
+
+    <div class="code-example" id=custom-prop-example>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="block js">analytics.trackPage({
+    ...
+    customVariables: [
+        {'briansCat': { prop: 66, value:'is great', onPageLoad:true }}
+    ]
+});</code>
         </div>
     </div>
 

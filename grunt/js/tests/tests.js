@@ -19,6 +19,7 @@ _demo.tests = (function(){
         $('#btn_error_event').on('click', triggerError);
         $('#standard-vars-onLoad-a').on('click', sendStandardVarOnload);
         $('#standard-events-onLoad-a').on('click', sendStandardEventsOnload);
+        $('#custom-prop').on('click', sendCustomProp);
         $(document).on('click', '#manualBind, #manualBindA', analytics.trackClick);
         updateCustomVariableValues();
         manualTrigger();
@@ -238,9 +239,22 @@ _demo.tests = (function(){
                 {'magic_happened': {event: 101, onPageLoad:true}}
             ],
             customVariables: [
-                {'drink': {'eVar': 72}},
+                {'drink': {'eVar': 72}}
             ],
             debug: true
+        });
+    }
+
+    function sendCustomProp(e){
+        e.preventDefault();
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics/demo',
+            account: 'bskybdemodev',
+            contentType: 'analytics',
+            customVariables: [
+                {'briansCat': {'eVar': 66, value:'is great', onPageLoad:true}}
+            ]
         });
     }
 

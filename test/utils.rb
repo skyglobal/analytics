@@ -75,6 +75,7 @@ def variablesMap
       customerOffers: {list:'l2'},
       myHierarchyOfStuff: {hier:'h2'},
       myHeirarchy: {hier:'h3'},
+      briansCat: {prop: 'c66'},
   }
 end
 
