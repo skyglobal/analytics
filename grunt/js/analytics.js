@@ -91,8 +91,10 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
 
     function checkMandatoryConfig(){
         for (var name in mandatory){
-            if (!config[mandatory[name]]){
-                console.error('Mandatory config is missing: ', mandatory[name]);
+            if (mandatory.hasOwnProperty(name)) {
+                if (!config[mandatory[name]]){
+                    console.error('Mandatory config is missing: ', mandatory[name]);
+                }
             }
         }
     }
