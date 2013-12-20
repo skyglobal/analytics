@@ -42,4 +42,11 @@ class AnalyticsTest < AcceptanceTest
     trackedEvents.must_equal [eventsMap[:pageLoad],eventsMap[:ajax_happened]]
   end
 
+  it "Tracks an adHoc event/variable" do
+    click_link "Send AdHoc Tracking"
+    trackedEvents.must_equal [eventsMap[:my_ad_hoc_event]]
+    trackedVariable('testAndTarget').must_include 'is-poo'
+    trackedVariable('briansCat').must_include 'is-still-great'
+  end
+
 end

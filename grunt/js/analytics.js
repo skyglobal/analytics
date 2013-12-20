@@ -146,6 +146,9 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     }
 
     window.analytics = {
+        trackAdHoc: function(){
+
+        },
         trackClick: function(e){
             var pageConfig = reset(config);
             trackClick.track( e );
@@ -155,7 +158,10 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
             var pageConfig = reset(customConfig);
             trackPage.track( pageConfig );
         },
-        setup: setup,
+        setup: function(customConfig){
+            var pageConfig = reset(customConfig);
+            return pageConfig;
+        },
         debug: logger.debug
     };
     return analytics;
@@ -183,6 +189,7 @@ if (typeof window.define === "function" && window.define.amd) {
         'core/omniture',
         'core/track-click',
         'core/track-page',
+        'core/track-ad-hoc',
         'utils/logger',
         'plugins/media-module',
         'plugins/test-and-target',
@@ -190,7 +197,7 @@ if (typeof window.define === "function" && window.define.amd) {
         'plugins/new-or-repeat-visits',
         'plugins/user-history',
         'plugins/utils'
-    ], function(polyfill, config, omniture, trackClick, trackPage, logger, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory, utils) {
+    ], function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory, utils) {
         return _analytics.setup;
     });
 }
