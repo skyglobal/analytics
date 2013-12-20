@@ -253,7 +253,7 @@ _demo.tests = (function(){
             account: 'bskybdemodev',
             contentType: 'analytics',
             customVariables: [
-                {'briansCat': {'eVar': 66, value:'is great', onPageLoad:true}}
+                {'briansCat': {'prop': 66, value:'is great', onPageLoad:true}}
             ]
         });
     }

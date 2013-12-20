@@ -67,7 +67,7 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('sessionCamID', :prop).must_equal '123'
   end
 
-  it "tracks sessionCamId variable when pages are viewd and sessionCamID has been set" do
+  it "tracks sessionCamId variable when pages are viewed and sessionCamID has been set" do
     click_link "Click here to see this basic config in action"
     trackedVariable('sessionCamID', :prop).must_be_nil
     find("#session-cam-id-page-view-link").click
