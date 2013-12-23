@@ -1,5 +1,5 @@
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, logger,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils ){
+_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils ){
 //todo: document vars that come for free + what props sent etc
 //todo: document masthead prop + test
 //todo: document sessionCamID + test
@@ -114,13 +114,14 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     }
 
     function addToVariableMap(item){
-        var arrValues = [], i, type,
+        var arrValues = [], i, type, varID, prefix,
             varName = item.name,
             types = ['prop','eVar','list','hier'];
         for (i in types){
             type = types[i];
-            if (item[type]){
-                arrValues.push(type + item[type]);
+            varID = item[type];
+            if (varID){
+                arrValues.push(type + varID);
             }
         }
         config.variablesMap[varName] = arrValues;
@@ -147,7 +148,8 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
 
     window.analytics = {
         trackAdHoc: function(){
-
+            reset();
+            trackAdHoc.track.apply(trackAdHoc, arguments);
         },
         trackClick: function(e){
             var pageConfig = reset(config);
@@ -164,14 +166,15 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
         },
         debug: logger.debug
     };
-    return analytics;
 
+    return analytics;
 
 }(  _analytics.polyfill,
     _analytics.config,
     _analytics.omniture,
     _analytics.trackClick,
     _analytics.trackPage,
+    _analytics.trackAdHoc,
     _analytics.logger,
     _analytics.plugins.mediaModule,
     _analytics.plugins.testAndTarget,

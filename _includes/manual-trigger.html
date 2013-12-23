@@ -1,8 +1,7 @@
 <h2>Manual Tracking</h2>
-<h3 class="wiki-h3">Trigger via a JS call</h3>
-<p>
+<div>
     You can trigger tracking using JS, and the event will be sent to Omniture as if the user had clicked the element themselves.
-</p>
+</div>
 
 <h3 class="wiki-h3">Bind tracking manually</h3>
 <p>
@@ -11,7 +10,7 @@
     This is useful for 'backbone' apps for example.
 </p>
 
-<h3 class="wiki-h3">Examples</h3>
+<h4 >Examples</h4>
 <div class="example clearfix">
     <div class="skycom-4 alpha has-code-example">
         <span class="toggler" for=single-page-app></span>
@@ -68,6 +67,88 @@
         <code class="skycom-2 alpha js">Javascript</code>
         <div class="skycom-9">
             <code class="js block">$(document).on('click', '#manualBind, manualBindA', analytics.trackClick);</code>
+        </div>
+    </div>
+</div>
+
+
+<h3 class="wiki-h3">AdHoc Tracking</h3>
+<p>
+    You can send events/variables to omniture during the life of a page using <code>analytics.trackAdHoc</code>.
+</p>
+
+<h4>Examples</h4>
+<div class="example clearfix">
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggler" for='ad-hoc-tracking-code'></span>
+        <a class='btn in-page-cta' href='#' id='ad-hoc-tracking' data-tracking="false">Send AdHoc Tracking</a>
+    </div>
+    <div class="skycom_8">
+        <code>setup</code> and call the <code>trackAdHoc</code> function.
+    </div>
+
+    <div class="code-example" id='ad-hoc-tracking-code'>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">analytics.setup({
+    site: 'global',
+    section: 'skyglobal/analytics/demo',
+    account: 'bskybdemodev',
+    contentType: 'analytics',
+    customVariables: [
+        {'briansCat': {'eVar': 66}}
+    ],
+    customEvents: [
+        {'myAdHocEvent': {'event': 69} }
+    ]
+});</code>
+            <code class="js block">analytics.trackAdHoc(
+    {'briansCat': 'is still great'},
+    {'testAndTarget': 'is poo'},
+    'myAdHocEvent'
+);</code>
+        </div>
+    </div>
+
+
+    <div class="skycom-4 alpha has-code-example">
+        <span class="toggler" for='ad-hoc-tracking-page-view-code'></span>
+        <a class='btn in-page-cta' href='#' id='ad-hoc-tracking-page-view' data-tracking="false">Send AdHoc Tracking page view</a>
+        <a class='btn in-page-cta' href='#' id='ad-hoc-tracking-after-page-view' data-tracking="false">Send AdHoc Tracking after page view</a>
+    </div>
+    <div class="skycom_8">
+        Send the <code>config</code>, track page view and then call the <code>trackAdHoc</code> function.
+    </div>
+
+    <div class="code-example" id='ad-hoc-tracking-page-view-code'>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="html block">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="js block">analytics.setup({
+    site: 'global',
+    section: 'skyglobal/analytics/demo',
+    account: 'bskybdemodev',
+    contentType: 'analytics',
+    customVariables: [
+        {'briansCat': {'eVar': 66}}
+    ],
+    customEvents: [
+        {'myAdHocEvent': {'event': 69} }
+    ]
+});</code>
+            <code class="js block">analytics.trackPage();</code>
+            <code class="js block">analytics.trackAdHoc(
+    {'briansCat': 'is still great'},
+    {'testAndTarget': 'is poo'},
+    'myAdHocEvent'
+);</code>
         </div>
     </div>
 </div>

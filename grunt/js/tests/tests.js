@@ -20,6 +20,9 @@ _demo.tests = (function(){
         $('#standard-vars-onLoad-a').on('click', sendStandardVarOnload);
         $('#standard-events-onLoad-a').on('click', sendStandardEventsOnload);
         $('#custom-prop').on('click', sendCustomProp);
+        $('#ad-hoc-tracking').on('click', sendAdHocTracking);
+        $('#ad-hoc-tracking-page-view').on('click', sendAdHocTrackingPageView);
+        $('#ad-hoc-tracking-after-page-view').on('click', sendAdHocTrackingAfterPageView);
         $(document).on('click', '#manualBind, #manualBindA', analytics.trackClick);
         updateCustomVariableValues();
         manualTrigger();
@@ -256,6 +259,54 @@ _demo.tests = (function(){
                 {'briansCat': {'prop': 66, value:'is great', onPageLoad:true}}
             ]
         });
+    }
+
+    function sendAdHocTracking(e){
+        e.preventDefault();
+        analytics.setup({
+            site: 'global',
+            section: 'skyglobal/analytics/demo',
+            account: 'bskybdemodev',
+            contentType: 'analytics',
+            customVariables: [
+                {'briansCat': {'eVar': 66}},
+                {'magic_happened': {'event': 99}}
+            ],
+            customEvents: [
+                {'myAdHocEvent': {'event': 69} }
+            ]
+        });
+        analytics.trackAdHoc(
+            {'briansCat': 'is still great'},
+            {'testAndTarget': 'is poo'},
+            'myAdHocEvent'
+        );
+    }
+    function sendAdHocTrackingPageView(e){
+        e.preventDefault();
+        analytics.setup({
+            site: 'global',
+            section: 'skyglobal/analytics/demo',
+            account: 'bskybdemodev',
+            contentType: 'analytics',
+            customVariables: [
+                {'briansCat': {'eVar': 66}},
+                {'magic_happened': {'event': 99}}
+            ],
+            customEvents: [
+                {'myAdHocEvent': {'event': 69} }
+            ]
+        });
+        analytics.trackPage();
+    }
+
+    function sendAdHocTrackingAfterPageView(e){
+        e.preventDefault();
+        analytics.trackAdHoc(
+            {'briansCat': 'is still great'},
+            {'testAndTarget': 'is poo'},
+            'myAdHocEvent'
+        );
     }
 
     bindEvents();

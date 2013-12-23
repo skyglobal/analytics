@@ -80,6 +80,10 @@ _analytics.omniture = (function(config, logger){
         send();
     }
 
+    function trackAdHoc(){
+        send();
+    }
+
     function trackError(type){
         setVariable('errors', type);
         send();
@@ -95,15 +99,19 @@ _analytics.omniture = (function(config, logger){
         reset();
     }
 
+
+    //todo: unit test this with the two object types to be normalised {myName:{myobjectOptions} and {myobjOptions}
     function normaliseItem(item){
-        var properties, name;
+        var normalised, name;
         for (name in item) {
             if(item.hasOwnProperty(name)) {
-                properties = item[name];
+                normalised = (typeof item[name] === 'string') ? item : item[name];
+                if (!normalised.name) {
+                    normalised.name = name;
+                }
+                return normalised;
             }
         }
-        properties.name = name;
-        return properties;
     }
 
     function log(){
@@ -317,6 +325,7 @@ _analytics.omniture = (function(config, logger){
         trackError: trackError,
         trackClick: trackClick,
         trackPage: trackPage,
+        trackAdHoc: trackAdHoc,
         addPlugin: addPlugin,
         send: send,
         init: init,

@@ -75,7 +75,7 @@ def variablesMap
       customerOffers: {list:'l2'},
       myHierarchyOfStuff: {hier:'h2'},
       myHeirarchy: {hier:'h3'},
-      briansCat: {prop: 'c66'},
+      briansCat: {prop: 'c66', eVar: 'v66'},
   }
 end
 
@@ -98,7 +98,7 @@ def eventsMap
       repeatVisit: 'event20',
       optIn: 'event25',
       zeroResults: 'event26',
-      liveChat: "event36",
+      liveChat: 'event36',
       passwordStart: 'event76',
       passwordComplete: 'event77',
       activateStart: 'event78',
@@ -107,5 +107,6 @@ def eventsMap
       ajax_happened: 'event101',
       magic_happened: 'event101',
       serialEvent: 'event666:devil12345',
+      myAdHocEvent: 'event69',
   }
 end

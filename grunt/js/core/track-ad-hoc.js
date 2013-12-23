@@ -1,38 +1,23 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.trackAdHoc = (function(config,omniture){
 
-    function track(type) {
+    function track() {
         var variable,
-            i= 1,
+            i= 0,
             j= arguments.length;
 
         for (i; i < j; i++){
-            var argument = j[i];
+            var argument = arguments[i];
 
             if ((typeof argument).toLowerCase() === "string") {
                 omniture.setEvent(argument);
             } else {
-                variable = normaliseItem(argument);
-                omniture.setVariable(variable.name, variable[variable.name]);
+                variable = omniture.normaliseItem(argument);
+                omniture.setVariable(variable.name, variable[variable.name], 'adHoc');
             }
         }
-        omniture.trackAdHoc(type);
+        omniture.trackAdHoc();
     }
-
-    function normaliseItem(item){
-        var properties = {}, name;
-        for (name in item) {
-            if(item.hasOwnProperty(name)) {
-                if (!properties.name) {
-                    properties.name = name;
-                }
-                properties[name] = item[name];
-            }
-        }
-        return properties;
-    }
-
-
 
     return {
         track: track
