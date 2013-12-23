@@ -126,16 +126,21 @@
     Then add the following onto your page with the correct account details to initialise the tracking.
 </p>
 
-<code class="block js">analytics.trackPage({
+<code class="block js">analytics.setup({
     site: 'global',
     section: 'skyglobal/analytics/demo',
     account: 'bskybdemodev'
 });</code>
+<code class="block js">analytics.trackPage();</code>
 <p>Boom.    Job Done.    </p>
 <p> Now <code>anchors</code>, <code>buttons</code>, <code>submits</code> and any element with <code>[data-tracking]</code> are automatically tracking.</p>
 
 <a href="#!" id="basic-config" data-tracking=false>Click here to see this basic config in action</a>.
 
+<h3 class="wiki-h3">Resetting the Config</h3>
+<p class="developer-notes">
+    If you have a <code>single-page app</code> and need to reset the config, you can use the <code>analytics.setup</code> as often as required.
+</p>
     </div>
     <a name="default-config"></a>
     <div class="sub-section">
