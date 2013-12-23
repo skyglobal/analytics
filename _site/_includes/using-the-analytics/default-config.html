@@ -38,6 +38,7 @@
             $('#session-cam-id-page-view-link').on('click', function(e){
                 e.preventDefault();
                 window.sessionCamRecorder = {
+                    log :  function(){ },
                     sessionId :  function(){ return '987,654';}
                 };
                 <!--demo-->
@@ -123,6 +124,7 @@ analytics.trackPage({
             $('#session-cam-id-link-click-link').on('click', function(e){
                 e.preventDefault();
                 window.sessionCamRecorder = {
+                    log :  function(){ },
                     sessionId :  function(){ return '123,343';}
                 };
             });
@@ -139,8 +141,5 @@ analytics.trackPage({
     <!--<dt class="skycom_4 alpha">refDomain</dt>-->
     <!--<dd class="skycom_8"></dd>-->
     <!--<dt class="skycom_4 alpha">url</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-
-    <!--<dt class="skycom_4 alpha">sessionCamID</dt>-->
     <!--<dd class="skycom_8"></dd>-->
  </div>
