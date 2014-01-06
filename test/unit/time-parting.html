@@ -35,19 +35,19 @@
 
             describe('get the day and time', function() {
                 it('at midnight', function() {
-                    var date = new Date('06/06/2014');
+                    var date = new Date('01/01/2014 00:00');
                     var result = timeParting.getTimeParting(date);
-                    expect(result).to.equals('Friday_00_00');
+                    expect(result).to.equals('Wednesday_00_00');
                 });
                 it('at 13:03', function() {
-                    var date = new Date('06/06/2014 13:03');
+                    var date = new Date('01/01/2014 14:03');
                     var result = timeParting.getTimeParting(date);
-                    expect(result).to.equals('Friday_13_03');
+                    expect(result).to.equals('Wednesday_14_03');
                 });
                 it('at 3:30', function() {
-                    var date = new Date('06/06/2014 03:30');
+                    var date = new Date('01/01/2014 03:30');
                     var result = timeParting.getTimeParting(date);
-                    expect(result).to.equals('Friday_03_30');
+                    expect(result).to.equals('Wednesday_03_30');
                 });
             });
 
@@ -55,11 +55,11 @@
             // please update the tests below once behaviour is confirmed with Andrew
 
             describe('adjust date for timezone', function() {
-//                it('in summer time', function() {
-//                    var date = new Date('03/31/2014 00:00');
-//                    var result = timeParting.adjustDateForTimezone(date);
-//                    expect(result.getTime()).to.equals(date.getTime());
-//                });
+                it('in summer time', function() {
+                    var date = new Date('03/31/2014 00:00');
+                    var result = timeParting.adjustDateForTimezone(date);
+                    expect(result.getTime()).to.equals(date.getTime() - (60 * 60 * 1000));
+                });
                 it('in winter time', function() {
                     var date = new Date('10/27/2014 00:00');
                     var result = timeParting.adjustDateForTimezone(date);

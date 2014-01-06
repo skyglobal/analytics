@@ -15,9 +15,14 @@ _analytics.plugins.timeParting = (function(omniture, config){
 
     }
 
+
+    function getUTC(date) {
+        return new Date(date.getTime() + (date.getTimezoneOffset() * 60000));
+    }
+
     function adjustDateForTimezone(date){
 
-        var utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+        var utc = getUTC(date);
         utc = new Date(isBST(date) ? utc + 3600000 : utc);
 
         return utc;
@@ -42,7 +47,7 @@ _analytics.plugins.timeParting = (function(omniture, config){
         if(dateCheck.getDay() != 6 || dateCheck.getMonth() != 0) { return 'Data Not Available';}
 
         date = date || new Date();
-        var timeZone = adjustDateForTimezone(date);
+        var timeZone = getUTC(date);
 
         var hour = timeZone.getHours();
         var minute = timeZone.getMinutes();
