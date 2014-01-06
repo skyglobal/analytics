@@ -1088,10 +1088,6 @@ _analytics.plugins.channelManager = (function(omniture, config, utils){
         setVariable = omniture.setVariable,
         getVariable = omniture.getVariable;
 
-    function removePlus(string){
-        return unescape(string.replace(/\+/g,'%20').toLowerCase());
-    }
-
     /*
      * channelManager v2.2 - Tracking External Traffic
      */
@@ -1108,7 +1104,7 @@ _analytics.plugins.channelManager = (function(omniture, config, utils){
         +");j=s.repl(j,'as_q','*');}A=s.split(v,'>');B=A.length;for(C=0;C<B;C"
         +"++){D=A[C];D=s.split(D,'|');E=s.split(D[0],',');F=E.length;for(G=0;"
         +"G<F;G++){H=j.indexOf(E[G]);if(H>-1){I=s.split(D[1],',');J=I.length;"
-        +"for(K=0;K<J;K++){L=s.getQueryParam(I[K],'',removePlus(g));"
+        +"for(K=0;K<J;K++){L=s.getQueryParam(I[K],'',unescape(g.replace(/\\+/g,'%20').toLowerCase()));"
         +"if(L){L=L.toLowerCase();M=L;if(D[2]){u=D[2];N=D[2]}else{N=t}"
         +"if(V=='1'){N=s.repl(N,'#',' - ');N=s.repl(N,'*','as_q');N=s.repl(N,'^'"
         +",'ahoo');N=s.repl(N,'%','oogle');}}}}}}}O=s.getQueryParam(a,b);if(O){u"
