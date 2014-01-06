@@ -58,8 +58,7 @@
                 it('in summer time', function() {
                     var date = new Date('03/31/2014 00:00');
                     var result = timeParting.getTimeParting(date);
-                    console.log(Math.abs(new Date().getTimezoneOffset()));
-                    var isBritish = (Math.abs(new Date().getTimezoneOffset()) < 61);
+                    var isBritish = (new Date().getTimezoneOffset() === -60);
                     expect(result).to.equals(isBritish ? 'Sunday_23_00' : 'Monday_00_00');
                 });
                 it('in winter time', function() {
