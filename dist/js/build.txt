@@ -14,6 +14,7 @@ plugins/utils.js
 plugins/channel-manager.js
 plugins/new-or-repeat-visits.js
 plugins/user-history.js
+plugins/time-parting.js
 analytics.js
 
 demo.js

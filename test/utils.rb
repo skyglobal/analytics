@@ -76,6 +76,7 @@ def variablesMap
       myHierarchyOfStuff: {hier:'h2'},
       myHeirarchy: {hier:'h3'},
       briansCat: {prop: 'c66', eVar: 'v66'},
+      partTime: {prop: 'c35', eVar: 'v35'},
   }
 end
 

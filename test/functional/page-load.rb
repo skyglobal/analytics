@@ -14,6 +14,7 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('channel',:hier).must_equal references('channel',:eVar)
     trackedVariable('channel',:channel).must_equal references('channel',:eVar)
     trackedVariable('fullCampaign',:prop).must_equal nil #in theory, could be 'direct load' if this test is the very first
+    trackedVariable('partTime',:prop).must_equal Time.now.strftime('%A_%k_%M') # if this proves a timing issue (test runs on the 59th second), perhaps check it's this time or 1 minute after
   end
 
   it "tracks 'section' as page name id 'page' is omitted" do

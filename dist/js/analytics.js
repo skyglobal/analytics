@@ -28,48 +28,49 @@ _analytics.config = (function(){
             'module','pod','other','context','theme','textClicked','pageName'
         ],
         variablesMap = {
-            searchTerm: ['prop1','eVar1'],
-            searchType: ['prop12','eVar31'],
-            searchResults: ['prop34'],
-            headline: ['prop3','eVar13'],
-            errors: ['prop2','eVar2'],
-            url: ['prop9','eVar9'],
-            refDomain: ['prop36','eVar36'],
-            contentType: ['prop20','eVar20'],
-            contentId: ['prop21','eVar15'],
-            siteName: ['prop23','eVar14'],
-            browseMethod: ['prop24'],
-            section: ['section'],
-            section0: ['prop25','eVar26'],
-            section1: ['prop27','eVar29'],
-            section2: ['prop31','eVar30'],
-            videoTitle: ['prop26','eVar28'],
-            channel: ['eVar24','channel','hier1'],
-            samId: ['prop39','eVar39'],
-            loginStatus: ['eVar11'],
             ageGender: ['eVar12'],
-            skyPackage: ['eVar16'],
-            optIn: ['eVar38'],
-            sessionCamID: ['prop62'],
-            masthead: ['prop63'],
-            linkDetails: ['prop15','eVar7'],
-            newRepeat: ["prop70", "eVar70"],
-            visitNum: ["prop69", "eVar69"],
-            visitorID: ["visitorID"],
-            pageName: ["pageName"],
-            fullCampaign: ['prop45','eVar45'],
-            insightCampaign: ['eVar46'],
-            searchEngine: ['prop16','eVar3'],
+            browseMethod: ['prop24'],
+            channel: ['eVar24','channel','hier1'],
+            contentId: ['prop21','eVar15'],
+            contentType: ['prop20','eVar20'],
+            errors: ['prop2','eVar2'],
             externalSearchTerm: ['prop17','eVar8'],
-            pageConversion: ['eVar19'],
+            fullCampaign: ['prop45','eVar45'],
             fullPageDescription: ['eVar55'],
-            testAndTarget: ['eVar18'],
-            sessionCampaign: ['eVar47'],
+            headline: ['prop3','eVar13'],
+            insightCampaign: ['eVar46'],
+            linkDetails: ['prop15','eVar7'],
             list1: ['list1'],
             list2: ['list2'],
             list3: ['list3'],
             list4: ['list4'],
-            list5: ['list5']
+            list5: ['list5'],
+            loginStatus: ['eVar11'],
+            masthead: ['prop63'],
+            newRepeat: ["prop70", "eVar70"],
+            optIn: ['eVar38'],
+            pageConversion: ['eVar19'],
+            pageName: ["pageName"],
+            partTime: ['prop35','eVar35'],
+            refDomain: ['prop36','eVar36'],
+            samId: ['prop39','eVar39'],
+            searchEngine: ['prop16','eVar3'],
+            searchResults: ['prop34'],
+            searchTerm: ['prop1','eVar1'],
+            searchType: ['prop12','eVar31'],
+            section0: ['prop25','eVar26'],
+            section1: ['prop27','eVar29'],
+            section2: ['prop31','eVar30'],
+            section: ['section'],
+            sessionCamID: ['prop62'],
+            sessionCampaign: ['eVar47'],
+            siteName: ['prop23','eVar14'],
+            skyPackage: ['eVar16'],
+            testAndTarget: ['eVar18'],
+            url: ['prop9','eVar9'],
+            videoTitle: ['prop26','eVar28'],
+            visitNum: ["prop69", "eVar69"],
+            visitorID: ["visitorID"]
         },
 
         eventsMap = {
@@ -107,34 +108,33 @@ _analytics.config = (function(){
     ];
 
     return {
-        variablesMap: variablesMap,
-        eventsMap: eventsMap,
-        linkDetailsMap: linkDetailsMap,
-        variableBasedEvents: variableBasedEvents,
-        trackingServer: 'metrics.sky.com',
-        trackingServerSecure: 'smetrics.sky.com',
-        visitorNamespace: 'bskyb',
+        browseMethod: 'web',
         charSet: 'UTF-8',
-        trackDownloadLinks: true,
-        trackExternalLinks: true,
-        trackInlineStats: true,
+        eventsMap: eventsMap,
+        forceLinkTrackingTimeout: 150,
+        linkDetailsMap: linkDetailsMap,
         linkDownloadFileTypes: 'exe,zip,wav,mp3,mov,mpg,avi,wmv,pdf,doc,docx,xls,xlsx,ppt,pptx,air,wma,dmg',
-        //anyway to make this easier to have all?
         linkInternalFilters: linkInternalFilters.join(),
         linkLeaveQueryString: false,
-        linkTrackVars: 'None',
         linkTrackEvents: 'None',
-        browseMethod: 'web',
-        url: window.location.href.toString().split('?')[0],
-        server: window.location.hostname,
+        linkTrackVars: 'None',
+        loadEvents:[],
+        loadVariables:{},
+        variablesMap: variablesMap,
         QScmpId: 'cmpid,aff',
         QScmpIdInt: 'cmpid_int',
-        useForcedLinkTracking: true,
-        forceLinkTrackingTimeout: 150,
+        server: window.location.hostname,
         setObjectIDs: true,
         trackClicks: true,
-        loadEvents:[],
-        loadVariables:{}
+        trackDownloadLinks: true,
+        trackExternalLinks: true,
+        trackingServer: 'metrics.sky.com',
+        trackingServerSecure: 'smetrics.sky.com',
+        trackInlineStats: true,
+        url: window.location.href.toString().split('?')[0],
+        useForcedLinkTracking: true,
+        variableBasedEvents: variableBasedEvents,
+        visitorNamespace: 'bskyb'
     };
 
 }());
@@ -1103,7 +1103,7 @@ _analytics.plugins.channelManager = (function(omniture, config, utils){
         +"rchEngines;if(V=='1'){j=s.repl(j,'oogle','%');j=s.repl(j,'ahoo','^'"
         +");j=s.repl(j,'as_q','*');}A=s.split(v,'>');B=A.length;for(C=0;C<B;C"
         +"++){D=A[C];D=s.split(D,'|');E=s.split(D[0],',');F=E.length;for(G=0;"
-        +"G<F;G++){H=j.indexOf(E[G]);if(H>-1){I=s.split(D[1],',');J=I.length;"
+        +"G<F;G++){H=j.indexOf(E[G]);if(H>-1){I=s.split(D[1],',');J=Ik.length;"
         +"for(K=0;K<J;K++){L=s.getQueryParam(I[K],'',unescape(g.replace(/\\+/g,'%20').toLowerCase()));"
         +"if(L){L=L.toLowerCase();M=L;if(D[2]){u=D[2];N=D[2]}else{N=t}"
         +"if(V=='1'){N=s.repl(N,'#',' - ');N=s.repl(N,'*','as_q');N=s.repl(N,'^'"
@@ -1386,7 +1386,88 @@ if (typeof window.define === "function" && window.define.amd) {
 
 ;
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils ){
+if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
+
+_analytics.plugins.timeParting = (function(omniture, config){
+
+    function isBST(date){
+
+        var currentYear= new Date().getFullYear();
+
+        var d = new Date ( currentYear , 2 , 31 );
+        var dstStart =  new Date("03/"+(31-d.getDay())+"/"+currentYear);
+        d = new Date ( currentYear , 9 , 31 );
+        var dstEnd =  new Date("10/"+(31-d.getDay())+"/"+currentYear);
+        return (date > dstStart && date < dstEnd) ? true : false;
+
+    }
+
+    function adjustDateForTimezone(date){
+
+        var utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+        utc = new Date(isBST(date) ? utc + 3600000 : utc);
+
+        return utc;
+
+    }
+
+        /*
+        * Plugin: getTimePartingJH
+        * Based on getTimeParting 2.0 - Set timeparting values based on time zone
+        * This version is altered for BSKYB to return WeekDay_hr_quarter
+        * as in Wednesday_17_15  (when called with t="h")
+        * By Jeroen Hustinx sept 24, 2010
+        *
+        * UPDATE
+        * Refactored. Note that this was originally returning actual minute and not quarter.
+        *
+        * By SkyCom Jan 7, 2014
+        */
+
+    var getTimeParting = function(date){
+        var dateCheck=new Date('1/1/2000');
+        if(dateCheck.getDay() != 6 || dateCheck.getMonth() != 0) { return 'Data Not Available';}
+
+        date = date || new Date();
+        var timeZone = adjustDateForTimezone(date);
+
+        var hour = timeZone.getHours();
+        var minute = timeZone.getMinutes();
+        var day = timeZone.getDay();
+
+        var hourPadded = (hour < 10 ? '0' + hour : hour);
+        var minutePadded = (minute < 10 ? '0' + minute : minute);
+
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        return days[day] + '_' + hourPadded + '_' + minutePadded;
+    };
+
+    function load(){
+
+        omniture.addPlugin('getTimeParting', getTimeParting);
+
+        var partTime = s.getTimeParting();
+        omniture.setVariable('partTime', partTime);
+
+    }
+
+    return {
+        load: load,
+        getTimeParting: getTimeParting,
+        adjustDateForTimezone: adjustDateForTimezone
+    };
+
+}(_analytics.omniture, _analytics.config));
+
+if (typeof window.define === "function" && window.define.amd) {
+    define("plugins/time-parting", ['core/omniture', 'core/config'], function(omniture, config) {
+        return _analytics.plugins.timeParting;
+    });
+}
+;
+if (typeof _analytics==='undefined') _analytics={};
+_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory, timeParting, utils ){
 //todo: document vars that come for free + what props sent etc
 //todo: document masthead prop + test
 //todo: document sessionCamID + test
@@ -1466,6 +1547,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
         testAndTarget.load();
         mediaModule.load();
         newOrRepeatVisits.load();
+        timeParting.load();
 
         pluginsLoaded = true;
     }
@@ -1572,6 +1654,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     _analytics.plugins.channelManager,
     _analytics.plugins.newOrRepeatVisits,
     _analytics.plugins.userHistory,
+    _analytics.plugins.timeParting,
     _analytics.plugins.utils
 ));
 
@@ -1590,8 +1673,9 @@ if (typeof window.define === "function" && window.define.amd) {
         'plugins/channel-manager',
         'plugins/new-or-repeat-visits',
         'plugins/user-history',
+        'plugins/time-parting',
         'plugins/utils'
-    ], function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory, utils) {
+    ], function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory,timeParting, utils) {
         return _analytics.setup;
     });
 }

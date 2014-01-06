@@ -1,5 +1,5 @@
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory,utils ){
+_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory, timeParting, utils ){
 //todo: document vars that come for free + what props sent etc
 //todo: document masthead prop + test
 //todo: document sessionCamID + test
@@ -79,6 +79,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
         testAndTarget.load();
         mediaModule.load();
         newOrRepeatVisits.load();
+        timeParting.load();
 
         pluginsLoaded = true;
     }
@@ -185,6 +186,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     _analytics.plugins.channelManager,
     _analytics.plugins.newOrRepeatVisits,
     _analytics.plugins.userHistory,
+    _analytics.plugins.timeParting,
     _analytics.plugins.utils
 ));
 
@@ -203,8 +205,9 @@ if (typeof window.define === "function" && window.define.amd) {
         'plugins/channel-manager',
         'plugins/new-or-repeat-visits',
         'plugins/user-history',
+        'plugins/time-parting',
         'plugins/utils'
-    ], function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory, utils) {
+    ], function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory,timeParting, utils) {
         return _analytics.setup;
     });
 }
