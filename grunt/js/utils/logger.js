@@ -37,20 +37,25 @@ _analytics.logger = (function(config){
         var eventsMap = config.eventsMap,
             name;
         for (name in eventsMap){
-            if (eventsMap[name]==eventID) return name;
+            if (eventsMap.hasOwnProperty(name) && eventsMap[name] == eventID) {
+                return name;
+            }
         }
         return '';
     }
+
     function logS(linkDetails, events, mappedVars){
         if (!(debugging && console && console.group)){ return; }
+
         var arrDetails, x;
         log('start','tracking event');
-
             if (linkDetails){
                 console.groupCollapsed('linkDetails');
                 arrDetails = linkDetails.split('|');
                 for (x in arrDetails){
-                    log(config.linkDetailsMap[x], arrDetails[x]);
+                    if (arrDetails.hasOwnProperty(x)) {
+                        log(config.linkDetailsMap[x], arrDetails[x]);
+                    }
                 }
                 console.groupEnd();
             }
@@ -58,14 +63,18 @@ _analytics.logger = (function(config){
                 arrDetails = events.split(',');
                 console.groupCollapsed('events');
                 for (x in arrDetails){
-                    log(getEventName(arrDetails[x]), arrDetails[x]);
+                    if (arrDetails.hasOwnProperty(x)) {
+                        log(getEventName(arrDetails[x]), arrDetails[x]);
+                    }
                 }
                 console.groupEnd();
             }
             console.groupCollapsed('All Changed Variables');
                 for (x in mappedVars){
-                    if (mappedVars[x].val!==String(config[x])){
-                        log(x, mappedVars[x].val);
+                    if (mappedVars.hasOwnProperty(x)) {
+                        if (mappedVars[x].val!==String(config[x])){
+                            log(x, mappedVars[x].val);
+                        }
                     }
                 }
             console.groupEnd();

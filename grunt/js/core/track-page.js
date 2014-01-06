@@ -7,10 +7,15 @@ _analytics.trackPage = (function(config,omniture){
         omniture.setEvent('pageLoad');
 
         for (name in config.loadVariables){
-            omniture.setVariable(name, config.loadVariables[name], 'load');
+            if (config.loadVariables.hasOwnProperty(name)) {
+                omniture.setVariable(name, config.loadVariables[name], 'load');
+            }
         }
+
         for (name in config.loadEvents){
-            omniture.setEvent(config.loadEvents[name], 'load');
+            if (config.loadEvents.hasOwnProperty(name)) {
+                omniture.setEvent(config.loadEvents[name], 'load');
+            }
         }
 
         omniture.trackPage();

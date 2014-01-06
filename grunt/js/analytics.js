@@ -64,7 +64,9 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
             setVariable('fullPageDescription', pageName.substring(0,255));
         }
         for (name in config) {
-            setVariable(name, config[name]);
+            if (config.hasOwnProperty(name)) {
+                setVariable(name, config[name]);
+            }
         }
     }
 
@@ -91,7 +93,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
 
     function checkMandatoryConfig(){
         for (var name in mandatory){
-            if (!config[mandatory[name]]){
+            if (mandatory.hasOwnProperty(name) && !config[mandatory[name]]) {
                 console.error('Mandatory config is missing: ', mandatory[name]);
             }
         }
@@ -118,10 +120,12 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
             varName = item.name,
             types = ['prop','eVar','list','hier'];
         for (i in types){
-            type = types[i];
-            varID = item[type];
-            if (varID){
-                arrValues.push(type + varID);
+            if (types.hasOwnProperty(i)) {
+                type = types[i];
+                varID = item[type];
+                if (varID){
+                    arrValues.push(type + varID);
+                }
             }
         }
         config.variablesMap[varName] = arrValues;
