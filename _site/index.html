@@ -91,7 +91,7 @@
     </div>
     <div class="skycom-container clearfix">
         <div class="alpha skycom-12">
-            <h1 class="wiki-header">Omniture Analytics <small>v1.3.2rc1</small></h1>
+            <h1 class="wiki-header">Omniture Analytics <small>v1.3.2</small></h1>
 <div class="secondary">Last Updated: 07-01-2014</div>
 
 <section class="wiki-section">
@@ -119,7 +119,7 @@
         <h2 >Getting Started</h2>
 <p class="developer-notes">
     Please use the following:
-    <code class="html">    &lt;script src=//analytics.global.sky.com/1.3.2rc1/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
+    <code class="html">    &lt;script src=//analytics.global.sky.com/1.3.2/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
     If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p>
 <p>
@@ -151,143 +151,230 @@
 
 <h4>On Page View</h4>
 <div class="example clearfix ">
-<!--<dl class="clearfix ">-->
-    <!--<dt class="skycom_4 alpha">pageLoad</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">refDomain</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">pageURL</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">url</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">pageConversion</dt>-->
+    
 
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="ageGender-link-page-view">ageGender</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
 
-    <div class="skycom_4 alpha has-code-example">
-        <span class="toggler" for=session-cam-id-page-view></span>
-        <a href="#!" id="session-cam-id-page-view-link"
-           data-tracking=false>sessionCamID</a>
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="campaign-link-page-view">campaign</a>
     </div>
-    <script type="text/javascript">
-    </script>
-    <div class="skycom_8">
-        The <code>sessionCamID</code> variable gets set if the page has SessionCam on page view.
+    <div class="skycom-8">
+        
     </div>
-    <div class="code-example" id="session-cam-id-page-view">
-        <code class="skycom-2 alpha html">HTML</code>
-        <code class="skycom-9 html"><i>none</i></code>
-        <div class="skycom-2 alpha js">Javascript</div>
-        <div class="skycom-9 js">
-            <code class="block js"></code>
-        </div>
-        <script>
-            $('#session-cam-id-page-view-link').on('click', function(e){
-                e.preventDefault();
-                window.sessionCamRecorder = {
-                    log :  function(){ },
-                    sessionId :  function(){ return '987,654';}
-                };
-                <!--demo-->
-analytics.trackPage({
-    site: 'global',
-    section: 'skyglobal/analytics/demo',
-    account: 'bskybdemodev'
-});
-                <!--demo-->
-            });
-        </script>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="customerType-link-page-view">customerType</a>
     </div>
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">fullPageDescription</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">samId</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">customerType</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">ageGender</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">optIn</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">testAndTarget</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">tnt</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">repeatVisit</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">visitNum</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">fullCampaign</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">searchEngine</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">externalSearchTerm</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">campaign</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">sessionCampaign</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="externalSearchTerm-link-page-view">externalSearchTerm</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="fullCampaign-link-page-view">fullCampaign</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="fullPageDescription-link-page-view">fullPageDescription</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="optIn-link-page-view">optIn</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="repeatVisit-link-page-view">repeatVisit</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="samId-link-page-view">samId</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="sessionCamID-link-page-view">sessionCamID</a>
+    </div>
+    <div class="skycom-8">
+        The <code>sessionCamID</code> variable gets set if the page has SessionCam.
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="searchEngine-link-page-view">searchEngine</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="sessionCampaign-link-page-view">sessionCampaign</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="testAndTarget-link-page-view">testAndTarget</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="tnt-link-page-view">tnt</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="visitNum-link-page-view">visitNum</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
 </div>
 
 <h4>On Click</h4>
 <div class="example clearfix ">
-    <div class="skycom_4 alpha has-code-example" data-tracking-module="masthead">
-        <span class="toggler" for=masthead-link-click></span>
-        <a href="#!" >masthead</a>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="sessionCamID-link-click-link">sessionCamID</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
+        The <code>sessionCamID</code> variable gets set if the page has SessionCam.
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="linkClick Event-link-click-link">linkClick Event</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="linkDetails-link-click-link">linkDetails</a>
+    </div>
+    <div class="skycom-8">
+        
+    </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="masthead-link-click-link">masthead</a>
+    </div>
+    <div class="skycom-8">
         The <code>masthead</code> variable gets tracked automatically when a link is clicked within the masthead.
     </div>
-    <div class="code-example" id="masthead-link-click">
-        <code class="skycom-2 alpha html">HTML</code>
-        <code class="skycom-9 html">    &lt;div data-tracking-module="masthead">
-            ...
-            &lt;a href="#!"  >link &lt;/a>
-            ...
-            &lt;/div>
-        </code>
-        <div class="skycom-2 alpha js">Javascript</div>
-        <div class="skycom-9">
-            <code class="block js"><i>none</i></code>
-        </div>
+
+    
+
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="refDomain-link-click-link">refDomain</a>
+    </div>
+    <div class="skycom-8">
+        
     </div>
 
+    
 
-    <div class="skycom_4 alpha has-code-example">
-        <span class="toggler" for=session-cam-id-link-click></span>
-        <a href="#!" id="session-cam-id-link-click-link">sessionCamID</a>
+    <div class="skycom-4 alpha has-code-example">
+        <a href="#!" id="url-link-click-link">url</a>
     </div>
-    <div class="skycom_8">
-        The <code>sessionCamID</code> variable gets set if the page has SessionCam on click.
-    </div>
-    <div class="code-example" id="session-cam-id-link-click">
-        <code class="skycom-2 alpha html">HTML</code>
-        <code class="skycom-9 html"><i>none</i></code>
-        <div class="skycom-2 alpha js">Javascript</div>
-        <div class="skycom-9">
-            <code class="block js"></code>
-        </div>
-        <script>
-            $('#session-cam-id-link-click-link').on('click', function(e){
-                e.preventDefault();
-                window.sessionCamRecorder = {
-                    log :  function(){ },
-                    sessionId :  function(){ return '123,343';}
-                };
-            });
-        </script>
+    <div class="skycom-8">
+        
     </div>
 
+    
+
+    <script>
+        //page view event
+$('#session-cam-id-page-view-link').on('click', function(e){
+    e.preventDefault();
+    window.sessionCamRecorder = {
+        log :  function(){ },
+        sessionId :  function(){ return '987,654';}
+    };
+    analytics.trackPage({
+        site: 'global',
+        section: 'skyglobal/analytics/demo',
+        account: 'bskybdemodev'
+    });
+});
 
 
+//link click event
+$('#session-cam-id-link-click-link').on('click', function(e){
+    e.preventDefault();
+    window.sessionCamRecorder = {
+        log :  function(){ },
+        sessionId :  function(){ return '123,343';}
+    };
+});
+    </script>
 
-    <!--<dt class="skycom_4 alpha">linkClick Event</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">linkDetails</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">refDomain</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
-    <!--<dt class="skycom_4 alpha">url</dt>-->
-    <!--<dd class="skycom_8"></dd>-->
  </div>
 
     </div>

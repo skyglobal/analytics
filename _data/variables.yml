@@ -1,0 +1,29 @@
+pageView:
+  - id: ageGender
+  - id: campaign
+  - id: customerType
+  - id: externalSearchTerm
+  - id: fullCampaign
+  - id: fullPageDescription
+  - id: optIn
+  - id: repeatVisit
+  - id: samId
+  - id: sessionCamID
+    description: The <code>sessionCamID</code> variable gets set if the page has SessionCam.
+  - id: searchEngine
+  - id: sessionCampaign
+  - id: testAndTarget
+  - id: tnt
+  - id: visitNum
+
+    
+
+linkClick:
+  - id: sessionCamID
+    description: The <code>sessionCamID</code> variable gets set if the page has SessionCam.
+  - id: linkClick Event
+  - id: linkDetails
+  - id: masthead
+    description: The <code>masthead</code> variable gets tracked automatically when a link is clicked within the masthead.
+  - id: refDomain
+  - id: url

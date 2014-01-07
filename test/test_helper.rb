@@ -1,6 +1,7 @@
 ENV['RACK_ENV'] = 'test'
 require 'minitest/autorun'
 require 'minitest-capybara'
+require 'capybara/rspec/matchers'
 require 'capybara/poltergeist'
 require 'rack/test'
 require 'addressable/uri'
