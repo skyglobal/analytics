@@ -2,6 +2,8 @@ if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory, timeParting, utils ){
 //todo: document vars that come for free + what props sent etc
 //todo: make sessionCamID test not flaky
+//todo: make masthead test not flaky
+//    todo: page-load.rb - fix direct load bug in test
 
 //todo: test and document setup()
 

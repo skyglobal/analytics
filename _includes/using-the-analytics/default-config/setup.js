@@ -1,5 +1,5 @@
 //page view event
-$('#session-cam-id-page-view-link').on('click', function(e){
+$('#sessionCamId-page-view-link').on('click', function(e){
     e.preventDefault();
     window.sessionCamRecorder = {
         log :  function(){ },
@@ -14,7 +14,7 @@ $('#session-cam-id-page-view-link').on('click', function(e){
 
 
 //link click event
-$('#session-cam-id-link-click-link').on('click', function(e){
+$('#sessionCamId-link-click-link').on('click', function(e){
     e.preventDefault();
     window.sessionCamRecorder = {
         log :  function(){ },
