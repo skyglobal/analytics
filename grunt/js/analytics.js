@@ -1,17 +1,17 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory, timeParting, utils ){
 //todo: document vars that come for free + what props sent etc
-//todo: document masthead prop + test
-//todo: document sessionCamID + test
+//todo: make sessionCamID test not flaky
 
 //todo: test and document setup()
+
 //todo: write page to test require.. and sleep?
 //todo: test for live binding
 //todo: integration test for newOrRepeat
 //todo: maybe unit setLoginVars from user hist
 
 //todo: test plugins with andrew and order
-//todo: delete    setVariable('pageURL','D=referrer');
+//todo: delete setVariable('pageURL','D=referrer');
 
 //todo: show transparency of test suit, build status maybe exec js tests on demo page
 //todo: write analytics.send method within analytics.js
