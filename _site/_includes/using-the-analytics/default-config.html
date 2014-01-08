@@ -7,8 +7,8 @@
 <div class="example clearfix ">
     {% for item in site.data.variables.pageView %}
 
-    <div class="skycom-4 alpha has-code-example">
-        <a href="#!" id="{{ item.id }}-link-page-view">{{ item.id }}</a>
+    <div class="skycom-4 alpha has-code-example" data-tracking-module="{{ item.id }}">
+        <a href="#!" id="{{ item.id }}-page-view-link">{{ item.id }}</a>
     </div>
     <div class="skycom-8">
         {{ item.description }}
@@ -23,7 +23,7 @@
 
     {% for item in site.data.variables.linkClick %}
 
-    <div class="skycom-4 alpha has-code-example">
+    <div class="skycom-4 alpha has-code-example" data-tracking-module="{{ item.id }}">
         <a href="#!" id="{{ item.id }}-link-click-link">{{ item.id }}</a>
     </div>
     <div class="skycom-8">
