@@ -91,8 +91,8 @@
     </div>
     <div class="skycom-container clearfix">
         <div class="alpha skycom-12">
-            <h1 class="wiki-header">Omniture Analytics <small>v1.3.2</small></h1>
-<div class="secondary">Last Updated: 08-01-2014</div>
+            <h1 class="wiki-header">Omniture Analytics <small>v1.3.3</small></h1>
+<div class="secondary">Last Updated: 10-01-2014</div>
 
 <section class="wiki-section">
     <a name="contributing"></a>
@@ -119,7 +119,7 @@
         <h2 >Getting Started</h2>
 <p class="developer-notes">
     Please use the following:
-    <code class="html">    &lt;script src=//analytics.global.sky.com/1.3.2/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
+    <code class="html">    &lt;script src=//analytics.global.sky.com/1.3.3/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
     If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p>
 <p>
@@ -1027,7 +1027,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     There are a number of events that are standard within omniture, which means you can use them without mapping them to an <code>event</code> id.
 </p>
 <p>
-    A list of standard events can be found <a href="https://github.com/skyglobal/analytics/blob/master/grunt/js/core/config.js">here</a>.
+    A list of standard events can be found <a href="https://github.com/skyglobal/analytics/blob/master/grunt/js/core/config.js">here</a> within <code>eventsMap</code>.
 </p>
 
 <h3 class="wiki-h3">Custom</h3>
@@ -1054,6 +1054,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     <div class="skycom-4 alpha has-code-example">
         <span class="toggler" for=standard-events></span>
         <a id='standard-events-a' href="#!" data-tracking-event='liveChat' class='btn primary-cta'>Send Standard Event</a>
+        <a id='orderConfirmation-event-a' href="#!" data-tracking-event='orderConfirmation' class='btn primary-cta'>Send orderConfirmation Event</a>
     </div>
     <div class="skycom_8">
         Send a standard event on click by setting <code>data-tracking-event</code>.
@@ -1062,7 +1063,9 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     <div class="code-example" id=standard-events>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
-            <code class=" block html">&lt;button data-tracking-variable='liveChat' >Send Standard Event&lt;/button>
+            <code class=" block html">
+                &lt;button data-tracking-variable='liveChat' >Send Standard Event&lt;/button>
+                &lt;button data-tracking-variable='orderConfirmation' >Send orderConfirmation Event&lt;/button>
             </code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
@@ -1074,6 +1077,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     <div class="skycom-4 alpha has-code-example">
         <span class="toggler" for=standard-events-onLoad></span>
         <a id="standard-events-onLoad-a" href="#!" data-tracking=false data-tracking-event='liveChat' class='btn primary-cta'>Send Standard Events on load</a>
+        <a id="productSelection-event-onLoad-a" href="#!" data-tracking=false data-tracking-event='productSelection' class='btn primary-cta'>Send productSelection Event on load</a>
     </div>
     <div class="skycom_8">
         Add <code>loadEvents</code> in the config.
@@ -1082,7 +1086,9 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     <div class="code-example" id=standard-events-onLoad>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
-            <code class=" block html">&lt;button data-tracking-variable='liveChat'>Send Standard Event&lt;/button>
+            <code class=" block html">
+                &lt;button data-tracking-variable='liveChat'>Send Standard Event on load&lt;/button>
+                &lt;button data-tracking-variable='productSelection'>Send productSelection Event on load&lt;/button>
             </code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>

@@ -109,5 +109,12 @@ def eventsMap
       magic_happened: 'event101',
       serialEvent: 'event666:devil12345',
       myAdHocEvent: 'event69',
+      orderConfirmation: 'purchase',
+      productSelection: 'scOpen',
+      orderSummary: 'scView',
+      checkout: 'scCheckout',
+      basketAdd: 'scAdd',
+      basketRemove: 'scRemove',
+      productView: 'prodView'
   }
 end

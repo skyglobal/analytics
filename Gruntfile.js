@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         watch: {
             'analytics': {
-                files: [ 'grunt/js/*.js', 'grunt/sass/**/*.*', 'Gruntfile.js' ],
+                files: [ 'grunt/js/**/*.js', 'grunt/sass/**/*.*', 'Gruntfile.js' ],
                 tasks: ['jshint','requirejs','compass']
             }
         },

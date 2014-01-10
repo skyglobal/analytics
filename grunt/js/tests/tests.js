@@ -19,6 +19,7 @@ _demo.tests = (function(){
         $('#btn_error_event').on('click', triggerError);
         $('#standard-vars-onLoad-a').on('click', sendStandardVarOnload);
         $('#standard-events-onLoad-a').on('click', sendStandardEventsOnload);
+        $('#productSelection-event-onLoad-a').on('click', sendProductSelectionEventOnload);
         $('#custom-prop').on('click', sendCustomProp);
         $('#ad-hoc-tracking').on('click', sendAdHocTracking);
         $('#ad-hoc-tracking-page-view').on('click', sendAdHocTrackingPageView);
@@ -155,6 +156,15 @@ _demo.tests = (function(){
             section: 'skyglobal/analytics',
             account: 'bskybdemodev',
             loadEvents: ['liveChat']
+        });
+    }
+
+    function sendProductSelectionEventOnload(){
+        analytics.trackPage({
+            site: 'global',
+            section: 'skyglobal/analytics',
+            account: 'bskybdemodev',
+            loadEvents: ['productSelection']
         });
     }
     function customPageLoad(){

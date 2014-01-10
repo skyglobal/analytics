@@ -68,7 +68,16 @@ _analytics.config = (function(){
             passwordStart: 'event76',
             passwordComplete: 'event77',
             activateStart: 'event78',
-            activateComplete: 'event79'
+            activateComplete: 'event79',
+            orderConfirmation: 'purchase',
+            productSelection: 'scOpen',
+            orderSummary: 'scView',
+            checkout: 'scCheckout',
+            basketAdd: 'scAdd',
+            basketRemove: 'scRemove',
+            productView: 'prodView'
+
+
         },
         variableBasedEvents = {
             'searchResults': 'searchResults',

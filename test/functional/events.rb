@@ -40,4 +40,14 @@ class AnalyticsTest < AcceptanceTest
     trackedEvents.must_equal [eventsMap[:linkClick], eventsMap[:serialEvent]]
   end
 
+  it "Tracks a productSelection event that on page load" do
+    click_link "Send productSelection Event on load"
+    trackedEvents.must_equal [eventsMap[:pageLoad], eventsMap[:productSelection]]
+  end
+
+  it "Tracks a orderConfirmation event that on click" do
+    click_link "Send orderConfirmation Event"
+    trackedEvents.must_equal [eventsMap[:linkClick], eventsMap[:orderConfirmation]]
+  end
+
 end

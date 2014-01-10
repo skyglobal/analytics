@@ -1,4 +1,4 @@
-version: 1.3.2
+version: 1.3.3
 destination: _site
 source: .
 exclude: [grunt, node_modules, test,
@@ -7,3 +7,4 @@ exclude: [grunt, node_modules, test,
           circle.yml, Gemfile, Gemfile.lock, package.json,rakefile, Gruntfile.js]
 include: [_includes]
 port: 4001
+

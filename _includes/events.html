@@ -4,7 +4,7 @@
     There are a number of events that are standard within omniture, which means you can use them without mapping them to an <code>event</code> id.
 </p>
 <p>
-    A list of standard events can be found <a href="https://github.com/skyglobal/analytics/blob/master/grunt/js/core/config.js">here</a>.
+    A list of standard events can be found <a href="https://github.com/skyglobal/analytics/blob/master/grunt/js/core/config.js">here</a> within <code>eventsMap</code>.
 </p>
 
 <h3 class="wiki-h3">Custom</h3>
@@ -31,6 +31,7 @@
     <div class="skycom-4 alpha has-code-example">
         <span class="toggler" for=standard-events></span>
         <a id='standard-events-a' href="#!" data-tracking-event='liveChat' class='btn primary-cta'>Send Standard Event</a>
+        <a id='orderConfirmation-event-a' href="#!" data-tracking-event='orderConfirmation' class='btn primary-cta'>Send orderConfirmation Event</a>
     </div>
     <div class="skycom_8">
         Send a standard event on click by setting <code>data-tracking-event</code>.
@@ -39,7 +40,9 @@
     <div class="code-example" id=standard-events>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
-            <code class=" block html">&lt;button data-tracking-variable='liveChat' >Send Standard Event&lt;/button>
+            <code class=" block html">
+                &lt;button data-tracking-variable='liveChat' >Send Standard Event&lt;/button>
+                &lt;button data-tracking-variable='orderConfirmation' >Send orderConfirmation Event&lt;/button>
             </code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
@@ -51,6 +54,7 @@
     <div class="skycom-4 alpha has-code-example">
         <span class="toggler" for=standard-events-onLoad></span>
         <a id="standard-events-onLoad-a" href="#!" data-tracking=false data-tracking-event='liveChat' class='btn primary-cta'>Send Standard Events on load</a>
+        <a id="productSelection-event-onLoad-a" href="#!" data-tracking=false data-tracking-event='productSelection' class='btn primary-cta'>Send productSelection Event on load</a>
     </div>
     <div class="skycom_8">
         Add <code>loadEvents</code> in the config.
@@ -59,7 +63,9 @@
     <div class="code-example" id=standard-events-onLoad>
         <code class="skycom-2 alpha html">HTML</code>
         <div class="skycom-9">
-            <code class=" block html">&lt;button data-tracking-variable='liveChat'>Send Standard Event&lt;/button>
+            <code class=" block html">
+                &lt;button data-tracking-variable='liveChat'>Send Standard Event on load&lt;/button>
+                &lt;button data-tracking-variable='productSelection'>Send productSelection Event on load&lt;/button>
             </code>
         </div>
         <code class="skycom-2 alpha js">Javascript</code>
