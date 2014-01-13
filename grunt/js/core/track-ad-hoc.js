@@ -10,10 +10,10 @@ _analytics.trackAdHoc = (function(config,omniture){
             var argument = arguments[i];
 
             if ((typeof argument).toLowerCase() === "string") {
-                omniture.setEvent(argument);
+                omniture.setEvent(argument, 'click');
             } else {
                 variable = omniture.normaliseItem(argument);
-                omniture.setVariable(variable.name, variable[variable.name], 'adHoc');
+                omniture.setVariable(variable.name, variable[variable.name], 'click');
             }
         }
         omniture.trackAdHoc();

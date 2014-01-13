@@ -4,6 +4,7 @@ _demo.tests = (function(){
     function bindEvents(){
 
         $('#basic-config').on('click', basicConfigLoad);
+        $('#reset-config').on('click', resetConfigLoad);
         $('#custom-config').on('click', customConfigLoad);
         $('#custom-config-with-content-type').on('click', anotherCustomConfigLoad);
         $('#btn_page_load').on('click', customPageLoad);
@@ -16,6 +17,7 @@ _demo.tests = (function(){
         $('#btn-page-load-hier').on('click', customHiertrackPage);
         $('#search-results-trackPage').on('click', searchResultstrackPage);
         $('#btn_error_trackPage').on('click', triggerErrortrackPage);
+        $('#btn_404_trackPage').on('click', trigger404trackPage);
         $('#btn_error_event').on('click', triggerError);
         $('#standard-vars-onLoad-a').on('click', sendStandardVarOnload);
         $('#standard-events-onLoad-a').on('click', sendStandardEventsOnload);
@@ -138,7 +140,20 @@ _demo.tests = (function(){
             contentType: 'demo',
             contentId: '',
             account: 'bskybglobaldev',
-            loadVariables: { errors: '404' }
+            loadVariables: { errors: 'nnn-service-down' }
+        };
+        analytics.trackPage(SITECAT_CONFIG);
+    }
+    function trigger404trackPage(){
+        SITECAT_CONFIG = {
+            page: '404',
+            site: 'global',
+            section: 'skyglobal/analytics/404',
+            headline: '',
+            contentType: '404',
+            contentId: '',
+            account: 'bskybglobaldev',
+            loadVariables: { '404Page': 'errorPage' }
         };
         analytics.trackPage(SITECAT_CONFIG);
     }
@@ -207,7 +222,6 @@ _demo.tests = (function(){
             debug: true
 
         };
-
         analytics.trackPage(SITECAT_CONFIG);
     }
 
@@ -218,6 +232,16 @@ _demo.tests = (function(){
             section: 'skyglobal/analytics/demo',
             account: 'bskybdemodev'
         });
+    }
+
+    function resetConfigLoad(e){
+        e.preventDefault();
+        analytics.setup({
+            site: 'global',
+            section: 'skyglobal/analytics/resetting',
+            account: 'bskybdemodev'
+        });
+        analytics.trackPage();
     }
 
     function customConfigLoad(e){

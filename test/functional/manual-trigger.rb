@@ -59,16 +59,17 @@ class AnalyticsTest < AcceptanceTest
     trackedEvents.must_equal [eventsMap[:myAdHocEvent]]
     trackedVariable('testAndTarget').must_include 'is poo'
     trackedVariable('briansCat').must_include 'is still great'
-
+    trackedVariable('url').must_be_nil
   end
 
-  it "adHoc event(s)/variable(s) must not bew tracked on additional page views" do
+  it "adHoc event(s)/variable(s) must not be tracked on additional page views" do
     click_link "Send AdHoc Tracking page view"
     click_link "Send AdHoc Tracking after page view"
     click_link "Send AdHoc Tracking page view"
     trackedEvents.must_equal [eventsMap[:pageLoad]]
     trackedVariable('testAndTarget').must_be_nil
     trackedVariable('briansCat').must_be_nil
+    trackedVariable('url').must_include 'D=c9'
   end
 
 end

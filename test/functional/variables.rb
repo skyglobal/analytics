@@ -20,6 +20,14 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('briansCat', :prop).must_equal 'is great'
   end
 
+  it "Tracks a custom var with eVar and a prop on click" do
+    click_link "Send Custom eVar and Prop"
+    trackedEvents.must_include eventsMap[:linkClick]
+    trackedEvents.wont_include eventsMap[:pageLoad]
+    trackedVariable('briansEVarAndPropCat', :prop).must_equal 'Send Custom eVar and Prop'
+    trackedVariable('briansEVarAndPropCat').must_equal 'D=c66'
+  end
+
   it "Tracks a custom list on page load" do
     click_link "List Variable on page load"
     trackedEvents.wont_include eventsMap[:linkClick]

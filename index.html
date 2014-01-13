@@ -62,8 +62,7 @@ title: Analytics
 
 
 <script type="text/javascript" charset="utf-8">
-
-    analytics.trackPage({
+    analytics.setup({
         site: 'global',
         section: 'skyglobal/analytics/demo',
         account: 'bskybglobaldev',
@@ -76,7 +75,9 @@ title: Analytics
             {'drink': {'eVar': 72}},
             {'how_about_pina_coladas': {'eVar': 73}},
             {'customer-offers': {list: 2}},
+            {'briansEVarAndPropCat': { eVar: 11, prop: 66}},
             {'my-heirarchy': {hier: 3}}
         ]
     });
+    analytics.trackPage();
 </script>

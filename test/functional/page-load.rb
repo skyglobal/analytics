@@ -13,8 +13,15 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('channel').must_equal 'sky/portal/global/skyglobal/analytics/demo'
     trackedVariable('channel',:hier).must_equal references('channel',:eVar)
     trackedVariable('channel',:channel).must_equal references('channel',:eVar)
+    trackedVariable('section2', :prop).must_include 'demo'
     trackedVariable('fullCampaign',:prop).must_equal nil #in theory, could be 'direct load' if this test is the very first
     trackedVariable('partTime',:prop).must_equal Time.now.strftime('%A_%0k_%0M') # if this proves a timing issue (test runs on the 59th second), perhaps check it's this time or 1 minute after
+  end
+
+  it "tracks pageview properly after using setup first" do
+    click_link 'Click here to see resetting config in action'
+    trackedVariable('siteName',:prop).must_equal 'sky/portal/global'
+    trackedVariable('section2', :prop).must_include 'resetting'
   end
 
   it "tracks 'section' as page name id 'page' is omitted" do

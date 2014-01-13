@@ -140,6 +140,34 @@
     </div>
 
     <div class="skycom-4 alpha has-code-example">
+        <span class="toggler" for=custom-evar-prop-example></span>
+        <form id='text-input-evar-prop' class="sky-form">
+            <label >What has Brians cat got, some eVars and props!</label> <br>
+            <a href="#!" data-tracking-variable='briansEVarAndPropCat' class='btn primary-cta' id="custom-evar-prop">Send Custom eVar and Prop</a>
+        </form>
+    </div>
+    <div class="skycom_8">
+        Tracking custom variable <code>briansCat</code> on click as a <code>eVar</code> and <code>prop</code>.
+    </div>
+
+    <div class="code-example" id=custom-evar-prop-example>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class=" block html">&lt;button data-tracking-variable='briansEVarAndPropCat' >Send Custom eVar and Prop&;lt;/button>
+            </code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9">
+            <code class="block js">analytics.trackPage({
+    ...
+    customVariables: [
+        {'briansEVarAndPropCat': { eVar: 11, prop: 66, value:'is great'}}
+    ]
+});</code>
+        </div>
+    </div>
+
+    <div class="skycom-4 alpha has-code-example">
         <span class="toggler" for=custom-vars-radio></span>
         <form id='radio-input' class="sky-form">
             <label>Do you like Pina Coldas?</label> <br>

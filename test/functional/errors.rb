@@ -12,10 +12,17 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('errors', :prop).must_include 'myCustomError'
   end
 
-  it "Clicking an anchor without 'data-tracking=false' and manual js tracking is fired" do
+  it "Can send errors variable" do
     click_link('Send Error on page load')
     trackedEvents.must_equal [eventsMap[:pageLoad],eventsMap[:error]]
-    trackedVariable('errors', :prop).must_include '404'
+    trackedVariable('errors', :prop).must_include 'nnn-service-down'
+  end
+
+
+  it "can send pageType error" do
+    click_link('Send 404 on page load')
+    trackedEvents.must_equal [eventsMap[:pageLoad]]
+    trackedVariable('pageType', :pageType).must_include 'errorPage'
   end
 
 end

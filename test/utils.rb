@@ -57,6 +57,7 @@ def variablesMap
       visitNum: {prop: "c69", eVar: "v69"},
       visitorID: {visitor: "visitorID"},
       pageName: { pagename: "pageName"},
+      pageType: { pageType: "pageType"},
       pageConversion: {eVar: 'v19'},
       searchEngine:{prop: 'c16',eVar: 'v3'},
       fullPageDescription: {eVar: 'v55'},
@@ -77,6 +78,7 @@ def variablesMap
       myHeirarchy: {hier:'h3'},
       briansCat: {prop: 'c66', eVar: 'v66'},
       partTime: {prop: 'c35', eVar: 'v35'},
+      briansEVarAndPropCat: { eVar: 'v11', prop: 'c66'},
   }
 end
 

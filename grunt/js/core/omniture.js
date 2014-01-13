@@ -81,7 +81,7 @@ _analytics.omniture = (function(config, logger){
     }
 
     function trackAdHoc(){
-        send();
+        send('Link Click');
     }
 
     function trackError(type){
