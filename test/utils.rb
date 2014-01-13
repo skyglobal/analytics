@@ -44,7 +44,7 @@ def variablesMap
       section0:{prop: 'c25',eVar: 'v26'},
       section1:{prop: 'c27',eVar: 'v29'},
       section2:{prop: 'c31',eVar: 'v30'},
-      videoTitle:{prop: 'c26',eVar: 'v28'},
+      videoTitle:{prop: 'c26', eVar: 'v28'},
       channel: {eVar: 'v24',channel:'ch',hier: 'h1'},
       samId:{prop: 'c39',eVar: 'v39'},
       loginStatus: {eVar: 'v11'},
@@ -77,6 +77,7 @@ def variablesMap
       myHierarchyOfStuff: {hier:'h2'},
       myHeirarchy: {hier:'h3'},
       briansCat: {prop: 'c66', eVar: 'v66'},
+      petesDog: {prop: 'c67', eVar: 'v67'},
       partTime: {prop: 'c35', eVar: 'v35'},
       briansEVarAndPropCat: { eVar: 'v11', prop: 'c66'},
   }

@@ -22,6 +22,11 @@ class AnalyticsTest < AcceptanceTest
     click_link 'Click here to see resetting config in action'
     trackedVariable('siteName',:prop).must_equal 'sky/portal/global'
     trackedVariable('section2', :prop).must_include 'resetting'
+    trackedVariable('videoTitle', :prop).must_include 'My Home Video'
+    trackedVariable('videoTitle').must_include references('videoTitle', :prop)
+    trackedVariable('drink').must_include 'hello drinks'
+    trackedEvents().must_include eventsMap[:activateComplete]
+    trackedEvents().must_include eventsMap[:magic_happened]
   end
 
   it "tracks 'section' as page name id 'page' is omitted" do
@@ -61,7 +66,7 @@ class AnalyticsTest < AcceptanceTest
 
   it "Tracks page view using requireJS" do
     click_link 'Click here to see a requireJS example'
-    #trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/Analytics require demo page'
+      #trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/Analytics require demo page'
     #trackedVariable('url').must_equal current_url  # url
     #trackedVariable('section0').must_include 'sky/portal/global/skyglobal'
     #trackedVariable('section1').must_include 'analytics'

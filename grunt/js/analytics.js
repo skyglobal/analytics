@@ -87,8 +87,8 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     }
 
     function reset(customConfig){
-        omniture.reset();
         if (customConfig){
+            omniture.reset();
             setup(customConfig);
         }
         return config;

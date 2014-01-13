@@ -239,7 +239,15 @@ _demo.tests = (function(){
         analytics.setup({
             site: 'global',
             section: 'skyglobal/analytics/resetting',
-            account: 'bskybdemodev'
+            account: 'bskybdemodev',
+            loadVariables: {'videoTitle':'My Home Video'},
+            loadEvents: ['activateComplete'],
+            customEvents: [
+                {'magic_happened': {event: 101, onPageLoad:true}}
+            ],
+            customVariables: [
+                {'drink': {'eVar': 72, value:'hello drinks', onPageLoad:true}}
+            ]
         });
         analytics.trackPage();
     }
@@ -303,6 +311,7 @@ _demo.tests = (function(){
             account: 'bskybdemodev',
             contentType: 'analytics',
             customVariables: [
+                {'petesDog': {'eVar': 67}},
                 {'briansCat': {'eVar': 66}},
                 {'magic_happened': {'event': 99}}
             ],
@@ -311,7 +320,7 @@ _demo.tests = (function(){
             ]
         });
         analytics.trackAdHoc(
-            {'briansCat': 'is still great'},
+            {'petesDog': 'is better'},
             {'testAndTarget': 'is poo'},
             'myAdHocEvent'
         );
@@ -324,6 +333,7 @@ _demo.tests = (function(){
             account: 'bskybdemodev',
             contentType: 'analytics',
             customVariables: [
+                {'petesDog': {'eVar': 67}},
                 {'briansCat': {'eVar': 66}},
                 {'magic_happened': {'event': 99}}
             ],

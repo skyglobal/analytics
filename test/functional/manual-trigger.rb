@@ -46,7 +46,7 @@ class AnalyticsTest < AcceptanceTest
     click_link "Send AdHoc Tracking"
     trackedEvents.must_equal [eventsMap[:myAdHocEvent]]
     trackedVariable('testAndTarget').must_include 'is poo'
-    trackedVariable('briansCat').must_include 'is still great'
+    trackedVariable('petesDog').must_include 'is better'
   end
 
   it "Tracks a page view then adHoc event/variable" do
@@ -72,4 +72,15 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('url').must_include 'D=c9'
   end
 
+  it "Tracks multiple adHoc event/variables without polluting each other" do
+    click_link "Send AdHoc Tracking"
+    trackedEvents.must_equal [eventsMap[:myAdHocEvent]]
+    trackedVariable('testAndTarget').must_include 'is poo'
+    trackedVariable('petesDog').must_include 'is better'
+    trackedVariable('briansCat').must_be_nil
+
+    click_link "Send AdHoc Tracking after page view"
+    trackedVariable('petesDog').must_be_nil
+    trackedVariable('briansCat').must_include 'is still great'
+  end
 end

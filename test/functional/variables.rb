@@ -85,7 +85,7 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('videoTitle', :prop).must_equal 'My Videos'
   end
 
-  it "tracks a stanard variable sent on page load" do
+  it "tracks a standard variable sent on page load" do
     click_link 'Send Standard Variable on load'
     trackedEvents.must_include eventsMap[:pageLoad]
     trackedVariable('videoTitle', :prop).must_equal 'My Home Video'
