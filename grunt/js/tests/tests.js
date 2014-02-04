@@ -267,7 +267,7 @@ _demo.tests = (function(){
             customVariables: [
                 {'drink': {'eVar': 72}},
             ],
-            debug: true
+            debug: false
         });
     }
 
@@ -286,7 +286,7 @@ _demo.tests = (function(){
             customVariables: [
                 {'drink': {'eVar': 72}}
             ],
-            debug: true
+            debug: false
         });
     }
 

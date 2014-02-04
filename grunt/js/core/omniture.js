@@ -91,10 +91,12 @@ _analytics.omniture = (function(config, logger){
 
     function send(type){
         log();
-        if (type){
-            s.trackLink(true,'o',type);
-        } else {
-            s.t();
+        if (!logger.debugging()){
+            if (type){
+                s.trackLink(true,'o',type);
+            } else {
+                s.t();
+            }
         }
         reset();
     }

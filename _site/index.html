@@ -91,8 +91,8 @@
     </div>
     <div class="skycom-container clearfix">
         <div class="alpha skycom-12">
-            <h1 class="wiki-header">Omniture Analytics <small>v1.4.1</small></h1>
-<div class="secondary">Last Updated: 13-01-2014</div>
+            <h1 class="wiki-header">Omniture Analytics <small>v1.4.2</small></h1>
+<div class="secondary">Last Updated: 29-01-2014</div>
 
 <section class="wiki-section">
     <a name="contributing"></a>
@@ -119,7 +119,7 @@
         <h2 >Getting Started</h2>
 <p class="developer-notes">
     Please use the following:
-    <code class="html">    &lt;script src=//analytics.global.sky.com/1.4.1/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
+    <code class="html">    &lt;script src=//analytics.global.sky.com/1.4.2/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
     If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p>
 <p>
@@ -420,7 +420,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     <dt class="skycom_4 alpha">trackClicks</dt>
     <dd class="skycom_8">[optional] [boolean]. Set to false to prevent binding of omniture calls on link clicks. <a href="#manual-trigger">click here</a> to see how to manually bind your link clicks</dd>
     <dt class="skycom_4 alpha">debug</dt>
-    <dd class="skycom_8">[optional] [boolean]. Set to true to turn on debug on page load to capture the page view event</dd>
+    <dd class="skycom_8">[optional] [boolean]. Turn debugging on before the page loads.</dd>
 </dl>
 
 <h4>Debugging</h4>
@@ -430,7 +430,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 </p>
 
 <p>Try turning <a href="#!" id=debug-in-realtime data-tracking=false>debug on</a> and <a href="#!" id=debug-in-realtime-off data-tracking=false>debug off</a> then clicking the following link:&nbsp;&nbsp;<a href="http://www.sky.com/hp" data-tracking=true>Sky.com Homepage</a></p>
-<p>Please note, when debug is on, the user is not taken to the link. This behaviour is intentional and allows the user to check the tracking in the console or browser's net tab.</p>
+<p>Please note, when debug is on, the user is not taken to the link and tracking information is not sent. This behaviour is intentional and allows the user to check the tracking in the console.</p>
 
 <h4>Example config</h4>
 <code class="block js">    analytics.trackPage({
@@ -446,7 +446,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         customVariables: [
             {'drink': {'eVar': 72}},
         ],
-        debug: true
+        debug: false
     });
 </code>
 <a href="#!" id="custom-config" data-tracking=false>Click here to see this custom config in action</a>.

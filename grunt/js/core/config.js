@@ -92,7 +92,7 @@ _analytics.config = (function(){
         'sky.zoopla.co.uk','skyoneonline.co.uk','bskybpensionplan.com','skymobileiphone.com','skymovies.com','skyone.co.uk','sky1.co.uk','skyoneonline.co.uk',
         'm.skynews.com','skyrainforestrescueschoolschallenge.org','skybroadband.com','skyartsonline.co.uk','skymoviesactive.com','skyhub.bskyb.com',
         'skyone.co.uk','sky.co.uk','skybet.mobi','socceram.com','teamtalk.co.za','football365.co.uk','jointhebiggerpicture.com','skysportsnewsradio.com','file',
-        'contact.sky.com','.rainforestrescue.com','.nowtv.com',    window.location.host
+        'contact.sky.com','rainforestrescue.com','nowtv.com',    window.location.host
     ];
 
     return {
