@@ -1,14 +1,26 @@
 {% include _head.html %}
-<body class='grid-1140' data-spy=scroll data-target=".nav-container">
+<body class="grid-1140" data-spy="scroll" data-target="#toolkit-menu-tabs">
+<div class="skycom-container clearfix">
+    <div class="alpha skycom-12">
 
+        <h1 class="demo-header section-title clearfix">
+            <img src="http://skyglobal.github.io/web-toolkit/static/images/sky-logo.png" alt="" height="52" width="82">
+            <span>Analytics</span>
+        </h1>
+
+    </div>
+</div>
         {% include _menu.html %}
 
-    <div class="skycom-container clearfix">
-        <div class="alpha skycom-12">
-            {{ content }}
-        </div>
+<div class="skycom-container clearfix">
+    <div class="alpha skycom-12">
+        {{ content }}
     </div>
+</div>
+
+{% include _footer.html %}
     <script src="http://web-toolkit.global.sky.com/2.1.3/scripts/toolkit.js"></script>
     <script src="./dist/js/demo.js"></script>
+    <script src="./dist/js/demo/menu.js"></script>
 </body>
 </html>

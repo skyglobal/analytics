@@ -1,57 +1,44 @@
-<h1 class="wiki-header">Omniture Analytics <small>v{{ site.version }}</small></h1>
-<div class="secondary">Last Updated: {{ site.time | date: '%d-%m-%Y' }}</div>
-
-<section class="wiki-section">
-    <a name="contributing"></a>
+<section class="demo-section no-border" id="contributing">
     <div class="sub-section">
         {% include using-the-analytics/contributing.html %}
     </div>
 </section>
-<section class="wiki-section">
-    <a name="getting-started"></a>
-    <div class="sub-section">
+<section class="demo-section" >
+    <div class="sub-section" id="getting-started">
         {% include using-the-analytics/getting-started.html %}
     </div>
-    <a name="default-config"></a>
-    <div class="sub-section">
+    <div class="sub-section" id="default-config">
         {% include using-the-analytics/default-config.html %}
     </div>
-    <a name="config-in-detail"></a>
-    <div class="sub-section">
+    <div class="sub-section" id="config-in-detail">
         {% include using-the-analytics/config-in-detail.html %}
     </div>
 </section>
 
 
-<a name="clicks"></a>
-<section class="wiki-section">
+<section class="demo-section" id="clicks">
     {% include components/clicks.html %}
 </section>
 
-<a name="variables"></a>
-<section class="wiki-section">
+<section class="demo-section" id="variables">
     {% include components/variables.html %}
 </section>
 
-<a name="events"></a>
-<section class=wiki-section>
+<section class=demo-section id="events">
     {% include components/events.html %}
 </section>
 
-<a name="page-types"></a>
-<section class="wiki-section">
+<section class="demo-section" id="page-types">
     <h2>Page Types</h2>
-    <a name="search"></a>
-    <div class="sub-section">
+    <div class="sub-section" id="searches">
         {% include components/page-types/search.html %}
     </div>
-    <a name="error"></a>
-    <div class="sub-section">
+    <div class="sub-section" id="errors">
         {% include components/page-types/error.html %}
     </div>
 </section>
 
-<a name="manual-trigger"></a>
-<section class=wiki-section>
+
+<section class=demo-section id="manual-trigger">
     {% include components/manual-trigger.html %}
 </section>

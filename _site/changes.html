@@ -7,9 +7,19 @@
 <head>
     <title>Sky Analytics API Demo Page</title>
 
-    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/1.0.0/stylesheets/toolkit.css">
+
+    <!--to help prevent 'font flash'-->
+    <link href='//web-toolkit.global.sky.com/static/fonts/sky_regular.ttf' rel='prefetch'>
+    <link href='//web-toolkit.global.sky.com/static/fonts/sky_regular.svg' rel='prefetch'>
+    <link href='//web-toolkit.global.sky.com/static/fonts/sky_medium.ttf' rel='prefetch'>
+    <link href='//web-toolkit.global.sky.com/static/fonts/sky_medium.svg' rel='prefetch'>
+    <!--end prevent 'font flash'-->
+
+
+    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/2.1.3/stylesheets/toolkit.css">
     <link rel="stylesheet" href="./dist/css/wiki.css">
-    <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <!--<link rel="stylesheet" href="http://skyglobal.github.io/web-toolkit/dist/stylesheets/demo.css">-->
+    <script src="http://web-toolkit.global.sky.com/static/lib/jquery-2.0.3.js" type="text/javascript"></script>
     <script src="./dist/js/lib/jquery.scrollspy.js" type="text/javascript"></script>
 
     <!--[if LT IE 9]>
@@ -30,7 +40,7 @@
 <link href='http://assets.sky.com/images/apple-touch-icon-precomposed.png' rel='apple-touch-icon-precomposed'>
 <link href='http://assets.sky.com/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
 <style media='print'>
-    #skycom-menu-button,  #skycom-profile-button,  #acc-links,  #skycom-footer-wrapper,  #skycom_breadcrumb,  #skycom-nav-wrapper,  #skycom-search-wrapper{    display:none;  }
+    #skycom-menu-button,  #skycom-profile-button,  #acc-links,  #skycom-footer-wrapper,  #skycom-breadcrumb,  #skycom-nav-wrapper,  #skycom-search-wrapper{    display:none;  }
 </style>
 <link href='http://assets.sky.com/dist/759/css/fonts.css' rel='stylesheet'>
 <link href='http://assets.sky.com/dist/759/fonts/skyicons.css' rel='stylesheet'>
@@ -60,43 +70,222 @@
 
     <!-- Tracking - aka: What you came here for -->
     <script type='text/javascript' src="./dist/js/analytics.js"></script>
+
 </head>
-<body class='grid-1140' data-spy=scroll data-target=".nav-container">
+<body class="grid-1140" data-spy="scroll" data-target="#toolkit-menu-tabs">
+<div class="skycom-container clearfix">
+    <div class="alpha skycom-12">
 
+        <h1 class="demo-header section-title clearfix">
+            <img src="http://skyglobal.github.io/web-toolkit/static/images/sky-logo.png" alt="" height="52" width="82">
+            <span>Analytics</span>
+        </h1>
 
-    <div class="nav-container">
-        <div class="skycom_container nav">
-            <ul class="alpha skycom_12 primary-menu">
-                <li class="dropdown"><a href="index.html#using-me">Using the Analytics</a>
-                    <ul class=dropdown-menu>
-                        <li><a href="index.html#contributing" data-diff="using-the-analytics/contributing">Contributing</a></li>
-                        <li><a href="index.html#getting-started" data-diff="using-the-analytics/getting-started">Getting Started</a></li>
-                        <li><a href="index.html#default-config" data-diff="using-the-analytics/default-config">Default config</a></li>
-                        <li><a href="index.html#config-in-detail" data-diff="using-the-analytics/config-in-detail">Config in detail</a></li>
-                    </ul>
-                </li>
-                <li><a href="index.html#clicks" data-diff="clicks">Clicks</a></li>
-                <li><a href="index.html#variables" data-diff="variables">Variables</a></li>
-                <li><a href="index.html#events" data-diff="events">Events</a></li>
-                <li class="dropdown"><a href="index.html#page-types">Page-Types</a>
-                    <ul class=dropdown-menu>
-                        <li><a href="index.html#search" data-diff="page-types/search">Searches</a></li>
-                        <li><a href="index.html#error" data-diff="page-types/error">Errors</a></li>
-                    </ul>
-                </li>
-                <li><a href="index.html#manual-trigger" data-diff="manual-trigger">Manual Trigger</a></li>
-                <li><a href="changes.html">Changes</a></li>
-            </ul>
-        </div>
     </div>
+</div>
+        <!--<div class="nav-container">-->
+    <!--<div class="skycom-container nav">-->
+        <!--<ul class="alpha skycom-12 primary-menu">-->
+            <!--<li class="dropdown"><a href="index.html#using-me">Using the Analytics</a>-->
+                <!--<ul class=dropdown-menu>-->
+                    <!--<li><a href="index.html#contributing" data-diff="using-the-analytics/contributing">Contributing</a></li>-->
+                    <!--<li><a href="index.html#getting-started" data-diff="using-the-analytics/getting-started">Getting Started</a></li>-->
+                    <!--<li><a href="index.html#default-config" data-diff="using-the-analytics/default-config">Default config</a></li>-->
+                    <!--<li><a href="index.html#config-in-detail" data-diff="using-the-analytics/config-in-detail">Config in detail</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li><a href="index.html#clicks" data-diff="clicks">Clicks</a></li>-->
+            <!--<li><a href="index.html#variables" data-diff="variables">Variables</a></li>-->
+            <!--<li><a href="index.html#events" data-diff="events">Events</a></li>-->
+            <!--<li class="dropdown"><a href="index.html#page-types">Page-Types</a>-->
+                <!--<ul class=dropdown-menu>-->
+                    <!--<li><a href="index.html#search" data-diff="page-types/search">Searches</a></li>-->
+                    <!--<li><a href="index.html#error" data-diff="page-types/error">Errors</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li><a href="index.html#manual-trigger" data-diff="manual-trigger">Manual Trigger</a></li>-->
+            <!--<li><a href="changes.html">Changes</a></li>-->
+        <!--</ul>-->
+    <!--</div>-->
+<!--</div>-->
+
+<section class="clearfix tabs-container page-nav main-menu sticky" data-function="tabs" id='toolkit-menu-tabs'>
     <div class="skycom-container clearfix">
         <div class="alpha skycom-12">
-            <script>document.title='Sky Analytics API Changes Page';</script>
+            <h2 class="speak">Main Navigation</h2>
+            <ul class="tabs clearfix" role="tablist">
+                
+                
+                
+                <li id='using-the-analytics-tab' aria-controls="using-the-analytics-tab-contents" role="tab" class="tab
+                    
+                        selected
+                    
+                    "><a href="index.html#using-the-analytics" class="intro ellipsis internal-link">Using The Analytics</a>
+                </li>
+                
+                
+                
+                <li id='tracking-tab' aria-controls="tracking-tab-contents" role="tab" class="tab
+                    
+                    "><a href="index.html#tracking" class="intro ellipsis internal-link">Tracking</a>
+                </li>
+                
+                
+                
+                <li id='page-type-tab' aria-controls="page-type-tab-contents" role="tab" class="tab
+                    
+                    "><a href="index.html#page-type" class="intro ellipsis internal-link">Page Type</a>
+                </li>
+                
+                
+                
+                <li id='manual-trigger-tab' aria-controls="manual-trigger-tab-contents" role="tab" class="tab
+                    
+                    "><a href="index.html#manual-trigger" class="intro ellipsis internal-link">Manual Trigger</a>
+                </li>
+                
+            </ul>
+
+            
+            
+            
+            
+            <div id="using-the-analytics-tab-contents" class="tabpanel
+                
+                selected
+                
+                " aria-labeledby="using-the-analytics-tab" role="tabpanel" >
+                <section class="tabcontents tabs-container page-nav">
+                    <ul class="nav tabs clearfix">
+                        
+                        
+                        
+                        <li class="tab selected">
+                            
+                            <a href="index.html#contributing" class="ellipsis internal-link" data-diff="using-the-analytics/contributing" data-diff-demos="
+                                ">Contributing</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#getting-started" class="ellipsis internal-link" data-diff="using-the-analytics/getting-started" data-diff-demos="
+                                ">Getting Started</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#default-config" class="ellipsis internal-link" data-diff="using-the-analytics/default-config" data-diff-demos="
+                                ">Default Config</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#config-in-detail" class="ellipsis internal-link" data-diff="using-the-analytics/config-in-detail" data-diff-demos="
+                                ">Config In Detail</a>
+                        </li>
+                        
+                    </ul>
+                </section>
+            </div>
+            
+            
+            
+            <div id="tracking-tab-contents" class="tabpanel
+                
+                " aria-labeledby="tracking-tab" role="tabpanel" >
+                <section class="tabcontents tabs-container page-nav">
+                    <ul class="nav tabs clearfix">
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#clicks" class="ellipsis internal-link" data-diff="tracking/clicks" data-diff-demos="
+                                ">Clicks</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#variables" class="ellipsis internal-link" data-diff="tracking/variables" data-diff-demos="
+                                ">Variables</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#events" class="ellipsis internal-link" data-diff="tracking/events" data-diff-demos="
+                                ">Events</a>
+                        </li>
+                        
+                    </ul>
+                </section>
+            </div>
+            
+            
+            
+            <div id="page-type-tab-contents" class="tabpanel
+                
+                " aria-labeledby="page-type-tab" role="tabpanel" >
+                <section class="tabcontents tabs-container page-nav">
+                    <ul class="nav tabs clearfix">
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#searches" class="ellipsis internal-link" data-diff="page-type/searches" data-diff-demos="
+                                ">Searches</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#errors" class="ellipsis internal-link" data-diff="page-type/errors" data-diff-demos="
+                                ">Errors</a>
+                        </li>
+                        
+                    </ul>
+                </section>
+            </div>
+            
+            
+            
+            <div id="manual-trigger-tab-contents" class="tabpanel
+                
+                " aria-labeledby="manual-trigger-tab" role="tabpanel" >
+                <section class="tabcontents tabs-container page-nav">
+                    <ul class="nav tabs clearfix">
+                        
+                    </ul>
+                </section>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+<div class="skycom-container clearfix">
+    <div class="alpha skycom-12">
+        <script>document.title='Sky Analytics API Changes Page';</script>
 <h1 class="wiki-header">Omniture Analytics <small>v1.4.3</small></h1>
-<div class="secondary">Last Updated: 04-02-2014</div>
+<div class="secondary">Last Updated: 06-02-2014</div>
 
 <a name="using-me"></a>
-<section class="wiki-section" id=changes-page>
+<section class="demo-section" id=changes-page>
     <h2>Calculate HTML changes</h2>
     <div class="developer-notes">
         The earliest version this tool will work from is 1.1.0
@@ -131,9 +320,21 @@
         $('.warning').removeClass('hidden');
     }
 </script>
-        </div>
     </div>
-    <script src="http://web-toolkit.global.sky.com/1.2.0/scripts/toolkit.js"></script>
+</div>
+
+<div class="nav-container secondary-menu secondary">
+    <div class="skycom-container">
+        <ul class="alpha skycom-12">
+            <li class="right meta-data" >
+                <div class="intro">Analytics v<span id="current-version">1.4.3</span></div>
+                <small class="right">Updated: 06-02-2014</small>
+            </li>
+        </ul>
+    </div>
+</div>
+    <script src="http://web-toolkit.global.sky.com/2.1.3/scripts/toolkit.js"></script>
     <script src="./dist/js/demo.js"></script>
+    <script src="./dist/js/demo/menu.js"></script>
 </body>
 </html>
