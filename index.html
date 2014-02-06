@@ -2,64 +2,8 @@
 layout: default
 title: Analytics
 ---
-<h1 class="wiki-header">Omniture Analytics <small>v{{ site.version }}</small></h1>
-<div class="secondary">Last Updated: {{ site.time | date: '%d-%m-%Y' }}</div>
 
-<section class="wiki-section">
-    <a name="contributing"></a>
-    <div class="sub-section">
-        {% include using-the-analytics/contributing.html %}
-    </div>
-</section>
-<section class="wiki-section">
-    <a name="getting-started"></a>
-    <div class="sub-section">
-        {% include using-the-analytics/getting-started.html %}
-    </div>
-    <a name="default-config"></a>
-    <div class="sub-section">
-        {% include using-the-analytics/default-config.html %}
-    </div>
-    <a name="config-in-detail"></a>
-    <div class="sub-section">
-        {% include using-the-analytics/config-in-detail.html %}
-    </div>
-</section>
-
-
-<a name="clicks"></a>
-<section class="wiki-section">
-    {% include clicks.html %}
-</section>
-
-<a name="variables"></a>
-<section class="wiki-section">
-    {% include variables.html %}
-</section>
-
-<a name="events"></a>
-<section class=wiki-section>
-    {% include events.html %}
-</section>
-
-<a name="page-types"></a>
-<section class="wiki-section">
-    <h2>Page Types</h2>
-    <a name="search"></a>
-    <div class="sub-section">
-        {% include page-types/search.html %}
-    </div>
-    <a name="error"></a>
-    <div class="sub-section">
-        {% include page-types/error.html %}
-    </div>
-</section>
-
-<a name="manual-trigger"></a>
-<section class=wiki-section>
-    {% include manual-trigger.html %}
-</section>
-
+{% include _body.html %}
 
 <script type="text/javascript" charset="utf-8">
     analytics.setup({

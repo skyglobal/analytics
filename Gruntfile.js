@@ -12,7 +12,11 @@ module.exports = function(grunt) {
         watch: {
             'analytics': {
                 files: [ 'grunt/js/**/*.js', 'grunt/sass/**/*.*', 'Gruntfile.js' ],
-                tasks: ['jshint','requirejs','compass']
+                tasks: ['jshint','requirejs','compass', 'jekyll:build']
+            },
+            'jekyll': {
+                files: [ '_includes/**/*', '_layouts/**/*', '_data/**/*', '*.html', '_config.yml', 'test/**/*' ],
+                tasks: ['jekyll:build']
             }
         },
         clean: {
