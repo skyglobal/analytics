@@ -15,10 +15,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ======================================================================== */
+ * ========================================================================
+ *
+ * MODIFIED BY PETER MOULAND to work with the toolkit
+ * */
 
 
-+function ($) { "use strict";
+var scrollspy = (function ($) { "use strict";
 
     // SCROLLSPY CLASS DEFINITION
     // ==========================
@@ -57,7 +60,7 @@
             .map(function () {
                 var $el   = $(this)
                 var href  = $el.data('target') || $el.attr('href')
-                var $href = /.*#\w/.test(href) && ($(href).length ? $(href) : $('[name=' + href.split('#')[1] + ']'))
+                var $href = /.*#\w/.test(href) && ($(href).length ? $(href) : $('[id=' + href.split('#')[1] + ']'))
 
                 return ($href
                     && $href.length
@@ -99,18 +102,15 @@
             + this.selector + '[href="' + target + '"]'
 
         $(this.selector)
-            .parents('.active')
-            .removeClass('active')
+            .parents('.selected')
+            .removeClass('selected')
 
         var active = $(selector)
             .parents('li')
-            .addClass('active')
+            .addClass('selected')
 
-        if (active.parent('.dropdown-menu').length)  {
-            active = active
-                .closest('li.dropdown')
-                .addClass('active');
-        }
+        $('#toolkit-menu-tabs').find('[role=tablist] .selected').removeClass('selected');
+        active = $('#' + active.parent().parent().parent().addClass('selected').attr('aria-labeledby')).addClass('selected');
 
         active.trigger('activate')
     }
@@ -154,4 +154,14 @@
         })
     })
 
-}(jQuery);
+});
+
+//modified for AMD/RequireJS.
+//by Peter Mouland
+if (typeof window.define === "function" && window.define.amd) {
+    define('lib/jquery.scrollspy', function() {
+        return scrollspy(jQuery);
+    });
+} else {
+    scrollspy(jQuery);
+}

@@ -7,9 +7,19 @@
 <head>
     <title>Sky Analytics API Demo Page</title>
 
-    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/1.0.0/stylesheets/toolkit.css">
+
+    <!--to help prevent 'font flash'-->
+    <link href='//web-toolkit.global.sky.com/static/fonts/sky_regular.ttf' rel='prefetch'>
+    <link href='//web-toolkit.global.sky.com/static/fonts/sky_regular.svg' rel='prefetch'>
+    <link href='//web-toolkit.global.sky.com/static/fonts/sky_medium.ttf' rel='prefetch'>
+    <link href='//web-toolkit.global.sky.com/static/fonts/sky_medium.svg' rel='prefetch'>
+    <!--end prevent 'font flash'-->
+
+
+    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/2.1.3/stylesheets/toolkit.css">
     <link rel="stylesheet" href="./dist/css/wiki.css">
-    <script src="http://assets.sky.com/js/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <!--<link rel="stylesheet" href="http://skyglobal.github.io/web-toolkit/dist/stylesheets/demo.css">-->
+    <script src="http://web-toolkit.global.sky.com/static/lib/jquery-2.0.3.js" type="text/javascript"></script>
     <script src="./dist/js/lib/jquery.scrollspy.js" type="text/javascript"></script>
 
     <!--[if LT IE 9]>
@@ -30,7 +40,7 @@
 <link href='http://assets.sky.com/images/apple-touch-icon-precomposed.png' rel='apple-touch-icon-precomposed'>
 <link href='http://assets.sky.com/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
 <style media='print'>
-    #skycom-menu-button,  #skycom-profile-button,  #acc-links,  #skycom-footer-wrapper,  #skycom_breadcrumb,  #skycom-nav-wrapper,  #skycom-search-wrapper{    display:none;  }
+    #skycom-menu-button,  #skycom-profile-button,  #acc-links,  #skycom-footer-wrapper,  #skycom-breadcrumb,  #skycom-nav-wrapper,  #skycom-search-wrapper{    display:none;  }
 </style>
 <link href='http://assets.sky.com/dist/759/css/fonts.css' rel='stylesheet'>
 <link href='http://assets.sky.com/dist/759/fonts/skyicons.css' rel='stylesheet'>
@@ -60,42 +70,195 @@
 
     <!-- Tracking - aka: What you came here for -->
     <script type='text/javascript' src="./dist/js/analytics.js"></script>
+
 </head>
-<body class='grid-1140' data-spy=scroll data-target=".nav-container">
+<body class="grid-1140" data-spy="scroll" data-target="#toolkit-menu-tabs">
+<div class="skycom-container clearfix">
+    <div class="alpha skycom-12">
 
+        <h1 class="demo-header section-title clearfix">
+            <img src="http://skyglobal.github.io/web-toolkit/static/images/sky-logo.png" alt="" height="52" width="82">
+            <span>Analytics</span>
+        </h1>
 
-    <div class="nav-container">
-        <div class="skycom_container nav">
-            <ul class="alpha skycom_12 primary-menu">
-                <li class="dropdown"><a href="index.html#using-me">Using the Analytics</a>
-                    <ul class=dropdown-menu>
-                        <li><a href="index.html#contributing" data-diff="using-the-analytics/contributing">Contributing</a></li>
-                        <li><a href="index.html#getting-started" data-diff="using-the-analytics/getting-started">Getting Started</a></li>
-                        <li><a href="index.html#default-config" data-diff="using-the-analytics/default-config">Default config</a></li>
-                        <li><a href="index.html#config-in-detail" data-diff="using-the-analytics/config-in-detail">Config in detail</a></li>
-                    </ul>
-                </li>
-                <li><a href="index.html#clicks" data-diff="clicks">Clicks</a></li>
-                <li><a href="index.html#variables" data-diff="variables">Variables</a></li>
-                <li><a href="index.html#events" data-diff="events">Events</a></li>
-                <li class="dropdown"><a href="index.html#page-types">Page-Types</a>
-                    <ul class=dropdown-menu>
-                        <li><a href="index.html#search" data-diff="page-types/search">Searches</a></li>
-                        <li><a href="index.html#error" data-diff="page-types/error">Errors</a></li>
-                    </ul>
-                </li>
-                <li><a href="index.html#manual-trigger" data-diff="manual-trigger">Manual Trigger</a></li>
-                <li><a href="changes.html">Changes</a></li>
-            </ul>
-        </div>
     </div>
+</div>
+        <section class="clearfix tabs-container page-nav main-menu sticky" data-function="tabs" id='toolkit-menu-tabs'>
     <div class="skycom-container clearfix">
         <div class="alpha skycom-12">
-            <h1 class="wiki-header">Omniture Analytics <small>v1.4.3</small></h1>
-<div class="secondary">Last Updated: 04-02-2014</div>
+            <h2 class="speak">Main Navigation</h2>
+            <ul class="tabs clearfix" role="tablist">
+                
+                
+                
+                <li id='using-the-analytics-tab' aria-controls="using-the-analytics-tab-contents" role="tab" class="tab
+                    
+                        selected
+                    
+                    "><a href="index.html#using-the-analytics" class="intro ellipsis internal-link">Using The Analytics</a>
+                </li>
+                
+                
+                
+                <li id='tracking-tab' aria-controls="tracking-tab-contents" role="tab" class="tab
+                    
+                    "><a href="index.html#tracking" class="intro ellipsis internal-link">Tracking</a>
+                </li>
+                
+                
+                
+                <li id='page-type-tab' aria-controls="page-type-tab-contents" role="tab" class="tab
+                    
+                    "><a href="index.html#page-type" class="intro ellipsis internal-link">Page Type</a>
+                </li>
+                
+                
+                
+                <li id='manual-trigger-tab' aria-controls="manual-trigger-tab-contents" role="tab" class="tab
+                    
+                    "><a href="index.html#manual-trigger" class="intro ellipsis internal-link">Manual Trigger</a>
+                </li>
+                
+                <li id="changes-tab" aria-controls="changes-tab-contents" role="tab" class="tab">
+                    <a href="changes.html" class="intro ellipsis internal-link">Changes</a>
+                </li>
+            </ul>
 
-<section class="wiki-section">
-    <a name="contributing"></a>
+            
+            
+            
+            
+            <div id="using-the-analytics-tab-contents" class="tabpanel
+                
+                selected
+                
+                " aria-labeledby="using-the-analytics-tab" role="tabpanel" >
+                <section class="tabcontents tabs-container page-nav">
+                    <ul class="nav tabs clearfix">
+                        
+                        
+                        
+                        <li class="tab selected">
+                            
+                            <a href="index.html#contributing" class="ellipsis internal-link" data-diff="using-the-analytics/contributing" data-diff-demos="
+                                ">Contributing</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#getting-started" class="ellipsis internal-link" data-diff="using-the-analytics/getting-started" data-diff-demos="
+                                ">Getting Started</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#default-config" class="ellipsis internal-link" data-diff="using-the-analytics/default-config" data-diff-demos="
+                                ">Default Config</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#config-in-detail" class="ellipsis internal-link" data-diff="using-the-analytics/config-in-detail" data-diff-demos="
+                                ">Config In Detail</a>
+                        </li>
+                        
+                    </ul>
+                </section>
+            </div>
+            
+            
+            
+            <div id="tracking-tab-contents" class="tabpanel
+                
+                " aria-labeledby="tracking-tab" role="tabpanel" >
+                <section class="tabcontents tabs-container page-nav">
+                    <ul class="nav tabs clearfix">
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#clicks" class="ellipsis internal-link" data-diff="tracking/clicks" data-diff-demos="
+                                ">Clicks</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#variables" class="ellipsis internal-link" data-diff="tracking/variables" data-diff-demos="
+                                ">Variables</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#events" class="ellipsis internal-link" data-diff="tracking/events" data-diff-demos="
+                                ">Events</a>
+                        </li>
+                        
+                    </ul>
+                </section>
+            </div>
+            
+            
+            
+            <div id="page-type-tab-contents" class="tabpanel
+                
+                " aria-labeledby="page-type-tab" role="tabpanel" >
+                <section class="tabcontents tabs-container page-nav">
+                    <ul class="nav tabs clearfix">
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#searches" class="ellipsis internal-link" data-diff="page-type/searches" data-diff-demos="
+                                ">Searches</a>
+                        </li>
+                        
+                        
+                        
+                        <li class="tab ">
+                            
+                            <a href="index.html#errors" class="ellipsis internal-link" data-diff="page-type/errors" data-diff-demos="
+                                ">Errors</a>
+                        </li>
+                        
+                    </ul>
+                </section>
+            </div>
+            
+            
+            
+            <div id="manual-trigger-tab-contents" class="tabpanel
+                
+                " aria-labeledby="manual-trigger-tab" role="tabpanel" >
+                <section class="tabcontents tabs-container page-nav">
+                    <ul class="nav tabs clearfix">
+                        
+                    </ul>
+                </section>
+            </div>
+            
+        </div>
+    </div>
+
+</section>
+
+
+
+
+<div class="skycom-container clearfix">
+    <div class="alpha skycom-12">
+        <section class="demo-section no-border" id="contributing">
     <div class="sub-section">
         <h2 class="wiki-h2">Contributing</h2>
 <p >
@@ -104,18 +267,17 @@
 </p>
 
 <dl class="clearfix ">
-    <dt class="skycom_4 alpha">Feature Requests</dt>
-    <dd class="skycom_8">If there is no similar request <a href="https://github.com/skyglobal/analytics/issues">here</a>, create a New
+    <dt class="skycom-4 alpha">Feature Requests</dt>
+    <dd class="skycom-8">If there is no similar request <a href="https://github.com/skyglobal/analytics/issues">here</a>, create a New
         Issue and flag it as an '<code>enhancement</code>'</dd>
-    <dt class="skycom_4 alpha">Bug Reporting</dt>
-    <dd class="skycom_8">If there is no similar request <a href="https://github.com/skyglobal/analytics/issues">here</a>, create a New
+    <dt class="skycom-4 alpha">Bug Reporting</dt>
+    <dd class="skycom-8">If there is no similar request <a href="https://github.com/skyglobal/analytics/issues">here</a>, create a New
         Issue and flag it as a '<code>bug</code>'</dd>
 </dl>
     </div>
 </section>
-<section class="wiki-section">
-    <a name="getting-started"></a>
-    <div class="sub-section">
+<section class="demo-section" >
+    <div class="sub-section" id="getting-started">
         <h2 >Getting Started</h2>
 <p class="developer-notes">
     Please use the following:
@@ -149,8 +311,7 @@
 <code class="block js">analytics.trackPage();</code>
 <a href="#!" id="reset-config" data-tracking=false>Click here to see resetting config in action</a>.
     </div>
-    <a name="default-config"></a>
-    <div class="sub-section">
+    <div class="sub-section" id="default-config">
         <h3 class="wiki-h3">Default Config</h3>
 <p class="developer-notes">
     There are a few things you get for free.  These are:
@@ -389,38 +550,37 @@ $('#sessionCamId-link-click-link').on('click', function(e){
  </div>
 
     </div>
-    <a name="config-in-detail"></a>
-    <div class="sub-section">
+    <div class="sub-section" id="config-in-detail">
         <h3 class="wiki-h3">Config in Detail</h3>
 <p>To get you config correct, please get the details for your project from <code>implementation@bskyb.com</code>.  The following shows the options:</p>
 
 <dl class="clearfix ">
-    <dt class="skycom_4 alpha">site</dt>
-    <dd class="skycom_8">[mandatory] Team Identifier e.g. 'sports', 'mysky' or 'skycom' etc. <span class="error">Do not include the <code>sky/portal/</code> prefix.</span> </dd>
-    <dt class="skycom_4 alpha">section</dt>
-    <dd class="skycom_8">[mandatory] General page location, slash deliminated. e.g. 'make-the-most/tv-preference'</dd>
-    <dt class="skycom_4 alpha">account</dt>
-    <dd class="skycom_8">[mandatory] Omniture account name. e.g. bskybskycomaccountprod</dd>
-    <dt class="skycom_4 alpha">page</dt>
-    <dd class="skycom_8">[optional] Unique identifier for your page e.g. "mini connector - registration success"</dd>
-    <dt class="skycom_4 alpha">headline</dt>
-    <dd class="skycom_8">[optional] Subject title for the page article</dd>
-    <dt class="skycom_4 alpha">contentType</dt>
-    <dd class="skycom_8">[optional] Type of page descriptor</dd>
-    <dt class="skycom_4 alpha">contentId</dt>
-    <dd class="skycom_8">[optional] UID for articles over time (i.e. if headline text is duplicated)</dd>
-    <dt class="skycom_4 alpha">loadVariables</dt>
-    <dd class="skycom_8">[optional] A way to a standard tracking variable to your site on page load. <a href="#load-vars">details here >></a></dd>
-    <dt class="skycom_4 alpha">loadEvents</dt>
-    <dd class="skycom_8">[optional] A way to a standard tracking events to your site on page load. <a href="#load-events">details here >></a></dd>
-    <dt class="skycom_4 alpha">customVariables</dt>
-    <dd class="skycom_8">[optional] A way to customise tracking for your site. <a href="#custom-vars">details here >></a></dd>
-    <dt class="skycom_4 alpha">customEvents</dt>
-    <dd class="skycom_8">[optional] A way to customise tracking for your site. <a href="#custom-events">details here >></a></dd>
-    <dt class="skycom_4 alpha">trackClicks</dt>
-    <dd class="skycom_8">[optional] [boolean]. Set to false to prevent binding of omniture calls on link clicks. <a href="#manual-trigger">click here</a> to see how to manually bind your link clicks</dd>
-    <dt class="skycom_4 alpha">debug</dt>
-    <dd class="skycom_8">[optional] [boolean]. Turn debugging on before the page loads.</dd>
+    <dt class="skycom-4 alpha">site</dt>
+    <dd class="skycom-8">[mandatory] Team Identifier e.g. 'sports', 'mysky' or 'skycom' etc. <span class="error">Do not include the <code>sky/portal/</code> prefix.</span> </dd>
+    <dt class="skycom-4 alpha">section</dt>
+    <dd class="skycom-8">[mandatory] General page location, slash deliminated. e.g. 'make-the-most/tv-preference'</dd>
+    <dt class="skycom-4 alpha">account</dt>
+    <dd class="skycom-8">[mandatory] Omniture account name. e.g. bskybskycomaccountprod</dd>
+    <dt class="skycom-4 alpha">page</dt>
+    <dd class="skycom-8">[optional] Unique identifier for your page e.g. "mini connector - registration success"</dd>
+    <dt class="skycom-4 alpha">headline</dt>
+    <dd class="skycom-8">[optional] Subject title for the page article</dd>
+    <dt class="skycom-4 alpha">contentType</dt>
+    <dd class="skycom-8">[optional] Type of page descriptor</dd>
+    <dt class="skycom-4 alpha">contentId</dt>
+    <dd class="skycom-8">[optional] UID for articles over time (i.e. if headline text is duplicated)</dd>
+    <dt class="skycom-4 alpha">loadVariables</dt>
+    <dd class="skycom-8">[optional] A way to a standard tracking variable to your site on page load. <a href="#load-vars">details here >></a></dd>
+    <dt class="skycom-4 alpha">loadEvents</dt>
+    <dd class="skycom-8">[optional] A way to a standard tracking events to your site on page load. <a href="#load-events">details here >></a></dd>
+    <dt class="skycom-4 alpha">customVariables</dt>
+    <dd class="skycom-8">[optional] A way to customise tracking for your site. <a href="#custom-vars">details here >></a></dd>
+    <dt class="skycom-4 alpha">customEvents</dt>
+    <dd class="skycom-8">[optional] A way to customise tracking for your site. <a href="#custom-events">details here >></a></dd>
+    <dt class="skycom-4 alpha">trackClicks</dt>
+    <dd class="skycom-8">[optional] [boolean]. Set to false to prevent binding of omniture calls on link clicks. <a href="#manual-trigger">click here</a> to see how to manually bind your link clicks</dd>
+    <dt class="skycom-4 alpha">debug</dt>
+    <dd class="skycom-8">[optional] [boolean]. Turn debugging on before the page loads.</dd>
 </dl>
 
 <h4>Debugging</h4>
@@ -456,8 +616,8 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 </section>
 
 
-<a name="clicks"></a>
-<section class="wiki-section">
+<div id="tracking"></div>
+<section class="demo-section" id="clicks">
     <h2>Clicks</h2>
 <p>
     Pages are commonly split up in the following areas: Modules, Pods and other.
@@ -469,37 +629,37 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     When an element is clicked, the JS will traverse up the DOM looking for these attributes.
 </p>
 <dl class="clearfix">
-    <dt class="skycom_4 alpha">data-tracking-module</dt>
-    <dd class="skycom_8">Add this to a top-level container.
+    <dt class="skycom-4 alpha">data-tracking-module</dt>
+    <dd class="skycom-8">Add this to a top-level container.
         <br/>This defines a distinct horizontal band on a page.
         <br /> eg. <code>data-tracking-module=carousel</code>
     </dd>
-    <dt class="skycom_4 alpha">data-tracking-pod</dt>
-    <dd class="skycom_8">Add this to a mid-level container.
+    <dt class="skycom-4 alpha">data-tracking-pod</dt>
+    <dd class="skycom-8">Add this to a mid-level container.
         <br/>This commonly defines a vertical band within the module or a segment of content.
         <br /> eg. <code>data-tracking-pod=slide2</code></dd>
-    <dt class="skycom_4 alpha">data-tracking-other</dt>
-    <dd class="skycom_8">Add this to a Low level container.
+    <dt class="skycom-4 alpha">data-tracking-other</dt>
+    <dd class="skycom-8">Add this to a Low level container.
         <br/> This might be useful for multi-level navigation.
         <br/> eg. <code>data-tracking-other=subnav-text</code></dd>
-    <dt class="skycom_4 alpha">data-tracking-theme</dt>
-    <dd class="skycom_8">Add this to the element being clicked or a container.
+    <dt class="skycom-4 alpha">data-tracking-theme</dt>
+    <dd class="skycom-8">Add this to the element being clicked or a container.
         <br> Used to group items or related links that may be across modules.
         <br /> eg. <code>data-tracking-theme=friends-and-family</code></dd>
-    <dt class="skycom_4 alpha">data-tracking-context <br>... or ... data-tracking-context-id</dt>
-    <dd class="skycom_8">Add this to the element being clicked or a container.
+    <dt class="skycom-4 alpha">data-tracking-context <br>... or ... data-tracking-context-id</dt>
+    <dd class="skycom-8">Add this to the element being clicked or a container.
         <br/>Useful when multiple links have the same text, you may need more context around the link i.e. 'remote record' may need the context of what is being recorded
         <br/> eg. <code>data-tracking-context=bond-11</code> or <code>data-tracking-context-id=search-box</code></dd>
-    <dt class="skycom_4 alpha">data-tracking-label</dt>
-    <dd class="skycom_8">Add this to the element being clicked
+    <dt class="skycom-4 alpha">data-tracking-label</dt>
+    <dd class="skycom-8">Add this to the element being clicked
         <br/>A text alternative. Useful when the text clicked may be too long or non-unique.
         <br/> eg. <code>data-tracking-label=bond-remote-record</code></dd>
-    <dt class="skycom_4 alpha">data-tracking-search</dt>
-    <dd class="skycom_8">Add this to the button/link that triggers the search.
+    <dt class="skycom-4 alpha">data-tracking-search</dt>
+    <dd class="skycom-8">Add this to the button/link that triggers the search.
         <br/>Must be used with <code>data-tracking-context-id</code>.
         <br/> eg. <code>data-tracking-search=weather data-tracking-context-id=search-box</code></dd>
-    <dt class="skycom_4 alpha">data-tracking</dt>
-    <dd class="skycom_8">Add this to an element you do/do not want tracked
+    <dt class="skycom-4 alpha">data-tracking</dt>
+    <dd class="skycom-8">Add this to an element you do/do not want tracked
         <br/>A way to force tracking of an element or to stop the tracking of an element.
         <br/> eg. <code>data-tracking=false</code></dd>
 </dl>
@@ -511,11 +671,11 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 <h3 class="wiki-h3" data-tracking="false">Examples</h3>
 <div class='example clearfix'>
 
-    <div class="skycom_4 alpha has-code-example" >
+    <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=standard-link></span>
         <a href="#!">Standard link</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         '<code>a</code>' tags will be tracked automatically
     </div>
     <div class="code-example" data-toggle==standard-link>
@@ -525,11 +685,11 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <code class="skycom-9 js"><i>none</i></code>
     </div>
 
-    <div class="skycom_4 alpha has-code-example" >
+    <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=standard-button></span>
         <button class="btn sign-post">Normal Button</button>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         '<code>button</code>' tags will be tracked automatically
     </div>
     <div class="code-example" id=standard-button>
@@ -539,11 +699,11 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <code class="skycom-9 js"><i>none</i></code>
     </div>
 
-    <div class="skycom_4 alpha has-code-example" >
+    <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=input-button></span>
         <input type="submit" value="Submit Button"/>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         '<code>input</code>' tags with <code>type=submit</code> will be tracked automatically
     </div>
     <div class="code-example" id=input-button>
@@ -553,11 +713,11 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <code class="skycom-9 js"><i>none</i></code>
     </div>
 
-    <div class="skycom_4 alpha has-code-example" >
+    <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=everything-else></span>
         <span data-tracking id='a-non-anchor'>Tracking everything else</span>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         the attribute '<code>data-tracking</code>' needs to be added to any other tags you wish to track
     </div>
     <div class="code-example" id=everything-else>
@@ -568,11 +728,11 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     </div>
 
 
-    <div class="skycom_4 alpha has-code-example" >
+    <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=tracking-label></span>
         <a class='btn primary-cta' data-tracking-label='label-text' href="#!">Link tracked with different text</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         By adding '<code>data-tracking-label</code>' you can change the text that is tracked.
     </div>
     <div class="code-example" id=tracking-label>
@@ -583,7 +743,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     </div>
 
 
-    <div class="skycom_4 alpha has-code-example" >
+    <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=tracking-context></span>
         <div >
             <a href="#!"  data-tracking-context='context'>Similar CTA's, different actions</a>
@@ -592,7 +752,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
             <a href="#!">Similar CTA's, different actions</a>
         </div>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         By adding '<code>data-tracking-context</code>' you can differentiate between 2 CTA's that do different things.<br/>
         E.g. Remote Record buttons that record different programmes.
     </div>
@@ -606,7 +766,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     </div>
 
 
-    <div class="skycom_4 alpha has-code-example" data-tracking-module=testing>
+    <div class="skycom-4 alpha has-code-example" data-tracking-module=testing>
         <span class="toggler" for=tracking-module></span>
         <div data-tracking-pod=pod-1>
             <a href="#!">Same module, pod 1</a>
@@ -615,7 +775,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
             <a href="#!">Same module, pod 2</a>
         </div>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         By adding '<code>data-tracking-pod</code>' and '<code>data-tracking-module</code>' you can provide more information about where in the page links are located.
     </div>
     <div class="code-example" id=tracking-module>
@@ -633,7 +793,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     </div>
 
 
-    <div class="skycom_4 alpha has-code-example" >
+    <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=tracking-other></span>
         <div data-tracking-other=js-off-link>
             <a href="#!">Tracking further info</a>
@@ -642,7 +802,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
             <a href="#!">Tracking themes</a>
         </div>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         '<code>data-tracking-other</code>' can be used to track any other useful info, i.e. when navigation gets past 2 levels.<br/>
         '<code>data-tracking-theme</code>' can be used to allow editors monitor page elements that are related over time.
     </div>
@@ -661,13 +821,13 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     </div>
 
 
-    <div class="skycom_4 alpha has-code-example" >
+    <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=not-tracking></span>
         <a data-tracking="false" href="#!" id="anchor-not-tracked">Standard link, not tracked</a>
         <button class="btn" data-tracking="false" id="button-not-tracked" >Normal button, not tracked</button>
         <input type=submit data-tracking="false" value="Submit button, not tracked" id="submit-not-tracked" />
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         By adding '<code>data-tracking=false</code>' you can stop any element from tracked automatically.
     </div>
     <div class="code-example" id=not-tracking>
@@ -684,8 +844,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 </div>
 </section>
 
-<a name="variables"></a>
-<section class="wiki-section">
+<section class="demo-section" id="variables">
     <h2>Variables</h2>
 <h3 class="wiki-h3">Standard</h3>
 <p>
@@ -698,18 +857,18 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 <p>
     When initialising, you will need to add <code>customVariables</code> array which may contain some options:</p>
 <dl class="clearfix ">
-    <dt class="skycom_4 alpha">eVar</dt>
-    <dd class="skycom_8">[int] Omniture Variable Id. Needed for conversion reporting. (Max 75)</dd>
-    <dt class="skycom_4 alpha">prop</dt>
-    <dd class="skycom_8">[int] Omniture Prop Id. Needed for count based reporting. (Max 75)</dd>
-    <dt class="skycom_4 alpha">list</dt>
-    <dd class="skycom_8">[int] Omniture List Id. The value of this type must be an <code>Array</code>.</dd>
-    <dt class="skycom_4 alpha">hier</dt>
-    <dd class="skycom_8">[int] Omniture Hierarchy Id. The value of this type must be an <code>Array</code></dd>
-    <dt class="skycom_4 alpha">onPageLoad</dt>
-    <dd class="skycom_8">[optional][boolean] Set if the variable should be sent when 'trackPage' is called</dd>
-    <dt class="skycom_4 alpha">value</dt>
-    <dd class="skycom_8">[optional][string or Array] Should be set if <code>onPageLoad</code> is set</dd>
+    <dt class="skycom-4 alpha">eVar</dt>
+    <dd class="skycom-8">[int] Omniture Variable Id. Needed for conversion reporting. (Max 75)</dd>
+    <dt class="skycom-4 alpha">prop</dt>
+    <dd class="skycom-8">[int] Omniture Prop Id. Needed for count based reporting. (Max 75)</dd>
+    <dt class="skycom-4 alpha">list</dt>
+    <dd class="skycom-8">[int] Omniture List Id. The value of this type must be an <code>Array</code>.</dd>
+    <dt class="skycom-4 alpha">hier</dt>
+    <dd class="skycom-8">[int] Omniture Hierarchy Id. The value of this type must be an <code>Array</code></dd>
+    <dt class="skycom-4 alpha">onPageLoad</dt>
+    <dd class="skycom-8">[optional][boolean] Set if the variable should be sent when 'trackPage' is called</dd>
+    <dt class="skycom-4 alpha">value</dt>
+    <dd class="skycom-8">[optional][string or Array] Should be set if <code>onPageLoad</code> is set</dd>
 </dl>
 
 <p>
@@ -725,7 +884,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <span class="toggler" for=standard-vars></span>
         <a id='standard-vars-a' href="#!" data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Send a standard variable on click by setting <code>data-tracking-variable</code>.
     </div>
 
@@ -745,7 +904,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <span class="toggler" for=standard-vars-onLoad></span>
         <a id="standard-vars-onLoad-a" href="#!" data-tracking=false data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable on load</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Add <code>loadVariables</code> in the config.
     </div>
 
@@ -775,7 +934,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
             <button data-tracking-variable='drink' data-tracking-value=""  class='btn primary-cta'>Submit</button>
         </form>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Tracking <code>drink</code> and setting the value to the content of a text box.
     </div>
 
@@ -807,7 +966,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
             <button data-tracking-variable='briansCat' data-tracking="false" class='btn primary-cta' id="custom-prop">Send Custom Prop</button>
         </form>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Tracking custom variable <code>briansCat</code> on page load as a <code>prop</code>.
     </div>
 
@@ -834,7 +993,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
             <a href="#!" data-tracking-variable='briansEVarAndPropCat' class='btn primary-cta' id="custom-evar-prop">Send Custom eVar and Prop</a>
         </form>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Tracking custom variable <code>briansCat</code> on click as a <code>eVar</code> and <code>prop</code>.
     </div>
 
@@ -865,7 +1024,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
             <button data-tracking-variable='how_about_pina_coladas' data-tracking-value="" class='btn primary-cta'>Submit</button>
         </form>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Tracking <code>how_about_pina_coladas</code> and setting it to the selected radio button
     </div>
 
@@ -902,7 +1061,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <button id='colour-button-blue' data-tracking-variable="colour" class="btn">Blue</button>
         <button id='colour-button-secondary' data-tracking-variable="colour" class="btn secondary">Gray</button>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Tracking <code>colour</code> and setting it to the value of the button clicked
     </div>
 
@@ -1054,8 +1213,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 </div>
 </section>
 
-<a name="events"></a>
-<section class=wiki-section>
+<section class=demo-section id="events">
     <h2>Events</h2>
 <h3 class="wiki-h3">Standard</h3>
 <p>
@@ -1072,14 +1230,14 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 
 <p>The Custom Events array will contain an object with the following options:</p>
 <dl class="clearfix ">
-    <dt class="skycom_4 alpha">event name</dt>
-    <dd class="skycom_8">[string] Event alias</dd>
-    <dt class="skycom_4 alpha">event</dt>
-    <dd class="skycom_8">[int] Omniture Event Id</dd>
-    <dt class="skycom_4 alpha">serial</dt>
-    <dd class="skycom_8">[optional][int] Serialisation Id</dd>
-    <dt class="skycom_4 alpha">onPageLoad</dt>
-    <dd class="skycom_8">[optional][boolean] Set if the event should be passed to Omniture when the page loads</dd>
+    <dt class="skycom-4 alpha">event name</dt>
+    <dd class="skycom-8">[string] Event alias</dd>
+    <dt class="skycom-4 alpha">event</dt>
+    <dd class="skycom-8">[int] Omniture Event Id</dd>
+    <dt class="skycom-4 alpha">serial</dt>
+    <dd class="skycom-8">[optional][int] Serialisation Id</dd>
+    <dt class="skycom-4 alpha">onPageLoad</dt>
+    <dd class="skycom-8">[optional][boolean] Set if the event should be passed to Omniture when the page loads</dd>
 </dl>
 
 <h3 class="wiki-h3">Examples</h3>
@@ -1091,7 +1249,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <a id='standard-events-a' href="#!" data-tracking-event='liveChat' class='btn primary-cta'>Send Standard Event</a>
         <a id='orderConfirmation-event-a' href="#!" data-tracking-event='orderConfirmation' class='btn primary-cta'>Send orderConfirmation Event</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Send a standard event on click by setting <code>data-tracking-event</code>.
     </div>
 
@@ -1114,7 +1272,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <a id="standard-events-onLoad-a" href="#!" data-tracking=false data-tracking-event='liveChat' class='btn primary-cta'>Send Standard Events on load</a>
         <a id="productSelection-event-onLoad-a" href="#!" data-tracking=false data-tracking-event='productSelection' class='btn primary-cta'>Send productSelection Event on load</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Add <code>loadEvents</code> in the config.
     </div>
 
@@ -1215,20 +1373,18 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 </div>
 </section>
 
-<a name="page-types"></a>
-<section class="wiki-section">
+<section class="demo-section" id="page-types">
     <h2>Page Types</h2>
-    <a name="search"></a>
-    <div class="sub-section">
+    <div class="sub-section" id="searches">
         <h3 class="wiki-h3" xmlns="http://www.w3.org/1999/html">Searches</h3>
 <p>
     To track <code>searchType</code> and <code>searchTerms</code>, you need to add the following into your HTML:
 </p>
 <dl>
-    <dt class="skycom_4 alpha">data-tracking-search</dt>
-    <dd class="skycom_8">Add this to the search button and set it to the type of search e.g. weather</dd>
-    <dt class="skycom_4 alpha">data-tracking-context-id</dt>
-    <dd class="skycom_8">Add this to the search button and set it to the id of the element that contains what was searched for.</dd>
+    <dt class="skycom-4 alpha">data-tracking-search</dt>
+    <dd class="skycom-8">Add this to the search button and set it to the type of search e.g. weather</dd>
+    <dt class="skycom-4 alpha">data-tracking-context-id</dt>
+    <dd class="skycom-8">Add this to the search button and set it to the id of the element that contains what was searched for.</dd>
 </dl>
 <p>
     Once the search is complete and results have been returned, the above info should be sent with <code>trackPage</code> along with how many results we're returned.
@@ -1237,12 +1393,12 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 <h3 class="wiki-h3 clear">Examples</h3>
 <div class='example clearfix'>
 
-    <form class='skycom_4 alpha skycom_clear sky-form has-code-example' onsubmit="return false;" >
+    <form class='skycom-4 alpha skycom-clear sky-form has-code-example' onsubmit="return false;" >
         <span class="toggler" for=search-events></span>
         <input id="weather-search" type="text" placeholder="Postcode or town">
         <button class="btn" id="weather-search-button" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-search">Search with event type</button>
     </form>
-    <div class="skycom_8">
+    <div class="skycom-8">
         <p>Using '<code>data-tracking-search</code>' with '<code>data-tracking-context-id</code>' will activate the Omniture Search Variables.</p>
         <p>If you do not have a <code>data-tracking-other</code> set, then either '<code>click</code>' or '<code>keydown</code>' will also be tracked.</p>
     </div>
@@ -1256,12 +1412,12 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <div class="skycom-9 js"><i>none</i></div>
     </div>
 
-    <form class='skycom_4 alpha skycom_clear sky-form has-code-example'  onsubmit="return false;" data-tracking-other="this-wont-get-changed">
+    <form class='skycom-4 alpha skycom-clear sky-form has-code-example'  onsubmit="return false;" data-tracking-other="this-wont-get-changed">
         <span class="toggler" for=other-search-events></span>
         <input id="other-search" type="text" placeholder="Other">
         <button class="btn" type="submit" id="other-search-button" data-tracking-search="other" data-tracking-context-id="other-search">Search</button>
     </form>
-    <div class="skycom_8">
+    <div class="skycom-8">
         If there is a <code>data-tracking-other</code> already defined, it will not get over-written.
     </div>
     <div class="code-example" id=other-search-events>
@@ -1274,11 +1430,11 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <div class="skycom-9 js"><i>none</i></div>
     </div>
 
-    <div class='skycom_4 alpha skycom_clear sky-form has-code-example'>
+    <div class='skycom-4 alpha skycom-clear sky-form has-code-example'>
         <span class="toggler" for=search-events-onload></span>
         <button class="btn" type="submit" data-tracking=false id='search-results-trackPage'>Show Results page</button>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Trigger <code>trackPage</code> with loadVariables: searchResults, searchType and searchTerm<sup>1</sup>.
     </div>
     <div class="code-example" id=search-events-onload>
@@ -1300,8 +1456,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 <p><sup>1</sup>When <code>searchResults</code> variable is set, the <code>searchResults</code> event will be sent automatically.</p>
 
     </div>
-    <a name="error"></a>
-    <div class="sub-section">
+    <div class="sub-section" id="errors">
         <h3 class="wiki-h3">Errors</h3>
 <p>Tracking an error is as easy 1, 2, 404. You can either send an error on <code>trackPage</code> or via JS.
 
@@ -1311,7 +1466,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <span class="toggler" for=send-error></span>
         <a class='btn in-page-cta' href='#!' id='btn_error_event' data-tracking="false">Send Error</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Manually call the <code>analytics.trackError</code> function.
     </div>
 
@@ -1329,7 +1484,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <span class="toggler" for=trackPage-error></span>
         <a class='btn in-page-cta' href='#!' id='btn_error_trackPage' data-tracking="false">Send Error on page load</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         All you need to do is use <code>loadVariables</code>in the trackPage config.
     </div>
 
@@ -1358,7 +1513,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <span class="toggler" for=trackPage-404></span>
         <a class='btn in-page-cta' href='#!' id='btn_404_trackPage' data-tracking="false">Send 404 on page load</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         All you need to do is use <code>loadVariables</code>in the trackPage config.
     </div>
 
@@ -1387,8 +1542,8 @@ analytics.trackPage(SITECAT_CONFIG);
     </div>
 </section>
 
-<a name="manual-trigger"></a>
-<section class=wiki-section>
+
+<section class=demo-section id="manual-trigger">
     <h2>Manual Tracking</h2>
 <div>
     You can trigger tracking using JS, and the event will be sent to Omniture as if the user had clicked the element themselves.
@@ -1407,7 +1562,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <span class="toggler" for=single-page-app></span>
         <a class='btn in-page-cta' href='#' id='btn_ajax_event' data-tracking="false">Ajax Event / Single page app</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Pass in the updated <code>config</code> to, and call the <code>trackPage</code> function.
     </div>
 
@@ -1427,7 +1582,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <span class='btn in-page-cta' href='#!' id='manualTrack'>Span manually tracked by JS</span><br/>
         <a class='btn in-page-cta' data-tracking=false href='#!' id='manualTrackingOff'>Anchor being tracked with JS</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         All elements can be tracked via JS. even id <code>data-tracking=false</code> attribute exists.
     </div>
 
@@ -1446,7 +1601,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <span class='btn in-page-cta' data-tracking=false href='#!' id='manualBind'>Span manually bound</span><br/>
         <a class='btn in-page-cta' data-tracking=false href='#!' id='manualBindA'>Anchor manually bound</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         You can bind your DOM elements to execute <code>analytics.trackClick</code> manually
     </div>
 
@@ -1474,7 +1629,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <span class="toggler" for='ad-hoc-tracking-code'></span>
         <a class='btn in-page-cta' href='#' id='ad-hoc-tracking' data-tracking="false">Send AdHoc Tracking</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         <code>setup</code> and call the <code>trackAdHoc</code> function.
     </div>
 
@@ -1511,7 +1666,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <a class='btn in-page-cta' href='#' id='ad-hoc-tracking-page-view' data-tracking="false">Send AdHoc Tracking page view</a>
         <a class='btn in-page-cta' href='#' id='ad-hoc-tracking-after-page-view' data-tracking="false">Send AdHoc Tracking after page view</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Send the <code>config</code>, track page view and then call the <code>trackAdHoc</code> function.
     </div>
 
@@ -1545,7 +1700,6 @@ analytics.trackPage(SITECAT_CONFIG);
 </div>
 </section>
 
-
 <script type="text/javascript" charset="utf-8">
     analytics.setup({
         site: 'global',
@@ -1566,9 +1720,21 @@ analytics.trackPage(SITECAT_CONFIG);
     });
     analytics.trackPage();
 </script>
-        </div>
     </div>
-    <script src="http://web-toolkit.global.sky.com/1.2.0/scripts/toolkit.js"></script>
+</div>
+
+<div class="nav-container secondary-menu secondary">
+    <div class="skycom-container">
+        <ul class="alpha skycom-12">
+            <li class="right meta-data" >
+                <div class="intro">Analytics v<span id="current-version">1.4.3</span></div>
+                <small class="right">Updated: 07-02-2014</small>
+            </li>
+        </ul>
+    </div>
+</div>
+    <script src="http://web-toolkit.global.sky.com/2.1.3/scripts/toolkit.js"></script>
     <script src="./dist/js/demo.js"></script>
+    <script src="./dist/js/demo/menu.js"></script>
 </body>
 </html>

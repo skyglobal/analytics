@@ -10,18 +10,18 @@
 <p>
     When initialising, you will need to add <code>customVariables</code> array which may contain some options:</p>
 <dl class="clearfix ">
-    <dt class="skycom_4 alpha">eVar</dt>
-    <dd class="skycom_8">[int] Omniture Variable Id. Needed for conversion reporting. (Max 75)</dd>
-    <dt class="skycom_4 alpha">prop</dt>
-    <dd class="skycom_8">[int] Omniture Prop Id. Needed for count based reporting. (Max 75)</dd>
-    <dt class="skycom_4 alpha">list</dt>
-    <dd class="skycom_8">[int] Omniture List Id. The value of this type must be an <code>Array</code>.</dd>
-    <dt class="skycom_4 alpha">hier</dt>
-    <dd class="skycom_8">[int] Omniture Hierarchy Id. The value of this type must be an <code>Array</code></dd>
-    <dt class="skycom_4 alpha">onPageLoad</dt>
-    <dd class="skycom_8">[optional][boolean] Set if the variable should be sent when 'trackPage' is called</dd>
-    <dt class="skycom_4 alpha">value</dt>
-    <dd class="skycom_8">[optional][string or Array] Should be set if <code>onPageLoad</code> is set</dd>
+    <dt class="skycom-4 alpha">eVar</dt>
+    <dd class="skycom-8">[int] Omniture Variable Id. Needed for conversion reporting. (Max 75)</dd>
+    <dt class="skycom-4 alpha">prop</dt>
+    <dd class="skycom-8">[int] Omniture Prop Id. Needed for count based reporting. (Max 75)</dd>
+    <dt class="skycom-4 alpha">list</dt>
+    <dd class="skycom-8">[int] Omniture List Id. The value of this type must be an <code>Array</code>.</dd>
+    <dt class="skycom-4 alpha">hier</dt>
+    <dd class="skycom-8">[int] Omniture Hierarchy Id. The value of this type must be an <code>Array</code></dd>
+    <dt class="skycom-4 alpha">onPageLoad</dt>
+    <dd class="skycom-8">[optional][boolean] Set if the variable should be sent when 'trackPage' is called</dd>
+    <dt class="skycom-4 alpha">value</dt>
+    <dd class="skycom-8">[optional][string or Array] Should be set if <code>onPageLoad</code> is set</dd>
 </dl>
 
 <p>
@@ -37,7 +37,7 @@
         <span class="toggler" for=standard-vars></span>
         <a id='standard-vars-a' href="#!" data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Send a standard variable on click by setting <code>data-tracking-variable</code>.
     </div>
 
@@ -57,7 +57,7 @@
         <span class="toggler" for=standard-vars-onLoad></span>
         <a id="standard-vars-onLoad-a" href="#!" data-tracking=false data-tracking-variable='videoTitle' data-tracking-value="My Videos"  class='btn primary-cta'>Send Standard Variable on load</a>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Add <code>loadVariables</code> in the config.
     </div>
 
@@ -87,7 +87,7 @@
             <button data-tracking-variable='drink' data-tracking-value=""  class='btn primary-cta'>Submit</button>
         </form>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Tracking <code>drink</code> and setting the value to the content of a text box.
     </div>
 
@@ -119,7 +119,7 @@
             <button data-tracking-variable='briansCat' data-tracking="false" class='btn primary-cta' id="custom-prop">Send Custom Prop</button>
         </form>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Tracking custom variable <code>briansCat</code> on page load as a <code>prop</code>.
     </div>
 
@@ -146,7 +146,7 @@
             <a href="#!" data-tracking-variable='briansEVarAndPropCat' class='btn primary-cta' id="custom-evar-prop">Send Custom eVar and Prop</a>
         </form>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Tracking custom variable <code>briansCat</code> on click as a <code>eVar</code> and <code>prop</code>.
     </div>
 
@@ -177,7 +177,7 @@
             <button data-tracking-variable='how_about_pina_coladas' data-tracking-value="" class='btn primary-cta'>Submit</button>
         </form>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Tracking <code>how_about_pina_coladas</code> and setting it to the selected radio button
     </div>
 
@@ -214,7 +214,7 @@
         <button id='colour-button-blue' data-tracking-variable="colour" class="btn">Blue</button>
         <button id='colour-button-secondary' data-tracking-variable="colour" class="btn secondary">Gray</button>
     </div>
-    <div class="skycom_8">
+    <div class="skycom-8">
         Tracking <code>colour</code> and setting it to the value of the button clicked
     </div>
 

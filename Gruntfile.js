@@ -12,7 +12,11 @@ module.exports = function(grunt) {
         watch: {
             'analytics': {
                 files: [ 'grunt/js/**/*.js', 'grunt/sass/**/*.*', 'Gruntfile.js' ],
-                tasks: ['jshint','requirejs','compass']
+                tasks: ['jshint','requirejs','compass', 'jekyll:build']
+            },
+            'jekyll': {
+                files: [ '_includes/**/*', '_layouts/**/*', '_data/**/*', '*.html', '_config.yml', 'test/**/*' ],
+                tasks: ['jekyll:build']
             }
         },
         clean: {
@@ -74,18 +78,35 @@ module.exports = function(grunt) {
                     log: true // Set to true to see console.log() output on the terminal
                 }
             }
+        },
+        jekyll: {                            // Task
+            options: {                          // Universal options
+                bundleExec: true,
+                config: '_config.yml'
+            },
+            build:{
+                options: {
+                    watch: false,
+                    serve: false
+                }
+            },
+            run:{
+                options: {
+                    watch: true,
+                    serve: true
+                }
+            }
         }
     });
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-mocha');
+    // Loading dependencies
+    for (var key in grunt.file.readJSON("package.json").devDependencies) {
+        if (key !== "grunt" && key.indexOf("grunt") === 0) {
+            grunt.loadNpmTasks(key);
+        }
+    }
 
-    grunt.registerTask('default', ['clean', 'jshint', 'requirejs', 'compass']);
-    grunt.registerTask('spy', ['clean', 'jshint', 'requirejs', 'compass', 'watch']);
+    grunt.registerTask('default', ['clean', 'jshint', 'requirejs', 'compass', 'jekyll:build']);
+    grunt.registerTask('spy', ['clean', 'jshint', 'requirejs', 'compass', 'jekyll:build', 'watch']);
     grunt.registerTask('hint', ['jshint']);
-    grunt.registerTask('test', ['mocha']);
+    grunt.registerTask('test', ['jekyll:build','mocha']);
 };

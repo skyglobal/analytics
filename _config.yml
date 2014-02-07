@@ -6,4 +6,4 @@ exclude: [grunt, node_modules, test,
           analytics.iml,
           circle.yml, Gemfile, Gemfile.lock, package.json,rakefile, Gruntfile.js]
 include: [_includes]
-port: 4001
+port: 4000
