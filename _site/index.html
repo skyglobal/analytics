@@ -701,7 +701,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 
     <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=input-button></span>
-        <input type="submit" value="Submit Button"/>
+        <input id="input-tracking-label" type="submit" value="Submit Button" />
     </div>
     <div class="skycom-8">
         '<code>input</code>' tags with <code>type=submit</code> will be tracked automatically
@@ -730,7 +730,13 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 
     <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=tracking-label></span>
-        <a class='btn primary-cta' data-tracking-label='label-text' href="#!">Link tracked with different text</a>
+        <a id="div-tracking-label" class='btn primary-cta' data-tracking-label='label-text' href="#!"
+           data-tracking-value="this is my div-tracking-label value"
+           alt="this is my div-tracking-label alt"
+           name="this is my div-tracking-label name"
+           value="this is my div-tracking-label value"
+
+                >Link tracked with different text</a>
     </div>
     <div class="skycom-8">
         By adding '<code>data-tracking-label</code>' you can change the text that is tracked.
@@ -1728,7 +1734,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <ul class="alpha skycom-12">
             <li class="right meta-data" >
                 <div class="intro">Analytics v<span id="current-version">1.4.3</span></div>
-                <small class="right">Updated: 07-02-2014</small>
+                <small class="right">Updated: 10-02-2014</small>
             </li>
         </ul>
     </div>

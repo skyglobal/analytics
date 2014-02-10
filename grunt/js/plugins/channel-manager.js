@@ -3,6 +3,7 @@ if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
 _analytics.plugins.channelManager = (function(omniture, config, utils){
 
+    debugger;
     var persistant = {}, session = {},
         persistantCookies = utils.getCookie('s_pers'),
         sessionCookies = utils.getCookie('s_sess'),
@@ -98,12 +99,13 @@ _analytics.plugins.channelManager = (function(omniture, config, utils){
     }
 
     function setPartnerAndKeyWords(){
+
         var keyword = getVariable('_keywords').toLowerCase(),
             partner = getVariable('_partner').toLowerCase(),
             chan = getVariable('_channel').toLowerCase(),
             ref = getVariable('_referringDomain').toLowerCase(),
             campaignID = getVariable('_campaignID').toLowerCase();
-
+            debugger;
         setVariable('fullCampaign',campaignID);
 
         if (campaignID.indexOf('knc-') === 0) {//knc = paid search
