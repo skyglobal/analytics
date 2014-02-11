@@ -10,7 +10,7 @@
 <head>
     <title>Sky Analytics API Test page</title>
 
-
+    <meta charset="UTF-8"/>
     <!--to help prevent 'font flash'-->
     <link href='//web-toolkit.global.sky.com/static/fonts/sky_regular.ttf' rel='prefetch'>
     <link href='//web-toolkit.global.sky.com/static/fonts/sky_regular.svg' rel='prefetch'>
@@ -40,7 +40,6 @@
 
     <script>
 
-
         requirejs.config({
             baseUrl: '../../grunt/js/',
             paths: {
@@ -68,41 +67,15 @@
         mocha.setup('bdd');
         mocha.setup({ignoreLeaks: true}); //otherwise mocha complains about jquery and moment being globals
 
-        require({baseUrl: 'dist/js', paths: {suite: '../../test/unit/suite', specs: '../../test/unit/specs'}},
-                ["analytics"], function (main) {
+        require({baseUrl: 'grunt/js', paths: {suite: '../../test/unit/suite', specs: '../../test/unit/specs'}},
+                [""], function (main) {
                     require(["suite"], function (TestLoader) {
-                        setTimeout(function(){
-//                            window.channelManagerSetup();
-                            mocha.run();
-
-                        },2000);
+                            setTimeout(function() {
+                                mocha.run();
+                            }, 2000)
                     });
                 });
 
-    </script>
-
-    <script>
-       window.channelManagerSetup = function() {
-           _analytics = {
-               omniture: {
-                   getVariable: function(name){
-                       debugger;
-                       return omniture_s[name];
-                   },
-                   setVariable: function(name, value){
-                       return omniture_s[name] = value;
-                   }
-               },
-               plugins:{utils:{
-                   getCookie: function(name){
-                       return cookieValue[name];
-                   },
-                   referredByGoogle: function(){
-                       return referredByGoogle;
-                   }
-               }}
-           };
-       }
     </script>
 
 </head>

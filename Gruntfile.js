@@ -70,8 +70,7 @@ module.exports = function(grunt) {
         mocha: {
             all: {
                 src: (function() {
-                    var pattern = grunt.option('pattern') || '*';
-                    return ['test/unit/' + pattern + '.html'];
+                    return ['_site/test.html'];
                 }()),
                 options: {
                     run: false,

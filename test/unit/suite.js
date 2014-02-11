@@ -1,7 +1,8 @@
 define('suite',[''
-    ,'specs/click-spec'
-//    ,'specs/omniture-spec'
-    ,'specs/channel-spec'
+    ,'specs/channel-manager-spec'
+    ,'specs/omniture-spec',
+    ,'specs/click-spec',
+    ,'specs/time-parting-spec'
 ], function() {
 
 });
