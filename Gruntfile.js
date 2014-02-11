@@ -95,6 +95,11 @@ module.exports = function(grunt) {
                     serve: true
                 }
             }
+        },
+        exec: {
+            rakeFunctional: {
+                command: 'rake functional'
+            }
         }
     });
     // Loading dependencies
@@ -107,5 +112,6 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['clean', 'jshint', 'requirejs', 'compass', 'jekyll:build']);
     grunt.registerTask('spy', ['clean', 'jshint', 'requirejs', 'compass', 'jekyll:build', 'watch']);
     grunt.registerTask('hint', ['jshint']);
-    grunt.registerTask('test', ['requirejs', 'compass', 'jekyll:build','mocha']);
+    grunt.registerTask('testjs', ['requirejs', 'compass', 'jekyll:build','mocha']);
+    grunt.registerTask('test', ['testjs', 'exec:rakeFunctional']);
 };
