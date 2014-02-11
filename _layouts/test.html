@@ -67,14 +67,11 @@
         mocha.setup('bdd');
         mocha.setup({ignoreLeaks: true}); //otherwise mocha complains about jquery and moment being globals
 
-        require({baseUrl: 'grunt/js', paths: {suite: '../../test/unit/suite', specs: '../../test/unit/specs'}},
-                [""], function (main) {
-                    require(["suite"], function (TestLoader) {
-                            setTimeout(function() {
-                                mocha.run();
-                            }, 2000)
-                    });
-                });
+
+
+        require({baseUrl: 'grunt/js', paths: {suite: '../../test/unit/suite', specs: '../../test/unit/specs'}}, ["suite"], function (TestLoader) {
+                mocha.run();
+        });
 
     </script>
 

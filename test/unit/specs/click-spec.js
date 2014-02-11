@@ -1,22 +1,5 @@
 function clickSpec(tc) {
     var describeSpec = 'Text clicked will be sent through to Omniture';
-    window.s,
-        _analytics = {
-            config: {},
-            omniture: {},
-            plugins: {
-                mediaModule: {},
-                testAndTarget: {},
-                channelManager: {},
-                newOrRepeatVisits: {},
-                userHistory: {},
-                utils: {
-                    getCookie: function () {
-                    }
-                }
-            }
-        };
-
 
     var dataFixture = {
         dataTrackingLabel: {

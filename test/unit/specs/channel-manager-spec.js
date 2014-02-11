@@ -39,25 +39,17 @@ function setupOmnitureSepc() {
         }}
     };
 }
-
 setupOmnitureSepc();
 function channelSpec(cm) {
 
-    var describeSpec = 'Channel manager sets search engine and key words';
 
+    describe('Channel manager sets search engine and key words', function () {
 
-    beforeEach(function () {
-        setupOmnitureSepc();
-    });
-
-    afterEach(function() {
-    });
-
-
-    describe(describeSpec, function () {
+        beforeEach(function () {
+            setupOmnitureSepc();
+        });
 
         it('when nothing exists', function () {
-            debugger;
             cm.setPartnerAndKeyWords();
             expect(omniture_s['fullCampaign']).to.equal('');
             expect(omniture_s['searchEngine']).to.equal('');
@@ -139,7 +131,9 @@ function channelSpec(cm) {
     });
 
     describe('Channel manager sets campaign cookies', function() {
-
+        beforeEach(function () {
+            setupOmnitureSepc();
+        });
 
         it('when nothing exists', function() {
             cm.setupCampaignCookies();
@@ -199,12 +193,10 @@ function channelSpec(cm) {
         });
 
     });
-
-    return describeSpec;
 }
 
 if (window.define) {
-    define('specs/channel-spec', ['plugins/channel-manager','core/config', 'plugins/utils'], function (cm) {
+    define('specs/channel-manager-spec', ['plugins/channel-manager','core/config', 'plugins/utils'], function (cm) {
         return channelSpec(cm);
     });
 }

@@ -4,24 +4,3 @@ title: Analytics test
 ---
 
 {% include _body.html %}
-
-<script type="text/javascript" charset="utf-8">
-    analytics.setup({
-        site: 'global',
-        section: 'skyglobal/analytics/demo',
-        account: 'bskybglobaldev',
-        customEvents: [
-            {'magic_happened': {event: 101}},
-            {'serial-event': {event: 666, serial: 'devil12345'}}
-        ],
-        customVariables: [
-            {'colour': {'eVar': 71}},
-            {'drink': {'eVar': 72}},
-            {'how_about_pina_coladas': {'eVar': 73}},
-            {'customer-offers': {list: 2}},
-            {'briansEVarAndPropCat': { eVar: 11, prop: 66}},
-            {'my-heirarchy': {hier: 3}}
-        ]
-    });
-    analytics.trackPage();
-</script>

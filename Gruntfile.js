@@ -70,7 +70,7 @@ module.exports = function(grunt) {
         mocha: {
             all: {
                 src: (function() {
-                    return ['_site/test.html'];
+                    return ['_site/test.html', '_site/test/unit/omniture.html'];
                 }()),
                 options: {
                     run: false,
@@ -107,5 +107,5 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['clean', 'jshint', 'requirejs', 'compass', 'jekyll:build']);
     grunt.registerTask('spy', ['clean', 'jshint', 'requirejs', 'compass', 'jekyll:build', 'watch']);
     grunt.registerTask('hint', ['jshint']);
-    grunt.registerTask('test', ['jekyll:build','mocha']);
+    grunt.registerTask('test', ['requirejs', 'compass', 'jekyll:build','mocha']);
 };
