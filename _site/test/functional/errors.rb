@@ -1,6 +1,8 @@
 require_relative '../test_helper.rb'
 
-class AnalyticsTest < AcceptanceTest
+
+module AnalyticsTest
+class Errors < AcceptanceTest
 
   before do
     visit '/'
@@ -26,3 +28,4 @@ class AnalyticsTest < AcceptanceTest
   end
 
 end
+  end

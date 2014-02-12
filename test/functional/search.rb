@@ -1,6 +1,7 @@
 require_relative '../test_helper.rb'
 
-class AnalyticsTest < AcceptanceTest
+module AnalyticsTest
+class Search < AcceptanceTest
 
   before do
     visit '/'
@@ -27,4 +28,5 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('searchTerm', :prop).must_include 'london'
   end
 
+end
 end

@@ -17,5 +17,4 @@ class AcceptanceTest < MiniTest::Spec
   include Capybara::DSL
   Capybara.default_driver = :poltergeist
   Capybara.app = App
-
 end

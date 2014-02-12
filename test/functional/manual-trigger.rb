@@ -1,6 +1,7 @@
 require_relative '../test_helper.rb'
 
-class AnalyticsTest < AcceptanceTest
+module AnalyticsTest
+class ManualTrigger < AcceptanceTest
 
   before do
     visit '/'
@@ -83,4 +84,5 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('petesDog').must_be_nil
     trackedVariable('briansCat').must_include 'is still great'
   end
+end
 end

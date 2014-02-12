@@ -1,12 +1,13 @@
 require_relative '../test_helper.rb'
 
-class AnalyticsTest < AcceptanceTest
+module AnalyticsTest
+class PageLoad < AcceptanceTest
 
   before do
     visit '/'
   end
 
-  it "Tracks page view with correct site details" do
+  it "[page-load] Tracks page view with correct site details" do
     trackedEvents.must_include eventsMap[:pageLoad]
     trackedEvents.wont_include eventsMap[:linkClick]
     trackedVariable('siteName',:prop).must_equal 'sky/portal/global'
@@ -68,4 +69,5 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('colour').must_equal 'Blue'
   end
 
+end
 end

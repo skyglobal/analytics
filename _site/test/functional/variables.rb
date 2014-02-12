@@ -1,6 +1,7 @@
 require_relative '../test_helper.rb'
 
-class AnalyticsTest < AcceptanceTest
+module AnalyticsTest
+class Variables < AcceptanceTest
 
   before do
     visit '/'
@@ -92,4 +93,5 @@ class AnalyticsTest < AcceptanceTest
     trackedVariable('externalSearchTerm', :prop).must_equal 'thrill rides'
   end
 
+end
 end

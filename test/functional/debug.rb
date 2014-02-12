@@ -1,6 +1,8 @@
 require_relative '../test_helper.rb'
 
-class AnalyticsTest < AcceptanceTest
+
+module AnalyticsTest
+class Debug < AcceptanceTest
 
   before do
     visit '/'
@@ -62,4 +64,5 @@ class AnalyticsTest < AcceptanceTest
     trackedEvents.wont_equal [eventsMap[:linkClick]]
     trackedEvents.must_include eventsMap[:pageLoad]
   end
+end
 end

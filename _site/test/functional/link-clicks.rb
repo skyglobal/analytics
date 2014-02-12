@@ -1,6 +1,7 @@
 require_relative '../test_helper.rb'
 
-class AnalyticsTest < AcceptanceTest
+module AnalyticsTest
+class LinkClick < AcceptanceTest
 
   before do
     visit '/'
@@ -74,4 +75,5 @@ class AnalyticsTest < AcceptanceTest
   #  trackedVariable('sessionCamID', :prop).must_equal '987'
   #end
 
+end
 end
