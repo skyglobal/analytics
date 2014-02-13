@@ -1,22 +1,41 @@
-footer {
-  li {
-    .test-heading {
-      font-size: 24px;
-      line-height: 39px;
-      font-weight: bold;
+.lightbox-analytics {
+  overflow: hidden;
+  margin: 23px 0px 35px 20px;
+
+  ul, li {
+    overflow: hidden;
+  }
+
+  .test-case-name {
+    font-size: 20px;
+  }
+
+
+  .test-case-result {
+
+    .skycon-warning + span {
+      color: $error;
     }
-    &.test-result {
-      padding-top: 10px;
+
+    i {
+      margin-right: 6px;
+      textTransform: capitalize;
     }
   }
 
-  div {
-    .skycom-2 {
-
-      font-weight: bold;
-      span {
-        font-weight: normal;
-      }
+  #test-cases {
+    margin-top: 8px;
+    li {
+      margin-top: 23px;
     }
+
   }
+}
+
+.demo-section:target {
+  padding-top: 70px;
+}
+
+.sub-section:target {
+  padding-top: 90px;
 }

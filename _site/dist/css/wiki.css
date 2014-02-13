@@ -101,19 +101,36 @@ code.block {
   display: block;
 }
 
-footer li .test-heading {
-  font-size: 24px;
-  line-height: 39px;
-  font-weight: bold;
+.lightbox-analytics {
+  overflow: hidden;
+  margin: 23px 0px 35px 20px;
 }
-footer li.test-result {
-  padding-top: 10px;
+.lightbox-analytics ul, .lightbox-analytics li {
+  overflow: hidden;
 }
-footer div .skycom-2 {
-  font-weight: bold;
+.lightbox-analytics .test-case-name {
+  font-size: 20px;
 }
-footer div .skycom-2 span {
-  font-weight: normal;
+.lightbox-analytics .test-case-result .skycon-warning + span {
+  color: #d21717;
+}
+.lightbox-analytics .test-case-result i {
+  margin-right: 6px;
+  textTransform: capitalize;
+}
+.lightbox-analytics #test-cases {
+  margin-top: 8px;
+}
+.lightbox-analytics #test-cases li {
+  margin-top: 23px;
+}
+
+.demo-section:target {
+  padding-top: 70px;
+}
+
+.sub-section:target {
+  padding-top: 90px;
 }
 
 .has-toggle {
@@ -339,6 +356,15 @@ code.block {
 }
 
 .failed {
+  color: #d21717;
+}
+
+.result-summary.failed {
+  border: 1px solid #d21717;
+  color: #d21717;
+}
+.result-summary.failed i {
+  font-style: normal;
   color: #d21717;
 }
 

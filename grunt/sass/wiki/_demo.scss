@@ -139,7 +139,16 @@ code.block {
   font-size: 20px;
 }
 .failed {
-  color: #d21717;
+  color: $error;
+}
+
+.result-summary.failed {
+  border: 1px solid $error;
+  color: $error;
+  i {
+    font-style: normal;
+    color:$error;
+  }
 }
 
 .run-test.success {
@@ -167,8 +176,8 @@ code.block {
   margin: 0 6px;
 }
 .dev-button.error {
-  color: #d21717;
-  border: 1px solid #d21717;
+  color: $error;
+  border: 1px solid $error;
 }
 .dev-button i {
   font-size: 14px;
@@ -647,7 +656,7 @@ body {
   color: #999999;
 }
 .demo-colour-block .demo-error {
-  color: #d21717;
+  color: $error
 }
 .demo-colour-block .demo-link {
   color: #0070a5;

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="0" errors="0" tests="7" assertions="34" time="14.586688661">
+  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.878589281">
+  </testcase>
+  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="4.259878995">
+  </testcase>
+  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.865023129">
+  </testcase>
+  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="1" time="0.87004737">
+  </testcase>
+  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="3.250726435">
+  </testcase>
+  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.51070231">
+  </testcase>
+  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="13" time="3.951721141">
+  </testcase>
+</testsuite>
