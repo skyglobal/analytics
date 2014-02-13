@@ -138,9 +138,10 @@ code.block {
 .run-test i {
   font-size: 20px;
 }
-.run-test.failed {
+.failed {
   color: #d21717;
 }
+
 .run-test.success {
   color: #6dbb00;
 }

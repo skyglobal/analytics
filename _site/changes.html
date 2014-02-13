@@ -15,13 +15,11 @@
     <link href='//web-toolkit.global.sky.com/static/fonts/sky_medium.svg' rel='prefetch'>
     <!--end prevent 'font flash'-->
 
-
-    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/2.1.3/stylesheets/toolkit.css">
+    <script src="http://web-toolkit.global.sky.com/static/lib/jquery-2.0.3.js" ></script>
+    <link rel="stylesheet" href="//web-toolkit.global.sky.com/2.0.0/stylesheets/toolkit.css"/>
+    <link rel="stylesheet" href="//web-toolkit.global.sky.com/2.0.0/fonts/skycons.css"/>
     <link rel="stylesheet" href="./dist/css/wiki.css">
     <!--<link rel="stylesheet" href="http://skyglobal.github.io/web-toolkit/dist/stylesheets/demo.css">-->
-    <script src="http://web-toolkit.global.sky.com/static/lib/jquery-2.0.3.js" type="text/javascript"></script>
-    <script src="./dist/js/lib/jquery.scrollspy.js" type="text/javascript"></script>
-
     <!--[if LT IE 9]>
 <link href='http://assets.sky.com/dist/759/css/non-responsive-12.css' rel='stylesheet'>
 <![endif]-->
@@ -67,6 +65,8 @@
     globalskycom.serverHost = 'assets.sky.com';
 </script>
 <script src='http://assets.sky.com/dist/759/js/masthead.js'></script>
+
+    <script src="./dist/js/lib/jquery.scrollspy.js" type="text/javascript"></script>
 
     <!-- Tracking - aka: What you came here for -->
     <script type='text/javascript' src="./dist/js/analytics.js"></script>
@@ -298,21 +298,13 @@
 </script>
     </div>
 </div>
-
 <footer>
 <div class="nav-container secondary-menu secondary">
     <div class="skycom-container">
         <ul class="alpha skycom-12">
-            <li class="skycom-8 test-result">
-                <div class="skycom-1 test-heading">Tests:</div>
-                <div class="skycom-2">Passed: <span id="tests-passed"></span></div>
-                <div class="skycom-2">Failed: <span id="tests-failed"></span></div>
-                <div class="skycom-2">Skipped: <span id="tests-skipped"></span></div>
-                <div class="skycom-2">Total: <span id="tests-numberOfTest"></span></div>
-            </li>
             <li class="right meta-data skycom-2" >
                 <div class="intro">Analytics v<span id="current-version">1.4.3</span></div>
-                <small class="right">Updated: 12-02-2014</small>
+                <small class="right">Updated: 13-02-2014</small>
             </li>
         </ul>
     </div>
@@ -322,6 +314,7 @@
     <script src="http://web-toolkit.global.sky.com/2.1.3/scripts/toolkit.js"></script>
     <script src="./dist/js/demo.js"></script>
     <script src="./dist/js/demo/menu.js"></script>
+    <script src="./dist/js/lib/xml2json.min.js" type="text/javascript"></script>
     <script src="./dist/js/demo/testResults.js"></script>
 </body>
 </html>

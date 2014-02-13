@@ -15,13 +15,11 @@
     <link href='//web-toolkit.global.sky.com/static/fonts/sky_medium.svg' rel='prefetch'>
     <!--end prevent 'font flash'-->
 
-
-    <link rel="stylesheet" href="http://web-toolkit.global.sky.com/2.1.3/stylesheets/toolkit.css">
+    <script src="http://web-toolkit.global.sky.com/static/lib/jquery-2.0.3.js" ></script>
+    <link rel="stylesheet" href="//web-toolkit.global.sky.com/2.0.0/stylesheets/toolkit.css"/>
+    <link rel="stylesheet" href="//web-toolkit.global.sky.com/2.0.0/fonts/skycons.css"/>
     <link rel="stylesheet" href="./dist/css/wiki.css">
     <!--<link rel="stylesheet" href="http://skyglobal.github.io/web-toolkit/dist/stylesheets/demo.css">-->
-    <script src="http://web-toolkit.global.sky.com/static/lib/jquery-2.0.3.js" type="text/javascript"></script>
-    <script src="./dist/js/lib/jquery.scrollspy.js" type="text/javascript"></script>
-
     <!--[if LT IE 9]>
 <link href='http://assets.sky.com/dist/759/css/non-responsive-12.css' rel='stylesheet'>
 <![endif]-->
@@ -67,6 +65,8 @@
     globalskycom.serverHost = 'assets.sky.com';
 </script>
 <script src='http://assets.sky.com/dist/759/js/masthead.js'></script>
+
+    <script src="./dist/js/lib/jquery.scrollspy.js" type="text/javascript"></script>
 
     <!-- Tracking - aka: What you came here for -->
     <script type='text/javascript' src="./dist/js/analytics.js"></script>
@@ -583,7 +583,9 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     <dd class="skycom-8">[optional] [boolean]. Turn debugging on before the page loads.</dd>
 </dl>
 
-<h4>Debugging</h4>
+<h4>Debugging
+    <a id="Debug"  href="#!test/Debug"  data-test-name="Debug" class="run-test"><i class="skycon-carousel-play" title="run tests"></i></a>
+</h4>
 <p>You can either add <code>debug:true</code> or execute
     <code class="js">    analytics.debug(<i>[true|false]</i>);</code>.
     <a href="#!" id=debug-on-load data-tracking=false>Click here to see debug on load</a> in action.
@@ -618,7 +620,9 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 
 <div id="tracking"></div>
 <section class="demo-section" id="clicks">
-    <h2>Clicks</h2>
+    <h2>Clicks<a id="LinkClick"  href="#!test/LinkClick"  class="run-test" data-test-name="LinkClick"><i class="skycon-carousel-play" title="run tests"></i></a>
+</h2>
+<!--<a id="click-tests" href="#!lightbox/tests" >Show a small Lightbox from DOM</a>-->
 <p>
     Pages are commonly split up in the following areas: Modules, Pods and other.
     You may also want to track Editorial-Themes or the Context along with the clicked text<sup>1</sup>.
@@ -848,10 +852,13 @@ $('#sessionCamId-link-click-link').on('click', function(e){
     </div>
 
 </div>
+
 </section>
 
 <section class="demo-section" id="variables">
-    <h2>Variables</h2>
+    <h2>Variables
+    <a id="Variables"  href="#!test/Variables" data-test-name="Variables" class="run-test"><i class="skycon-carousel-play" title="run tests"></i></a>
+</h2>
 <h3 class="wiki-h3">Standard</h3>
 <p>
     There are a number of variables that are standard within omniture, which means you can use them without mapping them to an <code>eVar</code> or <code>prop</code> id.
@@ -1220,7 +1227,9 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 </section>
 
 <section class=demo-section id="events">
-    <h2>Events</h2>
+    <h2>Events
+    <a id="Events"  href="#!test/Events"  class="run-test" data-test-name="Events"><i class="skycon-carousel-play" title="run tests"></i></a>
+</h2>
 <h3 class="wiki-h3">Standard</h3>
 <p>
     There are a number of events that are standard within omniture, which means you can use them without mapping them to an <code>event</code> id.
@@ -1382,7 +1391,8 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 <section class="demo-section" id="page-types">
     <h2>Page Types</h2>
     <div class="sub-section" id="searches">
-        <h3 class="wiki-h3" xmlns="http://www.w3.org/1999/html">Searches</h3>
+        <h3 class="wiki-h3" xmlns="http://www.w3.org/1999/html">Searches
+    <a id="Search" href="#!lightbox/tests" class="run-test" data-test-name="Search"><i class="skycon-carousel-play" title="run tests"></i></a></h3>
 <p>
     To track <code>searchType</code> and <code>searchTerms</code>, you need to add the following into your HTML:
 </p>
@@ -1463,7 +1473,10 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 
     </div>
     <div class="sub-section" id="errors">
-        <h3 class="wiki-h3">Errors</h3>
+        <h3 class="wiki-h3">Errors
+    <a id="Errors"  href="#!test/Errors" data-test-name="Errors"  class="run-test"><i class="skycon-carousel-play" title="run tests"></i></a>
+</h3>
+
 <p>Tracking an error is as easy 1, 2, 404. You can either send an error on <code>trackPage</code> or via JS.
 
 <h3 class="wiki-h3">Examples</h3>
@@ -1550,7 +1563,9 @@ analytics.trackPage(SITECAT_CONFIG);
 
 
 <section class=demo-section id="manual-trigger">
-    <h2>Manual Tracking</h2>
+    <h2>Manual Tracking
+    <a id="ManualTrigger"  href="#!test/ManualTrigger"  data-test-name="ManualTrigger" class="run-test"><i class="skycon-carousel-play" title="run tests"></i></a>
+</h2>
 <div>
     You can trigger tracking using JS, and the event will be sent to Omniture as if the user had clicked the element themselves.
 </div>
@@ -1706,6 +1721,7 @@ analytics.trackPage(SITECAT_CONFIG);
 </div>
 </section>
 
+
 <script type="text/javascript" charset="utf-8">
     analytics.setup({
         site: 'global',
@@ -1728,21 +1744,13 @@ analytics.trackPage(SITECAT_CONFIG);
 </script>
     </div>
 </div>
-
 <footer>
 <div class="nav-container secondary-menu secondary">
     <div class="skycom-container">
         <ul class="alpha skycom-12">
-            <li class="skycom-8 test-result">
-                <div class="skycom-1 test-heading">Tests:</div>
-                <div class="skycom-2">Passed: <span id="tests-passed"></span></div>
-                <div class="skycom-2">Failed: <span id="tests-failed"></span></div>
-                <div class="skycom-2">Skipped: <span id="tests-skipped"></span></div>
-                <div class="skycom-2">Total: <span id="tests-numberOfTest"></span></div>
-            </li>
             <li class="right meta-data skycom-2" >
                 <div class="intro">Analytics v<span id="current-version">1.4.3</span></div>
-                <small class="right">Updated: 12-02-2014</small>
+                <small class="right">Updated: 13-02-2014</small>
             </li>
         </ul>
     </div>
@@ -1752,6 +1760,7 @@ analytics.trackPage(SITECAT_CONFIG);
     <script src="http://web-toolkit.global.sky.com/2.1.3/scripts/toolkit.js"></script>
     <script src="./dist/js/demo.js"></script>
     <script src="./dist/js/demo/menu.js"></script>
+    <script src="./dist/js/lib/xml2json.min.js" type="text/javascript"></script>
     <script src="./dist/js/demo/testResults.js"></script>
 </body>
 </html>

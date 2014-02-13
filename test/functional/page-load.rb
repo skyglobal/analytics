@@ -7,7 +7,7 @@ class PageLoad < AcceptanceTest
     visit '/'
   end
 
-  it "[page-load] Tracks page view with correct site details" do
+  it "Tracks page view with correct site details" do
     trackedEvents.must_include eventsMap[:pageLoad]
     trackedEvents.wont_include eventsMap[:linkClick]
     trackedVariable('siteName',:prop).must_equal 'sky/portal/global'
