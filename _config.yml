@@ -1,9 +1,9 @@
 version: 1.4.3
 destination: _site
 source: .
-exclude: [grunt, node_modules, test,
+exclude: [node_modules,
           app.rb,config.ru,
           analytics.iml,
           circle.yml, Gemfile, Gemfile.lock, package.json,rakefile, Gruntfile.js]
-include: [_includes]
-port: 4001
+include: [_includes, test]
+port: 4000

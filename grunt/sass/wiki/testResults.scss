@@ -1,0 +1,28 @@
+.lightbox-analytics {
+  .mocha-container {
+    margin: 0 auto!important;
+    width: 94.05941%;
+    #mocha-stats {
+      position: absolute;
+      right: 58px;
+    }
+  }
+}
+a.run-test {
+  &:hover, &:active, &:visited, &:focus {
+    text-decoration: none;
+  }
+}
+.demo-section:target {
+  padding-top: 70px;
+}
+
+.sub-section:target {
+  padding-top: 90px;
+}
+
+.demo-section .dev-button {
+  top: -7px;
+  margin: 0px;
+}
+

@@ -4,3 +4,7 @@ access
 .idea
 analytics.iml
 node_modules
+cat
+result.txt
+*.ipr
+*.iws

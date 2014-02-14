@@ -4,6 +4,7 @@ gem 'jekyll'
 gem 'compass'
 gem 'capybara'
 gem "minitest-capybara"
+gem "minitest-reporters"
 gem 'poltergeist'
 gem 'sinatra'
 gem 'addressable'

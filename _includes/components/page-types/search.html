@@ -1,0 +1,85 @@
+<h3 class="wiki-h3" xmlns="http://www.w3.org/1999/html">Searches
+   <a id="Search" href="#test/Search" class="run-test hover-colour" data-test-name="Search">
+        <span class="dev-button result-summary">
+            <i class="skycon-tick colour" aria-hidden="true"></i>Load Tests
+        </span>
+        <i class="skycon-carousel-play" title="Load tests"></i>
+    </a>
+</h3>
+<p>
+    To track <code>searchType</code> and <code>searchTerms</code>, you need to add the following into your HTML:
+</p>
+<dl>
+    <dt class="skycom-4 alpha">data-tracking-search</dt>
+    <dd class="skycom-8">Add this to the search button and set it to the type of search e.g. weather</dd>
+    <dt class="skycom-4 alpha">data-tracking-context-id</dt>
+    <dd class="skycom-8">Add this to the search button and set it to the id of the element that contains what was searched for.</dd>
+</dl>
+<p>
+    Once the search is complete and results have been returned, the above info should be sent with <code>trackPage</code> along with how many results we're returned.
+</p>
+
+<h3 class="wiki-h3 clear">Examples</h3>
+<div class='example clearfix'>
+
+    <form class='skycom-4 alpha skycom-clear sky-form has-code-example' onsubmit="return false;" >
+        <span class="toggler" for=search-events></span>
+        <input id="weather-search" type="text" placeholder="Postcode or town">
+        <button class="btn" id="weather-search-button" type="submit" data-tracking-search="weather" data-tracking-context-id="weather-search">Search with event type</button>
+    </form>
+    <div class="skycom-8">
+        <p>Using '<code>data-tracking-search</code>' with '<code>data-tracking-context-id</code>' will activate the Omniture Search Variables.</p>
+        <p>If you do not have a <code>data-tracking-other</code> set, then either '<code>click</code>' or '<code>keydown</code>' will also be tracked.</p>
+    </div>
+    <div class="code-example" id=search-events>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="block html">&lt;input id="search" type="text" placeholder="Postcode or town">
+&lt;button data-tracking-search="weather" data-tracking-context-id="search">Search&lt;/button></code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9 js"><i>none</i></div>
+    </div>
+
+    <form class='skycom-4 alpha skycom-clear sky-form has-code-example'  onsubmit="return false;" data-tracking-other="this-wont-get-changed">
+        <span class="toggler" for=other-search-events></span>
+        <input id="other-search" type="text" placeholder="Other">
+        <button class="btn" type="submit" id="other-search-button" data-tracking-search="other" data-tracking-context-id="other-search">Search</button>
+    </form>
+    <div class="skycom-8">
+        If there is a <code>data-tracking-other</code> already defined, it will not get over-written.
+    </div>
+    <div class="code-example" id=other-search-events>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="block html">&lt;input id="search" type="text" placeholder="Postcode or town">
+                &lt;button data-tracking-search="weather" data-tracking-context-id="search">Search&lt;/button></code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9 js"><i>none</i></div>
+    </div>
+
+    <div class='skycom-4 alpha skycom-clear sky-form has-code-example'>
+        <span class="toggler" for=search-events-onload></span>
+        <button class="btn" type="submit" data-tracking=false id='search-results-trackPage'>Show Results page</button>
+    </div>
+    <div class="skycom-8">
+        Trigger <code>trackPage</code> with loadVariables: searchResults, searchType and searchTerm<sup>1</sup>.
+    </div>
+    <div class="code-example" id=search-events-onload>
+        <code class="skycom-2 alpha html">HTML</code>
+        <div class="skycom-9">
+            <code class="block html">none</code>
+        </div>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <div class="skycom-9 "><code class="block js">analytics.trackPage({
+    site: 'global',
+    section: 'skyglobal/analytics/results',
+    account: 'bskybglobaldev',
+    loadVariables: { 'searchResults': 1, 'searchType':'weather', 'searchTerm': 'london' }
+});
+        </code></div>
+    </div>
+
+</div>
+<p><sup>1</sup>When <code>searchResults</code> variable is set, the <code>searchResults</code> event will be sent automatically.</p>

@@ -1,10 +1,17 @@
 .wiki-header{
   margin-bottom: 0;
 }
-.wiki-section {
+.demo-section {
   border-top: 2px solid #333;
   margin-bottom:25px;
+
+  &.no-border{
+    border-style: none;
+  }
+
 }
+
+
 .wiki-h3{
   border-bottom: 1px solid #dcdcdc;
 }
@@ -33,17 +40,9 @@ a[name]:not([href]){
   margin: 1em 0;
 }
 
-
-section{
-    clear: left;
-    border-top: 1px solid #000;
-    margin-top: 2em;
-    margin-bottom: 2em;
-}
-
-.example .skycom_4,
 .example .skycom-4,
-.example .skycom_8,
+.example .skycom-4,
+.example .skycom-8,
 .example .skycom-8,
 dt,
 dd{
