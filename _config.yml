@@ -3,6 +3,8 @@ destination: _site
 source: .
 exclude: [node_modules,
           app.rb,config.ru,
+            build.txt,
+            vendor,
           analytics.iml,
           circle.yml, Gemfile, Gemfile.lock, package.json,rakefile, Gruntfile.js]
 include: [_includes, test]
