@@ -1,37 +1,18 @@
 .lightbox-analytics {
-  overflow: hidden;
-  margin: 23px 0px 35px 20px;
-
-  ul, li {
-    overflow: hidden;
-  }
-
-  .test-case-name {
-    font-size: 20px;
-  }
-
-
-  .test-case-result {
-
-    .skycon-warning + span {
-      color: $error;
+  .mocha-container {
+    margin: 0 auto!important;
+    width: 94.05941%;
+    #mocha-stats {
+      position: absolute;
+      right: 58px;
     }
-
-    i {
-      margin-right: 6px;
-      textTransform: capitalize;
-    }
-  }
-
-  #test-cases {
-    margin-top: 8px;
-    li {
-      margin-top: 23px;
-    }
-
   }
 }
-
+a.run-test {
+  &:hover, &:active, &:visited, &:focus {
+    text-decoration: none;
+  }
+}
 .demo-section:target {
   padding-top: 70px;
 }
@@ -39,3 +20,9 @@
 .sub-section:target {
   padding-top: 90px;
 }
+
+.demo-section .dev-button {
+  top: -7px;
+  margin: 0px;
+}
+

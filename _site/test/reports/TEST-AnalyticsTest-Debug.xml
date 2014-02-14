@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Debug" skipped="0" failures="0" errors="0" tests="5" assertions="20" time="5.677722241">
-  <testcase name="test_0001_Debug can be turned on for external links and loading external link is blocked" classname="AnalyticsTest::Debug" assertions="2" time="1.88919384">
+<testsuite name="AnalyticsTest::Debug" skipped="0" failures="0" errors="0" tests="5" assertions="20" time="6.068789589">
+  <testcase name="test_0001_Debug can be turned on for external links and loading external link is blocked" classname="AnalyticsTest::Debug" assertions="2" time="2.050838935">
   </testcase>
-  <testcase name="test_0002_Debug can be turned on for hash based urls and click event is blocked" classname="AnalyticsTest::Debug" assertions="4" time="1.185344212">
+  <testcase name="test_0005_Debug can be turned on and http requests are blocked" classname="AnalyticsTest::Debug" assertions="9" time="1.690104551">
   </testcase>
-  <testcase name="test_0005_Debug can be turned on and http requests are blocked" classname="AnalyticsTest::Debug" assertions="9" time="1.62829384">
+  <testcase name="test_0003_Debug can be turned on on page load which displays analytics info within the page" classname="AnalyticsTest::Debug" assertions="4" time="0.417695197">
   </testcase>
-  <testcase name="test_0004_Debug can be turned off which will not display analytics info within the page" classname="AnalyticsTest::Debug" assertions="1" time="0.402436407">
+  <testcase name="test_0004_Debug can be turned off which will not display analytics info within the page" classname="AnalyticsTest::Debug" assertions="1" time="0.729226682">
   </testcase>
-  <testcase name="test_0003_Debug can be turned on on page load which displays analytics info within the page" classname="AnalyticsTest::Debug" assertions="4" time="0.572453942">
+  <testcase name="test_0002_Debug can be turned on for hash based urls and click event is blocked" classname="AnalyticsTest::Debug" assertions="4" time="1.180924224">
   </testcase>
 </testsuite>

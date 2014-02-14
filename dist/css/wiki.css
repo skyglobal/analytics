@@ -101,28 +101,17 @@ code.block {
   display: block;
 }
 
-.lightbox-analytics {
-  overflow: hidden;
-  margin: 23px 0px 35px 20px;
+.lightbox-analytics .mocha-container {
+  margin: 0 auto !important;
+  width: 94.05941%;
 }
-.lightbox-analytics ul, .lightbox-analytics li {
-  overflow: hidden;
+.lightbox-analytics .mocha-container #mocha-stats {
+  position: absolute;
+  right: 58px;
 }
-.lightbox-analytics .test-case-name {
-  font-size: 20px;
-}
-.lightbox-analytics .test-case-result .skycon-warning + span {
-  color: #d21717;
-}
-.lightbox-analytics .test-case-result i {
-  margin-right: 6px;
-  textTransform: capitalize;
-}
-.lightbox-analytics #test-cases {
-  margin-top: 8px;
-}
-.lightbox-analytics #test-cases li {
-  margin-top: 23px;
+
+a.run-test:hover, a.run-test:active, a.run-test:visited, a.run-test:focus {
+  text-decoration: none;
 }
 
 .demo-section:target {
@@ -131,6 +120,11 @@ code.block {
 
 .sub-section:target {
   padding-top: 90px;
+}
+
+.demo-section .dev-button {
+  top: -7px;
+  margin: 0px;
 }
 
 .has-toggle {
