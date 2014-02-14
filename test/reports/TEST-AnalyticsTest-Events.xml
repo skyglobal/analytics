@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Events" skipped="0" failures="0" errors="0" tests="7" assertions="25" time="6.695988085">
-  <testcase name="test_0002_Tracks a custom event on button click" classname="AnalyticsTest::Events" assertions="8" time="1.295084071">
+<testsuite name="AnalyticsTest::Events" skipped="0" failures="0" errors="0" tests="7" assertions="25" time="7.269113377">
+  <testcase name="test_0006_Tracks a productSelection event that on page load" classname="AnalyticsTest::Events" assertions="1" time="0.652716143">
   </testcase>
-  <testcase name="test_0001_Tracks a custom event + custom load vars on page load" classname="AnalyticsTest::Events" assertions="8" time="1.550396104">
+  <testcase name="test_0007_Tracks a orderConfirmation event that on click" classname="AnalyticsTest::Events" assertions="1" time="0.70074134">
   </testcase>
-  <testcase name="test_0007_Tracks a orderConfirmation event that on click" classname="AnalyticsTest::Events" assertions="1" time="0.669770744">
+  <testcase name="test_0002_Tracks a custom event on button click" classname="AnalyticsTest::Events" assertions="8" time="1.319196849">
   </testcase>
-  <testcase name="test_0005_Tracks an event with a serial on button click" classname="AnalyticsTest::Events" assertions="3" time="0.911750127">
+  <testcase name="test_0005_Tracks an event with a serial on button click" classname="AnalyticsTest::Events" assertions="3" time="1.126605133">
   </testcase>
-  <testcase name="test_0006_Tracks a productSelection event that on page load" classname="AnalyticsTest::Events" assertions="1" time="0.6599496">
+  <testcase name="test_0004_Tracks a standard event on button click" classname="AnalyticsTest::Events" assertions="3" time="0.89243416">
   </testcase>
-  <testcase name="test_0004_Tracks a standard event on button click" classname="AnalyticsTest::Events" assertions="3" time="0.931788081">
+  <testcase name="test_0003_Tracks a standard event on page load" classname="AnalyticsTest::Events" assertions="1" time="0.747973012">
   </testcase>
-  <testcase name="test_0003_Tracks a standard event on page load" classname="AnalyticsTest::Events" assertions="1" time="0.677249358">
+  <testcase name="test_0001_Tracks a custom event + custom load vars on page load" classname="AnalyticsTest::Events" assertions="8" time="1.82944674">
   </testcase>
 </testsuite>

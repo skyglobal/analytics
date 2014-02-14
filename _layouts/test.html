@@ -11,31 +11,21 @@
     <title>Sky Analytics API Test page</title>
 
     <meta charset="UTF-8"/>
-    <!--to help prevent 'font flash'-->
-    <link href='//web-toolkit.global.sky.com/static/fonts/sky_regular.ttf' rel='prefetch'>
-    <link href='//web-toolkit.global.sky.com/static/fonts/sky_regular.svg' rel='prefetch'>
-    <link href='//web-toolkit.global.sky.com/static/fonts/sky_medium.ttf' rel='prefetch'>
-    <link href='//web-toolkit.global.sky.com/static/fonts/sky_medium.svg' rel='prefetch'>
-    <!--end prevent 'font flash'-->
 
 
     <link rel="stylesheet" href="http://web-toolkit.global.sky.com/2.1.3/stylesheets/toolkit.css">
-    <link rel="stylesheet" href="test/unit/vendor/main.css">
+    <link rel="stylesheet" href="test/unit/lib/main.css">
     <link rel="stylesheet" href="./dist/css/wiki.css">
     <!--<link rel="stylesheet" href="http://skyglobal.github.io/web-toolkit/dist/stylesheets/demo.css">-->
     <script src="http://web-toolkit.global.sky.com/static/lib/jquery-2.0.3.js" type="text/javascript"></script>
     <script src="./dist/js/lib/jquery.scrollspy.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="test/unit/vendor/mocha.css">
+    <link rel="stylesheet" href="test/unit/lib/mocha.css">
 
     {% include skycom-resources.html %}
 
-    <!-- Tracking - aka: What you came here for -->
-
-    <script src="test/unit/vendor/mocha.js"></script>
-    <script src="test/unit/vendor/chai.js"></script>
-    <script src="test/unit/vendor/require.js"></script>
-
-
+    <script src="test/unit/lib/mocha.js"></script>
+    <script src="test/unit/lib/chai.js"></script>
+    <script src="test/unit/lib/require.js"></script>
 
 
     <script>
@@ -43,7 +33,7 @@
         requirejs.config({
             baseUrl: '../../grunt/js/',
             paths: {
-                smoax: '../../test/unit/vendor/smoax'
+                smoax: '../../test/unit/lib/smoax'
             },
             shim: {
                 smoax: {
@@ -55,7 +45,7 @@
 
         function objectsEqual(a, b) {
             return JSON.stringify(a) == JSON.stringify(b); // quick way to compare objects for equality
-        };
+        }
 
         window.chai = chai;
         window.assert = chai.assert;

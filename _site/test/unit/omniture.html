@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <script src="vendor/jquery.1.10.2.js"></script>
-    <script src="vendor/mocha.js"></script>
-    <script src="vendor/require.js" ></script>
+    <script src="lib/jquery.1.10.2.js"></script>
+    <script src="lib/mocha.js"></script>
+    <script src="lib/require.js" ></script>
     <script src="config.js" ></script>
 <body>
 
@@ -24,10 +24,10 @@
     requirejs.config({
         baseUrl: '../../grunt/js/',
         paths: {
-            mocha: '../../test/unit/vendor/mocha',
-            chai: '../../test/unit/vendor/chai',
-            smoax: '../../test/unit/vendor/smoax',
-            jquery: 'vendor/jquery-1.10.2'
+            mocha: '../../test/unit/lib/mocha',
+            chai: '../../test/unit/lib/chai',
+            smoax: '../../test/unit/lib/smoax',
+            jquery: 'lib/jquery-1.10.2'
         },
         shim: {
             smoax: {
@@ -41,7 +41,7 @@
 
         //wheres the project file view?
         function uiSetup(headElement) {
-            var styles = ['vendor/mocha.css', 'main.css'];
+            var styles = ['lib/mocha.css', 'main.css'];
             var body = document.getElementsByTagName('body').item(0);
             var div = document.createElement('div');
             var linkElement, i;
