@@ -74,8 +74,9 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
 
 ### Testing
 These tests are automatically run on the CircleCI server upon pushing to Github
-  - `rake functional` for functional (using minitest and capybara)
-  - `grunt test` for unit (using [mocha](http://visionmedia.github.io/mocha/) and [chai](http://chaijs.com/‎))
+  - `grunt test`
+    - functional using minitest and capybara
+    - unit using [mocha](http://visionmedia.github.io/mocha/) and [chai](http://chaijs.com/‎)
 
 
 ### Deployment

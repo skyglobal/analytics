@@ -1,7 +1,8 @@
 test:
+  pre:
+    - bundle install
   override:
     - grunt test
-    - rake functional
 
 deployment:
   production:
