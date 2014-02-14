@@ -130,7 +130,6 @@
             it('map an eVar to a prop', function() {
                 var linkDetails = omniture.setVariable('propFirst', 'my-link-clicked');
                 expect(linkDetails).to.equal('my-link-clicked');
-                debugger;
                 expect(s['eVar7']).to.equal('D=c15');
                 expect(s['prop15']).to.equal('my-link-clicked');
             });

@@ -67,18 +67,18 @@ demo.testResults = (function () {
     }
 
     function createTest(testName) {
-        var test = getTest(testName);
+        var testData = getTest(testName),
+        $testLink = $('#'+testName);
 
-        if(test._failures != 0 || test._errors != 0) {
-            debugger;
-            $('.result-summary').addClass('failed');
-            $('#'+testName + ' i').removeClass('skycon-tick').addClass('skycon-warning color');
-            $('#'+testName + ' i').text(" Tests Failed");
+        if(testData._failures != 0 || testData._errors != 0) {
+            $testLink.addClass('failed');
+            $testLink.find('i').removeClass('skycon-tick').addClass('skycon-warning');
+            $testLink.find('i').text(" Tests Failed");
         }
 
-        $('#test-' + testName).html(renderTestSuite(test));
-        $('#test-' + testName).append(renderTestCase(test));
-        $('#'+ testName).lightbox({closeButtonColour: 'black'});
+        $('#test-' + testName).html(renderTestSuite(testData));
+        $('#test-' + testName).append(renderTestCase(testData));
+        $testLink.lightbox({closeButtonColour: 'black'});
     }
 
     function bind() {
@@ -88,14 +88,12 @@ demo.testResults = (function () {
                 testName = $(value).attr('data-test-name');
                 $el.body.append('<article id="test-' + testName + '" class="lightbox-analytics hidden" aria-labelledby="lightbox-demo-link"></article>');
             });
-            createTest("Errors");
-            createTest("Events");
-            createTest("LinkClick");
-            createTest("ManualTrigger");
-            createTest("PageLoad");
-            createTest("Search");
-            createTest("Variables");
-            createTest("Debug");
+
+           $el.testRunLinks.each(function (index, value) {
+               var testName = $(value).data('test-name');
+               createTest(testName);
+           });
+
         });
     }
     bind();

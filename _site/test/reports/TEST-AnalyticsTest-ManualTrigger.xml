@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::ManualTrigger" skipped="0" failures="0" errors="0" tests="10" assertions="45" time="16.640354815">
-  <testcase name="test_0005_Tracks an ajax page load" classname="AnalyticsTest::ManualTrigger" assertions="4" time="1.168142534">
+<testsuite name="AnalyticsTest::ManualTrigger" skipped="0" failures="0" errors="0" tests="10" assertions="45" time="15.836087067999998">
+  <testcase name="test_0010_Tracks multiple adHoc event/variables without polluting each other" classname="AnalyticsTest::ManualTrigger" assertions="9" time="2.48691372">
   </testcase>
-  <testcase name="test_0006_Tracks an ajax event only once per click" classname="AnalyticsTest::ManualTrigger" assertions="1" time="0.780022536">
+  <testcase name="test_0005_Tracks an ajax page load" classname="AnalyticsTest::ManualTrigger" assertions="4" time="1.081173743">
   </testcase>
-  <testcase name="test_0007_Tracks an adHoc event/variable" classname="AnalyticsTest::ManualTrigger" assertions="5" time="1.538072808">
+  <testcase name="test_0009_adHoc event(s)/variable(s) must not be tracked on additional page views" classname="AnalyticsTest::ManualTrigger" assertions="5" time="1.881182756">
   </testcase>
-  <testcase name="test_0004_Clicking an anchor with a manual binding fires the linkclick event" classname="AnalyticsTest::ManualTrigger" assertions="3" time="1.167496611">
+  <testcase name="test_0006_Tracks an ajax event only once per click" classname="AnalyticsTest::ManualTrigger" assertions="1" time="0.765218007">
   </testcase>
-  <testcase name="test_0001_Clicking a span without 'data-tracking' but with manual js tracking is fired" classname="AnalyticsTest::ManualTrigger" assertions="3" time="1.185912446">
+  <testcase name="test_0008_Tracks a page view then adHoc event/variable" classname="AnalyticsTest::ManualTrigger" assertions="9" time="3.133146868">
   </testcase>
-  <testcase name="test_0010_Tracks multiple adHoc event/variables without polluting each other" classname="AnalyticsTest::ManualTrigger" assertions="9" time="2.76593492">
+  <testcase name="test_0003_Clicking a span with manual binding fires the linkclick event" classname="AnalyticsTest::ManualTrigger" assertions="3" time="1.180130226">
   </testcase>
-  <testcase name="test_0002_Clicking an anchor without 'data-tracking=false' and manual js tracking is fired" classname="AnalyticsTest::ManualTrigger" assertions="3" time="1.192462007">
+  <testcase name="test_0004_Clicking an anchor with a manual binding fires the linkclick event" classname="AnalyticsTest::ManualTrigger" assertions="3" time="1.213556284">
   </testcase>
-  <testcase name="test_0003_Clicking a span with manual binding fires the linkclick event" classname="AnalyticsTest::ManualTrigger" assertions="3" time="1.240717637">
+  <testcase name="test_0002_Clicking an anchor without 'data-tracking=false' and manual js tracking is fired" classname="AnalyticsTest::ManualTrigger" assertions="3" time="1.2154346">
   </testcase>
-  <testcase name="test_0009_adHoc event(s)/variable(s) must not be tracked on additional page views" classname="AnalyticsTest::ManualTrigger" assertions="5" time="2.084645404">
+  <testcase name="test_0007_Tracks an adHoc event/variable" classname="AnalyticsTest::ManualTrigger" assertions="5" time="1.669855718">
   </testcase>
-  <testcase name="test_0008_Tracks a page view then adHoc event/variable" classname="AnalyticsTest::ManualTrigger" assertions="9" time="3.516947912">
+  <testcase name="test_0001_Clicking a span without 'data-tracking' but with manual js tracking is fired" classname="AnalyticsTest::ManualTrigger" assertions="3" time="1.209475146">
   </testcase>
 </testsuite>
