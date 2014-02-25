@@ -13,3 +13,4 @@ class LinkClick < AcceptanceTest
   end
 
 end
+end
