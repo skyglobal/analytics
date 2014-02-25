@@ -24,4 +24,14 @@ title: Analytics
         ]
     });
     analytics.trackPage();
+    analytics.trackMedia({
+        videoElement: document.getElementById('pooh-video'),
+        category:"sitecategory",
+        mediaUrl:"defaultUrl",
+        videoTitle:"Default",
+        type:"proxy",
+        guid:"1",
+        videoFormat:"proxy",
+        provider:"internet"
+    });
 </script>

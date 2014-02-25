@@ -1,5 +1,5 @@
 if (typeof _analytics==='undefined') _analytics={};
-_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger,mediaModule,testAndTarget,channelManager,newOrRepeatVisits,userHistory, timeParting, utils ){
+_analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage,  trackMedia, trackAdHoc, logger,testAndTarget,channelManager,newOrRepeatVisits,userHistory, timeParting, utils ){
 //todo: document vars that come for free + what props sent etc
 //todo: make  test not flaky (sessionCamID +masthead)
 
@@ -69,7 +69,6 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
         channelManager.load(); //must go second - user history needs it to set a campaign evar
         userHistory.load();
         testAndTarget.load();
-        mediaModule.load();
         newOrRepeatVisits.load();
         timeParting.load();
 
@@ -157,6 +156,9 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
             var pageConfig = reset(customConfig);
             trackPage.track( pageConfig );
         },
+        trackMedia: function(customConfig){
+            trackMedia.track( customConfig );
+        },
         setup: function(customConfig){
             var pageConfig = reset(customConfig);
             return pageConfig;
@@ -171,9 +173,9 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     _analytics.omniture,
     _analytics.trackClick,
     _analytics.trackPage,
+    _analytics.trackMedia,
     _analytics.trackAdHoc,
     _analytics.logger,
-    _analytics.plugins.mediaModule,
     _analytics.plugins.testAndTarget,
     _analytics.plugins.channelManager,
     _analytics.plugins.newOrRepeatVisits,
@@ -190,16 +192,16 @@ if (typeof window.define === "function" && window.define.amd) {
         'core/omniture',
         'core/track-click',
         'core/track-page',
+        'core/track-media',
         'core/track-ad-hoc',
         'utils/logger',
-        'plugins/media-module',
         'plugins/test-and-target',
         'plugins/channel-manager',
         'plugins/new-or-repeat-visits',
         'plugins/user-history',
         'plugins/time-parting',
         'plugins/utils'
-    ], function(polyfill, config, omniture, trackClick, trackPage, trackAdHoc, logger, mediaModule, testAndTarget, channelManager, newOrRepeatVisits, userHistory,timeParting, utils) {
+    ], function(polyfill, config, omniture, trackClick, trackPage, trackMedia, trackAdHoc, logger, testAndTarget, channelManager, newOrRepeatVisits, userHistory,timeParting, utils) {
         return _analytics.setup;
     });
 }

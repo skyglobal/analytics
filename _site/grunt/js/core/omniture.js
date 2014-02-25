@@ -3,6 +3,7 @@ _analytics.omniture = (function(config, logger){
 
     window.s = {};
     var mappedVars = {};
+    var mappedMediaVars = {};
 
     function obfuscate(val){
         return val.replace('eVar','v').replace('prop','c').replace('channel','ch');
@@ -41,6 +42,27 @@ _analytics.omniture = (function(config, logger){
         return val;
     }
 
+
+
+    function setMediaVariable(prop, val){
+        if(typeof val === "undefined"){ return; }
+        var i= 1,map,
+            data = config.mediaVariablesMap[prop] || [prop];
+        val = (val instanceof Array) ? val.join('|') : val.toString();
+
+        mappedMediaVars[prop] = { val: val, restrictedTo: 'media' };
+        s[data[0]] = val;
+
+        if (data.length>1){
+            map = 'D=' + obfuscate(data[0]);
+            for (i; i<data.length; i++){
+                s[data[i]] = map;
+            }
+        }
+        setTrackMediaVariable(prop);
+        return val;
+    }
+
     function setEvent(event, type){
         if (!s.events) s.events = '';
         if (s.events.length>0) s.events += ',';
@@ -58,6 +80,13 @@ _analytics.omniture = (function(config, logger){
         mappedVars['linkTrackVars'] = { val: s.linkTrackVars, restrictedTo: 'click' };
     }
 
+    function setTrackMediaVariable(variable){
+        if (!s.Media) s.Media = '';
+        if (!s.Media.trackVars) s.Media.trackVars = '';
+        if (s.Media.trackVars.length>0) s.Media.trackVars += ',';
+        s.Media.trackVars += config.mediaVariablesMap[variable];
+        mappedMediaVars['MediaTrackVars'] = { val: s.Media.trackVars, restrictedTo: 'click' };
+    }
     function setClickTrackEvent(event){
         if (!s.linkTrackEvents) s.linkTrackEvents = '';
         if (s.linkTrackEvents.length>0) s.linkTrackEvents += ',';
@@ -320,6 +349,7 @@ _analytics.omniture = (function(config, logger){
     return {
         getVariable: getVariable,
         setVariable: setVariable,
+        setMediaVariable: setMediaVariable,
         setEvent: setEvent,
         setVariableBasedEvents: setVariableBasedEvents,
         setLinkTrackVariable: setClickTrackVariable,

@@ -1,1 +1,91 @@
-"undefined"==typeof demo&&(demo={});var TestResult={}||TestResult;demo.testResults=function(){function e(e){if(!e)return"";var s=e.toLowerCase().replace(/\b[a-z]/g,function(e){return e.toUpperCase()});return s}function s(e){var s;return $.ajax(e,{async:!1}).done(function(e){s=u.xml2json(e.documentElement)}),s}function t(e){var s={name:e._name.split(":")[2],errors:parseInt(e._failures,10)+parseInt(e._errors,10),tests:parseInt(e._tests,10),time:e._time.substr(0,4)};return'<ul id="mocha-stats"><li class="passes">passes:<em>'+(s.tests-s.errors)+"</em></li>"+'<li class="failures">failures:<em>'+s.errors+"</em></li>"+'<li class="duration">duration:<em>'+s.time+"s</em></li>"+"</ul>"+'<ul id="mocha-report"><li class="suite"><h1>'+s.name+"</h1></li></ul>"}function a(s){var t,a="<ul>";return $.each(s.testcase,function(s,r){t={name:e(r._name.split("_")[2]),assertions:r._assertions,status:r.error||r.failure?"fail":"pass"},a+='<li class="test fast '+t.status+'"><h2>'+t.name+"</h2></li>"}),a+="</ul>"}function r(e){var r=s("test/reports/TEST-AnalyticsTest-"+e+".xml"),n=$("#"+e);(0!=r._failures||0!=r._errors)&&(n.find("span").addClass("error"),n.find("span").html('<i class="skycon-warning colour" aria-hidden="true"></i> Test failed')),$("#test-"+e+" .mocha-container").html(t(r)),$("#test-"+e+" #mocha-report li.suite").append(a(r)),n.lightbox({closeButtonColour:"black"})}function n(e){var s='<article id="test-'+e+'" class="lightbox-analytics hidden" aria-labelledby="lightbox-demo-link">'+'<div class="alpha skycom-12">'+"<h1></h1>"+'<div class="mocha-container">'+"</div>"+"</div>"+"</article>";l.append(s)}function i(){o.each(function(e,s){var t=$(s).attr("data-test-name");n(t),r(t)})}var l=$("body"),o=$(".run-test"),u=new X2JS;i()}();
+if (typeof demo==='undefined') demo={};
+var TestResult = {} || TestResult;
+
+demo.testResults = (function () {
+
+    var $body = $("body");
+    var $testRunLinks = $('.run-test');
+    var xmlParser = new X2JS();
+
+    function capitalizeFirstLetter(text) {
+        if (!text) { return ''; }
+        var result = text.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+            return letter.toUpperCase();
+        });
+        return result;
+    }
+
+    function getTestResults(testNamePath) {
+        var resultData;
+        $.ajax(testNamePath, {async: false}).done(function(data) {
+            resultData = xmlParser.xml2json(data.documentElement);
+        });
+        return resultData;
+    }
+
+    function renderTestSuite(results) {
+        var data = {
+            name: results._name.split(':')[2],
+            errors: parseInt(results._failures,10) + parseInt(results._errors,10),
+            tests: parseInt(results._tests,10),
+            time: results._time.substr(0,4)
+        };
+
+        return '<ul id="mocha-stats">' +
+                '<li class="passes">passes:<em>' +  (data.tests - data.errors) +'</em></li>' +
+                '<li class="failures">failures:<em>' + data.errors + '</em></li>' +
+                '<li class="duration">duration:<em>' +  data.time + 's</em></li>' +
+                '</ul>' +
+                '<ul id="mocha-report"><li class="suite"><h1>' + data.name + '</h1></li></ul>';
+    }
+
+    function renderTestCase(test) {
+        var html = '<ul>',
+        testData;
+        $.each(test.testcase, function (index, value) {
+            testData = {
+                name: capitalizeFirstLetter(value._name.split('_')[2]),
+                assertions: value._assertions,
+                status: (value.error || value.failure) ? 'fail' : 'pass'
+            };
+            html += '<li class="test fast ' + testData.status + '"><h2>'  + testData.name + '</h2></li>';
+        });
+        html += '</ul>';
+        return html;
+    }
+
+    function createTest(testName) {
+        var testData = getTestResults('test/reports/TEST-AnalyticsTest-'+ testName +'.xml'),
+        $testLink = $('#'+testName);
+
+        if(testData._failures != 0 || testData._errors != 0) {
+            $testLink.find('span').addClass('error');
+            $testLink.find('span').html('<i class="skycon-warning colour" aria-hidden="true"></i> Test failed');
+        }
+
+        $('#test-' + testName + ' .mocha-container').html(renderTestSuite(testData));
+        $('#test-' + testName + ' #mocha-report li.suite').append(renderTestCase(testData));
+        $testLink.lightbox({closeButtonColour: 'black'});
+    }
+
+    function createLightbox(testName){
+        var html = '<article id="test-' + testName + '" class="lightbox-analytics hidden" aria-labelledby="lightbox-demo-link">' +
+            '<div class="alpha skycom-12">' +
+            '<h1></h1>' +
+            '<div class="mocha-container">' +
+            '</div>' +
+            '</div>' +
+            '</article>';
+        $body.append(html);
+    }
+
+    function createResultsLightboxes(){
+        $testRunLinks.each(function (index, value) {
+            var testName = $(value).attr('data-test-name');
+            createLightbox(testName);
+            createTest(testName);
+        });
+    }
+
+    createResultsLightboxes();
+})();

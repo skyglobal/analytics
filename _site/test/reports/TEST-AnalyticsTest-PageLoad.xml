@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="0" errors="0" tests="7" assertions="34" time="15.814905579">
-  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="3.362089633">
+<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="0" errors="0" tests="7" assertions="34" time="17.066957285">
+  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="4.909552002">
   </testcase>
-  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="13" time="3.720886005">
+  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="1" time="1.005031515">
   </testcase>
-  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.779304747">
+  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.981382946">
   </testcase>
-  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="1" time="1.149949567">
+  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.58405594">
   </testcase>
-  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="4.882998776">
+  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="1.013967958">
   </testcase>
-  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="1" time="0.961763633">
+  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="3.892852247">
   </testcase>
-  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.957913218">
+  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="13" time="4.680114677">
   </testcase>
 </testsuite>

@@ -7,8 +7,9 @@ utils/logger.js
 core/omniture.js
 core/track-page.js
 core/track-click.js
+plugins/media.js
+core/track-media.js
 core/track-ad-hoc.js
-plugins/media-module.js
 plugins/test-and-target.js
 plugins/utils.js
 plugins/channel-manager.js

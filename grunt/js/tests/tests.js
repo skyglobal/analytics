@@ -26,11 +26,20 @@ _demo.tests = (function(){
         $('#ad-hoc-tracking').on('click', sendAdHocTracking);
         $('#ad-hoc-tracking-page-view').on('click', sendAdHocTrackingPageView);
         $('#ad-hoc-tracking-after-page-view').on('click', sendAdHocTrackingAfterPageView);
+        $('#play-pooh').on('click', playPooh);
+        $('#pause-pooh').on('click', pausePooh);
         $(document).on('click', '#manualBind, #manualBindA', analytics.trackClick);
         updateCustomVariableValues();
         manualTrigger();
         showDemoCode();
 
+    }
+
+    function playPooh(){
+        document.getElementById('pooh-video').play();
+    }
+    function pausePooh(){
+        document.getElementById('pooh-video').pause();
     }
 
     function showDemoCode(){
