@@ -111,7 +111,7 @@ _analytics.setup = (function(polyfill, config, omniture, trackClick, trackPage, 
     function addToVariableMap(item){
         var arrValues = [], i, type, varID, prefix,
             varName = item.name,
-            types = ['prop','eVar','list','hier'];
+            types = ['prop','eVar','list','hier','value'];
         for (i in types){
             if (types.hasOwnProperty(i)) {
                 type = types[i];
