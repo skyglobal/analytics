@@ -1,39 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Debug" skipped="0" failures="0" errors="2" tests="5" assertions="14" time="35.199035185">
-  <testcase name="test_0001_Debug can be turned on for external links and loading external link is blocked" classname="AnalyticsTest::Debug" assertions="0" time="30.712411334">
-    <error type="test_0001_Debug can be turned on for external links and loading external link is blocked" message="Timed out waiting for response to {&quot;name&quot;:&quot;visit&quot;,&quot;args&quot;:[&quot;http://127.0.0.1:60928/&quot;]}. It's possible that this happened because something took a very long time (for example a page load was slow). If so, setting the Poltergeist :timeout option to a higher value will help (see the docs for details). If increasing the timeout does not help, this is probably a bug in Poltergeist - please report it to the issue tracker.">
-Error:
-test_0001_Debug can be turned on for external links and loading external link is blocked(AnalyticsTest::Debug):
-Capybara::Poltergeist::TimeoutError: Timed out waiting for response to {"name":"visit","args":["http://127.0.0.1:60928/"]}. It's possible that this happened because something took a very long time (for example a page load was slow). If so, setting the Poltergeist :timeout option to a higher value will help (see the docs for details). If increasing the timeout does not help, this is probably a bug in Poltergeist - please report it to the issue tracker.
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/poltergeist-1.5.0/lib/capybara/poltergeist/web_socket_server.rb:87:in `rescue in send'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/poltergeist-1.5.0/lib/capybara/poltergeist/web_socket_server.rb:83:in `send'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/poltergeist-1.5.0/lib/capybara/poltergeist/server.rb:33:in `send'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:270:in `command'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:29:in `visit'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/poltergeist-1.5.0/lib/capybara/poltergeist/driver.rb:89:in `visit'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/capybara-2.1.0/lib/capybara/session.rb:193:in `visit'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in &lt;module:DSL&gt;'
-    /home/skycom/Workspace/analytics/test/functional/debug.rb:8:in `block in &lt;class:Debug&gt;'
-    </error>
+<testsuite name="AnalyticsTest::Debug" skipped="0" failures="0" errors="0" tests="5" assertions="20" time="11.136157">
+  <testcase name="test_0003_Debug can be turned on on page load which displays analytics info within the page" classname="AnalyticsTest::Debug" assertions="4" time="6.694756">
   </testcase>
-  <testcase name="test_0002_Debug can be turned on for hash based urls and click event is blocked" classname="AnalyticsTest::Debug" assertions="0" time="0.346937241">
-    <error type="test_0002_Debug can be turned on for hash based urls and click event is blocked" message="PhantomJS client died while processing {&quot;name&quot;:&quot;visit&quot;,&quot;args&quot;:[&quot;http://127.0.0.1:60928/&quot;]}">
-Error:
-test_0002_Debug can be turned on for hash based urls and click event is blocked(AnalyticsTest::Debug):
-Capybara::Poltergeist::DeadClient: PhantomJS client died while processing {"name":"visit","args":["http://127.0.0.1:60928/"]}
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/poltergeist-1.5.0/lib/capybara/poltergeist/server.rb:33:in `send'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:270:in `command'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:29:in `visit'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/poltergeist-1.5.0/lib/capybara/poltergeist/driver.rb:89:in `visit'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/capybara-2.1.0/lib/capybara/session.rb:193:in `visit'
-    /usr/local/rvm/gems/ruby-1.9.3-p392/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in &lt;module:DSL&gt;'
-    /home/skycom/Workspace/analytics/test/functional/debug.rb:8:in `block in &lt;class:Debug&gt;'
-    </error>
+  <testcase name="test_0004_Debug can be turned off which will not display analytics info within the page" classname="AnalyticsTest::Debug" assertions="1" time="0.438549">
   </testcase>
-  <testcase name="test_0005_Debug can be turned on and http requests are blocked" classname="AnalyticsTest::Debug" assertions="9" time="3.012300602">
+  <testcase name="test_0005_Debug can be turned on and http requests are blocked" classname="AnalyticsTest::Debug" assertions="9" time="1.813172">
   </testcase>
-  <testcase name="test_0003_Debug can be turned on on page load which displays analytics info within the page" classname="AnalyticsTest::Debug" assertions="4" time="0.644613726">
+  <testcase name="test_0001_Debug can be turned on for external links and loading external link is blocked" classname="AnalyticsTest::Debug" assertions="2" time="0.549227">
   </testcase>
-  <testcase name="test_0004_Debug can be turned off which will not display analytics info within the page" classname="AnalyticsTest::Debug" assertions="1" time="0.482772282">
+  <testcase name="test_0002_Debug can be turned on for hash based urls and click event is blocked" classname="AnalyticsTest::Debug" assertions="4" time="1.640453">
   </testcase>
 </testsuite>
