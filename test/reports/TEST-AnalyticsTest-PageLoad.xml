@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="0" errors="0" tests="7" assertions="34" time="16.587913">
-  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="4.711558">
+<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="1" errors="1" tests="7" assertions="33" time="8.841827513999998">
+  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="0" time="0.200347722">
+    <error type="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" message="PhantomJS client died while processing {&quot;name&quot;:&quot;visit&quot;,&quot;args&quot;:[&quot;http://127.0.0.1:34868/&quot;]}">
+Error:
+test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided(AnalyticsTest::PageLoad):
+Capybara::Poltergeist::DeadClient: PhantomJS client died while processing {"name":"visit","args":["http://127.0.0.1:34868/"]}
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/server.rb:33:in `send'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:270:in `command'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:29:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/driver.rb:89:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/session.rb:193:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in &lt;module:DSL&gt;'
+    /home/skycom/workspace/analytics/test/functional/page-load.rb:7:in `block in &lt;class:PageLoad&gt;'
+    </error>
   </testcase>
-  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="3.390048">
+  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="13" time="2.753459957">
   </testcase>
-  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.626219">
+  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="1" time="0.797203108">
   </testcase>
-  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="13" time="4.408099">
+  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="1.631053943">
   </testcase>
-  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="1" time="0.962598">
+  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.495012826">
   </testcase>
-  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="1" time="1.24449">
+  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.777931914">
   </testcase>
-  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="1.244901">
+  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="2.186818044">
+    <failure type="test_0001_Tracks page view with correct site details" message="Expected: &quot;Monday_12_09&quot;...">
+Failure:
+test_0001_Tracks page view with correct site details(AnalyticsTest::PageLoad) [/home/skycom/workspace/analytics/test/functional/page-load.rb:19]:
+Expected: "Monday_12_09"
+  Actual: "Monday_11_09"
+    </failure>
   </testcase>
 </testsuite>

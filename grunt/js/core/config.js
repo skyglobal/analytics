@@ -30,6 +30,7 @@ _analytics.config = (function(){
             pageName: ["pageName"],
             '404Page': ['pageType'],
             partTime: ['prop35','eVar35'],
+            persistentLoginType: ['prop64'],
             product: ['products'],
             refDomain: ['prop36','eVar36'],
             samId: ['prop39','eVar39'],

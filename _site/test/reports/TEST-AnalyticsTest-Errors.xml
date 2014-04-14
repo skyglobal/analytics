@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Errors" skipped="0" failures="0" errors="0" tests="3" assertions="9" time="2.625353">
-  <testcase name="test_0001_an event and variable is sent when triggering an error" classname="AnalyticsTest::Errors" assertions="3" time="0.849989">
+<testsuite name="AnalyticsTest::Errors" skipped="0" failures="0" errors="0" tests="3" assertions="9" time="2.835469726">
+  <testcase name="test_0002_Can send errors variable" classname="AnalyticsTest::Errors" assertions="3" time="0.97362595">
   </testcase>
-  <testcase name="test_0002_Can send errors variable" classname="AnalyticsTest::Errors" assertions="3" time="0.870131">
+  <testcase name="test_0001_an event and variable is sent when triggering an error" classname="AnalyticsTest::Errors" assertions="3" time="0.914967445">
   </testcase>
-  <testcase name="test_0003_can send pageType error" classname="AnalyticsTest::Errors" assertions="3" time="0.905233">
+  <testcase name="test_0003_can send pageType error" classname="AnalyticsTest::Errors" assertions="3" time="0.946876331">
   </testcase>
 </testsuite>

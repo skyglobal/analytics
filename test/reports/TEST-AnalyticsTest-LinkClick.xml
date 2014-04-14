@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::LinkClick" skipped="0" failures="0" errors="0" tests="8" assertions="33" time="10.428868999999999">
-  <testcase name="test_0001_Tracks a link being clicked and linkDetails is mapped correctly" classname="AnalyticsTest::LinkClick" assertions="12" time="2.223194">
+<testsuite name="AnalyticsTest::LinkClick" skipped="0" failures="0" errors="1" tests="8" assertions="29" time="8.915654827">
+  <testcase name="test_0008_tracks masthead variable when clicks within masthead are triggered" classname="AnalyticsTest::LinkClick" assertions="2" time="0.9477334">
   </testcase>
-  <testcase name="test_0005_tracks non-anchor elements that have the data-tracking attribute" classname="AnalyticsTest::LinkClick" assertions="2" time="0.94091">
+  <testcase name="test_0001_Tracks a link being clicked and linkDetails is mapped correctly" classname="AnalyticsTest::LinkClick" assertions="12" time="2.116279289">
   </testcase>
-  <testcase name="test_0006_does not track elements which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.729919">
+  <testcase name="test_0003_A button being clicked twice doesn't have the events stacked'" classname="AnalyticsTest::LinkClick" assertions="3" time="0.971354179">
   </testcase>
-  <testcase name="test_0007_does not track non-anchors which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.816501">
+  <testcase name="test_0002_Tracks a button being clicked" classname="AnalyticsTest::LinkClick" assertions="0" time="0.215788851">
+    <error type="test_0002_Tracks a button being clicked" message="PhantomJS client died while processing {&quot;name&quot;:&quot;visit&quot;,&quot;args&quot;:[&quot;http://127.0.0.1:34868/&quot;]}">
+Error:
+test_0002_Tracks a button being clicked(AnalyticsTest::LinkClick):
+Capybara::Poltergeist::DeadClient: PhantomJS client died while processing {"name":"visit","args":["http://127.0.0.1:34868/"]}
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/server.rb:33:in `send'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:270:in `command'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:29:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/driver.rb:89:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/session.rb:193:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in &lt;module:DSL&gt;'
+    /home/skycom/workspace/analytics/test/functional/link-clicks.rb:7:in `block in &lt;class:LinkClick&gt;'
+    </error>
   </testcase>
-  <testcase name="test_0008_tracks masthead variable when clicks within masthead are triggered" classname="AnalyticsTest::LinkClick" assertions="2" time="1.102582">
+  <testcase name="test_0007_does not track non-anchors which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="2.182395653">
   </testcase>
-  <testcase name="test_0002_Tracks a button being clicked" classname="AnalyticsTest::LinkClick" assertions="4" time="1.376223">
+  <testcase name="test_0006_does not track elements which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.858643466">
   </testcase>
-  <testcase name="test_0003_A button being clicked twice doesn't have the events stacked'" classname="AnalyticsTest::LinkClick" assertions="3" time="1.140747">
+  <testcase name="test_0004_Tracks a link being clicked within a module and pod" classname="AnalyticsTest::LinkClick" assertions="8" time="1.066732444">
   </testcase>
-  <testcase name="test_0004_Tracks a link being clicked within a module and pod" classname="AnalyticsTest::LinkClick" assertions="8" time="2.098793">
+  <testcase name="test_0005_tracks non-anchor elements that have the data-tracking attribute" classname="AnalyticsTest::LinkClick" assertions="2" time="0.556727545">
   </testcase>
 </testsuite>

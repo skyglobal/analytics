@@ -1,27 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Variables" skipped="0" failures="0" errors="0" tests="12" assertions="50" time="27.512214">
-  <testcase name="test_0005_Tracks a custom list on click" classname="AnalyticsTest::Variables" assertions="5" time="2.3338">
+<testsuite name="AnalyticsTest::Variables" skipped="0" failures="0" errors="2" tests="12" assertions="42" time="41.866087369000006">
+  <testcase name="test_0011_tracks a standard variable sent with a button click" classname="AnalyticsTest::Variables" assertions="0" time="30.151448608">
+    <error type="test_0011_tracks a standard variable sent with a button click" message="Timed out waiting for response to {&quot;name&quot;:&quot;visit&quot;,&quot;args&quot;:[&quot;http://127.0.0.1:38406/&quot;]}. It's possible that this happened because something took a very long time (for example a page load was slow). If so, setting the Poltergeist :timeout option to a higher value will help (see the docs for details). If increasing the timeout does not help, this is probably a bug in Poltergeist - please report it to the issue tracker.">
+Error:
+test_0011_tracks a standard variable sent with a button click(AnalyticsTest::Variables):
+Capybara::Poltergeist::TimeoutError: Timed out waiting for response to {"name":"visit","args":["http://127.0.0.1:38406/"]}. It's possible that this happened because something took a very long time (for example a page load was slow). If so, setting the Poltergeist :timeout option to a higher value will help (see the docs for details). If increasing the timeout does not help, this is probably a bug in Poltergeist - please report it to the issue tracker.
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/web_socket_server.rb:87:in `rescue in send'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/web_socket_server.rb:83:in `send'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/server.rb:33:in `send'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:270:in `command'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:29:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/driver.rb:89:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/session.rb:193:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in &lt;module:DSL&gt;'
+    /home/skycom/workspace/analytics/test/functional/variables.rb:7:in `block in &lt;class:Variables&gt;'
+    </error>
   </testcase>
-  <testcase name="test_0007_Tracks a custom hierarchy on click" classname="AnalyticsTest::Variables" assertions="5" time="2.478361">
+  <testcase name="test_0006_Tracks a custom hierarchy on page load" classname="AnalyticsTest::Variables" assertions="0" time="0.205161175">
+    <error type="test_0006_Tracks a custom hierarchy on page load" message="PhantomJS client died while processing {&quot;name&quot;:&quot;visit&quot;,&quot;args&quot;:[&quot;http://127.0.0.1:38406/&quot;]}">
+Error:
+test_0006_Tracks a custom hierarchy on page load(AnalyticsTest::Variables):
+Capybara::Poltergeist::DeadClient: PhantomJS client died while processing {"name":"visit","args":["http://127.0.0.1:38406/"]}
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/server.rb:33:in `send'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:270:in `command'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:29:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/driver.rb:89:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/session.rb:193:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in &lt;module:DSL&gt;'
+    /home/skycom/workspace/analytics/test/functional/variables.rb:7:in `block in &lt;class:Variables&gt;'
+    </error>
   </testcase>
-  <testcase name="test_0009_tracks custom variables assigned after page load from a radio button" classname="AnalyticsTest::Variables" assertions="1" time="1.292155">
+  <testcase name="test_0008_tracks custom variables assigned after page load in a text field" classname="AnalyticsTest::Variables" assertions="1" time="1.660658887">
   </testcase>
-  <testcase name="test_0004_Tracks a custom list on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.224004">
+  <testcase name="test_0005_Tracks a custom list on click" classname="AnalyticsTest::Variables" assertions="5" time="1.059397973">
   </testcase>
-  <testcase name="test_0008_tracks custom variables assigned after page load in a text field" classname="AnalyticsTest::Variables" assertions="1" time="1.196203">
+  <testcase name="test_0002_Tracks a custom var with only a prop on page load" classname="AnalyticsTest::Variables" assertions="5" time="1.097670034">
   </testcase>
-  <testcase name="test_0011_tracks a standard variable sent with a button click" classname="AnalyticsTest::Variables" assertions="3" time="1.673162">
+  <testcase name="test_0012_tracks a standard variable sent on page load" classname="AnalyticsTest::Variables" assertions="4" time="0.978592087">
   </testcase>
-  <testcase name="test_0010_tracks a custom variable assigned on page load but set with a button click" classname="AnalyticsTest::Variables" assertions="5" time="2.450338">
+  <testcase name="test_0009_tracks custom variables assigned after page load from a radio button" classname="AnalyticsTest::Variables" assertions="1" time="0.600505033">
   </testcase>
-  <testcase name="test_0001_Tracks a custom var on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.375339">
+  <testcase name="test_0007_Tracks a custom hierarchy on click" classname="AnalyticsTest::Variables" assertions="5" time="1.29993215">
   </testcase>
-  <testcase name="test_0006_Tracks a custom hierarchy on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.502695">
+  <testcase name="test_0004_Tracks a custom list on page load" classname="AnalyticsTest::Variables" assertions="5" time="1.228982283">
   </testcase>
-  <testcase name="test_0003_Tracks a custom var with eVar and a prop on click" classname="AnalyticsTest::Variables" assertions="6" time="3.133488">
+  <testcase name="test_0003_Tracks a custom var with eVar and a prop on click" classname="AnalyticsTest::Variables" assertions="6" time="1.447700003">
   </testcase>
-  <testcase name="test_0002_Tracks a custom var with only a prop on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.777325">
+  <testcase name="test_0010_tracks a custom variable assigned on page load but set with a button click" classname="AnalyticsTest::Variables" assertions="5" time="1.085244862">
   </testcase>
-  <testcase name="test_0012_tracks a standard variable sent on page load" classname="AnalyticsTest::Variables" assertions="4" time="3.075344">
+  <testcase name="test_0001_Tracks a custom var on page load" classname="AnalyticsTest::Variables" assertions="5" time="1.050794274">
   </testcase>
 </testsuite>
