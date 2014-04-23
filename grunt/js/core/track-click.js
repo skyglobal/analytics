@@ -105,7 +105,12 @@ _analytics.trackClick = (function(config, omniture, logger){
     function addCustomClickVariable($el){
         var customVariable = $el.attr('data-tracking-variable');
         if (!customVariable) return;
-        setVariable(customVariable,getText($el));
+        var jsValue;
+        if (!$el.attr('data-tracking-value') && config.variablesMap[customVariable]) {
+            jsValue = $.grep(config.variablesMap[customVariable], function(e) { return e.indexOf('value') === 0; }).pop();
+            if (jsValue) { jsValue = jsValue.replace(/^value/, ''); }
+        }
+        setVariable(customVariable, jsValue || getText($el));
     }
 
     function setVariable(variable, val){

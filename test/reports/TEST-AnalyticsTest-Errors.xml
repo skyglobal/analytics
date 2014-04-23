@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Errors" skipped="0" failures="0" errors="0" tests="3" assertions="9" time="2.684657">
-  <testcase name="test_0002_Can send errors variable" classname="AnalyticsTest::Errors" assertions="3" time="0.866823">
+<testsuite name="AnalyticsTest::Errors" skipped="0" failures="0" errors="1" tests="3" assertions="6" time="2.911084704">
+  <testcase name="test_0003_can send pageType error" classname="AnalyticsTest::Errors" assertions="3" time="1.924685816">
   </testcase>
-  <testcase name="test_0001_an event and variable is sent when triggering an error" classname="AnalyticsTest::Errors" assertions="3" time="0.890915">
+  <testcase name="test_0002_Can send errors variable" classname="AnalyticsTest::Errors" assertions="3" time="0.779219756">
   </testcase>
-  <testcase name="test_0003_can send pageType error" classname="AnalyticsTest::Errors" assertions="3" time="0.926919">
+  <testcase name="test_0001_an event and variable is sent when triggering an error" classname="AnalyticsTest::Errors" assertions="0" time="0.207179132">
+    <error type="test_0001_an event and variable is sent when triggering an error" message="PhantomJS client died while processing {&quot;name&quot;:&quot;visit&quot;,&quot;args&quot;:[&quot;http://127.0.0.1:34868/&quot;]}">
+Error:
+test_0001_an event and variable is sent when triggering an error(AnalyticsTest::Errors):
+Capybara::Poltergeist::DeadClient: PhantomJS client died while processing {"name":"visit","args":["http://127.0.0.1:34868/"]}
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/server.rb:33:in `send'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:270:in `command'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:29:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/driver.rb:89:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/session.rb:193:in `visit'
+    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in &lt;module:DSL&gt;'
+    /home/skycom/workspace/analytics/test/functional/errors.rb:8:in `block in &lt;class:Errors&gt;'
+    </error>
   </testcase>
 </testsuite>

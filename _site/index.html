@@ -204,14 +204,6 @@
                                 ">Events</a>
                         </li>
                         
-                        
-                        
-                        <li class="tab ">
-                            
-                            <a href="index.html#media" class="ellipsis internal-link" data-diff="tracking/media" data-diff-demos="
-                                ">Media</a>
-                        </li>
-                        
                     </ul>
                 </section>
             </div>
@@ -289,7 +281,7 @@
         <h2 >Getting Started</h2>
 <p class="developer-notes">
     Please use the following:
-    <code class="html">    &lt;script src=//analytics.global.sky.com/1.4.3/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
+    <code class="html">    &lt;script src=//analytics.global.sky.com/1.4.4rc2/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
     If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p>
 <p>
@@ -1423,88 +1415,6 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 </div>
 </section>
 
-<section class=demo-section id="media">
-    <h2>Media
-    <a id="media" href="#test/media" class="run-test hover-colour" data-test-name="media">
-        <span class="dev-button result-summary">
-            <i class="skycon-tick colour" aria-hidden="true"></i>Load Tests
-        </span>
-        <i class="skycon-carousel-play" title="Load tests"></i>
-    </a>
-</h2>
-<p>
-    To track media on the page you will need to specify the media to track individually.
-    This includes using tracking function every time that media changes.
-</p>
-<h3 class="wiki-h3">Media Config</h3>
-<p>
-    When calling <code>.trackMedia</code> you will need to pass the following config options:
-</p>
-<dl class="clearfix">
-    <dt class="skycom-4 alpha">category</dt>
-    <dd class="skycom-8">
-
-    </dd>
-    <dt class="skycom-4 alpha">mediaUrl</dt>
-    <dd class="skycom-8">
-
-    </dd>
-    <dt class="skycom-4 alpha">clipTitle</dt>
-    <dd class="skycom-8">
-
-    </dd>
-    <dt class="skycom-4 alpha">type</dt>
-    <dd class="skycom-8">
-
-    </dd>
-    <dt class="skycom-4 alpha">guid</dt>
-    <dd class="skycom-8">
-
-    </dd>
-    <dt class="skycom-4 alpha">videoFormat</dt>
-    <dd class="skycom-8">
-
-    </dd>
-    <dt class="skycom-4 alpha">provider</dt>
-    <dd class="skycom-8">
-
-    </dd>
-</dl>
-
-<h3 class="wiki-h3">Examples</h3>
-<div class='example clearfix'>
-
-    <div class="skycom-4 alpha has-code-example" >
-        <span class="toggler" for=video-media></span>
-        <a href="#!" id="play-pooh">Play Pooh</a>
-        <a href="#!" id="pause-pooh">Pause Pooh</a>
-        <video controls width="100%" id="pooh-video">
-            <source src="http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_H264.mp4" type="video/mp4"/>
-        </video>
-    </div>
-    <div class="skycom-8">
-        '<code>video</code>' tags will be tracked
-    </div>
-    <div class="code-example" data-toggle=video-media>
-        <code class="skycom-2 alpha html">HTML</code>
-        <code class="skycom-9 html">    &lt;video controls> &lt'video></code>
-        <code class="skycom-2 alpha js">Javascript</code>
-        <code class="skycom-9 js block">analytics.trackMedia({
-    videoElement: document.getElementById('pooh-video'),
-    category:"sitecategory",
-    mediaUrl:"defaultUrl",
-    clipTitle:"Default",
-    type:"proxy",
-    guid:"1",
-    videoFormat:"proxy",
-    provider:"internet"
-});        </code>
-    </div>
-
-</div>
-
-</section>
-
 <section class="demo-section" id="page-types">
     <h2>Page Types</h2>
     <div class="sub-section" id="searches">
@@ -1868,21 +1778,11 @@ analytics.trackPage(SITECAT_CONFIG);
             {'drink': {'eVar': 72}},
             {'how_about_pina_coladas': {'eVar': 73}},
             {'customer-offers': {list: 2}},
-            {'briansEVarAndPropCat': { eVar: 11, prop: 66}},
+            {'briansEVarAndPropCat': { eVar: 11, prop: 66, value: 'is great' }},
             {'my-heirarchy': {hier: 3}}
         ]
     });
     analytics.trackPage();
-    analytics.trackMedia({
-        videoElement: document.getElementById('pooh-video'),
-        category:"sitecategory",
-        mediaUrl:"defaultUrl",
-        videoTitle:"Default",
-        type:"proxy",
-        guid:"1",
-        videoFormat:"proxy",
-        provider:"internet"
-    });
 </script>
     </div>
 </div>
@@ -1891,8 +1791,8 @@ analytics.trackPage(SITECAT_CONFIG);
     <div class="skycom-container">
         <ul class="alpha skycom-12">
             <li class="right meta-data skycom-2" >
-                <div class="intro">Analytics v<span id="current-version">1.4.3</span></div>
-                <small class="right">Updated: 25-02-2014</small>
+                <div class="intro">Analytics v<span id="current-version">1.4.4rc2</span></div>
+                <small class="right">Updated: 14-04-2014</small>
             </li>
         </ul>
     </div>

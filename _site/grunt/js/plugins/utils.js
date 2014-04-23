@@ -23,6 +23,7 @@ _analytics.plugins.utils = (function(omniture, config){
         {expd=cvarr[i].match(/\|([0-9]+)$/);if(expd && parseInt(expd[1]) >= date){vcv += cvarr[i]+";";}}return vcv;
         }
         s.c_rspers=c_rspers;
+
         s.c_r=c_r;
     }
     /*

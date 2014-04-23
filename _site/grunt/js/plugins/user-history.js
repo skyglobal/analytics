@@ -1,7 +1,7 @@
 if (typeof _analytics==='undefined') _analytics={};
 if (typeof _analytics.plugins==='undefined') _analytics.plugins={};
 
-_analytics.plugins.userHistory = (function(omniture, config){
+_analytics.plugins.userHistory = (function(omniture, config, utils){
 
     var loggedIn = 'Logged In',
         notLoggedIn = 'not logged-in',
@@ -45,7 +45,22 @@ _analytics.plugins.userHistory = (function(omniture, config){
         ageGender = (cookies.apd) ? cookies.apd + '|' + cookies.gpd : '';
         optIn = (cookies.ust) ? cookies.ust + '|' + cookies.sid_tsaoptin : '';
 
-        omniture.setVariable('samId',cookies.just);
+        if (cookies.just && cookies.skyCEsidexsso01) {
+            omniture.setVariable('samId',cookies.just);
+            omniture.setVariable('persistentLoginType', 'Hard Login - Persistent Login Accepted');
+            s.getAndPersistValue('true','persLogin',90);
+        } else if ( cookies.just && !cookies.skyCEsidexsso01) {
+            omniture.setVariable('samId',cookies.just);
+            omniture.setVariable('persistentLoginType', 'Hard Login - Declined Persistent Login');
+        } else if (!cookies.just && cookies.skyCEsidexsso01) {
+            omniture.setVariable('persistentLoginType', 'Persistent Login');
+            s.getAndPersistValue('true','persLogin',90);
+        } else if (!cookies.just && !cookies.skyCEsidexsso01 && s.c_r('persLogin')) {
+            omniture.setVariable('persistentLoginType', 'Persistent Login Expired');
+        } else {
+            omniture.setVariable('persistentLoginType', 'Not Logged-in');
+        }
+
         omniture.setVariable('customerType', cookies.custype);
         omniture.setVariable('ageGender',ageGender);
         omniture.setVariable('optIn', optIn);
@@ -67,10 +82,10 @@ _analytics.plugins.userHistory = (function(omniture, config){
         load: load
     };
 
-}(_analytics.omniture, _analytics.config));
+}(_analytics.omniture, _analytics.config, _analytics.utils));
 
 if (typeof window.define === "function" && window.define.amd) {
-    define("plugins/user-history", ['core/omniture', 'core/config'], function(omniture, config) {
+    define("plugins/user-history", ['core/omniture', 'core/config', 'plugins/utils'], function(omniture, config, utils) {
         return _analytics.plugins.userHistory;
     });
 }
