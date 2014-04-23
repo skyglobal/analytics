@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Search" skipped="0" failures="0" errors="1" tests="2" assertions="8" time="2.513440592">
-  <testcase name="test_0001_tracks search vars and is mapped correctly" classname="AnalyticsTest::Search" assertions="0" time="0.208463536">
-    <error type="test_0001_tracks search vars and is mapped correctly" message="PhantomJS client died while processing {&quot;name&quot;:&quot;visit&quot;,&quot;args&quot;:[&quot;http://127.0.0.1:34868/&quot;]}">
-Error:
-test_0001_tracks search vars and is mapped correctly(AnalyticsTest::Search):
-Capybara::Poltergeist::DeadClient: PhantomJS client died while processing {"name":"visit","args":["http://127.0.0.1:34868/"]}
-    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/server.rb:33:in `send'
-    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:270:in `command'
-    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:29:in `visit'
-    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/poltergeist-1.5.0/lib/capybara/poltergeist/driver.rb:89:in `visit'
-    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/session.rb:193:in `visit'
-    /usr/local/rvm/gems/ruby-2.0.0-p247/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in &lt;module:DSL&gt;'
-    /home/skycom/workspace/analytics/test/functional/search.rb:7:in `block in &lt;class:Search&gt;'
-    </error>
+<testsuite name="AnalyticsTest::Search" skipped="0" failures="0" errors="0" tests="2" assertions="24" time="7.788691">
+  <testcase name="test_0001_tracks search vars and is mapped correctly" classname="AnalyticsTest::Search" assertions="16" time="5.038644">
   </testcase>
-  <testcase name="test_0002_tracks search results and prop of 0 (int) is sent to omniture" classname="AnalyticsTest::Search" assertions="8" time="2.304977056">
+  <testcase name="test_0002_tracks search results and prop of 0 (int) is sent to omniture" classname="AnalyticsTest::Search" assertions="8" time="2.750047">
   </testcase>
 </testsuite>
