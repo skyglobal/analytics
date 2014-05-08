@@ -34,10 +34,10 @@ function timePartingSpec(timeParting) {
     });
 
     describe('British summer time', function() {
-        it('Should return the correct date when it is BST', function() {
-            var date = new Date('01/01/2014 11:50');
+        it('Should return the correct date when it is BST', function () {
+            var date = new Date('Thu May 08 2014 12:38:13 GMT+0100 (BST)');
             var result = timeParting.getTimeParting(date);
-            expect(result).to.equals('Wednesday_11_50');
+            expect(result).to.equals('Thursday_12_38');
         });
 
     });
