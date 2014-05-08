@@ -34,15 +34,32 @@ function timePartingSpec(timeParting) {
     });
 
     describe('British summer time', function() {
-        it.only('Should return the correct date when it is BST', function() {
-            var date = new Date('Thu May 08 2014 12:38:13 GMT+0100 (BST)');
-
+        it('Should return the correct date when it is BST', function() {
+            var date = new Date('01/01/2014 11:50');
             var result = timeParting.getTimeParting(date);
-
-            expect(result).to.equals('Thursday_12_38');
+            expect(result).to.equals('Wednesday_11_50');
         });
 
     });
+
+
+        // NOTE:
+        // please update the tests below once behaviour is confirmed with Andrew
+
+//            describe('adjust date for timezone', function() {
+//                it('in summer time', function() {
+//                    var date = new Date('03/31/2014 00:00');
+//                    var result = timeParting.getTimeParting(date);
+//                    var isBritish = (new Date().getTimezoneOffset() === -60);
+//                    expect(result).to.equals(isBritish ? 'Sunday_23_00' : 'Monday_00_00');
+//                });
+//                it('in winter time', function() {
+//                    var date = new Date('10/27/2014 00:00');
+//                    var result = timeParting.getTimeParting(date);
+//                    expect(result).to.equals('Monday_00_00');
+//                });
+//            })
+
 }
 
 if (window.define) {
