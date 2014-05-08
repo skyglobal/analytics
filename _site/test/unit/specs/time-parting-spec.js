@@ -33,6 +33,16 @@ function timePartingSpec(timeParting) {
             });
     });
 
+    describe('British summer time', function() {
+        it('Should return the correct date when it is BST', function() {
+            var date = new Date('01/01/2014 11:50');
+            var result = timeParting.getTimeParting(date);
+            expect(result).to.equals('Wednesday_11_50');
+        });
+
+    });
+
+
         // NOTE:
         // please update the tests below once behaviour is confirmed with Andrew
 
