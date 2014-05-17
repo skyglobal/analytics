@@ -1,4 +1,4 @@
-[Analytics](http://skyglobal.github.io/analytics) [![Build Status](https://circleci.com/gh/skyglobal/analytics.png?circle-token=ffbea17cf5fdf1c09f4fb53cf5fa1db6c804c832)](https://circleci.com/gh/skyglobal/analytics)
+[Analytics](http://skyglobal.github.io/analytics) [![Build Status](https://circleci.com/gh/sabeurthabti/analytics.png?circle-token=ffbea17cf5fdf1c09f4fb53cf5fa1db6c804c832)](https://circleci.com/gh/skyglobal/analytics)
 =========
 
 BSkyB wrapper for Adobe Sitecat analytics JS.
