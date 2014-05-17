@@ -1,4 +1,6 @@
 machine:
+  timezone:Europe/London
+
   ruby:
     version: ruby-1.9.3-p392
     
