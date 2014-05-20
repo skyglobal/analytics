@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="2" errors="0" tests="7" assertions="25" time="14.428646">
-  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.889852">
+<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="0" errors="0" tests="7" assertions="30" time="21.85522">
+  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="1" time="1.580909">
   </testcase>
-  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.887897">
+  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.865926">
   </testcase>
-  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="4" time="1.947386">
-    <failure type="test_0002_tracks pageview properly after using setup first" message="Expected nil (NilClass) to respond to #include?.">
-Failure:
-test_0002_tracks pageview properly after using setup first(AnalyticsTest::PageLoad) [/Users/uni_nake/labs/analytics/test/functional/page-load.rb:26]:
-Expected nil (NilClass) to respond to #include?.
-    </failure>
+  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="9" time="4.234471">
   </testcase>
-  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.469155">
+  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="1.379682">
   </testcase>
-  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="1" time="1.099356">
+  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="5.035389">
   </testcase>
-  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="3.69783">
+  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="1" time="1.232063">
   </testcase>
-  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="5.43717">
-    <failure type="test_0001_Tracks page view with correct site details" message="Expected: &quot;Wednesday_10_46&quot;...">
-Failure:
-test_0001_Tracks page view with correct site details(AnalyticsTest::PageLoad) [/Users/uni_nake/labs/analytics/test/functional/page-load.rb:19]:
-Expected: "Wednesday_10_46"
-  Actual: "Wednesday_09_46"
-    </failure>
+  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="7.52678">
   </testcase>
 </testsuite>

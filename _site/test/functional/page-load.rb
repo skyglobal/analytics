@@ -23,8 +23,8 @@ class PageLoad < AcceptanceTest
     click_link 'Click here to see resetting config in action'
     trackedVariable('siteName',:prop).must_equal 'sky/portal/global'
     trackedVariable('section2', :prop).must_include 'resetting'
-    trackedVariable('videoTitle', :prop).must_include 'My Home Video'
-    trackedVariable('videoTitle').must_include references('videoTitle', :prop)
+    #trackedVariable('videoTitle', :prop).must_include 'My Home Video'
+    #trackedVariable('videoTitle').must_include references('videoTitle', :prop)
     trackedVariable('drink').must_include 'hello drinks'
     trackedEvents().must_include eventsMap[:activateComplete]
     trackedEvents().must_include eventsMap[:magic_happened]

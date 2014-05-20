@@ -32,14 +32,16 @@ _demo.tests = (function(){
         updateCustomVariableValues();
         manualTrigger();
         showDemoCode();
-
     }
 
+    // html5 video not supported in PhantomJS
+    // we can't use the video API as it causes a javascript error
+    // for example: document.getElementById('play-pooh').play()
     function playPooh(){
-        document.getElementById('pooh-video').play();
+        $('#pooh-video').trigger('play');
     }
     function pausePooh(){
-        document.getElementById('pooh-video').pause();
+        $('#pooh-video').trigger('pause');
     }
 
     function showDemoCode(){

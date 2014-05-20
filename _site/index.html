@@ -107,9 +107,9 @@
                 
                 
                 
-                <li id='page-type-tab' aria-controls="page-type-tab-contents" role="tab" class="tab
+                <li id='page-types-tab' aria-controls="page-types-tab-contents" role="tab" class="tab
                     
-                    "><a href="index.html#page-type" class="intro ellipsis internal-link">Page Type</a>
+                    "><a href="index.html#page-types" class="intro ellipsis internal-link">Page Types</a>
                 </li>
                 
                 
@@ -218,9 +218,9 @@
             
             
             
-            <div id="page-type-tab-contents" class="tabpanel
+            <div id="page-types-tab-contents" class="tabpanel
                 
-                " aria-labeledby="page-type-tab" role="tabpanel" >
+                " aria-labeledby="page-types-tab" role="tabpanel" >
                 <section class="tabcontents tabs-container page-nav">
                     <ul class="nav tabs clearfix">
                         
@@ -228,7 +228,7 @@
                         
                         <li class="tab ">
                             
-                            <a href="index.html#searches" class="ellipsis internal-link" data-diff="page-type/searches" data-diff-demos="
+                            <a href="index.html#searches" class="ellipsis internal-link" data-diff="page-types/searches" data-diff-demos="
                                 ">Searches</a>
                         </li>
                         
@@ -236,7 +236,7 @@
                         
                         <li class="tab ">
                             
-                            <a href="index.html#errors" class="ellipsis internal-link" data-diff="page-type/errors" data-diff-demos="
+                            <a href="index.html#errors" class="ellipsis internal-link" data-diff="page-types/errors" data-diff-demos="
                                 ">Errors</a>
                         </li>
                         
@@ -289,7 +289,7 @@
         <h2 >Getting Started</h2>
 <p class="developer-notes">
     Please use the following:
-    <code class="html">    &lt;script src=//analytics.global.sky.com/1.4.4rc2/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
+    <code class="html">    &lt;script src=//analytics.global.sky.com/1.4.4rc3/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
     If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p>
 <p>
@@ -1443,31 +1443,31 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 <dl class="clearfix">
     <dt class="skycom-4 alpha">category</dt>
     <dd class="skycom-8">
-
+    When using Sky Video Hub, the category will be populated with the name of the channel where the video was published, for example: 'skymovies'.
     </dd>
     <dt class="skycom-4 alpha">mediaUrl</dt>
     <dd class="skycom-8">
-
+    When using Sky Video Hub, the mediaUrl will be populated with the media url of the video being played, for example: 'http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_H264.mp4'.
     </dd>
-    <dt class="skycom-4 alpha">clipTitle</dt>
+    <dt class="skycom-4 alpha">videoTitle</dt>
     <dd class="skycom-8">
-
+    When using Sky Video Hub, the clip title will be populated with the clip title entered for the video, for example: 'Winnie the Pooh: Trailer'.
     </dd>
     <dt class="skycom-4 alpha">type</dt>
     <dd class="skycom-8">
-
+    When using Sky Video Hub, the type will be populated with the default value 'video'.
     </dd>
     <dt class="skycom-4 alpha">guid</dt>
     <dd class="skycom-8">
-
+    When using Sky Video Hub, the guid will be populated with the unique 'Clip Id' generated for the video, for example: 'clip-0044tyky'.
     </dd>
     <dt class="skycom-4 alpha">videoFormat</dt>
     <dd class="skycom-8">
-
+    When using Sky Video Hub, the videoFormat will be populated with the combination or resolution|bitRate|format, for example '576p|200k|video/mp4'
     </dd>
     <dt class="skycom-4 alpha">provider</dt>
     <dd class="skycom-8">
-
+    When using Sky Video Hub, the provider will be populated with the default value 'skyvideolibrary'
     </dd>
 </dl>
 
@@ -1479,6 +1479,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <a href="#!" id="play-pooh">Play Pooh</a>
         <a href="#!" id="pause-pooh">Pause Pooh</a>
         <video controls width="100%" id="pooh-video">
+            <source src="http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_WEBM.webm" type="video/webm"/>
             <source src="http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_H264.mp4" type="video/mp4"/>
         </video>
     </div>
@@ -1489,16 +1490,18 @@ $('#sessionCamId-link-click-link').on('click', function(e){
         <code class="skycom-2 alpha html">HTML</code>
         <code class="skycom-9 html">    &lt;video controls> &lt'video></code>
         <code class="skycom-2 alpha js">Javascript</code>
-        <code class="skycom-9 js block">analytics.trackMedia({
-    videoElement: document.getElementById('pooh-video'),
-    category:"sitecategory",
-    mediaUrl:"defaultUrl",
-    clipTitle:"Default",
-    type:"proxy",
-    guid:"1",
-    videoFormat:"proxy",
-    provider:"internet"
-});        </code>
+        <code class="skycom-9 js block">
+            analytics.trackMedia({
+                videoElement: document.getElementById('pooh-video'),
+                category:"skymovies",
+                mediaUrl:"http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_H264.mp4",
+                videoTitle:"Winnie the Pooh: Trailer",
+                type:"video",
+                guid:"clip-0044tyky",
+                videoFormat:"576p|2000k|video/mp4",
+                provider:"skyvideolibrary"
+            });
+        </code>
     </div>
 
 </div>
@@ -1875,13 +1878,13 @@ analytics.trackPage(SITECAT_CONFIG);
     analytics.trackPage();
     analytics.trackMedia({
         videoElement: document.getElementById('pooh-video'),
-        category:"sitecategory",
-        mediaUrl:"defaultUrl",
-        videoTitle:"Default",
-        type:"proxy",
-        guid:"1",
-        videoFormat:"proxy",
-        provider:"internet"
+        category:"skymovies",
+        mediaUrl:"http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_H264.mp4",
+        videoTitle:"Winnie the Pooh: Trailer",
+        type:"video",
+        guid:"clip-0044tyky",
+        videoFormat:"576p|2000k|video/mp4",
+        provider:"skyvideolibrary"
     });
 </script>
     </div>
@@ -1891,8 +1894,8 @@ analytics.trackPage(SITECAT_CONFIG);
     <div class="skycom-container">
         <ul class="alpha skycom-12">
             <li class="right meta-data skycom-2" >
-                <div class="intro">Analytics v<span id="current-version">1.4.4rc2</span></div>
-                <small class="right">Updated: 23-04-2014</small>
+                <div class="intro">Analytics v<span id="current-version">1.4.4rc3</span></div>
+                <small class="right">Updated: 20-05-2014</small>
             </li>
         </ul>
     </div>

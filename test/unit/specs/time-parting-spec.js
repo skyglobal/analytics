@@ -16,25 +16,35 @@ function timePartingSpec(timeParting) {
     });
 
     describe('get the day and time', function() {
-            it('at midnight', function() {
-                var date = new Date('01/01/2014 00:00');
-                var result = timeParting.getTimeParting(date);
-                expect(result).to.equals('Wednesday_00_00');
-            });
-            it('at 13:03', function() {
-                var date = new Date('01/01/2014 14:03');
-                var result = timeParting.getTimeParting(date);
-                expect(result).to.equals('Wednesday_14_03');
-            });
-            it('at 3:30', function() {
-                var date = new Date('01/01/2014 03:30');
-                var result = timeParting.getTimeParting(date);
-                expect(result).to.equals('Wednesday_03_30');
-            });
+        it('at midnight', function() {
+            var date = new Date('01/01/2014 00:00');
+            var result = timeParting.getTimeParting(date);
+            expect(result).to.equals('Wednesday_00_00');
+        });
+        it('at 13:03', function() {
+            var date = new Date('01/01/2014 14:03');
+            var result = timeParting.getTimeParting(date);
+            expect(result).to.equals('Wednesday_14_03');
+        });
+        it('at 3:30', function() {
+            var date = new Date('01/01/2014 03:30');
+            var result = timeParting.getTimeParting(date);
+            expect(result).to.equals('Wednesday_03_30');
+        });
     });
 
-        // NOTE:
-        // please update the tests below once behaviour is confirmed with Andrew
+    describe('British summer time', function() {
+        it('Should return the correct date when it is BST', function () {
+            var date = new Date('Thu May 08 2014 12:38:13 GMT+0100 (BST)');
+            var result = timeParting.getTimeParting(date);
+            expect(result).to.equals('Thursday_12_38');
+        });
+
+    });
+
+
+    // NOTE:
+    // please update the tests below once behaviour is confirmed with Andrew
 
 //            describe('adjust date for timezone', function() {
 //                it('in summer time', function() {

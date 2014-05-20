@@ -26,7 +26,6 @@ _analytics.trackMedia = (function(config,omniture,media){
         omniture.setMediaVariable('guid', mediaConfig.guid);
     }
 
-
     var eventHandler = function(e) {
         var currentTime;
         if (videoEl.currentTime > 0) {
@@ -36,31 +35,31 @@ _analytics.trackMedia = (function(config,omniture,media){
         }
 
         if (e.type == "seeking" && isVideoPlaying) {
-            s.Media.stop(media.get('videoTitle'),currentTime);
+            s.Media.stop(media.getMediaVariable('videoTitle'),currentTime);
         }
         if (e.type == "play" && isVideoPlaying) {
-            s.Media.play(media.get('videoTitle'),currentTime);
+            s.Media.play(media.getMediaVariable('videoTitle'),currentTime);
         }
         if (e.type == "play" && !isVideoPlaying) {
             isVideoPlaying = true;
             var medialength = videoEl.duration ? videoEl.duration : 60;
-            s.Media.open(media.get('videoTitle'),medialength, media.get('playerName'));
-            s.Media.play(media.get('videoTitle'),currentTime);
+            s.Media.open(media.getMediaVariable('videoTitle'),medialength, media.getMediaVariable('playerName'));
+            s.Media.play(media.getMediaVariable('videoTitle'),currentTime);
         }
         if (e.type == "seeked" && isVideoPlaying) {
-            s.Media.play(media.get('videoTitle'),currentTime);
+            s.Media.play(media.getMediaVariable('videoTitle'),currentTime);
         }
         if (e.type == "pause" && isVideoPlaying) {
-            s.Media.stop(media.get('videoTitle'),currentTime);
+            s.Media.stop(media.getMediaVariable('videoTitle'),currentTime);
             if (currentTime == videoEl.duration) {
                 isVideoPlaying = false;
-                s.Media.close(media.get('videoTitle'));
+                s.Media.close(media.getMediaVariable('videoTitle'));
             }
         }
         if (e.type == "ended") {
             isVideoPlaying = false;
-            s.Media.stop(media.get('videoTitle'),currentTime);
-            s.Media.close(media.get('videoTitle'));
+            s.Media.stop(media.getMediaVariable('videoTitle'),currentTime);
+            s.Media.close(media.getMediaVariable('videoTitle'));
         }
     };
 
