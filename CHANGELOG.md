@@ -7,6 +7,7 @@
  * [added] Analytics for persistent login
  * [fixed] Swapped prop1 with prop12
  * [updated] Use JS custom variable value if specified where data-tracking-value isn't specified
+ * [added] New media plugin for tracking media usage
 
 ## Previous
 
