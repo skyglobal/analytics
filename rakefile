@@ -76,9 +76,11 @@ task :deploy_new_version do
 
   if !version_is_release_candidate?
     puts "*** Pushing to github.io ***"
+    system "git stash"
     system "git checkout gh-pages"
     system "git push origin master:gh-pages"
     system "git checkout master"
+    system "git stash apply"
 
     puts "*** Tagging Version #{latest_version_number} ***"
     system "git tag -a v#{latest_version_number} -m \"Rake deploy: auto tag on #{getDate}\""
