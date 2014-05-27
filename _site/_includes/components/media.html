@@ -1,0 +1,81 @@
+<h2>Media
+    <a id="media" href="#test/media" class="run-test hover-colour" data-test-name="media">
+        <span class="dev-button result-summary">
+            <i class="skycon-tick colour" aria-hidden="true"></i>Load Tests
+        </span>
+        <i class="skycon-carousel-play" title="Load tests"></i>
+    </a>
+</h2>
+<p>
+    To track media on the page you will need to specify the media to track individually.
+    This includes using tracking function every time that media changes.
+</p>
+<h3 class="wiki-h3">Media Config</h3>
+<p>
+    When calling <code>.trackMedia</code> you will need to pass the following config options:
+</p>
+<dl class="clearfix">
+    <dt class="skycom-4 alpha">category</dt>
+    <dd class="skycom-8">
+    When using Sky Video Hub, the category will be populated with the name of the channel where the video was published, for example: 'skymovies'.
+    </dd>
+    <dt class="skycom-4 alpha">mediaUrl</dt>
+    <dd class="skycom-8">
+    When using Sky Video Hub, the mediaUrl will be populated with the media url of the video being played, for example: 'http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_H264.mp4'.
+    </dd>
+    <dt class="skycom-4 alpha">videoTitle</dt>
+    <dd class="skycom-8">
+    When using Sky Video Hub, the clip title will be populated with the clip title entered for the video, for example: 'Winnie the Pooh: Trailer'.
+    </dd>
+    <dt class="skycom-4 alpha">type</dt>
+    <dd class="skycom-8">
+    When using Sky Video Hub, the type will be populated with the default value 'video'.
+    </dd>
+    <dt class="skycom-4 alpha">guid</dt>
+    <dd class="skycom-8">
+    When using Sky Video Hub, the guid will be populated with the unique 'Clip Id' generated for the video, for example: 'clip-0044tyky'.
+    </dd>
+    <dt class="skycom-4 alpha">videoFormat</dt>
+    <dd class="skycom-8">
+    When using Sky Video Hub, the videoFormat will be populated with the combination or resolution|bitRate|format, for example '576p|200k|video/mp4'
+    </dd>
+    <dt class="skycom-4 alpha">provider</dt>
+    <dd class="skycom-8">
+    When using Sky Video Hub, the provider will be populated with the default value 'skyvideolibrary'
+    </dd>
+</dl>
+
+<h3 class="wiki-h3">Examples</h3>
+<div class='example clearfix'>
+
+    <div class="skycom-4 alpha has-code-example" >
+        <span class="toggler" for=video-media></span>
+        <a href="#!" id="play-pooh">Play Pooh</a>
+        <a href="#!" id="pause-pooh">Pause Pooh</a>
+        <video controls width="100%" id="pooh-video">
+            <source src="http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_WEBM.webm" type="video/webm"/>
+            <source src="http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_H264.mp4" type="video/mp4"/>
+        </video>
+    </div>
+    <div class="skycom-8">
+        '<code>video</code>' tags will be tracked
+    </div>
+    <div class="code-example" data-toggle=video-media>
+        <code class="skycom-2 alpha html">HTML</code>
+        <code class="skycom-9 html">    &lt;video controls> &lt'video></code>
+        <code class="skycom-2 alpha js">Javascript</code>
+        <code class="skycom-9 js block">
+            analytics.trackMedia({
+                videoElement: document.getElementById('pooh-video'),
+                category:"skymovies",
+                mediaUrl:"http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_H264.mp4",
+                videoTitle:"Winnie the Pooh: Trailer",
+                type:"video",
+                guid:"clip-0044tyky",
+                videoFormat:"576p|2000k|video/mp4",
+                provider:"skyvideolibrary"
+            });
+        </code>
+    </div>
+
+</div>
