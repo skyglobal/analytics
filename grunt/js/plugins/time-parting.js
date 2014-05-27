@@ -47,7 +47,7 @@ _analytics.plugins.timeParting = (function(omniture, config){
         if(dateCheck.getDay() != 6 || dateCheck.getMonth() != 0) { return 'Data Not Available';}
 
         date = date || new Date();
-        var timeZone = getUTC(date);
+        var timeZone = (isBST(date) ? date: getUTC(date));
 
         var hour = timeZone.getHours();
         var minute = timeZone.getMinutes();

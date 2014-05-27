@@ -11,12 +11,34 @@ def all_sitecat_requests
   http_request(/metrics.sky.com/).collect{ |req| Addressable::URI.parse req.url}
 end
 
+def media_sitecat_request
+  arr = Array.new
+  all_sitecat_requests.each{ |req|
+    if req.query_values.include?('pev3')
+      arr.push(req)
+    end
+  }
+  arr
+end
+
+def n_sitecat_request(n)
+  Addressable::URI.parse http_request(/metrics.sky.com/)[n].url
+end
+
 def last_sitecat_request
   Addressable::URI.parse http_request(/metrics.sky.com/).first.url
 end
 
+def last_media_call
+  media_sitecat_request.first.query_values['pev3'].split('--**--')
+end
+
 def trackedVariable(name, variable_type=:eVar)
   last_sitecat_request.query_values[variablesMap[name.to_sym][variable_type.to_sym]]
+end
+
+def trackedMediaVariable(name, variable_type=:eVar)
+  media_sitecat_request.first.query_values[variablesMap[name.to_sym][variable_type.to_sym]]
 end
 
 def trackedEvents()
@@ -45,6 +67,11 @@ def variablesMap
       section1:{prop: 'c27',eVar: 'v29'},
       section2:{prop: 'c31',eVar: 'v30'},
       videoTitle:{prop: 'c26', eVar: 'v28'},
+      category:{hier:'h5', eVar:'v73', prop:'c73', name:'hier5'},
+      mediaUrl:{eVar:'v10'},
+      videoFormat:{eVar:'v74', prop:'c74'},
+      type:{eVar: 'v71', prop: 'c71'},
+      guid:{eVar: 'v72', prop: 'c72'},
       channel: {eVar: 'v24',channel:'ch',hier: 'h1'},
       samId:{prop: 'c39',eVar: 'v39'},
       loginStatus: {eVar: 'v11'},

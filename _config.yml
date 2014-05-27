@@ -1,4 +1,4 @@
-version: 1.4.4rc2
+version: 1.4.4rc3
 destination: _site
 source: .
 exclude: [node_modules,

@@ -1,39 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Variables" skipped="0" failures="2" errors="0" tests="12" assertions="49" time="25.288746000000003">
-  <testcase name="test_0005_Tracks a custom list on click" classname="AnalyticsTest::Variables" assertions="5" time="2.252171">
+<testsuite name="AnalyticsTest::Variables" skipped="0" failures="0" errors="0" tests="12" assertions="48" time="34.073518">
+  <testcase name="test_0010_tracks a custom variable assigned on page load but set with a button click" classname="AnalyticsTest::Variables" assertions="5" time="3.046737">
   </testcase>
-  <testcase name="test_0004_Tracks a custom list on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.257118">
+  <testcase name="test_0002_Tracks a custom var with only a prop on page load" classname="AnalyticsTest::Variables" assertions="5" time="3.025489">
   </testcase>
-  <testcase name="test_0002_Tracks a custom var with only a prop on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.268028">
+  <testcase name="test_0004_Tracks a custom list on page load" classname="AnalyticsTest::Variables" assertions="5" time="3.198665">
   </testcase>
-  <testcase name="test_0006_Tracks a custom hierarchy on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.304725">
+  <testcase name="test_0009_tracks custom variables assigned after page load from a radio button" classname="AnalyticsTest::Variables" assertions="1" time="1.407748">
   </testcase>
-  <testcase name="test_0009_tracks custom variables assigned after page load from a radio button" classname="AnalyticsTest::Variables" assertions="1" time="1.052109">
+  <testcase name="test_0008_tracks custom variables assigned after page load in a text field" classname="AnalyticsTest::Variables" assertions="1" time="1.459895">
   </testcase>
-  <testcase name="test_0011_tracks a standard variable sent with a button click" classname="AnalyticsTest::Variables" assertions="3" time="1.693677">
-    <failure type="test_0011_tracks a standard variable sent with a button click" message="Expected: &quot;My Videos&quot;...">
-Failure:
-test_0011_tracks a standard variable sent with a button click(AnalyticsTest::Variables) [/Users/uni_nake/labs/analytics/test/functional/variables.rb:86]:
-Expected: "My Videos"
-  Actual: nil
-    </failure>
+  <testcase name="test_0007_Tracks a custom hierarchy on click" classname="AnalyticsTest::Variables" assertions="5" time="3.246789">
   </testcase>
-  <testcase name="test_0003_Tracks a custom var with eVar and a prop on click" classname="AnalyticsTest::Variables" assertions="6" time="3.105195">
+  <testcase name="test_0006_Tracks a custom hierarchy on page load" classname="AnalyticsTest::Variables" assertions="5" time="3.409741">
   </testcase>
-  <testcase name="test_0010_tracks a custom variable assigned on page load but set with a button click" classname="AnalyticsTest::Variables" assertions="5" time="2.447538">
+  <testcase name="test_0003_Tracks a custom var with eVar and a prop on click" classname="AnalyticsTest::Variables" assertions="6" time="4.328284">
   </testcase>
-  <testcase name="test_0001_Tracks a custom var on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.465695">
+  <testcase name="test_0011_tracks a standard variable sent with a button click" classname="AnalyticsTest::Variables" assertions="2" time="1.442447">
   </testcase>
-  <testcase name="test_0007_Tracks a custom hierarchy on click" classname="AnalyticsTest::Variables" assertions="5" time="2.483582">
+  <testcase name="test_0012_tracks a standard variable sent on page load" classname="AnalyticsTest::Variables" assertions="3" time="2.533872">
   </testcase>
-  <testcase name="test_0008_tracks custom variables assigned after page load in a text field" classname="AnalyticsTest::Variables" assertions="1" time="1.110994">
+  <testcase name="test_0005_Tracks a custom list on click" classname="AnalyticsTest::Variables" assertions="5" time="3.435634">
   </testcase>
-  <testcase name="test_0012_tracks a standard variable sent on page load" classname="AnalyticsTest::Variables" assertions="3" time="1.847914">
-    <failure type="test_0012_tracks a standard variable sent on page load" message="Expected: &quot;My Home Video&quot;...">
-Failure:
-test_0012_tracks a standard variable sent on page load(AnalyticsTest::Variables) [/Users/uni_nake/labs/analytics/test/functional/variables.rb:92]:
-Expected: "My Home Video"
-  Actual: nil
-    </failure>
+  <testcase name="test_0001_Tracks a custom var on page load" classname="AnalyticsTest::Variables" assertions="5" time="3.538217">
   </testcase>
 </testsuite>

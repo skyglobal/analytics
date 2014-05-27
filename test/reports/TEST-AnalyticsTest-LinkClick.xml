@@ -1,43 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::LinkClick" skipped="0" failures="0" errors="1" tests="9" assertions="33" time="10.486684999999998">
-  <testcase name="test_0009_Tracks a video being played" classname="AnalyticsTest::LinkClick" assertions="0" time="0.380958">
-    <error type="test_0009_Tracks a video being played" message="Capybara::Poltergeist::JavascriptError: One or more errors were raised in the Javascript code on the page. If you don't care about these errors, you can ignore them by setting js_errors: false in your Poltergeist configuration (see documentation for details)....">
-Failure:
-test_0009_Tracks a video being played(AnalyticsTest::LinkClick) [/Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:275]:
-Capybara::Poltergeist::JavascriptError: One or more errors were raised in the Javascript code on the page. If you don't care about these errors, you can ignore them by setting js_errors: false in your Poltergeist configuration (see documentation for details).
-
-TypeError: 'undefined' is not a function (evaluating 'document.getElementById("pooh-video").play()')
-TypeError: 'undefined' is not a function (evaluating 'document.getElementById("pooh-video").play()')
-    at http://127.0.0.1:50632/_site/dist/js/demo.js:1 in e
-    at http://web-toolkit.global.sky.com/static/lib/jquery-2.0.3.js:4676
-    at http://web-toolkit.global.sky.com/static/lib/jquery-2.0.3.js:4360
-    /Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:275:in `command'
-    /Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/poltergeist-1.5.0/lib/capybara/poltergeist/browser.rb:137:in `click'
-    /Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/poltergeist-1.5.0/lib/capybara/poltergeist/node.rb:17:in `command'
-    /Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/poltergeist-1.5.0/lib/capybara/poltergeist/node.rb:108:in `click'
-    /Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/capybara-2.1.0/lib/capybara/node/element.rb:118:in `block in click'
-    /Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/capybara-2.1.0/lib/capybara/node/base.rb:81:in `synchronize'
-    /Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/capybara-2.1.0/lib/capybara/node/element.rb:118:in `click'
-    /Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/capybara-2.1.0/lib/capybara/node/actions.rb:27:in `click_link'
-    /Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/capybara-2.1.0/lib/capybara/session.rb:354:in `block (2 levels) in &lt;class:Session&gt;'
-    /Users/uni_nake/.rvm/gems/ruby-2.0.0-p247@analytics/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in &lt;module:DSL&gt;'
-    /Users/uni_nake/labs/analytics/test/functional/media.rb:11:in `block in &lt;class:LinkClick&gt;'
-    </error>
+<testsuite name="AnalyticsTest::LinkClick" skipped="0" failures="0" errors="0" tests="8" assertions="33" time="12.78591">
+  <testcase name="test_0004_Tracks a link being clicked within a module and pod" classname="AnalyticsTest::LinkClick" assertions="8" time="2.116275">
   </testcase>
-  <testcase name="test_0006_does not track elements which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.8652">
+  <testcase name="test_0008_tracks masthead variable when clicks within masthead are triggered" classname="AnalyticsTest::LinkClick" assertions="2" time="1.336271">
   </testcase>
-  <testcase name="test_0001_Tracks a link being clicked and linkDetails is mapped correctly" classname="AnalyticsTest::LinkClick" assertions="12" time="2.371828">
+  <testcase name="test_0002_Tracks a button being clicked" classname="AnalyticsTest::LinkClick" assertions="4" time="1.326181">
   </testcase>
-  <testcase name="test_0005_tracks non-anchor elements that have the data-tracking attribute" classname="AnalyticsTest::LinkClick" assertions="2" time="0.755049">
+  <testcase name="test_0006_does not track elements which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.963399">
   </testcase>
-  <testcase name="test_0008_tracks masthead variable when clicks within masthead are triggered" classname="AnalyticsTest::LinkClick" assertions="2" time="1.138469">
+  <testcase name="test_0007_does not track non-anchors which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.944935">
   </testcase>
-  <testcase name="test_0007_does not track non-anchors which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.755334">
+  <testcase name="test_0005_tracks non-anchor elements that have the data-tracking attribute" classname="AnalyticsTest::LinkClick" assertions="2" time="1.066683">
   </testcase>
-  <testcase name="test_0002_Tracks a button being clicked" classname="AnalyticsTest::LinkClick" assertions="4" time="1.140685">
+  <testcase name="test_0003_A button being clicked twice doesn't have the events stacked'" classname="AnalyticsTest::LinkClick" assertions="3" time="1.494925">
   </testcase>
-  <testcase name="test_0003_A button being clicked twice doesn't have the events stacked'" classname="AnalyticsTest::LinkClick" assertions="3" time="1.155857">
-  </testcase>
-  <testcase name="test_0004_Tracks a link being clicked within a module and pod" classname="AnalyticsTest::LinkClick" assertions="8" time="1.923305">
+  <testcase name="test_0001_Tracks a link being clicked and linkDetails is mapped correctly" classname="AnalyticsTest::LinkClick" assertions="12" time="3.537241">
   </testcase>
 </testsuite>

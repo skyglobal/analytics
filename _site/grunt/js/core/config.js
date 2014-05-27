@@ -58,8 +58,6 @@ _analytics.config = (function(){
             type: ['eVar71', 'prop71'],
             videoFormat: ['eVar74', 'prop74'],
             videoTitle: ['prop26','eVar28']
-
-
         },
         eventsMap = {
             pageLoad: 'event1',
