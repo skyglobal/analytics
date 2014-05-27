@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Search" skipped="0" failures="0" errors="0" tests="2" assertions="24" time="7.7848120000000005">
-  <testcase name="test_0002_tracks search results and prop of 0 (int) is sent to omniture" classname="AnalyticsTest::Search" assertions="8" time="2.675176">
+<testsuite name="AnalyticsTest::Search" skipped="0" failures="0" errors="0" tests="2" assertions="24" time="10.523337999999999">
+  <testcase name="test_0001_tracks search vars and is mapped correctly" classname="AnalyticsTest::Search" assertions="16" time="6.813954">
   </testcase>
-  <testcase name="test_0001_tracks search vars and is mapped correctly" classname="AnalyticsTest::Search" assertions="16" time="5.109636">
+  <testcase name="test_0002_tracks search results and prop of 0 (int) is sent to omniture" classname="AnalyticsTest::Search" assertions="8" time="3.709384">
   </testcase>
 </testsuite>

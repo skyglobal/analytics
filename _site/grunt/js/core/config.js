@@ -5,6 +5,7 @@ _analytics.config = (function(){
             'module','pod','other','context','theme','textClicked','pageName'
         ],
         variablesMap = {
+            '404Page': ['pageType'],
             ageGender: ['eVar12'],
             browseMethod: ['prop24'],
             channel: ['eVar24','channel','hier1'],
@@ -28,7 +29,6 @@ _analytics.config = (function(){
             optIn: ['eVar38'],
             pageConversion: ['eVar19'],
             pageName: ["pageName"],
-            '404Page': ['pageType'],
             partTime: ['prop35','eVar35'],
             persistentLoginType: ['prop64'],
             product: ['products'],
@@ -48,11 +48,17 @@ _analytics.config = (function(){
             skyPackage: ['eVar16'],
             testAndTarget: ['eVar18'],
             url: ['prop9','eVar9'],
-            videoTitle: ['prop26','eVar28'],
             visitNum: ["prop69", "eVar69"],
             visitorID: ["visitorID"]
         },
-
+        mediaVariablesMap ={
+            category: ['hier5', 'eVar70', 'eVar73', 'prop70', 'prop73'],
+            guid: ['eVar72', 'prop72'],
+            mediaUrl: ['eVar10'],
+            type: ['eVar71', 'prop71'],
+            videoFormat: ['eVar74', 'prop74'],
+            videoTitle: ['prop26','eVar28']
+        },
         eventsMap = {
             pageLoad: 'event1',
             error: 'event3',
@@ -110,6 +116,7 @@ _analytics.config = (function(){
         loadEvents:[],
         loadVariables:{},
         variablesMap: variablesMap,
+        mediaVariablesMap: mediaVariablesMap,
         QScmpId: 'cmpid,aff',
         QScmpIdInt: 'cmpid_int',
         server: window.location.hostname,

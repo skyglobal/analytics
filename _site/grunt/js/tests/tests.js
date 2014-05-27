@@ -26,11 +26,22 @@ _demo.tests = (function(){
         $('#ad-hoc-tracking').on('click', sendAdHocTracking);
         $('#ad-hoc-tracking-page-view').on('click', sendAdHocTrackingPageView);
         $('#ad-hoc-tracking-after-page-view').on('click', sendAdHocTrackingAfterPageView);
+        $('#play-pooh').on('click', playPooh);
+        $('#pause-pooh').on('click', pausePooh);
         $(document).on('click', '#manualBind, #manualBindA', analytics.trackClick);
         updateCustomVariableValues();
         manualTrigger();
         showDemoCode();
+    }
 
+    // html5 video not supported in PhantomJS
+    // we can't use the video API as it causes a javascript error
+    // for example: document.getElementById('play-pooh').play()
+    function playPooh(){
+        $('#pooh-video').trigger('play');
+    }
+    function pausePooh(){
+        $('#pooh-video').trigger('pause');
     }
 
     function showDemoCode(){

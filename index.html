@@ -24,4 +24,14 @@ title: Analytics
         ]
     });
     analytics.trackPage();
+    analytics.trackMedia({
+        videoElement: document.getElementById('pooh-video'),
+        category:"skymovies",
+        mediaUrl:"http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_H264.mp4",
+        videoTitle:"Winnie the Pooh: Trailer",
+        type:"video",
+        guid:"clip-0044tyky",
+        videoFormat:"576p|2000k|video/mp4",
+        provider:"skyvideolibrary"
+    });
 </script>
