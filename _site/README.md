@@ -24,6 +24,8 @@ BSkyB wrapper for Adobe Sitecat analytics JS.
   - curl https://npmjs.org/install.sh | sh
 3. Install grunt either globally, or run the following to use the bundled project grunt
   - npm install
+4. Install Compass and other requirements using gem
+  - bundle
 
 ### Code structure
 - grunt/js/

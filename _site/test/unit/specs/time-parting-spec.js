@@ -34,7 +34,7 @@ function timePartingSpec(timeParting) {
     });
 
     describe('British summer time', function() {
-        it('Should return the correct date when it is BST', function () {
+        it('Should return the correct date when it is BST', function() {
             var date = new Date('Thu May 08 2014 12:38:13 GMT+0100 (BST)');
 
             var result = timeParting.getTimeParting(date);

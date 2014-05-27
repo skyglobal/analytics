@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Debug" skipped="0" failures="0" errors="0" tests="5" assertions="20" time="13.863807999999999">
-  <testcase name="test_0002_Debug can be turned on for hash based urls and click event is blocked" classname="AnalyticsTest::Debug" assertions="4" time="9.653652">
+<testsuite name="AnalyticsTest::Debug" skipped="0" failures="0" errors="0" tests="5" assertions="20" time="14.296807000000001">
+  <testcase name="test_0001_Debug can be turned on for external links and loading external link is blocked" classname="AnalyticsTest::Debug" assertions="2" time="9.373504">
   </testcase>
-  <testcase name="test_0001_Debug can be turned on for external links and loading external link is blocked" classname="AnalyticsTest::Debug" assertions="2" time="0.718011">
+  <testcase name="test_0003_Debug can be turned on on page load which displays analytics info within the page" classname="AnalyticsTest::Debug" assertions="4" time="0.955793">
   </testcase>
-  <testcase name="test_0003_Debug can be turned on on page load which displays analytics info within the page" classname="AnalyticsTest::Debug" assertions="4" time="0.694807">
+  <testcase name="test_0002_Debug can be turned on for hash based urls and click event is blocked" classname="AnalyticsTest::Debug" assertions="4" time="1.180837">
   </testcase>
-  <testcase name="test_0004_Debug can be turned off which will not display analytics info within the page" classname="AnalyticsTest::Debug" assertions="1" time="0.527969">
+  <testcase name="test_0004_Debug can be turned off which will not display analytics info within the page" classname="AnalyticsTest::Debug" assertions="1" time="0.536776">
   </testcase>
-  <testcase name="test_0005_Debug can be turned on and http requests are blocked" classname="AnalyticsTest::Debug" assertions="9" time="2.269369">
+  <testcase name="test_0005_Debug can be turned on and http requests are blocked" classname="AnalyticsTest::Debug" assertions="9" time="2.249897">
   </testcase>
 </testsuite>
