@@ -1476,8 +1476,10 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 
     <div class="skycom-4 alpha has-code-example" >
         <span class="toggler" for=video-media></span>
-        <a href="#!" id="play-pooh">Play Pooh</a>
-        <a href="#!" id="pause-pooh">Pause Pooh</a>
+        <a href="#!" id="play-pooh">Play Pooh</a> |
+        <a href="#!" id="pause-pooh">Pause Pooh</a> |
+        <a href="#!" id="skip-pooh">Skip 30 seconds</a> |
+        <a href="#!" id="end-pooh">Skip to end</a>
         <video controls width="100%" id="pooh-video">
             <source src="http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_WEBM.webm" type="video/webm"/>
             <source src="http://static.video.sky.com/skymovies/2014/02/73756/73756-576p_2000K_H264.mp4" type="video/mp4"/>
@@ -1884,7 +1886,8 @@ analytics.trackPage(SITECAT_CONFIG);
         type:"video",
         guid:"clip-0044tyky",
         videoFormat:"576p|2000k|video/mp4",
-        provider:"skyvideolibrary"
+        provider:"skyvideolibrary",
+        duration: 126
     });
 </script>
     </div>
@@ -1895,7 +1898,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <ul class="alpha skycom-12">
             <li class="right meta-data skycom-2" >
                 <div class="intro">Analytics v<span id="current-version">1.4.4rc3</span></div>
-                <small class="right">Updated: 20-05-2014</small>
+                <small class="right">Updated: 27-05-2014</small>
             </li>
         </ul>
     </div>
