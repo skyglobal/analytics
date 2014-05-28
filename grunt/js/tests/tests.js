@@ -28,6 +28,9 @@ _demo.tests = (function(){
         $('#ad-hoc-tracking-after-page-view').on('click', sendAdHocTrackingAfterPageView);
         $('#play-pooh').on('click', playPooh);
         $('#pause-pooh').on('click', pausePooh);
+        $('#skip-pooh').on('click', skipPooh);
+        $('#end-pooh').on('click', endPooh);
+
         $(document).on('click', '#manualBind, #manualBindA', analytics.trackClick);
         updateCustomVariableValues();
         manualTrigger();
@@ -36,13 +39,43 @@ _demo.tests = (function(){
 
     // html5 video not supported in PhantomJS
     // we can't use the video API as it causes a javascript error
-    // for example: document.getElementById('play-pooh').play()
+    // for example: document.getElementById('pooh-video').play()
     function playPooh(){
-        $('#pooh-video').trigger('play');
+        if(document.getElementById('pooh-video').play) {
+            document.getElementById('pooh-video').play();
+        }
+        else {
+            $('#pooh-video').trigger('play');
+        }
     }
+
     function pausePooh(){
-        $('#pooh-video').trigger('pause');
+        if(document.getElementById('pooh-video').pause) {
+            document.getElementById('pooh-video').pause();
+        }
+        else {
+            $('#pooh-video').trigger('pause');
+        }
     }
+
+    function skipPooh(){
+        if(document.getElementById('pooh-video').currentTime){
+            document.getElementById('pooh-video').currentTime += 30;
+        }
+        else {
+            $('#pooh-video').trigger('seeking');
+        }
+    }
+
+    function endPooh() {
+        if (document.getElementById('pooh-video').duration) {
+            document.getElementById('pooh-video').currentTime = document.getElementById('pooh-video').duration;
+        }
+        else {
+            $('#pooh-video').trigger('ended');
+        }
+    }
+
 
     function showDemoCode(){
         $('.code-example script').each(function(){

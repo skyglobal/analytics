@@ -1,17 +1,10 @@
 if (typeof _analytics==='undefined') _analytics={};
 _analytics.trackMedia = (function(config,omniture,media){
 
-    var videoEl;
-    var isVideoPlaying;
+    var videoEl, isVideoPlaying, duration;
 
     function bindEvents(){
-        videoEl.addEventListener('loadedmetadata',eventHandler,false);
-        videoEl.addEventListener('durationchange',eventHandler,false);
-        videoEl.addEventListener('seeked',eventHandler,false);
-        videoEl.addEventListener('seeking',eventHandler,false);
-        videoEl.addEventListener('play',eventHandler,false);
-        videoEl.addEventListener('pause',eventHandler,false);
-        videoEl.addEventListener('ended',eventHandler,false);
+        $(videoEl).on('loadedmetadata durationchange seeked seeking play pause ended', eventHandler);
     }
 
     function setup(mediaConfig){
@@ -24,14 +17,19 @@ _analytics.trackMedia = (function(config,omniture,media){
         omniture.setMediaVariable('videoFormat', mediaConfig.videoFormat);
         omniture.setMediaVariable('type', mediaConfig.type);
         omniture.setMediaVariable('guid', mediaConfig.guid);
+        duration = mediaConfig.duration?mediaConfig.duration:60;
     }
 
     var eventHandler = function(e) {
-        var currentTime;
+        var currentTime, medialength;
         if (videoEl.currentTime > 0) {
             currentTime = videoEl.currentTime;
         } else {
             currentTime = 0;
+        }
+
+        if (e.type == "loadedmetadata"){
+            duration = videoEl.duration ? videoEl.duration : duration;
         }
 
         if (e.type == "seeking" && isVideoPlaying) {
@@ -42,7 +40,7 @@ _analytics.trackMedia = (function(config,omniture,media){
         }
         if (e.type == "play" && !isVideoPlaying) {
             isVideoPlaying = true;
-            var medialength = videoEl.duration ? videoEl.duration : 60;
+            medialength = videoEl.duration ? videoEl.duration : duration;
             s.Media.open(media.getMediaVariable('videoTitle'),medialength, media.getMediaVariable('playerName'));
             s.Media.play(media.getMediaVariable('videoTitle'),currentTime);
         }
@@ -58,7 +56,8 @@ _analytics.trackMedia = (function(config,omniture,media){
         }
         if (e.type == "ended") {
             isVideoPlaying = false;
-            s.Media.stop(media.getMediaVariable('videoTitle'),currentTime);
+            medialength = videoEl.currentTime? videoEl.currentTime: duration;
+            s.Media.stop(media.getMediaVariable('videoTitle'),medialength);
             s.Media.close(media.getMediaVariable('videoTitle'));
         }
     };
