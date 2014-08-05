@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::LinkClick" skipped="0" failures="0" errors="0" tests="8" assertions="33" time="12.783416999999998">
-  <testcase name="test_0006_does not track elements which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.917733">
+<testsuite name="AnalyticsTest::LinkClick" skipped="0" failures="0" errors="0" tests="8" assertions="33" time="9.388976453000001">
+  <testcase name="test_0002_Tracks a button being clicked" classname="AnalyticsTest::LinkClick" assertions="4" time="1.018009331">
   </testcase>
-  <testcase name="test_0007_does not track non-anchors which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.967429">
+  <testcase name="test_0007_does not track non-anchors which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.688104396">
   </testcase>
-  <testcase name="test_0002_Tracks a button being clicked" classname="AnalyticsTest::LinkClick" assertions="4" time="1.407511">
+  <testcase name="test_0003_A button being clicked twice doesn't have the events stacked'" classname="AnalyticsTest::LinkClick" assertions="3" time="1.044353013">
   </testcase>
-  <testcase name="test_0005_tracks non-anchor elements that have the data-tracking attribute" classname="AnalyticsTest::LinkClick" assertions="2" time="0.90127">
+  <testcase name="test_0004_Tracks a link being clicked within a module and pod" classname="AnalyticsTest::LinkClick" assertions="8" time="1.687878973">
   </testcase>
-  <testcase name="test_0001_Tracks a link being clicked and linkDetails is mapped correctly" classname="AnalyticsTest::LinkClick" assertions="12" time="3.22662">
+  <testcase name="test_0001_Tracks a link being clicked and linkDetails is mapped correctly" classname="AnalyticsTest::LinkClick" assertions="12" time="2.385148601">
   </testcase>
-  <testcase name="test_0003_A button being clicked twice doesn't have the events stacked'" classname="AnalyticsTest::LinkClick" assertions="3" time="1.431382">
+  <testcase name="test_0006_does not track elements which have data-tracking=false" classname="AnalyticsTest::LinkClick" assertions="1" time="0.748669383">
   </testcase>
-  <testcase name="test_0004_Tracks a link being clicked within a module and pod" classname="AnalyticsTest::LinkClick" assertions="8" time="2.45957">
+  <testcase name="test_0005_tracks non-anchor elements that have the data-tracking attribute" classname="AnalyticsTest::LinkClick" assertions="2" time="0.724770933">
   </testcase>
-  <testcase name="test_0008_tracks masthead variable when clicks within masthead are triggered" classname="AnalyticsTest::LinkClick" assertions="2" time="1.471902">
+  <testcase name="test_0008_tracks masthead variable when clicks within masthead are triggered" classname="AnalyticsTest::LinkClick" assertions="2" time="1.092041823">
   </testcase>
 </testsuite>

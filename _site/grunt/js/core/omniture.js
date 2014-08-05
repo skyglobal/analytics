@@ -122,7 +122,7 @@ _analytics.omniture = (function(config, logger){
         log();
         if (!logger.debugging()){
             if (type){
-                s.trackLink(true,'o',type);
+                s.tl(true,'o',type);
             } else {
                 s.t();
             }

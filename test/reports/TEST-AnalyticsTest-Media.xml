@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Media" skipped="0" failures="0" errors="0" tests="1" assertions="0" time="0.414355162">
-  <testcase name="test_0001_Tracks a video being played" classname="AnalyticsTest::Media" assertions="0" time="0.414355162">
+<testsuite name="AnalyticsTest::Media" skipped="0" failures="0" errors="0" tests="2" assertions="20" time="12.321954999999999">
+  <testcase name="test_0001_Tracks a video being played" classname="AnalyticsTest::Media" assertions="12" time="7.034402">
+  </testcase>
+  <testcase name="test_0002_Tracks a video from start to end" classname="AnalyticsTest::Media" assertions="8" time="5.287553">
   </testcase>
 </testsuite>
