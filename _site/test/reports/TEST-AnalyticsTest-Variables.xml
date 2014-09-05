@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Variables" skipped="0" failures="0" errors="0" tests="12" assertions="48" time="17.671030000000002">
-  <testcase name="test_0009_tracks custom variables assigned after page load from a radio button" classname="AnalyticsTest::Variables" assertions="1" time="0.782982">
+<testsuite name="AnalyticsTest::Variables" skipped="0" failures="0" errors="0" tests="12" assertions="48" time="22.632168">
+  <testcase name="test_0001_Tracks a custom var on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.041802">
   </testcase>
-  <testcase name="test_0010_tracks a custom variable assigned on page load but set with a button click" classname="AnalyticsTest::Variables" assertions="5" time="1.594138">
+  <testcase name="test_0006_Tracks a custom hierarchy on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.090744">
   </testcase>
-  <testcase name="test_0001_Tracks a custom var on page load" classname="AnalyticsTest::Variables" assertions="5" time="1.597298">
+  <testcase name="test_0010_tracks a custom variable assigned on page load but set with a button click" classname="AnalyticsTest::Variables" assertions="5" time="2.140254">
   </testcase>
-  <testcase name="test_0012_tracks a standard variable sent on page load" classname="AnalyticsTest::Variables" assertions="3" time="1.217673">
+  <testcase name="test_0005_Tracks a custom list on click" classname="AnalyticsTest::Variables" assertions="5" time="2.133968">
   </testcase>
-  <testcase name="test_0002_Tracks a custom var with only a prop on page load" classname="AnalyticsTest::Variables" assertions="5" time="1.643451">
+  <testcase name="test_0003_Tracks a custom var with eVar and a prop on click" classname="AnalyticsTest::Variables" assertions="6" time="2.756933">
   </testcase>
-  <testcase name="test_0011_tracks a standard variable sent with a button click" classname="AnalyticsTest::Variables" assertions="2" time="0.790749">
+  <testcase name="test_0004_Tracks a custom list on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.208683">
   </testcase>
-  <testcase name="test_0008_tracks custom variables assigned after page load in a text field" classname="AnalyticsTest::Variables" assertions="1" time="0.828964">
+  <testcase name="test_0002_Tracks a custom var with only a prop on page load" classname="AnalyticsTest::Variables" assertions="5" time="2.206631">
   </testcase>
-  <testcase name="test_0004_Tracks a custom list on page load" classname="AnalyticsTest::Variables" assertions="5" time="1.718692">
+  <testcase name="test_0008_tracks custom variables assigned after page load in a text field" classname="AnalyticsTest::Variables" assertions="1" time="1.003512">
   </testcase>
-  <testcase name="test_0007_Tracks a custom hierarchy on click" classname="AnalyticsTest::Variables" assertions="5" time="1.730223">
+  <testcase name="test_0009_tracks custom variables assigned after page load from a radio button" classname="AnalyticsTest::Variables" assertions="1" time="1.010455">
   </testcase>
-  <testcase name="test_0005_Tracks a custom list on click" classname="AnalyticsTest::Variables" assertions="5" time="1.74861">
+  <testcase name="test_0011_tracks a standard variable sent with a button click" classname="AnalyticsTest::Variables" assertions="2" time="0.996334">
   </testcase>
-  <testcase name="test_0006_Tracks a custom hierarchy on page load" classname="AnalyticsTest::Variables" assertions="5" time="1.757621">
+  <testcase name="test_0007_Tracks a custom hierarchy on click" classname="AnalyticsTest::Variables" assertions="5" time="2.307523">
   </testcase>
-  <testcase name="test_0003_Tracks a custom var with eVar and a prop on click" classname="AnalyticsTest::Variables" assertions="6" time="2.260629">
+  <testcase name="test_0012_tracks a standard variable sent on page load" classname="AnalyticsTest::Variables" assertions="3" time="1.735329">
   </testcase>
 </testsuite>
