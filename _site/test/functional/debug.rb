@@ -54,12 +54,12 @@ class Debug < AcceptanceTest
     trackedEvents.wont_include eventsMap[:pageLoad]
 
     click_link 'debug on'
-    click_link 'Click here to see resetting config in action'
+    click_link 'reset-config'
     trackedEvents.must_equal [eventsMap[:linkClick]]
     trackedEvents.wont_include eventsMap[:pageLoad]
 
     click_link 'debug off'
-    click_link 'Click here to see resetting config in action'
+    click_link 'reset-config'
 
     trackedEvents.wont_equal [eventsMap[:linkClick]]
     trackedEvents.must_include eventsMap[:pageLoad]
