@@ -6,26 +6,18 @@ BSkyB wrapper for Adobe Analytics (previously known as SiteCatalyst) analytics J
 ## Building Analytics Locally
 ### Prerequisites
 
-- RVM
-- Ruby (version 1.9.3 or later)
-- npm
+- Ideally a Ruby version manager like RVM or RBenv if you are cool
+- [Ruby](https://www.ruby-lang.org/en/) (version 1.9.3 or later)
+- [node](http://nodejs.org/) 
+- [phantomjs](http://phantomjs.org/) 
+- [Grunt](http://gruntjs.com/)
 
 ### Setup
 1. Fork the repository from Github onto your local machine
-2. Install npm
-  - echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
-  - . ~/.bashrc
-  - mkdir /usr/local
-  - mkdir ~/node-latest-install
-  - cd ~/node-latest-install
-  - curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
-  - ./configure --prefix=/usr/local
-  - make install # ok, fine, this step probably takes more than 30 seconds...
-  - curl https://npmjs.org/install.sh | sh
-3. Install grunt either globally, or run the following to use the bundled project grunt
-  - npm install
-4. Install Compass and other requirements using gem
+2. Install ruby requirements
   - bundle
+3. Install node requirements
+  - npm install
 
 ### Code structure
 - grunt/js/
@@ -67,10 +59,9 @@ BSkyB wrapper for Adobe Analytics (previously known as SiteCatalyst) analytics J
 ### Running
 
 1. In the root of the project, run the following:
-  - bundle
-  - jekyll serve --watch
+  - `jekyll serve --watch`
 2. In another terminal run:
-  - grunt watch (add ' --beautify' to help debugging)
+  - `grunt watch` (add ' --beautify' to help debugging)
 3. browse to
   - http://localhost:4001
 
