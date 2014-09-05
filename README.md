@@ -6,7 +6,7 @@ BSkyB wrapper for Adobe Analytics (previously known as SiteCatalyst) analytics J
 ## Building Analytics Locally
 ### Prerequisites
 
-- Ideally a Ruby version manager like RVM or RBenv if you are cool
+- Ideally a Ruby version manager like [RBenv](http://rbenv.org/)
 - [Ruby](https://www.ruby-lang.org/en/) (version 1.9.3 or later)
 - [node](http://nodejs.org/) 
 - [phantomjs](http://phantomjs.org/) 
