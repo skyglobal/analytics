@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="0" errors="0" tests="7" assertions="30" time="14.450659">
-  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.430075">
+<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="0" errors="0" tests="7" assertions="30" time="10.5364">
+  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="2.379865">
   </testcase>
-  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.873095">
+  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="1" time="0.710182">
   </testcase>
-  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.861545">
+  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.706461">
   </testcase>
-  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="1" time="0.853027">
+  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="9" time="2.100822">
   </testcase>
-  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="4.927808">
+  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="3.46979">
   </testcase>
-  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="9" time="2.915876">
+  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.429594">
   </testcase>
-  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="3.589233">
+  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.739686">
   </testcase>
 </testsuite>

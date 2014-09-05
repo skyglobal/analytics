@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Debug" skipped="0" failures="0" errors="0" tests="5" assertions="20" time="8.333557">
-  <testcase name="test_0002_Debug can be turned on for hash based urls and click event is blocked" classname="AnalyticsTest::Debug" assertions="4" time="4.965096">
+<testsuite name="AnalyticsTest::Debug" skipped="0" failures="0" errors="0" tests="5" assertions="20" time="7.992917">
+  <testcase name="test_0004_Debug can be turned off which will not display analytics info within the page" classname="AnalyticsTest::Debug" assertions="1" time="4.522479">
   </testcase>
-  <testcase name="test_0003_Debug can be turned on on page load which displays analytics info within the page" classname="AnalyticsTest::Debug" assertions="4" time="0.383471">
+  <testcase name="test_0002_Debug can be turned on for hash based urls and click event is blocked" classname="AnalyticsTest::Debug" assertions="4" time="1.116899">
   </testcase>
-  <testcase name="test_0001_Debug can be turned on for external links and loading external link is blocked" classname="AnalyticsTest::Debug" assertions="2" time="0.510883">
+  <testcase name="test_0005_Debug can be turned on and http requests are blocked" classname="AnalyticsTest::Debug" assertions="9" time="1.48986">
   </testcase>
-  <testcase name="test_0004_Debug can be turned off which will not display analytics info within the page" classname="AnalyticsTest::Debug" assertions="1" time="0.562077">
+  <testcase name="test_0003_Debug can be turned on on page load which displays analytics info within the page" classname="AnalyticsTest::Debug" assertions="4" time="0.37155">
   </testcase>
-  <testcase name="test_0005_Debug can be turned on and http requests are blocked" classname="AnalyticsTest::Debug" assertions="9" time="1.91203">
+  <testcase name="test_0001_Debug can be turned on for external links and loading external link is blocked" classname="AnalyticsTest::Debug" assertions="2" time="0.492129">
   </testcase>
 </testsuite>

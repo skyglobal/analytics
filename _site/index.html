@@ -315,11 +315,12 @@
     We hope to change this soon.
 </p>
 
-
-<a href="#!" id="reset-config" data-tracking=false>Test setting the config</a>.
-
-<a href="#!" id="basic-config" data-tracking=false>Test old config and page tracking (deprecated)</a>.
-
+<p>
+    <a href="#!" id="reset-config" data-tracking=false>Test setting the config</a>.
+</p>
+<p>
+    <a href="#!" id="basic-config" data-tracking=false>Test old config and page tracking (deprecated)</a>.
+</p>
     </div>
     <div class="sub-section" id="default-config">
         <h3 class="wiki-h3">Default Config
@@ -617,7 +618,7 @@ $('#sessionCamId-link-click-link').on('click', function(e){
 <p>Please note, when debug is on, the user is not taken to the link and tracking information is not sent. This behaviour is intentional and allows the user to check the tracking in the console.</p>
 
 <h4>Example config</h4>
-<code class="block js">    analytics.trackPage({
+<code class="block js">    analytics.setup({
         page: document.title,
         site: 'global',
         section: 'skyglobal/analytics/demo',
