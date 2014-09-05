@@ -287,37 +287,39 @@
 <section class="demo-section" >
     <div class="sub-section" id="getting-started">
         <h2 >Getting Started</h2>
+
+  <h3 class="wiki-h3">Include analytics in your page</h3>
+
 <p class="developer-notes">
-    Please use the following:
     <code class="html">    &lt;script src=//analytics.global.sky.com/1.4.5/analytics.js>&lt;/script></code> (this works over <code>http</code> or <code>https</code>).
     If your project uses RequireJS, <a href="require-js.html">Click here to see a requireJS example</a>.
 </p>
-<p>
-    Then add the following onto your page with the correct account details to initialise the tracking.
-</p>
 
-<code class="block js">analytics.trackPage({
-    site: 'global',
-    section: 'skyglobal/analytics/demo',
-    account: 'bskybdemodev'
-    });</code>
-<p>Boom.    Job Done.    </p>
-<p> Now <code>anchors</code>, <code>buttons</code>, <code>submits</code> and any element with <code>[data-tracking]</code> are automatically tracking.</p>
+  <h3 class="wiki-h3">Setup the analytics config</h3>
 
-<a href="#!" id="basic-config" data-tracking=false>Click here to see this basic config in action</a>.
+    <code class="block js">analytics.setup({
+        site: 'global',
+        section: 'skyglobal/analytics/demo',
+        account: 'bskybdemodev' //insert correct account here depending on your environment
+        });</code>
 
-<h3 class="wiki-h3">Resetting the Config</h3>
-<p class="developer-notes">
-    If you have a <code>single-page app</code> and need to reset the config, you can use the <code>analytics.setup</code> as often as required.
-</p>
 
-<code class="block js">analytics.setup({
-    site: 'global',
-    section: 'skyglobal/analytics/demo',
-    account: 'bskybdemodev'
-    });</code>
+<h3 class="wiki-h3">Track the page load</h3>
+
 <code class="block js">analytics.trackPage();</code>
-<a href="#!" id="reset-config" data-tracking=false>Click here to see resetting config in action</a>.
+
+
+<h3 class="wiki-h3">Tracking pages with single page apps</h3>
+<p class="developer-notes">
+    At the moment, you will need to call setup again with the new properties and then trackpage (although probably only section will have changed).
+    We hope to change this soon.
+</p>
+
+
+<a href="#!" id="reset-config" data-tracking=false>Test setting the config</a>.
+
+<a href="#!" id="basic-config" data-tracking=false>Test old config and page tracking (deprecated)</a>.
+
     </div>
     <div class="sub-section" id="default-config">
         <h3 class="wiki-h3">Default Config
@@ -1898,7 +1900,7 @@ analytics.trackPage(SITECAT_CONFIG);
         <ul class="alpha skycom-12">
             <li class="right meta-data skycom-2" >
                 <div class="intro">Analytics v<span id="current-version">1.4.5</span></div>
-                <small class="right">Updated: 05-08-2014</small>
+                <small class="right">Updated: 05-09-2014</small>
             </li>
         </ul>
     </div>

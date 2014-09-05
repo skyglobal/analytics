@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="0" errors="0" tests="7" assertions="30" time="14.765764698">
-  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="1.036192811">
+<testsuite name="AnalyticsTest::PageLoad" skipped="0" failures="0" errors="1" tests="7" assertions="29" time="12.686278">
+  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="2.49079">
   </testcase>
-  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="1" time="0.873130957">
+  <testcase name="test_0003_tracks 'section' as page name id 'page' is omitted" classname="AnalyticsTest::PageLoad" assertions="0" time="2.346321">
+    <error type="test_0003_tracks 'section' as page name id 'page' is omitted" message="Capybara::ElementNotFound: Unable to find link &quot;Click here to see this basic config in action&quot;...">
+Failure:
+test_0003_tracks 'section' as page name id 'page' is omitted(AnalyticsTest::PageLoad) [/Users/richmong/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara/node/finders.rb:41]:
+Capybara::ElementNotFound: Unable to find link "Click here to see this basic config in action"
+    /Users/richmong/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara/node/finders.rb:41:in `block in find'
+    /Users/richmong/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara/node/base.rb:81:in `synchronize'
+    /Users/richmong/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara/node/finders.rb:30:in `find'
+    /Users/richmong/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara/node/actions.rb:27:in `click_link'
+    /Users/richmong/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara/session.rb:354:in `block (2 levels) in &lt;class:Session&gt;'
+    /Users/richmong/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in &lt;module:DSL&gt;'
+    /Users/richmong/dev/skyglobal/analytics/test/functional/page-load.rb:34:in `block in &lt;class:PageLoad&gt;'
+    </error>
   </testcase>
-  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.902830111">
+  <testcase name="test_0005_tracks 'page' as page name over section if provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.733466">
   </testcase>
-  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.49643721">
+  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="9" time="2.204105">
   </testcase>
-  <testcase name="test_0002_tracks pageview properly after using setup first" classname="AnalyticsTest::PageLoad" assertions="9" time="3.034065891">
+  <testcase name="test_0004_tracks 'section' + 'contentType' as page name id when 'page' is omitted and contentType is provided" classname="AnalyticsTest::PageLoad" assertions="1" time="0.735635">
   </testcase>
-  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="4.889539898">
+  <testcase name="test_0001_Tracks page view with correct site details" classname="AnalyticsTest::PageLoad" assertions="12" time="3.752522">
   </testcase>
-  <testcase name="test_0007_resets load vars on new AJAX page load" classname="AnalyticsTest::PageLoad" assertions="6" time="3.53356782">
+  <testcase name="test_0006_Tracks page view using requireJS" classname="AnalyticsTest::PageLoad" assertions="0" time="0.423439">
   </testcase>
 </testsuite>

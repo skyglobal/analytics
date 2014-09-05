@@ -20,7 +20,7 @@ class PageLoad < AcceptanceTest
   end
 
   it "tracks pageview properly after using setup first" do
-    click_link 'Click here to see resetting config in action'
+    click_link 'reset-config'
     trackedVariable('siteName',:prop).must_equal 'sky/portal/global'
     trackedVariable('section2', :prop).must_include 'resetting'
     #trackedVariable('videoTitle', :prop).must_include 'My Home Video'
@@ -31,7 +31,7 @@ class PageLoad < AcceptanceTest
   end
 
   it "tracks 'section' as page name id 'page' is omitted" do
-    click_link 'Click here to see this basic config in action'
+    click_link 'basic-config'
     trackedVariable('pageName', :pagename).must_equal 'sky/portal/global/skyglobal/analytics/demo'
   end
 
