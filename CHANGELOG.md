@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.5
+
+ * [fixed] searchTerm and searhType had wrong mapping configuration with Adobe Analytics and are now fixed
+
 ## 1.4.4
 
  * [fixed] Use BST not GMT when in BST
