@@ -51,8 +51,8 @@ end
 
 def variablesMap
   {
-      searchType:{prop: 'c1',eVar: 'v1'},
-      searchTerm:{prop: 'c12',eVar: 'v31'},
+      searchType:{prop: 'c12',eVar: 'v31'},
+      searchTerm:{prop: 'c1',eVar: 'v1'},
       searchResults:{prop: 'c34'},
       headline:{prop: 'c3',eVar: 'v13'},
       errors:{prop: 'c2',eVar: 'v2'},

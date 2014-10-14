@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AnalyticsTest::Search" skipped="0" failures="0" errors="0" tests="2" assertions="24" time="7.275717">
-  <testcase name="test_0002_tracks search results and prop of 0 (int) is sent to omniture" classname="AnalyticsTest::Search" assertions="8" time="2.509718">
+<testsuite name="AnalyticsTest::Search" skipped="0" failures="2" errors="0" tests="2" assertions="16" time="3.988646">
+  <testcase name="test_0001_tracks search vars and is mapped correctly" classname="AnalyticsTest::Search" assertions="10" time="2.434359">
+    <failure type="test_0001_tracks search vars and is mapped correctly" message="Expected &quot;Milkshake search&quot; to include &quot;weather&quot;.">
+Failure:
+test_0001_tracks search vars and is mapped correctly(AnalyticsTest::Search) [/Users/ben/sky-analytics/test/functional/search.rb:17]:
+Expected "Milkshake search" to include "weather".
+    </failure>
   </testcase>
-  <testcase name="test_0001_tracks search vars and is mapped correctly" classname="AnalyticsTest::Search" assertions="16" time="4.765999">
+  <testcase name="test_0002_tracks search results and prop of 0 (int) is sent to omniture" classname="AnalyticsTest::Search" assertions="6" time="1.554287">
+    <failure type="test_0002_tracks search results and prop of 0 (int) is sent to omniture" message="Expected &quot;london&quot; to include &quot;weather&quot;.">
+Failure:
+test_0002_tracks search results and prop of 0 (int) is sent to omniture(AnalyticsTest::Search) [/Users/ben/sky-analytics/test/functional/search.rb:27]:
+Expected "london" to include "weather".
+    </failure>
   </testcase>
 </testsuite>
