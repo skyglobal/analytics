@@ -53,7 +53,7 @@ module.exports = function(grunt) {
         requirejs:{
             analytics: {
                 options: {
-                    optimize: none,
+                    optimize: "none",
                     preserveLicenseComments: false,
                     baseUrl: "grunt/js",
                     dir: "dist/js",
