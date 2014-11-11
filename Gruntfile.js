@@ -53,7 +53,7 @@ module.exports = function(grunt) {
         requirejs:{
             analytics: {
                 options: {
-                    optimize: grunt.option('beautify') ? "none" : "uglify2",
+                    optimize: none,
                     preserveLicenseComments: false,
                     baseUrl: "grunt/js",
                     dir: "dist/js",
