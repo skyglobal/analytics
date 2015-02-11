@@ -3,7 +3,7 @@
 
 > BSkyB wrapper for Adobe Analytics (previously known as SiteCatalyst) analytics JS.
 
-**DEPRECATED: Pleaseuse [Sky-Tags](https://github.com/bskyb-commerce/sky-tags)**
+**DEPRECATED: Please use [Sky-Tags](https://github.com/bskyb-commerce/sky-tags)**
 
 ## Building Analytics Locally
 ### Prerequisites
