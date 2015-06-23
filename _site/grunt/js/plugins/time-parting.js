@@ -7,9 +7,9 @@ _analytics.plugins.timeParting = (function(omniture, config){
 
         var currentYear= new Date().getFullYear();
 
-        var d = new Date ( currentYear , 2 , 31 );
+        var d = new Date ( currentYear , 2 , 29 );
         var dstStart =  new Date("03/"+(31-d.getDay())+"/"+currentYear);
-        d = new Date ( currentYear , 9 , 31 );
+        d = new Date ( currentYear , 9 , 25 );
         var dstEnd =  new Date("10/"+(31-d.getDay())+"/"+currentYear);
         return (date > dstStart && date < dstEnd) ? true : false;
 
